@@ -3,10 +3,6 @@
 import { useState } from "react";
 import { BRAND_NAME } from "@/config/brand";
 
-/**
- * Contenu identique à sas-plu-3d/components/landing/FaqSection.tsx —
- * sourcé sur le périmètre réel du produit, pas sur le brief Figma initial.
- */
 const FAQS = [
   {
     q: `Qu'est-ce que ${BRAND_NAME} ?`,
@@ -40,38 +36,33 @@ export function FaqSection() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="border-t border-white/[0.04] py-28">
+    <section id="faq" className="border-t py-28" style={{ borderColor: "var(--line)" }}>
       <script type="application/ld+json">{JSON.stringify(FAQ_JSON_LD)}</script>
       <div className="mx-auto max-w-3xl px-6">
-        <div className="lp-chip mb-4">
-          <span className="font-semibold text-[#a3a3ff]">FAQ</span>
-        </div>
-        <h2 className="mb-14 text-4xl font-semibold leading-[1.05] tracking-tight text-slate-50 md:text-5xl">
+        <div className="chip mb-4">FAQ</div>
+        <h2 className="font-display mb-14 text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
           Questions fréquentes
         </h2>
 
-        <div className="lp-glass overflow-hidden rounded-2xl">
+        <div className="glass-card overflow-hidden rounded-[28px]">
           {FAQS.map((faq, i) => (
-            <div
-              key={faq.q}
-              className={i < FAQS.length - 1 ? "border-b border-white/[0.06]" : ""}
-            >
+            <div key={faq.q} className={i < FAQS.length - 1 ? "border-b" : ""} style={{ borderColor: "var(--line)" }}>
               <button
                 type="button"
                 onClick={() => setOpen(open === i ? null : i)}
-                className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:bg-white/[0.02]"
+                className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:opacity-80"
               >
-                <span className="text-[15px] font-medium text-slate-100">{faq.q}</span>
+                <span className="font-display text-[15px] font-medium" style={{ color: "var(--ink)" }}>{faq.q}</span>
                 <span
-                  className="shrink-0 font-mono text-lg text-[#a3a3ff] transition-transform"
-                  style={{ transform: open === i ? "rotate(45deg)" : "none" }}
+                  className="font-mono shrink-0 text-lg transition-transform"
+                  style={{ color: "var(--brand)", transform: open === i ? "rotate(45deg)" : "none" }}
                 >
                   +
                 </span>
               </button>
               <div
-                className="overflow-hidden px-6 text-[13.5px] leading-relaxed text-slate-400 transition-[max-height]"
-                style={{ maxHeight: open === i ? 240 : 0, paddingBottom: open === i ? 20 : 0 }}
+                className="overflow-hidden px-6 text-[13.5px] leading-relaxed transition-[max-height]"
+                style={{ maxHeight: open === i ? 240 : 0, paddingBottom: open === i ? 20 : 0, color: "var(--ink-soft)" }}
               >
                 {faq.a}
               </div>
