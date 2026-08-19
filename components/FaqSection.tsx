@@ -22,22 +22,12 @@ const FAQS = [
   },
 ];
 
-const FAQ_JSON_LD = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQS.map((f) => ({
-    "@type": "Question",
-    name: f.q,
-    acceptedAnswer: { "@type": "Answer", text: f.a },
-  })),
-};
-
 export function FaqSection() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
     <section id="faq" className="border-t py-28" style={{ borderColor: "var(--line)" }}>
-      <script type="application/ld+json">{JSON.stringify(FAQ_JSON_LD)}</script>
+      <script type="application/ld+json" src="/schema/faq.json" async />
       <div className="mx-auto max-w-3xl px-6">
         <div className="chip mb-4">FAQ</div>
         <h2 className="font-display mb-14 text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>

@@ -1,10 +1,22 @@
 /**
  * Mockup isométrique parcelle + volume constructible extrudé, recoloré
  * pour la direction Luma (fond clair chaud, accents brand + corail).
+ * Encadré dans un chrome d'app + une carte de détail flottante pour lire
+ * comme une vraie capture produit (profondeur), pas une illustration plate.
  */
 export function ParcelVolumeMockup() {
   return (
-    <div className="glass-card relative w-full max-w-xl select-none rounded-[28px] p-6" style={{ height: 320 }} aria-hidden="true">
+    <div className="relative w-full max-w-xl select-none" aria-hidden="true">
+      <div className="glass-card overflow-hidden rounded-[28px]">
+        <div className="flex items-center gap-2 border-b px-5 py-3.5" style={{ borderColor: "var(--line)" }}>
+          <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--coral)" }} />
+          <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--brand)", opacity: 0.6 }} />
+          <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--ink-soft)", opacity: 0.3 }} />
+          <span className="font-mono ml-3 text-[11px]" style={{ color: "var(--ink-soft)" }}>
+            app-plu-ia.agentimpact.fr/dashboard/AB0142
+          </span>
+        </div>
+        <div className="p-6" style={{ height: 300 }}>
       <svg viewBox="0 0 640 340" className="h-full w-full">
         <g opacity="0.25" stroke="var(--ink-soft)" strokeWidth="0.8" fill="none">
           <polygon points="80,200 160,160 240,200 160,240" />
@@ -49,6 +61,25 @@ export function ParcelVolumeMockup() {
           Parcelle AB0142
         </text>
       </svg>
+        </div>
+      </div>
+
+      {/* Carte de détail flottante en surplomb : donne la profondeur d'une
+          vraie capture produit plutôt qu'un unique bloc plat. */}
+      <div
+        className="glass-card absolute -right-4 -bottom-6 hidden w-56 rounded-2xl p-4 sm:block"
+        style={{ boxShadow: "0 18px 40px -12px color-mix(in oklch, var(--ink) 30%, transparent)" }}
+      >
+        <div className="flex items-center justify-between">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.1em]" style={{ color: "var(--ink-soft)" }}>Bilan promoteur</span>
+          <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--coral)" }} />
+        </div>
+        <div className="font-display mt-1.5 text-lg font-semibold" style={{ color: "var(--ink)" }}>SDP ≈ 1 240 m²</div>
+        <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full" style={{ background: "var(--brand-soft)" }}>
+          <div className="h-full rounded-full" style={{ width: "68%", background: "linear-gradient(90deg, var(--brand), var(--coral))" }} />
+        </div>
+        <div className="mt-1.5 text-[11px]" style={{ color: "var(--ink-soft)" }}>Emprise au sol utilisée · 68 %</div>
+      </div>
     </div>
   );
 }
