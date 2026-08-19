@@ -8,53 +8,75 @@
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
 }
 
-:root {
-  --paper: oklch(97% 0.014 75);
-  --paper-raised: oklch(99% 0.008 75);
-  --ink: oklch(18% 0.02 280);
-  --ink-soft: oklch(42% 0.03 280);
-  --line: oklch(88% 0.02 75);
-  --brand: #3c3cf6;
-  --brand-soft: oklch(92% 0.05 275);
-  --coral: #ff6a4d;
-  --coral-soft: oklch(90% 0.07 40);
-  --lavender: oklch(90% 0.05 320);
-  --shadow-card: 0 1px 2px oklch(20% 0.02 280 / 0.05), 0 16px 40px oklch(20% 0.02 280 / 0.09);
+/* ============================================================
+   Identité "Plan cadastral" — PLU-IA analyse des documents
+   d'urbanisme réglementaires (PLU, cadastre, DVF). La direction
+   emprunte au vocabulaire des plans techniques français : papier
+   froid, encre bleu-cadastre, accent terre-cuite réservé aux
+   mesures/annotations (convention des extraits cadastraux — bâti
+   en ocre-brique, parcelles en encre bleu-noir), grille de
+   coordonnées, cartouche de plan, repères d'angle. Volontairement
+   à l'opposé du crème/corail chaleureux (Luma-like) utilisé par
+   les autres landings du portefeuille : ce produit lit des
+   documents réglementaires, il doit avoir l'air précis, pas
+   accueillant.
+   ============================================================ */
 
-  /* Échelle display : contraste XXL délibéré, pas un simple bump du corps. */
-  --text-hero: clamp(3.25rem, 1.35rem + 7.6vw, 7.75rem);
-  --text-hero-sub: clamp(1.9rem, 1.2rem + 2.6vw, 3.25rem);
+:root {
+  --paper: oklch(96% 0.007 242);
+  --paper-raised: oklch(99% 0.002 240);
+  --ink: oklch(21% 0.045 255);
+  --ink-soft: oklch(46% 0.03 250);
+  --line: oklch(83% 0.015 240);
+  --line-strong: oklch(70% 0.02 245);
+  --brand: #1d3a6e;
+  --brand-soft: oklch(93% 0.018 250);
+  --terracotta: #b5502e;
+  --terracotta-soft: oklch(91% 0.045 45);
+  --grid-line: oklch(85% 0.012 240 / 0.9);
+  --shadow-card: 0 1px 2px oklch(20% 0.03 255 / 0.05), 0 10px 26px oklch(20% 0.03 255 / 0.06);
+
+  /* Échelle display : contraste marqué mais tenu court — un plan
+     technique n'a pas de titre XXL décoratif, il a un intitulé de
+     feuille. */
+  --text-hero: clamp(2.75rem, 1.5rem + 5.4vw, 5.5rem);
+  --text-hero-sub: clamp(1.6rem, 1.1rem + 2vw, 2.5rem);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --paper: oklch(19% 0.03 285);
-    --paper-raised: oklch(24% 0.035 285);
-    --ink: oklch(95% 0.01 280);
-    --ink-soft: oklch(74% 0.02 280);
-    --line: oklch(33% 0.03 285);
-    --brand: #8888ff;
-    --brand-soft: oklch(30% 0.06 275);
-    --coral: #ff8a6e;
-    --coral-soft: oklch(32% 0.08 40);
-    --lavender: oklch(30% 0.05 320);
-    --shadow-card: 0 1px 2px oklch(0% 0 0 / 0.3), 0 16px 40px oklch(0% 0 0 / 0.4);
+    --paper: oklch(15.5% 0.02 255);
+    --paper-raised: oklch(19.5% 0.024 255);
+    --ink: oklch(95% 0.008 240);
+    --ink-soft: oklch(73% 0.018 240);
+    --line: oklch(32% 0.025 250);
+    --line-strong: oklch(42% 0.03 250);
+    --brand: #85a6e8;
+    --brand-soft: oklch(27% 0.045 250);
+    --terracotta: #e08a5c;
+    --terracotta-soft: oklch(29% 0.06 45);
+    --grid-line: oklch(30% 0.025 250 / 0.9);
+    --shadow-card: 0 1px 2px oklch(0% 0 0 / 0.35), 0 14px 34px oklch(0% 0 0 / 0.4);
   }
 }
 :root[data-theme="dark"] {
-  --paper: oklch(19% 0.03 285); --paper-raised: oklch(24% 0.035 285);
-  --ink: oklch(95% 0.01 280); --ink-soft: oklch(74% 0.02 280);
-  --line: oklch(33% 0.03 285); --brand: #8888ff; --brand-soft: oklch(30% 0.06 275);
-  --coral: #ff8a6e; --coral-soft: oklch(32% 0.08 40); --lavender: oklch(30% 0.05 320);
-  --shadow-card: 0 1px 2px oklch(0% 0 0 / 0.3), 0 16px 40px oklch(0% 0 0 / 0.4);
+  --paper: oklch(15.5% 0.02 255); --paper-raised: oklch(19.5% 0.024 255);
+  --ink: oklch(95% 0.008 240); --ink-soft: oklch(73% 0.018 240);
+  --line: oklch(32% 0.025 250); --line-strong: oklch(42% 0.03 250);
+  --brand: #85a6e8; --brand-soft: oklch(27% 0.045 250);
+  --terracotta: #e08a5c; --terracotta-soft: oklch(29% 0.06 45);
+  --grid-line: oklch(30% 0.025 250 / 0.9);
+  --shadow-card: 0 1px 2px oklch(0% 0 0 / 0.35), 0 14px 34px oklch(0% 0 0 / 0.4);
 }
 :root[data-theme="light"] {
-  --paper: oklch(97% 0.014 75); --paper-raised: oklch(99% 0.008 75);
-  --ink: oklch(18% 0.02 280); --ink-soft: oklch(42% 0.03 280);
-  --line: oklch(88% 0.02 75); --brand: #3c3cf6; --brand-soft: oklch(92% 0.05 275);
-  --coral: #ff6a4d; --coral-soft: oklch(90% 0.07 40); --lavender: oklch(90% 0.05 320);
-  --shadow-card: 0 1px 2px oklch(20% 0.02 280 / 0.05), 0 16px 40px oklch(20% 0.02 280 / 0.09);
+  --paper: oklch(96% 0.007 242); --paper-raised: oklch(99% 0.002 240);
+  --ink: oklch(21% 0.045 255); --ink-soft: oklch(46% 0.03 250);
+  --line: oklch(83% 0.015 240); --line-strong: oklch(70% 0.02 245);
+  --brand: #1d3a6e; --brand-soft: oklch(93% 0.018 250);
+  --terracotta: #b5502e; --terracotta-soft: oklch(91% 0.045 45);
+  --grid-line: oklch(85% 0.012 240 / 0.9);
+  --shadow-card: 0 1px 2px oklch(20% 0.03 255 / 0.05), 0 10px 26px oklch(20% 0.03 255 / 0.06);
 }
 
 * { box-sizing: border-box; }
@@ -68,53 +90,135 @@ body {
 .font-display { font-family: var(--font-display); }
 .font-mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
-.hero-gradient {
-  background:
-    radial-gradient(ellipse 60% 50% at 20% 15%, color-mix(in oklch, var(--coral) 55%, transparent), transparent 70%),
-    radial-gradient(ellipse 55% 45% at 85% 10%, color-mix(in oklch, var(--brand) 45%, transparent), transparent 70%),
-    radial-gradient(ellipse 70% 60% at 50% 100%, var(--lavender), transparent 70%);
+/* Grille de coordonnées : quadrillage fin façon feuille de plan,
+   appliquée en fond sur les sections structurantes. Un vrai
+   élément d'identité, pas une texture décorative — c'est la même
+   grille qui porte les repères d'angle et le cartouche. */
+.grid-paper {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-position: -1px -1px;
 }
 
-.glass-card {
-  background: color-mix(in oklch, var(--paper-raised) 82%, transparent);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid color-mix(in oklch, var(--line) 70%, transparent);
-  box-shadow: var(--shadow-card);
+/* Repères d'angle façon feuille de plan technique (croix de
+   calage). Purement décoratif/structurel, aria-hidden côté JSX. */
+.reg-marks { position: relative; }
+.reg-marks::before,
+.reg-marks::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--line-strong), var(--line-strong)) center / 100% 1px no-repeat,
+    linear-gradient(90deg, var(--line-strong), var(--line-strong)) center / 1px 100% no-repeat;
+}
+.reg-marks::before { top: 10px; left: 10px; }
+.reg-marks::after { bottom: 10px; right: 10px; }
+
+/* Cartouche : bloc d'identification façon plan technique
+   (PROJET / RÉFÉRENCE / ÉCHELLE), remplace le badge "chip" flottant
+   générique par un élément qui lit comme du vocabulaire métier. */
+.cartouche {
+  display: inline-grid;
+  grid-auto-flow: column;
+  gap: 0;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-raised);
+}
+.cartouche > div {
+  padding: 7px 14px;
+  border-right: 1px solid var(--line-strong);
+}
+.cartouche > div:last-child { border-right: none; }
+.cartouche .cartouche-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.cartouche .cartouche-value {
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* Étiquette de coordonnée / mesure — sert d'annotation sur les
+   visuels produit et de motif répété (au lieu de "stat pills"
+   génériques). */
+.coord-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-raised);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+.coord-tag::before {
+  content: "+";
+  color: var(--terracotta);
+  font-weight: 700;
 }
 
 .chip {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 14px; border-radius: 999px;
-  font-family: var(--font-body); font-size: 12.5px; font-weight: 600;
-  background: color-mix(in oklch, var(--paper-raised) 90%, transparent);
-  border: 1px solid var(--line);
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 12px;
+  font-family: var(--font-mono); font-size: 11.5px; font-weight: 600;
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
   color: var(--ink-soft);
+  letter-spacing: 0.01em;
 }
 
+/* Boutons rectangulaires (rayon technique, pas de pill) : un plan
+   n'a pas de coins arrondis à 999px. */
 .btn-brand {
-  background: linear-gradient(135deg, var(--brand), color-mix(in oklch, var(--brand) 70%, var(--coral)));
+  background: var(--brand);
   color: white;
-  box-shadow: 0 10px 30px -10px color-mix(in oklch, var(--brand) 70%, transparent);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  border: 1px solid var(--brand);
+  transition: background 160ms ease, transform 160ms ease;
 }
-.btn-brand:hover { transform: translateY(-1px); box-shadow: 0 14px 36px -8px color-mix(in oklch, var(--brand) 75%, transparent); }
+.btn-brand:hover { background: color-mix(in oklch, var(--brand) 85%, black); transform: translateY(-1px); }
 .btn-ghost {
   background: var(--paper-raised);
-  border: 1.5px solid var(--line);
+  border: 1px solid var(--line-strong);
   color: var(--ink);
-  transition: border-color 180ms ease, transform 180ms ease;
+  transition: border-color 160ms ease, transform 160ms ease;
 }
 .btn-ghost:hover { border-color: var(--brand); transform: translateY(-1px); }
 
-.card-lift { transition: transform 220ms var(--ease-out, ease), box-shadow 220ms var(--ease-out, ease); }
-.card-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 10px oklch(20% 0.02 280 / 0.06), 0 24px 48px -12px color-mix(in oklch, var(--brand) 22%, oklch(20% 0.02 280 / 0.14));
+/* Carte "fiche technique" : remplace le glass-card flouté par un
+   panneau plat à bordure encre — lisible comme un document, pas
+   comme du verre décoratif. */
+.spec-card {
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  box-shadow: var(--shadow-card);
 }
 
-/* Accent structurel Space Mono : kickers de section + labels techniques,
-   jamais utilisé comme simple police de corps. */
+.card-lift { transition: transform 200ms var(--ease-out, ease), border-color 200ms var(--ease-out, ease); }
+.card-lift:hover {
+  transform: translateY(-3px);
+  border-color: var(--brand);
+}
+
+/* Accent structurel Space Mono : kickers de section, cartouche,
+   coordonnées, numérotation de planche — porte l'identité "document
+   technique" plus que la seule typo display. */
 .mono-label {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -123,6 +227,8 @@ body {
   text-transform: uppercase;
 }
 
+/* Kicker en référence de planche : "PL.03" au lieu d'un simple
+   libellé souligné — vocabulaire de plan technique. */
 .kicker {
   display: inline-flex;
   align-items: center;
@@ -130,20 +236,15 @@ body {
   font-family: var(--font-mono);
   font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--brand);
-}
-.kicker::before {
-  content: "";
-  display: inline-block;
-  width: 18px;
-  height: 1.5px;
-  background: var(--coral);
+  padding: 3px 9px 3px 0;
+  border-bottom: 1.5px solid var(--terracotta);
 }
 
-/* Ligne éditoriale "process" : remplace la répétition de glass-cards par
-   une timeline verticale, chiffres Space Mono XXL en rupture d'échelle. */
+/* Ligne "planche" : timeline verticale, numérotation de feuille
+   (PL.01) en Space Mono, teinte encre/terre-cuite alternée. */
 .process-row {
   position: relative;
   display: grid;
@@ -158,38 +259,37 @@ body {
 .process-num {
   font-family: var(--font-mono);
   font-weight: 700;
-  font-size: clamp(2.5rem, 1.9rem + 2.6vw, 4.25rem);
+  font-size: clamp(1.9rem, 1.5rem + 1.6vw, 3rem);
   line-height: 0.85;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
-/* Bento : gabarits volontairement inégaux — une tuile centrale plus grande
-   porte le produit, les autres restent en support. Pas de grille 3-col
-   uniforme. */
-.bento-grid {
+/* Grille "fiche" : gabarit régulier façon dossier de plans annexes,
+   pas de bento inégal ni de tuile héroïque flottante — cohérent
+   avec une identité de document plutôt que de produit lifestyle. */
+.spec-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-auto-rows: minmax(0, auto);
-  gap: 1rem;
-  align-items: stretch;
+  gap: 1px;
+  background: var(--line-strong);
+  border: 1px solid var(--line-strong);
 }
-@media (min-width: 768px) {
-  .bento-grid { gap: 1.125rem; }
-}
+.spec-grid > * { background: var(--paper-raised); }
 
 /* ============ Choréographie de scroll ============ */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 700ms var(--ease-out-expo), transform 700ms var(--ease-out-expo);
+  transform: translateY(24px);
+  transition: opacity 650ms var(--ease-out-expo), transform 650ms var(--ease-out-expo);
   transition-delay: var(--reveal-delay, 0ms);
 }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 .reveal-scale {
   opacity: 0;
-  transform: translateY(24px) scale(0.94);
-  transition: opacity 900ms var(--ease-out-expo), transform 900ms var(--ease-out-expo);
+  transform: translateY(18px) scale(0.97);
+  transition: opacity 750ms var(--ease-out-expo), transform 750ms var(--ease-out-expo);
   transition-delay: var(--reveal-delay, 0ms);
 }
 .reveal-scale.is-visible { opacity: 1; transform: translateY(0) scale(1); }

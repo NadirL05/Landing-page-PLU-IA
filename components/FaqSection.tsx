@@ -26,15 +26,15 @@ export function FaqSection() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="border-t py-28" style={{ borderColor: "var(--line)" }}>
+    <section id="faq" className="border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
       <script type="application/ld+json" src="/schema/faq.json" async />
       <div className="mx-auto max-w-3xl px-6">
-        <div className="chip mb-4">FAQ</div>
+        <div className="kicker mb-4">PL.07 — FAQ</div>
         <h2 className="font-display mb-14 text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
           Questions fréquentes
         </h2>
 
-        <div className="glass-card overflow-hidden rounded-[28px]">
+        <div className="spec-card overflow-hidden">
           {FAQS.map((faq, i) => (
             <div key={faq.q} className={i < FAQS.length - 1 ? "border-b" : ""} style={{ borderColor: "var(--line)" }}>
               <button
@@ -45,7 +45,7 @@ export function FaqSection() {
                 <span className="font-display text-[15px] font-medium" style={{ color: "var(--ink)" }}>{faq.q}</span>
                 <span
                   className="font-mono shrink-0 text-lg transition-transform"
-                  style={{ color: "var(--brand)", transform: open === i ? "rotate(45deg)" : "none" }}
+                  style={{ color: "var(--terracotta)", transform: open === i ? "rotate(45deg)" : "none" }}
                 >
                   +
                 </span>
