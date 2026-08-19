@@ -102,6 +102,12 @@ body {
 }
 .btn-ghost:hover { border-color: var(--brand); transform: translateY(-1px); }
 
+.card-lift { transition: transform 220ms var(--ease-out, ease), box-shadow 220ms var(--ease-out, ease); }
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px oklch(20% 0.02 280 / 0.06), 0 24px 48px -12px color-mix(in oklch, var(--brand) 22%, oklch(20% 0.02 280 / 0.14));
+}
+
 @media (prefers-reduced-motion: reduce) {
   .btn-brand, .btn-ghost, html { transition: none !important; scroll-behavior: auto !important; }
 }

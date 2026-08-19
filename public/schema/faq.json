@@ -1,0 +1,38 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Qu'est-ce que PLU IA ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "PLU IA croise le cadastre IGN, le Géoportail de l'Urbanisme, les transactions DVF et les risques Géorisques pour produire, à la parcelle, une enveloppe constructible maximale théorique et un bilan promoteur ajustable. Chaque résultat indique la source dont il provient."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Est-ce un acte d'instruction officiel ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non. PLU IA ne délivre ni certificat d'urbanisme ni autorisation administrative. C'est un outil d'aide à la décision : les vérifications en mairie restent indispensables, notamment sur les servitudes d'utilité publique, non couvertes par les sources branchées à ce jour."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Combien ça coûte ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Le plan Découverte est gratuit, sans carte bancaire, avec un quota d'analyses sur une fenêtre glissante. Les plans payants et leurs quotas exacts sont détaillés dans la section Tarifs — les mêmes chiffres que ceux appliqués réellement par le produit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Sur quelles communes ça fonctionne ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "France métropolitaine et DOM, dans la limite des communes qui publient leur document d'urbanisme sur le Géoportail de l'Urbanisme. Si une commune n'y publie pas son PLU, le zonage n'est pas garanti par l'outil."
+      }
+    }
+  ]
+}

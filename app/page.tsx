@@ -3,7 +3,7 @@ import { HeaderAuthActions } from "@/components/HeaderAuthActions";
 import { MobileNav } from "@/components/MobileNav";
 import { FaqSection } from "@/components/FaqSection";
 import { ParcelVolumeMockup } from "@/components/ParcelVolumeMockup";
-import { BRAND_NAME, BRAND_URL, APP_URL } from "@/config/brand";
+import { BRAND_NAME, APP_URL } from "@/config/brand";
 import { PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
 
 // Direction Luma : fond crème chaud, gradients corail/brand, cards très
@@ -13,24 +13,6 @@ import { PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
 
 const STRIPE_LINK_PRO = "https://buy.stripe.com/test_dRm8wQ4pg0H55gXfZN48000";
 const CALENDLY_URL = "https://calendly.com/nadir-lahyani-agentimpact/30min";
-
-const SOFTWARE_APPLICATION_JSON_LD = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: BRAND_NAME,
-  applicationCategory: "BusinessApplication",
-  operatingSystem: "Web",
-  url: BRAND_URL,
-  description:
-    "Analyse foncière et urbanisme assistées par IA : zonage, enveloppe constructible, comparables DVF et bilan promoteur.",
-  offers: {
-    "@type": "Offer",
-    url: BRAND_URL,
-    priceCurrency: "EUR",
-    price: "99",
-    availability: "https://schema.org/InStock",
-  },
-};
 
 const DISCLAIMER_SHORT =
   "Estimations d'aide à la décision issues de sources publiques — ni certificat d'urbanisme, ni conseil juridique ou financier. Vérifications en mairie indispensables.";
@@ -90,7 +72,7 @@ const dataSources = [
 export default function Home() {
   return (
     <div className="min-h-screen">
-      <script type="application/ld+json">{JSON.stringify(SOFTWARE_APPLICATION_JSON_LD)}</script>
+      <script type="application/ld+json" src="/schema/software-application.json" async />
 
       {/* ===== NAV ===== */}
       <header className="glass-card sticky top-3 z-50 mx-3 rounded-full sm:mx-6">
@@ -207,7 +189,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {features.map((f) => (
-              <div key={f.title} className="glass-card rounded-[24px] p-6 transition hover:-translate-y-0.5">
+              <div key={f.title} className="glass-card card-lift rounded-[24px] p-6">
                 <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-2xl" style={{ background: "var(--brand-soft)" }}>{f.icon}</div>
                 <h3 className="font-display mb-2 text-[15px] font-semibold" style={{ color: "var(--ink)" }}>{f.title}</h3>
                 <p className="text-[13px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{f.body}</p>
@@ -232,7 +214,7 @@ export default function Home() {
               { n: "02", title: "Les sources sont croisées", body: "Zonage GPU, règlement PDF de la zone analysé automatiquement, mutations DVF alentour, risques Géorisques, zonage fiscal A/B/C, bâti OpenStreetMap et altimétrie IGN." },
               { n: "03", title: "Verdict et bilan", body: "Enveloppe constructible en maximum théorique, visualisation 3D, comparables de marché et bilan promoteur ajustable. Export PDF et lien de partage activable." },
             ].map((step) => (
-              <div key={step.n} className="glass-card rounded-[24px] p-7">
+              <div key={step.n} className="glass-card card-lift rounded-[24px] p-7">
                 <div className="font-mono mb-5 text-2xl font-bold" style={{ color: "var(--coral)" }}>{step.n}</div>
                 <h3 className="font-display mb-2 text-lg font-semibold" style={{ color: "var(--ink)" }}>{step.title}</h3>
                 <p className="text-[13.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{step.body}</p>
@@ -313,16 +295,20 @@ export default function Home() {
               return (
                 <div
                   key={plan.id}
-                  className="relative flex flex-col rounded-[28px] p-7"
+                  className={featured ? "relative flex flex-col overflow-hidden rounded-[28px] md:-translate-y-3" : "relative flex flex-col overflow-hidden rounded-[28px]"}
                   style={featured
-                    ? { background: "linear-gradient(180deg, color-mix(in oklch, var(--brand) 12%, var(--paper-raised)), var(--paper-raised))", border: "1.5px solid var(--brand)", boxShadow: "var(--shadow-card)" }
+                    ? { background: "linear-gradient(180deg, color-mix(in oklch, var(--brand) 12%, var(--paper-raised)), var(--paper-raised))", border: "1.5px solid var(--brand)", boxShadow: "0 24px 60px -16px color-mix(in oklch, var(--brand) 45%, transparent), var(--shadow-card)" }
                     : { background: "var(--paper-raised)", border: "1px solid var(--line)" }}
                 >
                   {featured ? (
-                    <span className="absolute -top-3 left-7 rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-white" style={{ background: "linear-gradient(135deg, var(--brand), var(--coral))" }}>
+                    <div
+                      className="flex items-center justify-center py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white"
+                      style={{ background: "linear-gradient(135deg, var(--brand), var(--coral))" }}
+                    >
                       Le plus choisi
-                    </span>
+                    </div>
                   ) : null}
+                  <div className="flex flex-1 flex-col p-7">
                   <div className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: featured ? "var(--brand)" : "var(--ink-soft)" }}>{plan.name}</div>
                   <div className="mt-4 flex items-baseline gap-2">
                     <span className="font-display text-4xl font-semibold" style={{ color: "var(--ink)" }}>{plan.priceLabel}</span>
@@ -359,6 +345,7 @@ export default function Home() {
                       {plan.id === "FREE" ? "Commencer gratuitement" : `Passer au plan ${plan.name}`}
                     </a>
                   )}
+                  </div>
                 </div>
               );
             })}

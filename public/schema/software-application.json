@@ -1,0 +1,16 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PLU IA",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "url": "https://plu-ia.agentimpact.fr",
+  "description": "Analyse foncière et urbanisme assistées par IA : zonage, enveloppe constructible, comparables DVF et bilan promoteur.",
+  "offers": {
+    "@type": "Offer",
+    "url": "https://plu-ia.agentimpact.fr",
+    "priceCurrency": "EUR",
+    "price": "99",
+    "availability": "https://schema.org/InStock"
+  }
+}
