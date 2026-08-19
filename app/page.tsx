@@ -3,6 +3,7 @@ import { HeaderAuthActions } from "@/components/HeaderAuthActions";
 import { MobileNav } from "@/components/MobileNav";
 import { FaqSection } from "@/components/FaqSection";
 import { ParcelVolumeMockup } from "@/components/ParcelVolumeMockup";
+import { Reveal } from "@/components/Reveal";
 import { BRAND_NAME, APP_URL } from "@/config/brand";
 import { PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
 
@@ -105,62 +106,72 @@ export default function Home() {
 
       {/* ===== HERO ===== */}
       <section className="hero-gradient relative overflow-hidden pt-8">
-        <div className="relative z-10 mx-auto max-w-[1180px] px-6 pb-32 pt-20">
-          <div className="max-w-3xl">
-            <div className="chip mb-7" style={{ background: "var(--paper-raised)" }}>
-              <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "var(--coral)" }} />
-              Sources publiques officielles : cadastre IGN, GPU, DVF, Géorisques
+        <div className="relative z-10 mx-auto max-w-[1320px] px-6 pb-24 pt-16 lg:pb-36 lg:pt-20">
+          <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-12 lg:gap-6">
+            <div className="lg:col-span-7">
+              <div className="chip mb-7" style={{ background: "var(--paper-raised)" }}>
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "var(--coral)" }} />
+                Sources publiques officielles : cadastre IGN, GPU, DVF, Géorisques
+              </div>
+
+              <h1 className="font-display text-[length:var(--text-hero)] font-semibold leading-[0.92] tracking-[-0.04em]" style={{ color: "var(--ink)" }}>
+                Le potentiel<br />
+                d&apos;une parcelle,<br />
+                <span style={{ background: "linear-gradient(135deg, var(--brand), var(--coral))", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+                  sources à l&apos;appui.
+                </span>
+              </h1>
+
+              <p className="mt-8 max-w-xl text-[17px] leading-relaxed md:text-[19px]" style={{ color: "var(--ink-soft)" }}>
+                {BRAND_NAME} croise le cadastre IGN, le Géoportail de l&apos;Urbanisme, les transactions DVF et les risques Géorisques, puis en tire une enveloppe constructible maximale théorique et un bilan promoteur. Chaque résultat indique la source dont il provient.
+              </p>
+
+              <div className="mt-9 flex flex-wrap items-center gap-3">
+                <a href={`${APP_URL}/dashboard`} className="btn-brand inline-flex h-13 items-center gap-2 rounded-full px-7 text-sm font-semibold" style={{ height: 52 }}>
+                  Lancer une analyse gratuite
+                  <IconArrow />
+                </a>
+                <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost inline-flex items-center gap-2 rounded-full px-6 text-sm font-medium" style={{ height: 52 }}>
+                  <IconPlay />
+                  Voir la démo
+                </a>
+              </div>
+              <span className="mono-label mt-4 inline-block" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · 5 analyses / 30 jours</span>
             </div>
 
-            <h1 className="font-display text-[58px] font-semibold leading-[0.98] tracking-[-0.03em] md:text-[76px]" style={{ color: "var(--ink)" }}>
-              Le potentiel d&apos;une parcelle,<br />
-              <span style={{ background: "linear-gradient(135deg, var(--brand), var(--coral))", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
-                sources à l&apos;appui.
-              </span>
-            </h1>
-
-            <p className="mt-7 max-w-2xl text-[17px] leading-relaxed md:text-[19px]" style={{ color: "var(--ink-soft)" }}>
-              {BRAND_NAME} croise le cadastre IGN, le Géoportail de l&apos;Urbanisme, les transactions DVF et les risques Géorisques, puis en tire une enveloppe constructible maximale théorique et un bilan promoteur. Chaque résultat indique la source dont il provient.
-            </p>
-
-            <div className="mt-9 flex flex-wrap items-center gap-3">
-              <a href={`${APP_URL}/dashboard`} className="btn-brand inline-flex h-13 items-center gap-2 rounded-full px-7 text-sm font-semibold" style={{ height: 52 }}>
-                Lancer une analyse gratuite
-                <IconArrow />
-              </a>
-              <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost inline-flex items-center gap-2 rounded-full px-6 text-sm font-medium" style={{ height: 52 }}>
-                <IconPlay />
-                Voir la démo
-              </a>
-              <span className="text-xs" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · 5 analyses / 30 jours</span>
-            </div>
-
-            <div className="mt-14 flex justify-center lg:justify-start">
-              <ParcelVolumeMockup />
-            </div>
-
-            <div className="mt-16 grid max-w-3xl grid-cols-1 gap-5 sm:grid-cols-3">
-              {[
-                { title: "Sources croisées", body: "Cadastre IGN, GPU, DVF, Géorisques, zonage A/B/C, OpenStreetMap, RGE Alti." },
-                { title: "Périmètre", body: "France métropolitaine et DOM, dans la limite des communes publiant leur document d'urbanisme sur le GPU." },
-                { title: "Livrable", body: "Analyse en ligne, visualisation 3D, bilan promoteur, export PDF et lien de partage." },
-              ].map((s) => (
-                <div key={s.title}>
-                  <div className="font-display text-[13px] font-semibold" style={{ color: "var(--ink)" }}>{s.title}</div>
-                  <div className="mt-1.5 text-[13px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{s.body}</div>
+            {/* Visuel produit poussé au centre de l'attention : grand format,
+                débordement volontaire sur la droite, ombre marquée — plus
+                une simple illustration sous le titre. */}
+            <div className="relative lg:col-span-5">
+              <Reveal variant="scale" delay={120} className="flex justify-center lg:absolute lg:top-[-2.5rem] lg:right-[-2.75rem] lg:block lg:w-[132%]">
+                <div className="lg:rotate-[-2.5deg]">
+                  <ParcelVolumeMockup className="max-w-xl lg:max-w-none" />
                 </div>
-              ))}
+              </Reveal>
             </div>
-
-            <p className="mt-10 max-w-2xl text-[12px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{DISCLAIMER_SHORT}</p>
           </div>
+
+          <div className="mt-20 flex flex-wrap gap-x-12 gap-y-7 border-t pt-9 lg:mt-28" style={{ borderColor: "var(--line)" }}>
+            {[
+              { title: "Sources croisées", body: "Cadastre IGN, GPU, DVF, Géorisques, zonage A/B/C, OpenStreetMap, RGE Alti." },
+              { title: "Périmètre", body: "France métropolitaine et DOM, dans la limite des communes publiant leur document d'urbanisme sur le GPU." },
+              { title: "Livrable", body: "Analyse en ligne, visualisation 3D, bilan promoteur, export PDF et lien de partage." },
+            ].map((s, i) => (
+              <Reveal key={s.title} delay={i * 90} className="max-w-[240px]">
+                <div className="mono-label" style={{ color: "var(--coral)" }}>{s.title}</div>
+                <div className="mt-2 text-[13px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{s.body}</div>
+              </Reveal>
+            ))}
+          </div>
+
+          <p className="mt-10 max-w-2xl text-[12px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{DISCLAIMER_SHORT}</p>
         </div>
       </section>
 
       {/* ===== SOURCES ===== */}
       <section id="sources" className="border-y py-10" style={{ borderColor: "var(--line)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
-          <p className="mb-8 text-center text-[11px] font-semibold uppercase tracking-[0.18em]" style={{ color: "var(--ink-soft)" }}>
+          <p className="mono-label mb-8 text-center" style={{ color: "var(--ink-soft)" }}>
             Les sources publiques interrogées par {BRAND_NAME}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2.5">
@@ -175,50 +186,78 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== FEATURES ===== */}
+      {/* ===== FEATURES — bento asymétrique ===== */}
       <section id="fonctionnalites" className="py-28">
         <div className="mx-auto max-w-[1180px] px-6">
-          <div className="mb-14 max-w-3xl">
-            <div className="chip mb-4">Capacités</div>
+          <Reveal className="mb-14 max-w-3xl">
+            <div className="kicker mb-4">06 modules — capacités</div>
             <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
               De l&apos;adresse au bilan promoteur,<br />sans changer d&apos;onglet.
             </h2>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
               Seules les capacités effectivement disponibles dans le produit sont listées ci-dessous.
             </p>
-          </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {features.map((f) => (
-              <div key={f.title} className="glass-card card-lift rounded-[24px] p-6">
-                <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-2xl" style={{ background: "var(--brand-soft)" }}>{f.icon}</div>
-                <h3 className="font-display mb-2 text-[15px] font-semibold" style={{ color: "var(--ink)" }}>{f.title}</h3>
-                <p className="text-[13px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{f.body}</p>
-              </div>
-            ))}
+          </Reveal>
+
+          <div className="bento-grid">
+            {features.map((f, i) => {
+              const isHero = i === 3; /* Bilan promoteur : tuile centrale, plus grande, avec lecture de données. */
+              return (
+                <Reveal
+                  key={f.title}
+                  delay={i * 70}
+                  className={isHero ? "col-span-6 md:col-span-4 md:row-span-2" : i < 3 ? "col-span-6 sm:col-span-3 md:col-span-2"
+                    : "col-span-6 sm:col-span-3 md:col-span-2"}
+                >
+                  <div className={`glass-card card-lift flex h-full flex-col rounded-[24px] ${isHero ? "p-8" : "p-6"}`}>
+                    <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-2xl" style={{ background: "var(--brand-soft)" }}>{f.icon}</div>
+                    <h3 className={`font-display mb-2 font-semibold ${isHero ? "text-xl" : "text-[15px]"}`} style={{ color: "var(--ink)" }}>{f.title}</h3>
+                    <p className={`leading-relaxed ${isHero ? "max-w-md text-[14px]" : "text-[13px]"}`} style={{ color: "var(--ink-soft)" }}>{f.body}</p>
+
+                    {isHero ? (
+                      <div className="mt-auto pt-8">
+                        <div className="flex items-center justify-between rounded-2xl px-4 py-3" style={{ background: "var(--brand-soft)" }}>
+                          <div>
+                            <div className="mono-label" style={{ color: "var(--ink-soft)" }}>SDP potentielle</div>
+                            <div className="font-display text-lg font-semibold" style={{ color: "var(--ink)" }}>≈ 1 240 m²</div>
+                          </div>
+                          <div className="font-mono text-2xl font-bold" style={{ color: "var(--brand)" }}>68%</div>
+                        </div>
+                        <div className="mt-2.5 h-1.5 w-full overflow-hidden rounded-full" style={{ background: "var(--line)" }}>
+                          <div className="h-full rounded-full" style={{ width: "68%", background: "linear-gradient(90deg, var(--brand), var(--coral))" }} />
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ===== PROCESS ===== */}
+      {/* ===== PROCESS — timeline éditoriale, rupture d'échelle Space Mono ===== */}
       <section id="produit" className="relative overflow-hidden border-t py-28" style={{ borderColor: "var(--line)" }}>
         <div className="relative mx-auto max-w-[1180px] px-6">
-          <div className="mx-auto mb-20 max-w-2xl text-center">
-            <div className="chip mx-auto mb-4">Comment ça marche</div>
+          <Reveal className="mx-auto mb-16 max-w-2xl text-center">
+            <div className="kicker mx-auto mb-4">Comment ça marche</div>
             <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
               Trois étapes. Zéro friction.
             </h2>
-          </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          </Reveal>
+          <div>
             {[
-              { n: "01", title: "Saisissez une adresse", body: "Adresse via la Base Adresse Nationale, référence cadastrale ou clic sur la carte : la parcelle et son contour sont récupérés auprès de l'API Carto Cadastre de l'IGN." },
-              { n: "02", title: "Les sources sont croisées", body: "Zonage GPU, règlement PDF de la zone analysé automatiquement, mutations DVF alentour, risques Géorisques, zonage fiscal A/B/C, bâti OpenStreetMap et altimétrie IGN." },
-              { n: "03", title: "Verdict et bilan", body: "Enveloppe constructible en maximum théorique, visualisation 3D, comparables de marché et bilan promoteur ajustable. Export PDF et lien de partage activable." },
-            ].map((step) => (
-              <div key={step.n} className="glass-card card-lift rounded-[24px] p-7">
-                <div className="font-mono mb-5 text-2xl font-bold" style={{ color: "var(--coral)" }}>{step.n}</div>
-                <h3 className="font-display mb-2 text-lg font-semibold" style={{ color: "var(--ink)" }}>{step.title}</h3>
-                <p className="text-[13.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{step.body}</p>
-              </div>
+              { n: "01", title: "Saisissez une adresse", body: "Adresse via la Base Adresse Nationale, référence cadastrale ou clic sur la carte : la parcelle et son contour sont récupérés auprès de l'API Carto Cadastre de l'IGN.", color: "var(--coral)" },
+              { n: "02", title: "Les sources sont croisées", body: "Zonage GPU, règlement PDF de la zone analysé automatiquement, mutations DVF alentour, risques Géorisques, zonage fiscal A/B/C, bâti OpenStreetMap et altimétrie IGN.", color: "var(--brand)" },
+              { n: "03", title: "Verdict et bilan", body: "Enveloppe constructible en maximum théorique, visualisation 3D, comparables de marché et bilan promoteur ajustable. Export PDF et lien de partage activable.", color: "var(--coral)" },
+            ].map((step, i) => (
+              <Reveal key={step.n} delay={i * 110} className="process-row">
+                <div className="process-num" style={{ color: step.color }}>{step.n}</div>
+                <div className="pt-1.5 md:pt-3">
+                  <h3 className="font-display mb-2.5 text-xl font-semibold md:text-2xl" style={{ color: "var(--ink)" }}>{step.title}</h3>
+                  <p className="max-w-2xl text-[14.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{step.body}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -227,51 +266,55 @@ export default function Home() {
       {/* ===== PÉRIMÈTRE & LIMITES ===== */}
       <section id="perimetre" className="border-t py-28" style={{ borderColor: "var(--line)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
-          <div className="mb-14 max-w-3xl">
-            <div className="chip mb-4">Périmètre & limites</div>
+          <Reveal className="mb-14 max-w-3xl">
+            <div className="kicker mb-4">Périmètre & limites</div>
             <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
               Ce que l&apos;outil fait,<br />et ce qu&apos;il ne fait pas.
             </h2>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
               Nous préférons annoncer un périmètre exact plutôt qu&apos;une promesse invendable en comité d&apos;investissement.
             </p>
-          </div>
+          </Reveal>
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-            <div className="glass-card rounded-[24px] p-7">
-              <div className="mb-5 text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--brand)" }}>Inclus</div>
-              <ul className="space-y-3 text-[13.5px] leading-relaxed" style={{ color: "var(--ink)" }}>
-                {[
-                  "Identification de la parcelle et de son contour (cadastre IGN).",
-                  "Zonage d'urbanisme lu dans le Géoportail de l'Urbanisme quand la commune y publie son document.",
-                  "Analyse automatisée du règlement de zone : emprise au sol, retraits, espaces verts.",
-                  "Risques recensés sur la commune et aléa retrait-gonflement des argiles (Géorisques).",
-                  "Mutations DVF autour de la parcelle, rayon de 500 m par défaut.",
-                  "Enveloppe constructible : maximum théorique, hors retraits, prospects et gabarit.",
-                  "Visualisation 3D du terrain et de son environnement bâti.",
-                  "Bilan promoteur paramétrable, export PDF et lien de partage.",
-                  "Détection des contraintes bloquantes vérifiée à chaque déploiement sur un jeu de cas de référence.",
-                ].map((item) => (
-                  <li key={item} className="flex gap-2.5"><IconCheck />{item}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="glass-card rounded-[24px] p-7">
-              <div className="mb-5 text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--ink-soft)" }}>Non inclus à ce jour</div>
-              <ul className="space-y-3 text-[13.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-                {[
-                  "Les servitudes d'utilité publique parcelle par parcelle : aucune source de servitudes n'est branchée à ce jour, vérification en mairie indispensable.",
-                  "Les communes dont le document d'urbanisme n'est pas publié sur le GPU : le zonage n'y est pas garanti.",
-                  "Toute valeur d'instruction officielle : l'outil ne délivre ni certificat d'urbanisme, ni autorisation.",
-                  "Une API publique, le SSO ou la marque blanche : non disponibles à ce jour.",
-                ].map((item) => (
-                  <li key={item} className="flex gap-2.5"><IconX />{item}</li>
-                ))}
-              </ul>
-              <p className="mt-6 border-t pt-5 text-[12px] leading-relaxed" style={{ borderColor: "var(--line)", color: "var(--ink-soft)" }}>
-                {DISCLAIMER_SHORT}{" "}
-                <a href={`${APP_URL}/cgv`} className="underline transition hover:opacity-70">Conditions générales</a>.
-              </p>
-            </div>
+            <Reveal delay={0}>
+              <div className="glass-card h-full rounded-[24px] p-7">
+                <div className="mono-label mb-5" style={{ color: "var(--brand)" }}>Inclus</div>
+                <ul className="space-y-3 text-[13.5px] leading-relaxed" style={{ color: "var(--ink)" }}>
+                  {[
+                    "Identification de la parcelle et de son contour (cadastre IGN).",
+                    "Zonage d'urbanisme lu dans le Géoportail de l'Urbanisme quand la commune y publie son document.",
+                    "Analyse automatisée du règlement de zone : emprise au sol, retraits, espaces verts.",
+                    "Risques recensés sur la commune et aléa retrait-gonflement des argiles (Géorisques).",
+                    "Mutations DVF autour de la parcelle, rayon de 500 m par défaut.",
+                    "Enveloppe constructible : maximum théorique, hors retraits, prospects et gabarit.",
+                    "Visualisation 3D du terrain et de son environnement bâti.",
+                    "Bilan promoteur paramétrable, export PDF et lien de partage.",
+                    "Détection des contraintes bloquantes vérifiée à chaque déploiement sur un jeu de cas de référence.",
+                  ].map((item) => (
+                    <li key={item} className="flex gap-2.5"><IconCheck />{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+            <Reveal delay={100}>
+              <div className="glass-card h-full rounded-[24px] p-7">
+                <div className="mono-label mb-5" style={{ color: "var(--ink-soft)" }}>Non inclus à ce jour</div>
+                <ul className="space-y-3 text-[13.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+                  {[
+                    "Les servitudes d'utilité publique parcelle par parcelle : aucune source de servitudes n'est branchée à ce jour, vérification en mairie indispensable.",
+                    "Les communes dont le document d'urbanisme n'est pas publié sur le GPU : le zonage n'y est pas garanti.",
+                    "Toute valeur d'instruction officielle : l'outil ne délivre ni certificat d'urbanisme, ni autorisation.",
+                    "Une API publique, le SSO ou la marque blanche : non disponibles à ce jour.",
+                  ].map((item) => (
+                    <li key={item} className="flex gap-2.5"><IconX />{item}</li>
+                  ))}
+                </ul>
+                <p className="mt-6 border-t pt-5 text-[12px] leading-relaxed" style={{ borderColor: "var(--line)", color: "var(--ink-soft)" }}>
+                  {DISCLAIMER_SHORT}{" "}
+                  <a href={`${APP_URL}/cgv`} className="underline transition hover:opacity-70">Conditions générales</a>.
+                </p>
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -279,22 +322,22 @@ export default function Home() {
       {/* ===== PRICING ===== */}
       <section id="tarifs" className="border-t py-28" style={{ borderColor: "var(--line)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
-          <div className="mx-auto mb-14 max-w-2xl text-center">
-            <div className="chip mx-auto mb-4">Tarifs</div>
+          <Reveal className="mx-auto mb-14 max-w-2xl text-center">
+            <div className="kicker mx-auto mb-4">Tarifs</div>
             <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
               Un quota d&apos;analyses.<br />Pas de surprise.
             </h2>
             <p className="mt-5 text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
               Commencez gratuitement, sans carte bancaire. Les quotas sont comptés sur une fenêtre glissante de 30 jours et sont exactement ceux appliqués par le produit.
             </p>
-          </div>
+          </Reveal>
 
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-5 md:grid-cols-3">
-            {PLAN_LIST.map((plan) => {
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-5 md:grid-cols-3 md:items-end">
+            {PLAN_LIST.map((plan, i) => {
               const featured = plan.id === "PRO";
               return (
+                <Reveal key={plan.id} delay={i * 100} variant={featured ? "scale" : "up"}>
                 <div
-                  key={plan.id}
                   className={featured ? "relative flex flex-col overflow-hidden rounded-[28px] md:-translate-y-3" : "relative flex flex-col overflow-hidden rounded-[28px]"}
                   style={featured
                     ? { background: "linear-gradient(180deg, color-mix(in oklch, var(--brand) 12%, var(--paper-raised)), var(--paper-raised))", border: "1.5px solid var(--brand)", boxShadow: "0 24px 60px -16px color-mix(in oklch, var(--brand) 45%, transparent), var(--shadow-card)" }
@@ -347,6 +390,7 @@ export default function Home() {
                   )}
                   </div>
                 </div>
+                </Reveal>
               );
             })}
           </div>
@@ -363,6 +407,7 @@ export default function Home() {
       {/* ===== CTA ===== */}
       <section className="border-t py-24" style={{ borderColor: "var(--line)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
+          <Reveal variant="scale">
           <div className="hero-gradient relative overflow-hidden rounded-[32px] p-12 md:p-16" style={{ border: "1px solid var(--line)" }}>
             <div className="relative grid grid-cols-1 items-center gap-8 md:grid-cols-[1fr_auto]">
               <div>
@@ -382,6 +427,7 @@ export default function Home() {
               </div>
             </div>
           </div>
+          </Reveal>
         </div>
       </section>
 

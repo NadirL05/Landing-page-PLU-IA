@@ -37,7 +37,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fr" className={`${instrument.variable} ${jakarta.variable} ${spaceMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        {/* Sans JS, la choréographie de scroll (composants Reveal) ne
+            s'active jamais : on force le contenu visible pour ne pas le
+            masquer indéfiniment. */}
+        <noscript>
+          <style>{`.reveal, .reveal-scale { opacity: 1 !important; transform: none !important; }`}</style>
+        </noscript>
+        {children}
+      </body>
     </html>
   );
 }
