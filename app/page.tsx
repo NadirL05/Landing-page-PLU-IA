@@ -7,10 +7,13 @@ import { Reveal } from "@/components/Reveal";
 import { BRAND_NAME, APP_URL } from "@/config/brand";
 import { PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
 
-// Direction Luma : fond crème chaud, gradients corail/brand, cards très
-// arrondies en glass, typo display XXL (Instrument Sans). Contenu inchangé
-// depuis sas-plu-3d/app/page.tsx (source de vérité produit) — seule la
-// peau visuelle change.
+// Direction "Plan cadastral" : papier froid, encre bleu-cadastre,
+// accent terre-cuite réservé aux annotations/mesures — vocabulaire
+// emprunté aux extraits cadastraux et aux feuilles de plan technique
+// (cartouche, grille de coordonnées, repères d'angle, numérotation
+// de planche) plutôt qu'au SaaS chaleureux générique. Contenu
+// inchangé depuis sas-plu-3d/app/page.tsx (source de vérité produit)
+// — seule la peau visuelle change.
 
 const STRIPE_LINK_PRO = "https://buy.stripe.com/test_dRm8wQ4pg0H55gXfZN48000";
 const CALENDLY_URL = "https://calendly.com/nadir-lahyani-agentimpact/30min";
@@ -55,14 +58,15 @@ function IconShield() { return <svg className="h-5 w-5" style={{ color: "var(--b
 function IconDollar() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>; }
 function IconChart() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 3v18h18M7 14l4-4 4 4 6-6" /></svg>; }
 function IconFile() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /></svg>; }
+function IconCrosshair() { return <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="7" /><path d="M12 2v4M12 18v4M2 12h4M18 12h4" /></svg>; }
 
 const features = [
-  { icon: <IconMapPin />, title: "Adresse ou parcelle cadastrale", body: "Saisissez une adresse (Base Adresse Nationale), une référence cadastrale ou pointez la carte : la parcelle et son contour sont récupérés via l'API Carto Cadastre de l'IGN." },
-  { icon: <IconBuilding />, title: "Zonage et règles d'urbanisme", body: "Le zonage est lu dans le Géoportail de l'Urbanisme (GPU) quand la commune y publie son document. Le règlement PDF de la zone est analysé pour en extraire emprise au sol, retraits et espaces verts." },
-  { icon: <IconShield />, title: "Risques recensés", body: "Risques déclarés sur la commune (Géorisques / GASPAR) et aléa retrait-gonflement des argiles à la coordonnée. Les servitudes d'utilité publique restent à vérifier en mairie." },
-  { icon: <IconDollar />, title: "Bilan promoteur", body: "Surface de plancher potentielle, chiffre d'affaires, coûts de construction, frais et marge. Vous ajustez les hypothèses et le bilan est recalculé." },
-  { icon: <IconChart />, title: "Comparables DVF", body: "Mutations issues des Demandes de Valeurs Foncières autour de la parcelle (rayon de 500 m par défaut), avec prix au m² de référence." },
-  { icon: <IconFile />, title: "Export PDF et partage", body: "Le rapport d'analyse s'exporte en PDF et peut être partagé via un lien public que vous activez ou désactivez." },
+  { ref: "FIG.01", icon: <IconMapPin />, title: "Adresse ou parcelle cadastrale", body: "Saisissez une adresse (Base Adresse Nationale), une référence cadastrale ou pointez la carte : la parcelle et son contour sont récupérés via l'API Carto Cadastre de l'IGN." },
+  { ref: "FIG.02", icon: <IconBuilding />, title: "Zonage et règles d'urbanisme", body: "Le zonage est lu dans le Géoportail de l'Urbanisme (GPU) quand la commune y publie son document. Le règlement PDF de la zone est analysé pour en extraire emprise au sol, retraits et espaces verts." },
+  { ref: "FIG.03", icon: <IconShield />, title: "Risques recensés", body: "Risques déclarés sur la commune (Géorisques / GASPAR) et aléa retrait-gonflement des argiles à la coordonnée. Les servitudes d'utilité publique restent à vérifier en mairie." },
+  { ref: "FIG.04", icon: <IconDollar />, title: "Bilan promoteur", body: "Surface de plancher potentielle, chiffre d'affaires, coûts de construction, frais et marge. Vous ajustez les hypothèses et le bilan est recalculé." },
+  { ref: "FIG.05", icon: <IconChart />, title: "Comparables DVF", body: "Mutations issues des Demandes de Valeurs Foncières autour de la parcelle (rayon de 500 m par défaut), avec prix au m² de référence." },
+  { ref: "FIG.06", icon: <IconFile />, title: "Export PDF et partage", body: "Le rapport d'analyse s'exporte en PDF et peut être partagé via un lien public que vous activez ou désactivez." },
 ];
 
 const dataSources = [
@@ -75,13 +79,13 @@ export default function Home() {
     <div className="min-h-screen">
       <script type="application/ld+json" src="/schema/software-application.json" async />
 
-      {/* ===== NAV ===== */}
-      <header className="glass-card sticky top-3 z-50 mx-3 rounded-full sm:mx-6">
+      {/* ===== NAV — bandeau rectangulaire, pas de pill flottante ===== */}
+      <header className="sticky top-0 z-50 border-b" style={{ background: "color-mix(in oklch, var(--paper) 92%, transparent)", borderColor: "var(--line-strong)", backdropFilter: "blur(8px)" }}>
         <div className="relative mx-auto flex h-16 max-w-[1180px] items-center justify-between px-5 sm:px-7">
           <div className="flex min-w-0 items-center gap-10">
             <Link href="/" className="flex shrink-0 items-center gap-2.5">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl text-white" style={{ background: "linear-gradient(135deg, var(--brand), var(--coral))" }}>
-                <span className="font-mono text-[11px] font-bold">PLU</span>
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center border" style={{ borderColor: "var(--brand)", color: "var(--brand)" }}>
+                <IconCrosshair />
               </div>
               <span className="font-display whitespace-nowrap text-[15px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>{BRAND_NAME}</span>
             </Link>
@@ -104,22 +108,31 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ===== HERO ===== */}
-      <section className="hero-gradient relative overflow-hidden pt-8">
-        <div className="relative z-10 mx-auto max-w-[1320px] px-6 pb-24 pt-16 lg:pb-36 lg:pt-20">
+      {/* ===== HERO — feuille de plan : grille de coordonnées, cartouche, repères d'angle ===== */}
+      <section className="grid-paper relative overflow-hidden pt-8">
+        <div className="relative z-10 mx-auto max-w-[1320px] px-6 pb-24 pt-14 lg:pb-32 lg:pt-16">
+          <Reveal>
+            <div className="cartouche mb-8">
+              <div>
+                <span className="cartouche-label">Projet</span>
+                <span className="cartouche-value">Analyse parcellaire</span>
+              </div>
+              <div>
+                <span className="cartouche-label">Sources</span>
+                <span className="cartouche-value">Cadastre IGN · GPU · DVF</span>
+              </div>
+              <div>
+                <span className="cartouche-label">Statut</span>
+                <span className="cartouche-value" style={{ color: "var(--terracotta)" }}>Sources vérifiées</span>
+              </div>
+            </div>
+          </Reveal>
+
           <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-12 lg:gap-6">
             <div className="lg:col-span-7">
-              <div className="chip mb-7" style={{ background: "var(--paper-raised)" }}>
-                <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "var(--coral)" }} />
-                Sources publiques officielles : cadastre IGN, GPU, DVF, Géorisques
-              </div>
-
-              <h1 className="font-display text-[length:var(--text-hero)] font-semibold leading-[0.92] tracking-[-0.04em]" style={{ color: "var(--ink)" }}>
-                Le potentiel<br />
-                d&apos;une parcelle,<br />
-                <span style={{ background: "linear-gradient(135deg, var(--brand), var(--coral))", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
-                  sources à l&apos;appui.
-                </span>
+              <h1 className="font-display text-[length:var(--text-hero)] font-semibold leading-[0.98] tracking-[-0.03em]" style={{ color: "var(--ink)" }}>
+                Le potentiel d&apos;une parcelle,<br />
+                <span style={{ borderBottom: "4px solid var(--terracotta)" }}>sources à l&apos;appui.</span>
               </h1>
 
               <p className="mt-8 max-w-xl text-[17px] leading-relaxed md:text-[19px]" style={{ color: "var(--ink-soft)" }}>
@@ -127,11 +140,11 @@ export default function Home() {
               </p>
 
               <div className="mt-9 flex flex-wrap items-center gap-3">
-                <a href={`${APP_URL}/dashboard`} className="btn-brand inline-flex h-13 items-center gap-2 rounded-full px-7 text-sm font-semibold" style={{ height: 52 }}>
+                <a href={`${APP_URL}/dashboard`} className="btn-brand inline-flex h-13 items-center gap-2 px-7 text-sm font-semibold" style={{ height: 52 }}>
                   Lancer une analyse gratuite
                   <IconArrow />
                 </a>
-                <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost inline-flex items-center gap-2 rounded-full px-6 text-sm font-medium" style={{ height: 52 }}>
+                <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost inline-flex items-center gap-2 px-6 text-sm font-medium" style={{ height: 52 }}>
                   <IconPlay />
                   Voir la démo
                 </a>
@@ -139,26 +152,21 @@ export default function Home() {
               <span className="mono-label mt-4 inline-block" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · 5 analyses / 30 jours</span>
             </div>
 
-            {/* Visuel produit poussé au centre de l'attention : grand format,
-                débordement volontaire sur la droite, ombre marquée — plus
-                une simple illustration sous le titre. */}
             <div className="relative lg:col-span-5">
-              <Reveal variant="scale" delay={120} className="flex justify-center lg:absolute lg:top-[-2.5rem] lg:right-[-2.75rem] lg:block lg:w-[132%]">
-                <div className="lg:rotate-[-2.5deg]">
-                  <ParcelVolumeMockup className="max-w-xl lg:max-w-none" />
-                </div>
+              <Reveal variant="scale" delay={120} className="flex justify-center lg:block">
+                <ParcelVolumeMockup className="max-w-xl lg:max-w-none" />
               </Reveal>
             </div>
           </div>
 
-          <div className="mt-20 flex flex-wrap gap-x-12 gap-y-7 border-t pt-9 lg:mt-28" style={{ borderColor: "var(--line)" }}>
+          <div className="mt-20 flex flex-wrap gap-x-12 gap-y-7 border-t pt-9 lg:mt-24" style={{ borderColor: "var(--line-strong)" }}>
             {[
               { title: "Sources croisées", body: "Cadastre IGN, GPU, DVF, Géorisques, zonage A/B/C, OpenStreetMap, RGE Alti." },
               { title: "Périmètre", body: "France métropolitaine et DOM, dans la limite des communes publiant leur document d'urbanisme sur le GPU." },
               { title: "Livrable", body: "Analyse en ligne, visualisation 3D, bilan promoteur, export PDF et lien de partage." },
             ].map((s, i) => (
               <Reveal key={s.title} delay={i * 90} className="max-w-[240px]">
-                <div className="mono-label" style={{ color: "var(--coral)" }}>{s.title}</div>
+                <div className="mono-label" style={{ color: "var(--terracotta)" }}>{s.title}</div>
                 <div className="mt-2 text-[13px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{s.body}</div>
               </Reveal>
             ))}
@@ -169,7 +177,7 @@ export default function Home() {
       </section>
 
       {/* ===== SOURCES ===== */}
-      <section id="sources" className="border-y py-10" style={{ borderColor: "var(--line)" }}>
+      <section id="sources" className="border-y py-10" style={{ borderColor: "var(--line-strong)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
           <p className="mono-label mb-8 text-center" style={{ color: "var(--ink-soft)" }}>
             Les sources publiques interrogées par {BRAND_NAME}
@@ -186,11 +194,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== FEATURES — bento asymétrique ===== */}
+      {/* ===== FEATURES — grille "fiches techniques", numérotation FIG.0x ===== */}
       <section id="fonctionnalites" className="py-28">
         <div className="mx-auto max-w-[1180px] px-6">
           <Reveal className="mb-14 max-w-3xl">
-            <div className="kicker mb-4">06 modules — capacités</div>
+            <div className="kicker mb-4">PL.02 — Capacités</div>
             <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
               De l&apos;adresse au bilan promoteur,<br />sans changer d&apos;onglet.
             </h2>
@@ -199,57 +207,54 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div className="bento-grid">
-            {features.map((f, i) => {
-              const isHero = i === 3; /* Bilan promoteur : tuile centrale, plus grande, avec lecture de données. */
-              return (
-                <Reveal
-                  key={f.title}
-                  delay={i * 70}
-                  className={isHero ? "col-span-6 md:col-span-4 md:row-span-2" : i < 3 ? "col-span-6 sm:col-span-3 md:col-span-2"
-                    : "col-span-6 sm:col-span-3 md:col-span-2"}
-                >
-                  <div className={`glass-card card-lift flex h-full flex-col rounded-[24px] ${isHero ? "p-8" : "p-6"}`}>
-                    <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-2xl" style={{ background: "var(--brand-soft)" }}>{f.icon}</div>
-                    <h3 className={`font-display mb-2 font-semibold ${isHero ? "text-xl" : "text-[15px]"}`} style={{ color: "var(--ink)" }}>{f.title}</h3>
-                    <p className={`leading-relaxed ${isHero ? "max-w-md text-[14px]" : "text-[13px]"}`} style={{ color: "var(--ink-soft)" }}>{f.body}</p>
-
-                    {isHero ? (
-                      <div className="mt-auto pt-8">
-                        <div className="flex items-center justify-between rounded-2xl px-4 py-3" style={{ background: "var(--brand-soft)" }}>
-                          <div>
-                            <div className="mono-label" style={{ color: "var(--ink-soft)" }}>SDP potentielle</div>
-                            <div className="font-display text-lg font-semibold" style={{ color: "var(--ink)" }}>≈ 1 240 m²</div>
-                          </div>
-                          <div className="font-mono text-2xl font-bold" style={{ color: "var(--brand)" }}>68%</div>
-                        </div>
-                        <div className="mt-2.5 h-1.5 w-full overflow-hidden rounded-full" style={{ background: "var(--line)" }}>
-                          <div className="h-full rounded-full" style={{ width: "68%", background: "linear-gradient(90deg, var(--brand), var(--coral))" }} />
-                        </div>
-                      </div>
-                    ) : null}
+          <div className="spec-grid">
+            {features.map((f, i) => (
+              <Reveal key={f.title} delay={i * 60} className="col-span-6 sm:col-span-3 md:col-span-2">
+                <div className="card-lift flex h-full flex-col p-6" style={{ borderTop: "2px solid transparent" }}>
+                  <div className="mb-4 flex items-center justify-between">
+                    <div className="flex h-9 w-9 items-center justify-center" style={{ background: "var(--brand-soft)" }}>{f.icon}</div>
+                    <span className="font-mono text-[10px] font-bold tracking-[0.1em]" style={{ color: "var(--terracotta)" }}>{f.ref}</span>
                   </div>
-                </Reveal>
-              );
-            })}
+                  <h3 className="font-display mb-2 text-[15px] font-semibold" style={{ color: "var(--ink)" }}>{f.title}</h3>
+                  <p className="text-[13px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{f.body}</p>
+                </div>
+              </Reveal>
+            ))}
           </div>
+
+          {/* Annotation de mesure façon plan — remplace la tuile "hero" du bento :
+              une lecture de donnée avec repère de coordonnée, pas une carte de plus. */}
+          <Reveal delay={360} className="mt-4">
+            <div className="spec-card flex flex-wrap items-center justify-between gap-6 p-6">
+              <div className="flex items-center gap-4">
+                <span className="coord-tag">Parcelle AB0142</span>
+                <div>
+                  <div className="mono-label" style={{ color: "var(--ink-soft)" }}>SDP potentielle</div>
+                  <div className="font-display text-lg font-semibold" style={{ color: "var(--ink)" }}>≈ 1 240 m² · emprise 68 %</div>
+                </div>
+              </div>
+              <div className="h-1.5 w-full max-w-xs overflow-hidden" style={{ background: "var(--line)" }}>
+                <div className="h-full" style={{ width: "68%", background: "var(--terracotta)" }} />
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* ===== PROCESS — timeline éditoriale, rupture d'échelle Space Mono ===== */}
-      <section id="produit" className="relative overflow-hidden border-t py-28" style={{ borderColor: "var(--line)" }}>
+      {/* ===== PROCESS — numérotation de planche (PL.0x) ===== */}
+      <section id="produit" className="relative overflow-hidden border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
         <div className="relative mx-auto max-w-[1180px] px-6">
           <Reveal className="mx-auto mb-16 max-w-2xl text-center">
-            <div className="kicker mx-auto mb-4">Comment ça marche</div>
+            <div className="kicker mx-auto mb-4">PL.03 — Méthode</div>
             <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
               Trois étapes. Zéro friction.
             </h2>
           </Reveal>
           <div>
             {[
-              { n: "01", title: "Saisissez une adresse", body: "Adresse via la Base Adresse Nationale, référence cadastrale ou clic sur la carte : la parcelle et son contour sont récupérés auprès de l'API Carto Cadastre de l'IGN.", color: "var(--coral)" },
+              { n: "01", title: "Saisissez une adresse", body: "Adresse via la Base Adresse Nationale, référence cadastrale ou clic sur la carte : la parcelle et son contour sont récupérés auprès de l'API Carto Cadastre de l'IGN.", color: "var(--terracotta)" },
               { n: "02", title: "Les sources sont croisées", body: "Zonage GPU, règlement PDF de la zone analysé automatiquement, mutations DVF alentour, risques Géorisques, zonage fiscal A/B/C, bâti OpenStreetMap et altimétrie IGN.", color: "var(--brand)" },
-              { n: "03", title: "Verdict et bilan", body: "Enveloppe constructible en maximum théorique, visualisation 3D, comparables de marché et bilan promoteur ajustable. Export PDF et lien de partage activable.", color: "var(--coral)" },
+              { n: "03", title: "Verdict et bilan", body: "Enveloppe constructible en maximum théorique, visualisation 3D, comparables de marché et bilan promoteur ajustable. Export PDF et lien de partage activable.", color: "var(--terracotta)" },
             ].map((step, i) => (
               <Reveal key={step.n} delay={i * 110} className="process-row">
                 <div className="process-num" style={{ color: step.color }}>{step.n}</div>
@@ -264,10 +269,10 @@ export default function Home() {
       </section>
 
       {/* ===== PÉRIMÈTRE & LIMITES ===== */}
-      <section id="perimetre" className="border-t py-28" style={{ borderColor: "var(--line)" }}>
+      <section id="perimetre" className="border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
           <Reveal className="mb-14 max-w-3xl">
-            <div className="kicker mb-4">Périmètre & limites</div>
+            <div className="kicker mb-4">PL.04 — Périmètre</div>
             <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
               Ce que l&apos;outil fait,<br />et ce qu&apos;il ne fait pas.
             </h2>
@@ -275,9 +280,9 @@ export default function Home() {
               Nous préférons annoncer un périmètre exact plutôt qu&apos;une promesse invendable en comité d&apos;investissement.
             </p>
           </Reveal>
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <div className="grid grid-cols-1 gap-px lg:grid-cols-2" style={{ background: "var(--line-strong)", border: "1px solid var(--line-strong)" }}>
             <Reveal delay={0}>
-              <div className="glass-card h-full rounded-[24px] p-7">
+              <div className="h-full p-7" style={{ background: "var(--paper-raised)" }}>
                 <div className="mono-label mb-5" style={{ color: "var(--brand)" }}>Inclus</div>
                 <ul className="space-y-3 text-[13.5px] leading-relaxed" style={{ color: "var(--ink)" }}>
                   {[
@@ -297,7 +302,7 @@ export default function Home() {
               </div>
             </Reveal>
             <Reveal delay={100}>
-              <div className="glass-card h-full rounded-[24px] p-7">
+              <div className="h-full p-7" style={{ background: "var(--paper-raised)" }}>
                 <div className="mono-label mb-5" style={{ color: "var(--ink-soft)" }}>Non inclus à ce jour</div>
                 <ul className="space-y-3 text-[13.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
                   {[
@@ -320,10 +325,10 @@ export default function Home() {
       </section>
 
       {/* ===== PRICING ===== */}
-      <section id="tarifs" className="border-t py-28" style={{ borderColor: "var(--line)" }}>
+      <section id="tarifs" className="border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
           <Reveal className="mx-auto mb-14 max-w-2xl text-center">
-            <div className="kicker mx-auto mb-4">Tarifs</div>
+            <div className="kicker mx-auto mb-4">PL.05 — Tarifs</div>
             <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
               Un quota d&apos;analyses.<br />Pas de surprise.
             </h2>
@@ -332,24 +337,22 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-5 md:grid-cols-3 md:items-end">
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-px md:grid-cols-3" style={{ background: "var(--line-strong)", border: "1px solid var(--line-strong)" }}>
             {PLAN_LIST.map((plan, i) => {
               const featured = plan.id === "PRO";
               return (
                 <Reveal key={plan.id} delay={i * 100} variant={featured ? "scale" : "up"}>
                 <div
-                  className={featured ? "relative flex flex-col overflow-hidden rounded-[28px] md:-translate-y-3" : "relative flex flex-col overflow-hidden rounded-[28px]"}
-                  style={featured
-                    ? { background: "linear-gradient(180deg, color-mix(in oklch, var(--brand) 12%, var(--paper-raised)), var(--paper-raised))", border: "1.5px solid var(--brand)", boxShadow: "0 24px 60px -16px color-mix(in oklch, var(--brand) 45%, transparent), var(--shadow-card)" }
-                    : { background: "var(--paper-raised)", border: "1px solid var(--line)" }}
+                  className="relative flex h-full flex-col"
+                  style={{ background: "var(--paper-raised)" }}
                 >
                   {featured ? (
-                    <div
-                      className="flex items-center justify-center py-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white"
-                      style={{ background: "linear-gradient(135deg, var(--brand), var(--coral))" }}
+                    <span
+                      className="font-mono absolute right-0 top-0 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-white"
+                      style={{ background: "var(--terracotta)" }}
                     >
                       Le plus choisi
-                    </div>
+                    </span>
                   ) : null}
                   <div className="flex flex-1 flex-col p-7">
                   <div className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: featured ? "var(--brand)" : "var(--ink-soft)" }}>{plan.name}</div>
@@ -358,7 +361,7 @@ export default function Home() {
                   </div>
                   <p className="mt-1.5 text-[12px] leading-snug" style={{ color: "var(--ink-soft)" }}>{PRICE_TAX_NOTICE}</p>
                   <p className="mt-2 text-[13px]" style={{ color: "var(--ink-soft)" }}>{plan.tagline}</p>
-                  <div className="mt-4 rounded-2xl px-3 py-2 text-[13px]" style={{ background: "var(--brand-soft)", color: "var(--ink)" }}>
+                  <div className="mt-4 px-3 py-2 text-[13px]" style={{ background: "var(--brand-soft)", color: "var(--ink)" }}>
                     {plan.quotaLabel}
                   </div>
                   <ul className="mt-6 flex-1 space-y-2.5 text-[13px]" style={{ color: "var(--ink)" }}>
@@ -377,13 +380,13 @@ export default function Home() {
                     </li>
                   </ul>
                   {plan.id === "ENTERPRISE" ? (
-                    <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost mt-7 flex h-11 w-full items-center justify-center rounded-full text-sm font-medium">
+                    <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost mt-7 flex h-11 w-full items-center justify-center text-sm font-medium">
                       Nous contacter
                     </a>
                   ) : (
                     <a
                       href={plan.id === "PRO" ? STRIPE_LINK_PRO : `${APP_URL}/dashboard`}
-                      className={featured ? "btn-brand mt-7 flex h-11 w-full items-center justify-center rounded-full text-sm font-semibold" : "btn-ghost mt-7 flex h-11 w-full items-center justify-center rounded-full text-sm font-medium"}
+                      className={featured ? "btn-brand mt-7 flex h-11 w-full items-center justify-center text-sm font-semibold" : "btn-ghost mt-7 flex h-11 w-full items-center justify-center text-sm font-medium"}
                     >
                       {plan.id === "FREE" ? "Commencer gratuitement" : `Passer au plan ${plan.name}`}
                     </a>
@@ -404,13 +407,14 @@ export default function Home() {
 
       <FaqSection />
 
-      {/* ===== CTA ===== */}
-      <section className="border-t py-24" style={{ borderColor: "var(--line)" }}>
+      {/* ===== CTA — feuille de plan encadrée, repères d'angle ===== */}
+      <section className="border-t py-24" style={{ borderColor: "var(--line-strong)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
           <Reveal variant="scale">
-          <div className="hero-gradient relative overflow-hidden rounded-[32px] p-12 md:p-16" style={{ border: "1px solid var(--line)" }}>
+          <div className="reg-marks grid-paper relative overflow-hidden p-12 md:p-16" style={{ border: "1px solid var(--brand)" }}>
             <div className="relative grid grid-cols-1 items-center gap-8 md:grid-cols-[1fr_auto]">
               <div>
+                <div className="kicker mb-4">PL.06 — Vérification</div>
                 <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight md:text-4xl" style={{ color: "var(--ink)" }}>
                   Testez sur une parcelle<br />que vous connaissez déjà.
                 </h2>
@@ -419,7 +423,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <a href={`${APP_URL}/dashboard`} className="btn-brand inline-flex items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold" style={{ height: 52 }}>
+                <a href={`${APP_URL}/dashboard`} className="btn-brand inline-flex items-center justify-center gap-2 px-6 text-sm font-semibold" style={{ height: 52 }}>
                   Analyser une parcelle
                   <IconArrow />
                 </a>
@@ -432,13 +436,13 @@ export default function Home() {
       </section>
 
       {/* ===== FOOTER ===== */}
-      <footer className="border-t py-12" style={{ borderColor: "var(--line)" }}>
+      <footer className="border-t py-12" style={{ borderColor: "var(--line-strong)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
           <div className="mb-10 grid grid-cols-2 gap-8 md:grid-cols-5">
             <div className="col-span-2">
               <div className="mb-4 flex items-center gap-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-xl text-white" style={{ background: "linear-gradient(135deg, var(--brand), var(--coral))" }}>
-                  <span className="font-mono text-[11px] font-bold">PLU</span>
+                <div className="flex h-8 w-8 items-center justify-center border" style={{ borderColor: "var(--brand)", color: "var(--brand)" }}>
+                  <IconCrosshair />
                 </div>
                 <span className="font-display text-[15px] font-semibold" style={{ color: "var(--ink)" }}>{BRAND_NAME}</span>
               </div>
