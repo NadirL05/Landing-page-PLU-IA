@@ -6,6 +6,11 @@ import { ParcelVolumeMockup } from "@/components/ParcelVolumeMockup";
 import { BRAND_NAME, BRAND_URL, APP_URL } from "@/config/brand";
 import { PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
 
+// Stripe Payment Link (mode TEST — compte PLU-IA) pour le plan Pro. FREE
+// renvoie vers l'app (signup gratuit), ENTERPRISE et la démo vers Calendly.
+const STRIPE_LINK_PRO = "https://buy.stripe.com/test_dRm8wQ4pg0H55gXfZN48000";
+const CALENDLY_URL = "https://calendly.com/nadir-lahyani-agentimpact/30min";
+
 // Contenu identique à sas-plu-3d/app/page.tsx (source de vérité produit) —
 // porté ici pour un repo landing dédié. CTAs /dashboard, /demo, /cgv etc.
 // pointent vers l'app (APP_URL) puisque ces routes n'existent pas ici.
@@ -253,7 +258,7 @@ export default function Home() {
                 Lancer une analyse gratuite
                 <IconArrow />
               </a>
-              <a href={`${APP_URL}/demo`} className="btn-ghost-lp inline-flex h-12 items-center gap-2 rounded-xl px-5 text-sm font-medium">
+              <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost-lp inline-flex h-12 items-center gap-2 rounded-xl px-5 text-sm font-medium">
                 <IconPlay />
                 Voir la démo
               </a>
@@ -458,12 +463,12 @@ export default function Home() {
                     </li>
                   </ul>
                   {plan.id === "ENTERPRISE" ? (
-                    <a href={`${APP_URL}/contact`} className="btn-ghost-lp mt-7 flex h-11 w-full items-center justify-center rounded-xl text-sm font-medium">
+                    <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost-lp mt-7 flex h-11 w-full items-center justify-center rounded-xl text-sm font-medium">
                       Nous contacter
                     </a>
                   ) : (
                     <a
-                      href={`${APP_URL}/dashboard`}
+                      href={plan.id === "PRO" ? STRIPE_LINK_PRO : `${APP_URL}/dashboard`}
                       className={featured
                         ? "btn-brand mt-7 flex h-11 w-full items-center justify-center rounded-xl text-sm font-semibold"
                         : "btn-ghost-lp mt-7 flex h-11 w-full items-center justify-center rounded-xl text-sm font-medium"}
@@ -535,7 +540,7 @@ export default function Home() {
                   { label: "Fonctionnalités", href: "#fonctionnalites" },
                   { label: "Périmètre & limites", href: "#perimetre" },
                   { label: "Tarifs", href: "#tarifs" },
-                  { label: "Démo", href: `${APP_URL}/demo` },
+                  { label: "Démo", href: CALENDLY_URL },
                 ],
               },
               {
@@ -570,7 +575,7 @@ export default function Home() {
           <p className="mb-6 border-t border-white/[0.04] pt-6 text-[11px] leading-relaxed text-slate-500">{DISCLAIMER_SHORT}</p>
           <div className="flex items-center justify-between border-t border-white/[0.04] pt-6 text-[11px] text-slate-600">
             <span>© {new Date().getFullYear()} {BRAND_NAME}</span>
-            <a href={`${APP_URL}/contact`} className="transition hover:text-slate-300">Nous contacter</a>
+            <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="transition hover:text-slate-300">Nous contacter</a>
           </div>
         </div>
       </footer>
