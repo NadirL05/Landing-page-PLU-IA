@@ -1,11 +1,16 @@
+import { ParcelVolumeCanvas } from "@/components/ParcelVolumeCanvas";
+
 /**
- * Mockup isométrique parcelle + volume constructible extrudé, habillé
- * comme un véritable extrait de plan technique plutôt qu'une capture
- * produit "app SaaS" : quadrillage de coordonnées en fond, repères
- * d'angle, flèche du nord, barre d'échelle et annotations à ligne de
- * rappel — le vocabulaire d'un plan de géomètre, pas d'un dashboard.
- * Encadré dans un chrome de fiche technique (cartouche + coordonnée),
- * pas une fenêtre d'app générique à trois pastilles.
+ * Étude de masse 3D en fil de fer, habillée comme un véritable extrait
+ * de plan technique plutôt qu'une capture produit "app SaaS" : grille
+ * de coordonnées coplanaire au volume, repères d'angle, flèche du
+ * nord, barre d'échelle et annotations à ligne de rappel — le
+ * vocabulaire d'un plan de géomètre porté en 3D plutôt qu'un rendu
+ * architecte. Encadré dans un chrome de fiche technique (cartouche +
+ * coordonnée), pas une fenêtre d'app générique à trois pastilles.
+ * Le canvas three.js ne monte que dans le viewport (voir
+ * ParcelVolumeCanvas) : à défaut de WebGL, la grille de fond du
+ * conteneur reste seule visible, sans casser la mise en page.
  */
 export function ParcelVolumeMockup({ className = "max-w-xl" }: { className?: string }) {
   return (
@@ -19,66 +24,35 @@ export function ParcelVolumeMockup({ className = "max-w-xl" }: { className?: str
             ÉCH. 1:500
           </span>
         </div>
-        <div className="grid-paper p-6" style={{ height: 360 }}>
-      <svg viewBox="0 0 640 340" className="h-full w-full">
-        <g opacity="0.3" stroke="var(--ink-soft)" strokeWidth="0.8" fill="none">
-          <polygon points="80,200 160,160 240,200 160,240" />
-          <polygon points="160,160 240,120 320,160 240,200" />
-          <polygon points="240,120 320,80 400,120 320,160" />
-          <polygon points="320,80 400,40 480,80 400,120" />
-          <polygon points="80,240 160,200 240,240 160,280" />
-          <polygon points="160,200 240,160 320,200 240,240" />
-          <polygon points="240,160 320,120 400,160 320,200" />
-          <polygon points="320,120 400,80 480,120 400,160" />
-          <polygon points="400,80 480,40 560,80 480,120" />
-          <polygon points="80,280 160,240 240,280 160,320" />
-          <polygon points="160,240 240,200 320,240 240,280" />
-          <polygon points="320,200 400,160 480,200 400,240" />
-          <polygon points="400,160 480,120 560,160 480,200" />
-          <polygon points="160,280 240,240 320,280 240,320" />
-          <polygon points="400,200 480,160 560,200 480,240" />
-        </g>
-        <g opacity="0.22" fill="var(--terracotta)">
-          <polygon points="160,200 240,160 320,200 240,240" />
-          <polygon points="320,120 400,80 480,120 400,160" />
-        </g>
-        <polygon points="240,160 320,120 400,160 320,200" fill="var(--terracotta)" opacity="0.5" stroke="var(--terracotta)" strokeWidth="1.5" />
-        <g>
-          <polygon points="240,160 320,120 320,60 240,100" fill="var(--brand)" opacity="0.65" />
-          <polygon points="320,120 400,160 400,100 320,60" fill="var(--brand)" opacity="0.85" />
-          <polygon points="240,100 320,60 400,100 320,140" fill="var(--brand)" />
-          <polygon points="240,100 320,60 400,100 320,140" fill="none" stroke="white" strokeWidth="1" opacity="0.5" />
-        </g>
-        <line x1="410" y1="100" x2="470" y2="80" stroke="var(--ink-soft)" strokeWidth="1" strokeDasharray="3 2" opacity="0.6" />
-        <rect x="472" y="66" width="100" height="28" fill="var(--paper-raised)" stroke="var(--line-strong)" />
-        <text x="522" y="84" textAnchor="middle" fill="var(--ink)" fontSize="11" fontFamily="var(--font-mono)" fontWeight="500">
-          H max : 25 m
-        </text>
-        <line x1="320" y1="200" x2="320" y2="260" stroke="var(--ink-soft)" strokeWidth="1" strokeDasharray="3 2" opacity="0.6" />
-        <rect x="255" y="262" width="130" height="28" fill="var(--paper-raised)" stroke="var(--line-strong)" />
-        <text x="320" y="280" textAnchor="middle" fill="var(--ink)" fontSize="11" fontFamily="var(--font-mono)" fontWeight="500">
-          Zone UAa · Emprise 0,60
-        </text>
-        <rect x="255" y="130" width="130" height="26" fill="var(--brand)" />
-        <text x="320" y="147" textAnchor="middle" fill="white" fontSize="11" fontFamily="var(--font-mono)" fontWeight="600">
-          Parcelle AB0142
-        </text>
 
-        {/* Flèche du nord — vocabulaire de plan de géomètre */}
-        <g transform="translate(50,40)">
-          <line x1="0" y1="26" x2="0" y2="0" stroke="var(--ink)" strokeWidth="1.5" />
-          <polygon points="0,0 -5,10 5,10" fill="var(--ink)" />
-          <text x="0" y="40" textAnchor="middle" fill="var(--ink-soft)" fontSize="10" fontFamily="var(--font-mono)" fontWeight="700">N</text>
-        </g>
+        <div className="grid-paper relative" style={{ height: 360 }}>
+          <ParcelVolumeCanvas />
 
-        {/* Barre d'échelle graphique */}
-        <g transform="translate(490,300)">
-          <line x1="0" y1="0" x2="60" y2="0" stroke="var(--ink)" strokeWidth="1.5" />
-          <line x1="0" y1="-4" x2="0" y2="4" stroke="var(--ink)" strokeWidth="1.5" />
-          <line x1="60" y1="-4" x2="60" y2="4" stroke="var(--ink)" strokeWidth="1.5" />
-          <text x="30" y="16" textAnchor="middle" fill="var(--ink-soft)" fontSize="9" fontFamily="var(--font-mono)">10 m</text>
-        </g>
-      </svg>
+          {/* Furniture de plan superposée au canvas : flèche du nord et
+              barre d'échelle restent en overlay 2D fixe à l'écran —
+              net à tout angle de caméra, sans géométrie de texte 3D. */}
+          <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 640 340">
+            <g transform="translate(50,40)">
+              <line x1="0" y1="26" x2="0" y2="0" stroke="var(--ink)" strokeWidth="1.5" />
+              <polygon points="0,0 -5,10 5,10" fill="var(--ink)" />
+              <text x="0" y="40" textAnchor="middle" fill="var(--ink-soft)" fontSize="10" fontFamily="var(--font-mono)" fontWeight="700">N</text>
+            </g>
+            <g transform="translate(490,300)">
+              <line x1="0" y1="0" x2="60" y2="0" stroke="var(--ink)" strokeWidth="1.5" />
+              <line x1="0" y1="-4" x2="0" y2="4" stroke="var(--ink)" strokeWidth="1.5" />
+              <line x1="60" y1="-4" x2="60" y2="4" stroke="var(--ink)" strokeWidth="1.5" />
+              <text x="30" y="16" textAnchor="middle" fill="var(--ink-soft)" fontSize="9" fontFamily="var(--font-mono)">10 m</text>
+            </g>
+          </svg>
+        </div>
+
+        <div className="flex items-center justify-between gap-2 border-t px-5 py-2.5" style={{ borderColor: "var(--line-strong)" }}>
+          <span className="font-mono text-[10px]" style={{ color: "var(--ink-soft)" }}>
+            Étude de masse — volume constructible extrudé
+          </span>
+          <span className="font-mono text-[10px]" style={{ color: "var(--ink-soft)" }}>
+            Glisser pour faire pivoter
+          </span>
         </div>
       </div>
 
