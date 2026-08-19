@@ -1,0 +1,48 @@
+# PLU IA
+
+> Analyse foncière et urbanisme assistées par IA, à la parcelle : zonage, enveloppe constructible, comparables de marché et bilan promoteur, pour les professionnels de l'immobilier et de la promotion en France.
+
+PLU IA croise le cadastre IGN, les documents d'urbanisme (Géoportail de l'Urbanisme), les transactions immobilières (DVF) et les risques recensés (Géorisques) pour produire une estimation d'aide à la décision sur une parcelle donnée : zonage applicable, enveloppe constructible maximale théorique, comparables de prix au m² et bilan promoteur ajustable (chiffre d'affaires, coûts, marge). Chaque résultat indique sa source. Ce n'est ni un acte d'instruction officiel, ni un certificat d'urbanisme, ni un conseil juridique ou financier — les vérifications en mairie restent indispensables, notamment pour les servitudes d'utilité publique.
+
+Ce site (plu-ia.agentimpact.fr) est la landing marketing. L'outil s'utilise sur app-plu-ia.agentimpact.fr.
+
+## Fonctionnalités
+
+- Recherche par adresse (Base Adresse Nationale), référence cadastrale ou pointage carte
+- Zonage et règlement d'urbanisme (Géoportail de l'Urbanisme, PDF de zone analysé automatiquement)
+- Risques recensés (Géorisques / GASPAR) et aléa retrait-gonflement des argiles
+- Bilan promoteur ajustable : surface de plancher potentielle, chiffre d'affaires, coûts de construction, frais, marge
+- Comparables DVF (mutations dans un rayon de 500 m par défaut)
+- Visualisation 3D du volume constructible
+- Export PDF et lien de partage public activable
+
+## Sources de données
+
+- Base Adresse Nationale
+- Cadastre — API Carto IGN
+- Géoportail de l'Urbanisme (GPU)
+- DVF (Demandes de Valeurs Foncières) — Etalab, Licence Ouverte 2.0
+- Géorisques — GASPAR & aléa argiles — MTE
+- RGE Alti — IGN
+- Zonage fiscal A / B / C — data.gouv
+- OpenStreetMap — © contributeurs OpenStreetMap, licence ODbL
+- Base Carbone — ADEME
+- INSEE
+
+## Tarifs
+
+- Découverte — gratuit, sans carte bancaire : 5 analyses / 30 jours, 1 scan de prospection foncière / mois, 1 territoire en veille
+- Pro — 99 € / mois : 100 analyses / 30 jours, 10 scans de prospection / mois, 5 territoires en veille, support e-mail
+- Entreprise — sur mesure : volume d'analyses, scans et territoires adaptés, accompagnement à la prise en main
+
+Prix nets, TVA non applicable (article 293 B du CGI, franchise en base). Les prix affichés ici sont une copie d'affichage ; la source de vérité tarifaire et les quotas réellement appliqués vivent dans l'outil sur app-plu-ia.agentimpact.fr.
+
+## Périmètre géographique
+
+France métropolitaine et DOM, dans la limite des communes qui publient leur document d'urbanisme sur le Géoportail de l'Urbanisme.
+
+## Docs
+
+- [Site marketing](https://plu-ia.agentimpact.fr): présentation produit, fonctionnalités, tarifs, FAQ
+- [Application](https://app-plu-ia.agentimpact.fr): outil d'analyse de parcelle
+- [Sitemap](https://plu-ia.agentimpact.fr/sitemap.xml)

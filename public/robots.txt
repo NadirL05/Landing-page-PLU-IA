@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Crawlers IA majeurs — autorisés explicitement
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Content Signals — déclaration des préférences IA (contentsignals.org)
+Content-Signal: ai-train=no, search=yes, ai-input=yes
+
+Sitemap: https://plu-ia.agentimpact.fr/sitemap.xml
