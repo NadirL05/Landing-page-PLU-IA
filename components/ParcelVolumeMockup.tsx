@@ -3,11 +3,14 @@
  * pour la direction Luma (fond clair chaud, accents brand + corail).
  * Encadré dans un chrome d'app + une carte de détail flottante pour lire
  * comme une vraie capture produit (profondeur), pas une illustration plate.
+ * Poussé volontairement en centre de page (grand format + ombre marquée) :
+ * ce n'est plus une illustration d'appoint sous le titre, c'est la pièce
+ * maîtresse visuelle du hero.
  */
-export function ParcelVolumeMockup() {
+export function ParcelVolumeMockup({ className = "max-w-xl" }: { className?: string }) {
   return (
-    <div className="relative w-full max-w-xl select-none" aria-hidden="true">
-      <div className="glass-card overflow-hidden rounded-[28px]">
+    <div className={`relative w-full select-none ${className}`} aria-hidden="true">
+      <div className="glass-card overflow-hidden rounded-[28px]" style={{ boxShadow: "0 40px 90px -24px color-mix(in oklch, var(--ink) 38%, transparent), var(--shadow-card)" }}>
         <div className="flex items-center gap-2 border-b px-5 py-3.5" style={{ borderColor: "var(--line)" }}>
           <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--coral)" }} />
           <span className="h-2.5 w-2.5 rounded-full" style={{ background: "var(--brand)", opacity: 0.6 }} />
@@ -16,7 +19,7 @@ export function ParcelVolumeMockup() {
             app-plu-ia.agentimpact.fr/dashboard/AB0142
           </span>
         </div>
-        <div className="p-6" style={{ height: 300 }}>
+        <div className="p-6" style={{ height: 360 }}>
       <svg viewBox="0 0 640 340" className="h-full w-full">
         <g opacity="0.25" stroke="var(--ink-soft)" strokeWidth="0.8" fill="none">
           <polygon points="80,200 160,160 240,200 160,240" />
@@ -67,8 +70,8 @@ export function ParcelVolumeMockup() {
       {/* Carte de détail flottante en surplomb : donne la profondeur d'une
           vraie capture produit plutôt qu'un unique bloc plat. */}
       <div
-        className="glass-card absolute -right-4 -bottom-6 hidden w-56 rounded-2xl p-4 sm:block"
-        style={{ boxShadow: "0 18px 40px -12px color-mix(in oklch, var(--ink) 30%, transparent)" }}
+        className="glass-card absolute -right-6 -bottom-8 hidden w-60 rounded-2xl p-4 sm:block"
+        style={{ boxShadow: "0 22px 48px -12px color-mix(in oklch, var(--ink) 34%, transparent)" }}
       >
         <div className="flex items-center justify-between">
           <span className="text-[10px] font-semibold uppercase tracking-[0.1em]" style={{ color: "var(--ink-soft)" }}>Bilan promoteur</span>
