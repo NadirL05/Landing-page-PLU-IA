@@ -6,6 +6,7 @@ import { ParcelVolumeMockup } from "@/components/ParcelVolumeMockup";
 import { Reveal } from "@/components/Reveal";
 import { BRAND_NAME, APP_URL } from "@/config/brand";
 import { PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
+import softwareApplicationSchema from "@/public/schema/software-application.json";
 
 // Direction "Plan cadastral" : papier froid, encre bleu-cadastre,
 // accent terre-cuite réservé aux annotations/mesures — vocabulaire
@@ -77,7 +78,11 @@ const dataSources = [
 export default function Home() {
   return (
     <div className="min-h-screen">
-      <script type="application/ld+json" src="/schema/software-application.json" async />
+      <script
+        type="application/ld+json"
+        // Static, developer-controlled JSON imported at build time from public/schema — never user input.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }}
+      />
 
       {/* ===== NAV — bandeau rectangulaire, pas de pill flottante ===== */}
       <header className="sticky top-0 z-50 border-b" style={{ background: "color-mix(in oklch, var(--paper) 92%, transparent)", borderColor: "var(--line-strong)", backdropFilter: "blur(8px)" }}>

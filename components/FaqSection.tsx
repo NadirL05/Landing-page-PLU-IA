@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { BRAND_NAME } from "@/config/brand";
+import faqSchema from "@/public/schema/faq.json";
 
 const FAQS = [
   {
@@ -27,7 +28,11 @@ export function FaqSection() {
 
   return (
     <section id="faq" className="border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
-      <script type="application/ld+json" src="/schema/faq.json" async />
+      <script
+        type="application/ld+json"
+        // Static, developer-controlled JSON imported at build time from public/schema — never user input.
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <div className="mx-auto max-w-3xl px-6">
         <div className="kicker mb-4">PL.07 — FAQ</div>
         <h2 className="font-display mb-14 text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
