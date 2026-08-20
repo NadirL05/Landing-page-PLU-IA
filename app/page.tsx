@@ -4,6 +4,7 @@ import { MobileNav } from "@/components/MobileNav";
 import { FaqSection } from "@/components/FaqSection";
 import { ParcelVolumeMockup } from "@/components/ParcelVolumeMockup";
 import { Reveal } from "@/components/Reveal";
+import { TrackedCta } from "@/components/analytics/tracked-cta";
 import { BRAND_NAME, APP_URL } from "@/config/brand";
 import { PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
 import softwareApplicationSchema from "@/public/schema/software-application.json";
@@ -145,14 +146,29 @@ export default function Home() {
               </p>
 
               <div className="mt-9 flex flex-wrap items-center gap-3">
-                <a href={`${APP_URL}/dashboard`} className="btn-brand inline-flex h-13 items-center gap-2 px-7 text-sm font-semibold" style={{ height: 52 }}>
+                <TrackedCta
+                  href={`${APP_URL}/dashboard`}
+                  eventName="start_free_analysis"
+                  eventParams={{ cta_location: "hero" }}
+                  preserveQuery
+                  className="btn-brand inline-flex h-13 items-center gap-2 px-7 text-sm font-semibold"
+                  style={{ height: 52 }}
+                >
                   Lancer une analyse gratuite
                   <IconArrow />
-                </a>
-                <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost inline-flex items-center gap-2 px-6 text-sm font-medium" style={{ height: 52 }}>
+                </TrackedCta>
+                <TrackedCta
+                  href={CALENDLY_URL}
+                  eventName="book_demo"
+                  eventParams={{ cta_location: "hero" }}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-ghost inline-flex items-center gap-2 px-6 text-sm font-medium"
+                  style={{ height: 52 }}
+                >
                   <IconPlay />
                   Voir la démo
-                </a>
+                </TrackedCta>
               </div>
               <span className="mono-label mt-4 inline-block" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · 5 analyses / 30 jours</span>
             </div>
@@ -385,16 +401,26 @@ export default function Home() {
                     </li>
                   </ul>
                   {plan.id === "ENTERPRISE" ? (
-                    <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-ghost mt-7 flex h-11 w-full items-center justify-center text-sm font-medium">
+                    <TrackedCta
+                      href={CALENDLY_URL}
+                      eventName="book_demo"
+                      eventParams={{ cta_location: "pricing", plan: plan.id }}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-ghost mt-7 flex h-11 w-full items-center justify-center text-sm font-medium"
+                    >
                       Nous contacter
-                    </a>
+                    </TrackedCta>
                   ) : (
-                    <a
+                    <TrackedCta
                       href={plan.id === "PRO" ? STRIPE_LINK_PRO : `${APP_URL}/dashboard`}
+                      eventName={plan.id === "PRO" ? "start_checkout" : "start_free_analysis"}
+                      eventParams={{ cta_location: "pricing", plan: plan.id }}
+                      preserveQuery={plan.id !== "PRO"}
                       className={featured ? "btn-brand mt-7 flex h-11 w-full items-center justify-center text-sm font-semibold" : "btn-ghost mt-7 flex h-11 w-full items-center justify-center text-sm font-medium"}
                     >
                       {plan.id === "FREE" ? "Commencer gratuitement" : `Passer au plan ${plan.name}`}
-                    </a>
+                    </TrackedCta>
                   )}
                   </div>
                 </div>
@@ -428,10 +454,17 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col gap-2">
-                <a href={`${APP_URL}/dashboard`} className="btn-brand inline-flex items-center justify-center gap-2 px-6 text-sm font-semibold" style={{ height: 52 }}>
+                <TrackedCta
+                  href={`${APP_URL}/dashboard`}
+                  eventName="start_free_analysis"
+                  eventParams={{ cta_location: "final_cta" }}
+                  preserveQuery
+                  className="btn-brand inline-flex items-center justify-center gap-2 px-6 text-sm font-semibold"
+                  style={{ height: 52 }}
+                >
                   Analyser une parcelle
                   <IconArrow />
-                </a>
+                </TrackedCta>
                 <span className="text-center text-[11px]" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · sans engagement</span>
               </div>
             </div>
