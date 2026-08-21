@@ -17,7 +17,8 @@ import softwareApplicationSchema from "@/public/schema/software-application.json
 // inchangé depuis sas-plu-3d/app/page.tsx (source de vérité produit)
 // — seule la peau visuelle change.
 
-const STRIPE_LINK_PRO = "https://buy.stripe.com/test_dRm8wQ4pg0H55gXfZN48000";
+// Stripe Payment Link mode LIVE — compte "Agentimpact-Plu-IA", basculé le 21/08/2026.
+const STRIPE_LINK_PRO = "https://buy.stripe.com/aFa14o4ob6cc56r8Id83C00";
 const CALENDLY_URL = "https://calendly.com/nadir-lahyani-agentimpact/30min";
 
 const DISCLAIMER_SHORT =
