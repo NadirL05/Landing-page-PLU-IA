@@ -18,7 +18,6 @@ import softwareApplicationSchema from "@/public/schema/software-application.json
 // — seule la peau visuelle change.
 
 // Stripe Payment Link mode LIVE — compte "Agentimpact-Plu-IA", basculé le 21/08/2026.
-const STRIPE_LINK_PRO = "https://buy.stripe.com/aFa14o4ob6cc56r8Id83C00";
 const CALENDLY_URL = "https://calendly.com/nadir-lahyani-agentimpact/30min";
 
 const DISCLAIMER_SHORT =
@@ -413,11 +412,17 @@ export default function Home() {
                       Nous contacter
                     </TrackedCta>
                   ) : (
+                    // Le plan Pro route vers l'inscription, pas vers le Payment
+                    // Link Stripe direct : /api/stripe/checkout exige une session
+                    // authentifiée pour poser le customer.metadata.userId que le
+                    // webhook utilise ensuite. Un paiement via lien statique ne
+                    // serait jamais rattaché à un compte. Le paiement se fait
+                    // depuis le dashboard une fois connecté.
                     <TrackedCta
-                      href={plan.id === "PRO" ? STRIPE_LINK_PRO : `${APP_URL}/dashboard`}
+                      href={`${APP_URL}/dashboard${plan.id === "PRO" ? "?plan=pro" : ""}`}
                       eventName={plan.id === "PRO" ? "start_checkout" : "start_free_analysis"}
                       eventParams={{ cta_location: "pricing", plan: plan.id }}
-                      preserveQuery={plan.id !== "PRO"}
+                      preserveQuery
                       className={featured ? "btn-brand mt-7 flex h-11 w-full items-center justify-center text-sm font-semibold" : "btn-ghost mt-7 flex h-11 w-full items-center justify-center text-sm font-medium"}
                     >
                       {plan.id === "FREE" ? "Commencer gratuitement" : `Passer au plan ${plan.name}`}
