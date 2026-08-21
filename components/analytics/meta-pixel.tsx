@@ -7,6 +7,17 @@ import Script from "next/script";
  * (start_free_analysis, start_checkout…) sont relayés par trackEvent()
  * dans lib/analytics.ts, qui pousse déjà vers gtag — fbq est ajouté au
  * même endroit pour ne pas dupliquer l'instrumentation sur chaque CTA.
+ *
+ * data-cmp-ab="1" : exclut ce script du "automatic blocking" de
+ * consentmanager.net (leur doc : "add data-cmp-ab=1 to the script to
+ * prevent it from being blocked" — même pattern que pour un tag GTM).
+ * Sans ça, leur bloqueur DOM continue d'intercepter et de tuer le
+ * <script src="connect.facebook.net/.../fbevents.js"> créé dynamiquement
+ * par le snippet ci-dessous, MÊME après consentement — confirmé en prod le
+ * 21/08 (fbq.callMethod restait undefined indéfiniment malgré ConsentGate
+ * qui autorisait correctement le montage). On gère déjà nous-mêmes le
+ * consentement via ConsentGate (Google Consent Mode v2 / dataLayer), donc
+ * leur double-blocage est redondant et cassé ici — pas nécessaire.
  */
 export function MetaPixel() {
   // .trim() : voir google-tag.tsx — un env var Vercel collé avec un
@@ -16,7 +27,7 @@ export function MetaPixel() {
 
   return (
     <>
-      <Script id="meta-pixel-init" strategy="afterInteractive">
+      <Script id="meta-pixel-init" strategy="afterInteractive" data-cmp-ab="1">
         {`
           !function(f,b,e,v,n,t,s)
           {if(f.fbq)return;n=f.fbq=function(){n.callMethod?

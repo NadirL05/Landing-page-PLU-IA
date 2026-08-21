@@ -26,11 +26,18 @@ export function GoogleTag() {
 
   return (
     <>
+      {/* data-cmp-ab="1" : exclut ce script du "automatic blocking"
+          consentmanager.net — voir meta-pixel.tsx pour le détail du bug
+          rencontré (leur bloqueur DOM tue le script même après
+          consentement, car leur doc exige d'être le tout premier <script>
+          du document, impossible sous Next.js App Router). On gate déjà
+          nous-mêmes via ConsentGate, ce double-blocage est redondant. */}
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${primary}`}
         strategy="afterInteractive"
+        data-cmp-ab="1"
       />
-      <Script id="gtag-init" strategy="afterInteractive">
+      <Script id="gtag-init" strategy="afterInteractive" data-cmp-ab="1">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
