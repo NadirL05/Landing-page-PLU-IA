@@ -11,6 +11,9 @@ Landing marketing seule pour PLU IA. Next.js App Router, TypeScript, Tailwind v4
 
 ## Ce qui n'est pas encore fait
 
-- Attache du domaine `plu-ia.agentimpact.fr` sur ce projet Vercel (actuellement encore sur le projet outil).
-- Retrait du domaine `plu-ia.agentimpact.fr` du projet `sas-plu-3d` une fois `app-plu-ia.agentimpact.fr` confirmé fonctionnel (Stripe/Clerk mis à jour).
-- Passage SEO/GEO groupé (`claude-seo:*`).
+- Confirmer via check headless (Playwright, pas WebFetch) que les routes authentifiées de `app-plu-ia.agentimpact.fr` (Clerk) sont bien en `noindex` et ne dupliquent pas les metadata de cette landing.
+
+## Fait
+
+- Domaine `plu-ia.agentimpact.fr` attaché à ce projet Vercel — confirmé (sitemap.xml live sert bien cette landing, plus l'outil).
+- Audit SEO/GEO technique passé le 21/08/2026 : OG/Twitter image ajoutée (`app/opengraph-image.tsx`), `lastModified` posé sur le sitemap. Aucun blocage CRITICAL trouvé.
