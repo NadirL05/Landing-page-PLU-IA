@@ -54,14 +54,29 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
          * indépendamment du positionnement de ce script, qui sert
          * seulement à charger la bannière et exposer l'API TCF.
          */}
+        {/* Switched 21/08 from /delivery/autoblocking/... to
+         * /delivery/js/semiautomatic.min.js. Root cause found live via
+         * DOM inspection: the autoblocking loader's DOM interceptor
+         * caught the dynamically-created <script> that Meta Pixel's own
+         * snippet inserts (document.createElement inside the IIFE) —
+         * marked it class="cmplazyload" with data-cmp-src pointing at
+         * fbevents.js, and NEVER released it, even after consent was
+         * fully granted (cmp_s1/cmp_purpose_c5x all "granted" in
+         * dataLayer). Confirmed not a propagation delay: same dead
+         * dataLayer payload across 4 dashboard fix attempts over hours.
+         * Semi-automatic mode just shows the banner + exposes __tcfapi,
+         * no DOM script interception — we already gate GoogleTag/
+         * MetaPixel ourselves via ConsentGate, so we don't need or want
+         * their blocker anyway. codesrc=0 (was 16) matches this mode. */}
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script
           type="text/javascript"
           data-cmp-ab="1"
-          src="https://cdn.consentmanager.net/delivery/autoblocking/a9d3fcbcd2398.js"
+          src="https://cdn.consentmanager.net/delivery/js/semiautomatic.min.js"
+          data-cmp-cdid="a9d3fcbcd2398"
           data-cmp-host="a.delivery.consentmanager.net"
           data-cmp-cdn="cdn.consentmanager.net"
-          data-cmp-codesrc="16"
+          data-cmp-codesrc="0"
         />
       </head>
       <body>
