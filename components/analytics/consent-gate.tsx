@@ -37,8 +37,13 @@ function readConsentState(category: ConsentCategory): boolean {
   if (typeof window === "undefined" || !Array.isArray(window.dataLayer)) return false;
 
   for (let i = window.dataLayer.length - 1; i >= 0; i--) {
-    const entry = window.dataLayer[i];
-    if (!Array.isArray(entry) || entry[0] !== "consent") continue;
+    // Pas de Array.isArray() ici : le stub gtag() du CMP fait
+    // `dataLayer.push(arguments)` — un objet `arguments`, array-like
+    // mais PAS un vrai Array (Array.isArray dessus renvoie false). Un
+    // accès [0]/[2] direct fonctionne aussi bien sur un `arguments` que
+    // sur un tableau, donc on duck-type au lieu de vérifier le type exact.
+    const entry = window.dataLayer[i] as Record<number, unknown> | unknown[] | null | undefined;
+    if (entry == null || entry[0] !== "consent") continue;
     const payload = entry[2] as Record<string, string> | undefined;
     if (!payload) continue;
 
