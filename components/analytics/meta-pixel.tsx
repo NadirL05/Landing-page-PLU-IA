@@ -9,7 +9,9 @@ import Script from "next/script";
  * même endroit pour ne pas dupliquer l'instrumentation sur chaque CTA.
  */
 export function MetaPixel() {
-  const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+  // .trim() : voir google-tag.tsx — un env var Vercel collé avec un
+  // retour à la ligne casse la string JS inline en dur, silencieusement.
+  const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim();
   if (!pixelId) return null;
 
   return (
