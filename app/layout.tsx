@@ -68,8 +68,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
          * no DOM script interception — we already gate GoogleTag/
          * MetaPixel ourselves via ConsentGate, so we don't need or want
          * their blocker anyway. codesrc=0 (was 16) matches this mode. */}
-        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        {/*
+         * cmp_setlang="FR" : force le français côté bannière au lieu de
+         * suivre la langue du navigateur (fallback EN sinon — paramètre
+         * officiel `cmp_setlang`, doc consentmanager.net "client-side
+         * configuration options"). Contenu statique, pas d'input externe.
+         * `async` : audit SEO 2026-08-21, le script synchrone faisait de la
+         * bannière elle-même l'élément LCP (render-blocking). Mode
+         * semi-automatique (pas d'interception DOM, cf. plus haut) : async
+         * n'affecte pas le fix Meta Pixel du 21/08.
+         */}
+        <script>{'window.cmp_setlang="FR";'}</script>
         <script
+          async
           type="text/javascript"
           data-cmp-ab="1"
           src="https://cdn.consentmanager.net/delivery/js/semiautomatic.min.js"
