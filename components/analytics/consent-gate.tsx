@@ -4,56 +4,89 @@ import { useEffect, useState, type ReactNode } from "react";
 
 declare global {
   interface Window {
-    __tcfapi?: (
-      command: string,
-      version: number,
-      callback: (tcData: TcData, success: boolean) => void
-    ) => void;
+    dataLayer?: unknown[];
+    __cmp?: (command: string, params?: unknown, callback?: unknown) => void;
   }
 }
 
-interface TcData {
-  eventStatus?: string;
-  purpose?: { consent?: Record<string, boolean> };
-}
+type ConsentCategory = "analytics" | "marketing";
 
 /**
- * Bloque le rendu de ses enfants (GoogleTag, MetaPixel) tant que le
- * visiteur n'a pas donné son consentement via consentmanager.net (TCF v2).
- * Écoute l'API standard __tcfapi plutôt que l'API propriétaire de
- * consentmanager (getCMPData) — leur doc ne documente pas la forme exacte
- * du payload propriétaire, alors que TCF v2 est un standard IAB stable.
+ * Signal réel disponible côté consentmanager.net sur ce compte : pas
+ * l'API IAB TCF v2 standard (`window.__tcfapi` n'existe pas ici — vérifié
+ * le 21/08, seul `window.__cmp`, l'API propriétaire, est exposée), mais
+ * Google Consent Mode v2, que leur script d'automatic blocking pousse
+ * lui-même dans `dataLayer` sous forme d'entrées `{0:'consent',
+ * 1:'default'|'update', 2:{analytics_storage, ad_storage, ...}}`.
+ * On lit ces entrées plutôt que de réinventer un parsing de l'API
+ * `__cmp` propriétaire (non documentée dans le détail par
+ * consentmanager.net) — Consent Mode v2 est un standard Google stable et
+ * déjà correctement alimenté par ce CMP.
  *
- * Purpose 1 = "Store and/or access information on a device" — le socle
- * minimal requis pour poser un cookie/tracker analytics ou publicitaire,
- * quel que soit le fournisseur (Google, Meta). Si le dashboard
- * consentmanager.net de ce compte a des purposes plus fins pour
- * Analytics vs Marketing et qu'un gating séparé est voulu, vérifier les ID
- * de purpose exacts dans le dashboard (Vendors & Purposes) et affiner ici.
+ * analytics_storage → gate GoogleTag (GA4).
+ * ad_storage + ad_user_data → gate MetaPixel (le pixel Meta n'est pas un
+ * produit Google, mais ce sont les champs Consent Mode les plus proches
+ * d'un consentement "publicité/marketing" disponibles dans ce dataLayer —
+ * à réaligner sur les purpose ID exacts du dashboard consentmanager.net
+ * si un gating plus fin par vendeur est nécessaire).
+ *
+ * Fail closed : tant qu'aucune entrée consent n'a été vue, la catégorie
+ * reste non consentie (rien ne se charge).
  */
-export function ConsentGate({ children }: { children: ReactNode }) {
-  const [consented, setConsented] = useState(false);
+function readConsentState(category: ConsentCategory): boolean {
+  if (typeof window === "undefined" || !Array.isArray(window.dataLayer)) return false;
+
+  for (let i = window.dataLayer.length - 1; i >= 0; i--) {
+    const entry = window.dataLayer[i];
+    if (!Array.isArray(entry) || entry[0] !== "consent") continue;
+    const payload = entry[2] as Record<string, string> | undefined;
+    if (!payload) continue;
+
+    if (category === "analytics") {
+      return payload.analytics_storage === "granted";
+    }
+    return payload.ad_storage === "granted" && payload.ad_user_data === "granted";
+  }
+
+  return false;
+}
+
+function useConsent(category: ConsentCategory): boolean {
+  // Lazy initializer plutôt qu'un setState dans l'effet ci-dessous : l'état
+  // initial (avant tout événement CMP) est lu directement au montage.
+  const [granted, setGranted] = useState(() => readConsentState(category));
 
   useEffect(() => {
-    if (typeof window.__tcfapi !== "function") return undefined;
+    // dataLayer.push n'émet aucun événement DOM natif — on l'intercepte
+    // pour réévaluer le consentement à chaque nouvelle entrée poussée
+    // par le CMP (accept/refuse dans la bannière, changement ultérieur).
+    const dataLayer = (window.dataLayer = window.dataLayer || []);
+    const originalPush = dataLayer.push.bind(dataLayer);
 
-    function handleTcData(tcData: TcData, success: boolean) {
-      if (!success) return;
-      if (tcData.eventStatus !== "tcloaded" && tcData.eventStatus !== "useractioncomplete") return;
-      const purpose1 = tcData.purpose?.consent?.["1"];
-      if (purpose1) setConsented(true);
+    dataLayer.push = (...args: unknown[]) => {
+      const result = originalPush(...args);
+      setGranted(readConsentState(category));
+      return result;
+    };
+
+    // Filet de sécurité : l'API __cmp propriétaire notifie aussi les
+    // changements de consentement via son propre système d'événements —
+    // rebranché ici pour ne pas dépendre uniquement du monkey-patch
+    // dataLayer.push si le CMP pousse un jour son signal autrement.
+    if (typeof window.__cmp === "function") {
+      window.__cmp("addEventListener", ["consent", () => setGranted(readConsentState(category)), false], null);
     }
 
-    window.__tcfapi("addEventListener", 2, handleTcData);
-
     return () => {
-      // __tcfapi n'expose pas removeEventListener avec la même signature
-      // simple que addEventListener côté consentmanager — pas de cleanup
-      // fiable documenté ; sans risque ici (composant monté une seule
-      // fois, pour toute la durée de vie de la page).
+      dataLayer.push = originalPush;
     };
-  }, []);
+  }, [category]);
 
-  if (!consented) return null;
+  return granted;
+}
+
+export function ConsentGate({ category, children }: { category: ConsentCategory; children: ReactNode }) {
+  const granted = useConsent(category);
+  if (!granted) return null;
   return <>{children}</>;
 }

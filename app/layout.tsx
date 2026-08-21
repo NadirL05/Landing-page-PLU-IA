@@ -72,12 +72,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <style>{`.reveal, .reveal-scale { opacity: 1 !important; transform: none !important; }`}</style>
         </noscript>
         {/*
-         * GoogleTag/MetaPixel ne se montent qu'après consentement (purpose 1
-         * TCF v2 — storage/accès device) via ConsentGate. Avant ce
-         * consentement, aucun des deux trackers n'est injecté dans le DOM.
+         * GoogleTag/MetaPixel ne se montent qu'après consentement (Google
+         * Consent Mode v2, lu depuis dataLayer — voir consent-gate.tsx).
+         * Catégories distinctes : GA4 = analytics, Meta Pixel = marketing.
          */}
-        <ConsentGate>
+        <ConsentGate category="analytics">
           <GoogleTag />
+        </ConsentGate>
+        <ConsentGate category="marketing">
           <MetaPixel />
         </ConsentGate>
         {children}
