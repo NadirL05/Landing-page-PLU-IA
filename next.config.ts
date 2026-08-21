@@ -18,11 +18,11 @@ import type { NextConfig } from "next";
 //   configuré, ce trou n'avait encore jamais été exercé en prod).
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://cdn.consentmanager.net https://*.delivery.consentmanager.net",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data: https://www.facebook.com",
+  "img-src 'self' data: https://www.facebook.com https://cdn.consentmanager.net",
   "font-src 'self'",
-  "connect-src 'self' https://www.google-analytics.com https://www.facebook.com",
+  "connect-src 'self' https://www.google-analytics.com https://www.facebook.com https://cdn.consentmanager.net https://*.delivery.consentmanager.net https://consentmanager.mgr.consensu.org",
   "worker-src 'self' blob:",
   "frame-src 'none'",
   "object-src 'none'",

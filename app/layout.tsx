@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Instrument_Sans, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
+import { ConsentGate } from "@/components/analytics/consent-gate";
 import { GoogleTag } from "@/components/analytics/google-tag";
 import { MetaPixel } from "@/components/analytics/meta-pixel";
 import "./globals.css";
@@ -39,6 +40,30 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="fr" className={`${instrument.variable} ${jakarta.variable} ${spaceMono.variable}`}>
+      <head>
+        {/*
+         * consentmanager.net (CMP) : leur doc exige que ce script soit le
+         * tout premier <script> du document pour que leur mode "automatic
+         * blocking" puisse intercepter les scripts tiers chargés ensuite.
+         * Vérifié le 21/08 : dans Next.js App Router, les chunks runtime
+         * de Next (React, hydration) se placent AVANT tout <head> JSX
+         * écrit à la main, quel que soit l'ordre source — ce prérequis
+         * n'est donc pas atteignable ici. Sans conséquence : on ne compte
+         * pas sur leur "automatic blocking" pour bloquer GoogleTag/
+         * MetaPixel — ConsentGate (TCF v2, __tcfapi) fait ce travail
+         * indépendamment du positionnement de ce script, qui sert
+         * seulement à charger la bannière et exposer l'API TCF.
+         */}
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script
+          type="text/javascript"
+          data-cmp-ab="1"
+          src="https://cdn.consentmanager.net/delivery/autoblocking/a9d3fcbcd2398.js"
+          data-cmp-host="a.delivery.consentmanager.net"
+          data-cmp-cdn="cdn.consentmanager.net"
+          data-cmp-codesrc="16"
+        />
+      </head>
       <body>
         {/* Sans JS, la choréographie de scroll (composants Reveal) ne
             s'active jamais : on force le contenu visible pour ne pas le
@@ -46,8 +71,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <noscript>
           <style>{`.reveal, .reveal-scale { opacity: 1 !important; transform: none !important; }`}</style>
         </noscript>
-        <GoogleTag />
-        <MetaPixel />
+        {/*
+         * GoogleTag/MetaPixel ne se montent qu'après consentement (purpose 1
+         * TCF v2 — storage/accès device) via ConsentGate. Avant ce
+         * consentement, aucun des deux trackers n'est injecté dans le DOM.
+         */}
+        <ConsentGate>
+          <GoogleTag />
+          <MetaPixel />
+        </ConsentGate>
         {children}
       </body>
     </html>
