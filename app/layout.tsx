@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Instrument_Sans, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
 import { GoogleTag } from "@/components/analytics/google-tag";
+import { MetaPixel } from "@/components/analytics/meta-pixel";
 import "./globals.css";
 
 const instrument = Instrument_Sans({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-instrument" });
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <style>{`.reveal, .reveal-scale { opacity: 1 !important; transform: none !important; }`}</style>
         </noscript>
         <GoogleTag />
+        <MetaPixel />
         {children}
       </body>
     </html>

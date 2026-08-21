@@ -10,16 +10,19 @@ import type { NextConfig } from "next";
 //   précaution pour R3F/three.js (inerte si inutilisé).
 // - style-src 'unsafe-inline': next/font injecte du CSS inline, + <style> inline
 //   dans app/layout.tsx (fallback noscript).
-// - connect-src/img-src 'self' uniquement : aucun fetch/XHR, iframe ou image
-//   distante dans ce repo — Stripe/Calendly sont de simples liens <a> (navigation,
-//   pas de requête interceptée par CSP), donc pas besoin de les allowlister.
+// - connect-src/img-src 'self' + analytics uniquement : Stripe/Calendly sont de
+//   simples liens <a> (navigation, pas de requête interceptée par CSP), donc
+//   pas besoin de les allowlister. GoogleTag et MetaPixel chargent un script
+//   externe (gtag.js / fbevents.js) — sans ces domaines en script-src, la CSP
+//   les bloquait silencieusement (GoogleTag n'ayant encore jamais eu d'ID
+//   configuré, ce trou n'avait encore jamais été exercé en prod).
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net",
   "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' data:",
+  "img-src 'self' data: https://www.facebook.com",
   "font-src 'self'",
-  "connect-src 'self'",
+  "connect-src 'self' https://www.google-analytics.com https://www.facebook.com",
   "worker-src 'self' blob:",
   "frame-src 'none'",
   "object-src 'none'",
