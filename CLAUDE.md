@@ -13,6 +13,24 @@ Landing marketing seule pour PLU IA. Next.js App Router, TypeScript, Tailwind v4
 
 Le 21/08, `NEXT_PUBLIC_GA_MEASUREMENT_ID` avait été posé sur Vercel avec un `\n` de fin embarqué dans la valeur (probablement collé avec un Entrée en trop). Ce `\n` atterrissait tel quel dans le literal `gtag('config', '...')` du composant `GoogleTag` — un retour à la ligne brut dans une string JS entre quotes simples est un `SyntaxError`, qui cassait le `<Script>` à *chaque* chargement, en prod uniquement (jamais repro en local car la variable n'y était simplement pas définie). Aucune violation CSP, gtag.js se chargeait bien (200) — seul `window.gtag` restant `undefined` malgré un `dataLayer` peuplé trahissait le problème. Corrigé par un `.trim()` défensif dans `components/analytics/google-tag.tsx` et `meta-pixel.tsx`, plus la valeur re-posée proprement. (Une piste "Turbopack casse le chunk R3F" a été explorée et écartée — fausse piste, cf. historique de commits du 21/08.)
 
+## BLOQUANT dashboard consentmanager.net (21/08) — pas un bug de code
+
+Testé en prod le 21/08 avec la vraie bannière (clic "Tout accepter", cookies CMP purgés avant test) :
+
+- **Meta Pixel ne part jamais**, même consentement marketing accordé. `ConsentGate` fonctionne bien
+  (`meta-pixel-init` monté, `fbq.loaded=true`), mais `fbq.callMethod` reste `undefined` et zéro requête
+  réseau vers `connect.facebook.net`/`facebook.com/tr` — le CMP bloque lui-même ce domaine via son
+  "automatic blocking" (confirmé par son propre log `alertdomain/...d_connect_facebook_net.gif`),
+  indépendamment de notre gate. À corriger dans le dashboard consentmanager.net : autoriser/mapper le
+  vendor Facebook Pixel sur la purpose Marketing.
+- **GA4 ne partira jamais non plus** : `analytics_storage` reste `denied` même après clic "Tout accepter"
+  (toggle "Mesure" activé). Le toggle "Mesure" du dashboard n'est pas câblé pour pousser
+  `analytics_storage: granted` dans Consent Mode v2. À corriger côté dashboard consentmanager.net, pas côté code.
+
+Le code (`consent-gate.tsx`, `google-tag.tsx`, `meta-pixel.tsx`) est vérifié correct de bout en bout — la
+gate s'ouvre/ferme comme prévu selon le dataLayer. Rien à modifier ici tant que le dashboard consentmanager.net
+n'a pas ces deux mappings corrigés.
+
 ## Ce qui n'est pas encore fait
 
 - Confirmer via check headless (Playwright, pas WebFetch) que les routes authentifiées de `app-plu-ia.agentimpact.fr` (Clerk) sont bien en `noindex` et ne dupliquent pas les metadata de cette landing.
