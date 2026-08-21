@@ -1,3 +1,5 @@
+License: https://plu-ia.agentimpact.fr/rsl.xml
+
 User-agent: *
 Allow: /
 # Content Signals — déclaration des préférences IA (contentsignals.org)

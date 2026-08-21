@@ -1,0 +1,25 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://plu-ia.agentimpact.fr/#organization",
+  "name": "PLU IA",
+  "url": "https://plu-ia.agentimpact.fr",
+  "logo": "https://plu-ia.agentimpact.fr/icon-512.png",
+  "description": "PLU IA croise cadastre IGN, documents d'urbanisme (GPU), transactions DVF et risques Géorisques pour produire une estimation d'aide à la décision : zonage, enveloppe constructible, comparables et bilan promoteur.",
+  "areaServed": "FR",
+  "inLanguage": "fr",
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "AgentImpact",
+    "url": "https://agentimpact.fr"
+  },
+  "founder": {
+    "@type": "Person",
+    "name": "Nadir Lahyani",
+    "sameAs": "https://www.linkedin.com/in/nadir-lahyani"
+  },
+  "sameAs": [
+    "https://agentimpact.fr",
+    "https://www.linkedin.com/in/nadir-lahyani"
+  ]
+}

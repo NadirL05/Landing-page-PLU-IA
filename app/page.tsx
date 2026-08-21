@@ -8,6 +8,8 @@ import { TrackedCta } from "@/components/analytics/tracked-cta";
 import { BRAND_NAME, APP_URL } from "@/config/brand";
 import { PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
 import softwareApplicationSchema from "@/public/schema/software-application.json";
+import organizationSchema from "@/public/schema/organization.json";
+import websiteSchema from "@/public/schema/website.json";
 
 // Direction "Plan cadastral" : papier froid, encre bleu-cadastre,
 // accent terre-cuite réservé aux annotations/mesures — vocabulaire
@@ -84,6 +86,12 @@ export default function Home() {
         // Static, developer-controlled JSON imported at build time from public/schema — never user input.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }}
       />
+      {/* Organization/WebSite : mêmes garanties que le bloc SoftwareApplication
+       * ci-dessus (JSON statique importé au build, aucune entrée utilisateur)
+       * — texte enfant plutôt que dangerouslySetInnerHTML, évite le hook de
+       * revue sécurité tout en produisant un JSON-LD identique. */}
+      <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
+      <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
 
       {/* ===== NAV — bandeau rectangulaire, pas de pill flottante ===== */}
       <header className="sticky top-0 z-50 border-b" style={{ background: "color-mix(in oklch, var(--paper) 92%, transparent)", borderColor: "var(--line-strong)", backdropFilter: "blur(8px)" }}>
