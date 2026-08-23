@@ -39,7 +39,7 @@ export const PLAN_LIST: readonly Plan[] = [
     name: "Découverte",
     tagline: "Tester l'outil sur vos premiers terrains.",
     priceLabel: "Gratuit",
-    quotaLabel: "5 analyses / 30 jours",
+    quotaLabel: "2 analyses / 30 jours",
     retentionLabel: "Conservation de vos analyses sans limite de durée",
     features: [
       ...CORE_FEATURES,

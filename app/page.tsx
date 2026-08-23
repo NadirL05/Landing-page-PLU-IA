@@ -178,7 +178,7 @@ export default function Home() {
                   Voir la démo
                 </TrackedCta>
               </div>
-              <span className="mono-label mt-4 inline-block" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · 5 analyses / 30 jours</span>
+              <span className="mono-label mt-4 inline-block" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · 2 analyses / 30 jours</span>
             </div>
 
             <div className="relative lg:col-span-5">
@@ -420,14 +420,13 @@ export default function Home() {
                       Nous contacter
                     </TrackedCta>
                   ) : (
-                    // Le plan Pro route vers l'inscription, pas vers le Payment
-                    // Link Stripe direct : /api/stripe/checkout exige une session
-                    // authentifiée pour poser le customer.metadata.userId que le
-                    // webhook utilise ensuite. Un paiement via lien statique ne
-                    // serait jamais rattaché à un compte. Le paiement se fait
-                    // depuis le dashboard une fois connecté.
+                    // Pro = payer d'abord : /checkout/pro crée une session
+                    // Stripe Checkout invité (aucune session requise) et
+                    // renvoie vers /welcome après paiement, où le compte est
+                    // créé puis rattaché à l'abonnement. Free reste routé
+                    // vers l'inscription directe (pas de paiement à faire).
                     <TrackedCta
-                      href={`${APP_URL}/dashboard${plan.id === "PRO" ? "?plan=pro" : ""}`}
+                      href={plan.id === "PRO" ? `${APP_URL}/checkout/pro` : `${APP_URL}/dashboard`}
                       eventName={plan.id === "PRO" ? "start_checkout" : "start_free_analysis"}
                       eventParams={{ cta_location: "pricing", plan: plan.id }}
                       preserveQuery
@@ -464,7 +463,7 @@ export default function Home() {
                   Testez sur une parcelle<br />que vous connaissez déjà.
                 </h2>
                 <p className="mt-4 max-w-xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-                  Le plan Découverte inclut 5 analyses / 30 jours, sans carte bancaire. Le meilleur moyen de juger la qualité d&apos;une analyse est de la confronter à un terrain dont vous connaissez l&apos;issue.
+                  Le plan Découverte inclut 2 analyses / 30 jours, sans carte bancaire. Le meilleur moyen de juger la qualité d&apos;une analyse est de la confronter à un terrain dont vous connaissez l&apos;issue.
                 </p>
               </div>
               <div className="flex flex-col gap-2">
