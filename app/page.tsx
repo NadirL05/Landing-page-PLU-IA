@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { HeaderAuthActions } from "@/components/HeaderAuthActions";
 import { MobileNav } from "@/components/MobileNav";
 import { FaqSection } from "@/components/FaqSection";
 import { ParcelVolumeMockup } from "@/components/ParcelVolumeMockup";
@@ -116,7 +115,6 @@ export default function Home() {
             </nav>
           </div>
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <HeaderAuthActions />
             <MobileNav />
           </div>
         </div>

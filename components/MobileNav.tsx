@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { APP_URL } from "@/config/brand";
 
 const NAV_LINKS = [
   { label: "Produit", href: "#produit" },
@@ -44,14 +43,6 @@ export function MobileNav() {
               </a>
             ))}
           </nav>
-          <div className="mt-3 flex flex-col gap-2 border-t pt-3" style={{ borderColor: "var(--line)" }}>
-            <a href={`${APP_URL}/sign-in`} className="px-2 py-2.5 text-left text-[14px]" style={{ color: "var(--ink-soft)" }}>
-              Se connecter
-            </a>
-            <a href={`${APP_URL}/dashboard`} className="btn-brand inline-flex h-10 items-center justify-center px-4 text-[14px] font-medium">
-              Essayer gratuitement
-            </a>
-          </div>
         </div>
       ) : null}
     </div>
