@@ -80,17 +80,29 @@ const dataSources = [
 export default function Home() {
   return (
     <div className="min-h-screen">
+      {/* Audit SEO/GEO 24/08 : les 3 blocs utilisaient deux mécanismes
+       * d'injection différents — dangerouslySetInnerHTML pour l'un,
+       * texte-enfant JSX pour les deux autres. React échappe le texte-enfant
+       * (& → &amp;) au rendu SSR, mais un <script> parse son contenu en mode
+       * "raw text" : les entités HTML n'y sont PAS décodées par le
+       * navigateur. Un futur "&" dans organization.json/website.json (ex.
+       * "Cadastre & GASPAR") serait donc rendu littéralement en "&amp;" dans
+       * le JSON exécuté, corrompant sa valeur. Uniformisé sur
+       * dangerouslySetInnerHTML pour les 3 — data provient toujours de
+       * fichiers JSON statiques contrôlés par l'équipe, jamais d'une entrée
+       * utilisateur (même garantie documentée dans components/json-ld.tsx). */}
       <script
         type="application/ld+json"
-        // Static, developer-controlled JSON imported at build time from public/schema — never user input.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }}
       />
-      {/* Organization/WebSite : mêmes garanties que le bloc SoftwareApplication
-       * ci-dessus (JSON statique importé au build, aucune entrée utilisateur)
-       * — texte enfant plutôt que dangerouslySetInnerHTML, évite le hook de
-       * revue sécurité tout en produisant un JSON-LD identique. */}
-      <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
-      <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
 
       {/* ===== NAV — bandeau rectangulaire, pas de pill flottante ===== */}
       <header className="sticky top-0 z-50 border-b" style={{ background: "color-mix(in oklch, var(--paper) 92%, transparent)", borderColor: "var(--line-strong)", backdropFilter: "blur(8px)" }}>

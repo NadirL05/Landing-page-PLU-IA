@@ -1,21 +1,14 @@
 License: https://plu-ia.agentimpact.fr/rsl.xml
 
+# Audit SEO/GEO 24/08 : Content-Signal est un directive PAR GROUPE — un
+# crawler ne lit que son propre groupe (ou retombe sur `*` s'il n'en a pas).
+# Les groupes nommés ci-dessous (GPTBot, ClaudeBot, etc.) ne portaient pas
+# la ligne Content-Signal : elle était invisible aux bots qu'elle est censée
+# gouverner. Comme tous les groupes nommés se limitaient de toute façon à
+# `Allow: /` (identique à `*`), ils sont retirés — un seul groupe `*` avec
+# la directive complète couvre tout, sans ambiguïté de scope.
 User-agent: *
 Allow: /
-# Content Signals — déclaration des préférences IA (contentsignals.org)
 Content-Signal: ai-train=no, search=yes, ai-input=yes
-
-# Crawlers IA majeurs — autorisés explicitement
-User-agent: GPTBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
 
 Sitemap: https://plu-ia.agentimpact.fr/sitemap.xml

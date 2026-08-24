@@ -42,22 +42,30 @@ export function FaqSection() {
         <div className="spec-card overflow-hidden">
           {FAQS.map((faq, i) => (
             <div key={faq.q} className={i < FAQS.length - 1 ? "border-b" : ""} style={{ borderColor: "var(--line)" }}>
-              <button
-                type="button"
-                onClick={() => setOpen(open === i ? null : i)}
-                aria-expanded={open === i}
-                aria-controls={`faq-panel-${i}`}
-                id={`faq-question-${i}`}
-                className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:opacity-80"
-              >
-                <span className="font-display text-[15px] font-medium" style={{ color: "var(--ink)" }}>{faq.q}</span>
-                <span
-                  className="font-mono shrink-0 text-lg transition-transform"
-                  style={{ color: "var(--terracotta)", transform: open === i ? "rotate(45deg)" : "none" }}
+              {/* Audit SEO/GEO 24/08 : la question n'était portée par aucun
+                  heading (juste un span dans un button) — invisible pour les
+                  extracteurs GEO (trafilatura et similaires), alors que le
+                  FAQPage JSON-LD associé s'appuie sur ces mêmes questions. h3
+                  enveloppe le button (pas l'inverse — button n'accepte que du
+                  contenu de type phrasing, un h3 imbriqué serait invalide). */}
+              <h3 className="m-0">
+                <button
+                  type="button"
+                  onClick={() => setOpen(open === i ? null : i)}
+                  aria-expanded={open === i}
+                  aria-controls={`faq-panel-${i}`}
+                  id={`faq-question-${i}`}
+                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:opacity-80"
                 >
-                  +
-                </span>
-              </button>
+                  <span className="font-display text-[15px] font-medium" style={{ color: "var(--ink)" }}>{faq.q}</span>
+                  <span
+                    className="font-mono shrink-0 text-lg transition-transform"
+                    style={{ color: "var(--terracotta)", transform: open === i ? "rotate(45deg)" : "none" }}
+                  >
+                    +
+                  </span>
+                </button>
+              </h3>
               {/* Audit sécu/a11y 24/08 : id/aria-controls/aria-labelledby lient
                   bouton et panneau (WCAG 4.1.2/1.3.1) ; aria-hidden retire le
                   panneau fermé de l'arbre d'accessibilité. maxHeight remonté de
