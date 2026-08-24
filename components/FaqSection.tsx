@@ -45,6 +45,9 @@ export function FaqSection() {
               <button
                 type="button"
                 onClick={() => setOpen(open === i ? null : i)}
+                aria-expanded={open === i}
+                aria-controls={`faq-panel-${i}`}
+                id={`faq-question-${i}`}
                 className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:opacity-80"
               >
                 <span className="font-display text-[15px] font-medium" style={{ color: "var(--ink)" }}>{faq.q}</span>
@@ -55,9 +58,18 @@ export function FaqSection() {
                   +
                 </span>
               </button>
+              {/* Audit sécu/a11y 24/08 : id/aria-controls/aria-labelledby lient
+                  bouton et panneau (WCAG 4.1.2/1.3.1) ; aria-hidden retire le
+                  panneau fermé de l'arbre d'accessibilité. maxHeight remonté de
+                  240 à 2000 : 240 tronquait les réponses longues au zoom 400%
+                  (WCAG 1.4.4) sans indice visuel. */}
               <div
+                id={`faq-panel-${i}`}
+                role="region"
+                aria-labelledby={`faq-question-${i}`}
+                aria-hidden={open !== i}
                 className="overflow-hidden px-6 text-[13.5px] leading-relaxed transition-[max-height]"
-                style={{ maxHeight: open === i ? 240 : 0, paddingBottom: open === i ? 20 : 0, color: "var(--ink-soft)" }}
+                style={{ maxHeight: open === i ? 2000 : 0, paddingBottom: open === i ? 20 : 0, color: "var(--ink-soft)" }}
               >
                 {faq.a}
               </div>
