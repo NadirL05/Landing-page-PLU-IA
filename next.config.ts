@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 // Landing statique (App Router) + scène 3D React Three Fiber en page d'accueil.
 // - script-src: 'unsafe-inline' requis par le bootstrap/streaming inline de Next.js
@@ -71,4 +72,14 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  org: "agentimpact",
+  project: "landing-plu-ia",
+  silent: !process.env.CI,
+  widenClientFileUpload: true,
+  tunnelRoute: "/monitoring",
+  webpack: {
+    automaticVercelMonitors: true,
+    treeshake: { removeDebugLogging: true },
+  },
+});
