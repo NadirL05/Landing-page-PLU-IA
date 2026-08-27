@@ -25,7 +25,7 @@ const DISCLAIMER_SHORT =
   "Estimations d'aide à la décision issues de sources publiques — ni certificat d'urbanisme, ni conseil juridique ou financier. Vérifications en mairie indispensables.";
 
 const DATA_ATTRIBUTION =
-  "Données : © les contributeurs OpenStreetMap (ODbL) · IGN / Géoplateforme · DVF – Etalab (Licence Ouverte 2.0) · Géorisques – MTE · GPU · INSEE · ADEME.";
+  "Données : © les contributeurs OpenStreetMap (ODbL) · IGN / Géoplateforme · DVF – Etalab (Licence Ouverte 2.0) · Géorisques – MTE · GPU · INSEE · ADEME · PVGIS – Commission européenne, Joint Research Centre.";
 
 function IconArrow() {
   return (
@@ -66,7 +66,7 @@ function IconCrosshair() { return <svg className="h-4 w-4" viewBox="0 0 24 24" f
 const features = [
   { ref: "FIG.01", icon: <IconMapPin />, title: "Adresse ou parcelle cadastrale", body: "Saisissez une adresse (Base Adresse Nationale), une référence cadastrale ou pointez la carte : la parcelle et son contour sont récupérés via l'API Carto Cadastre de l'IGN." },
   { ref: "FIG.02", icon: <IconBuilding />, title: "Zonage et règles d'urbanisme", body: "Le zonage est lu dans le Géoportail de l'Urbanisme (GPU) quand la commune y publie son document. Le règlement PDF de la zone est analysé pour en extraire emprise au sol, retraits et espaces verts." },
-  { ref: "FIG.03", icon: <IconShield />, title: "Risques recensés", body: "Risques déclarés sur la commune (Géorisques / GASPAR) et aléa retrait-gonflement des argiles à la coordonnée. Les servitudes d'utilité publique restent à vérifier en mairie." },
+  { ref: "FIG.03", icon: <IconShield />, title: "Risques et servitudes", body: "Risques déclarés sur la commune (Géorisques / GASPAR), aléa retrait-gonflement des argiles à la coordonnée, et servitudes d'utilité publique (ABF, PPRI, PPRT, sites classés) via l'API Carto du Géoportail de l'Urbanisme. Vérification en mairie indispensable — l'absence de résultat ne garantit pas l'absence de servitude." },
   { ref: "FIG.04", icon: <IconDollar />, title: "Bilan promoteur", body: "Surface de plancher potentielle, chiffre d'affaires, coûts de construction, frais et marge. Vous ajustez les hypothèses et le bilan est recalculé." },
   { ref: "FIG.05", icon: <IconChart />, title: "Comparables DVF", body: "Mutations issues des Demandes de Valeurs Foncières autour de la parcelle (rayon de 500 m par défaut), avec prix au m² de référence." },
   { ref: "FIG.06", icon: <IconFile />, title: "Export PDF et partage", body: "Le rapport d'analyse s'exporte en PDF et peut être partagé via un lien public que vous activez ou désactivez." },
@@ -75,6 +75,7 @@ const features = [
 const dataSources = [
   "Base Adresse Nationale", "Cadastre — API Carto IGN", "Géoportail de l'Urbanisme", "DVF — Etalab",
   "Géorisques — GASPAR & argiles", "RGE Alti — IGN", "Zonage A / B / C — data.gouv", "OpenStreetMap", "Base Carbone — ADEME",
+  "Servitudes SUP — API Carto GPU", "PVGIS — Commission européenne",
 ];
 
 export default function Home() {
@@ -329,7 +330,9 @@ export default function Home() {
                     "Zonage d'urbanisme lu dans le Géoportail de l'Urbanisme quand la commune y publie son document.",
                     "Analyse automatisée du règlement de zone : emprise au sol, retraits, espaces verts.",
                     "Risques recensés sur la commune et aléa retrait-gonflement des argiles (Géorisques).",
+                    "Servitudes d'utilité publique (ABF, PPRI, PPRT, sites classés) via l'API Carto du GPU, vérification en mairie indispensable.",
                     "Mutations DVF autour de la parcelle, rayon de 500 m par défaut.",
+                    "Potentiel solaire réel de la parcelle (PVGIS, Commission européenne) : irradiation annuelle mesurée et orientation optimale.",
                     "Enveloppe constructible : maximum théorique, hors retraits, prospects et gabarit.",
                     "Visualisation 3D du terrain et de son environnement bâti.",
                     "Bilan promoteur paramétrable, export PDF et lien de partage.",
@@ -345,7 +348,6 @@ export default function Home() {
                 <div className="mono-label mb-5" style={{ color: "var(--ink-soft)" }}>Non inclus à ce jour</div>
                 <ul className="space-y-3 text-[13.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
                   {[
-                    "Les servitudes d'utilité publique parcelle par parcelle : aucune source de servitudes n'est branchée à ce jour, vérification en mairie indispensable.",
                     "Les communes dont le document d'urbanisme n'est pas publié sur le GPU : le zonage n'y est pas garanti.",
                     "Toute valeur d'instruction officielle : l'outil ne délivre ni certificat d'urbanisme, ni autorisation.",
                     "Une API publique, le SSO ou la marque blanche : non disponibles à ce jour.",
