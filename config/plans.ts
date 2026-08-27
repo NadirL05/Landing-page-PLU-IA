@@ -12,7 +12,7 @@ export interface PlanFeature {
 }
 
 export interface Plan {
-  id: "FREE" | "PRO" | "ENTERPRISE";
+  id: "FREE" | "ENTERPRISE";
   name: string;
   tagline: string;
   priceLabel: string;
@@ -46,20 +46,6 @@ export const PLAN_LIST: readonly Plan[] = [
       { label: "Prospection foncière (scan de gisement)", included: true, note: "1 scan / mois" },
       { label: "Veille territoriale", included: true, note: "1 territoire surveillé" },
       { label: "Support par e-mail", included: false },
-    ],
-  },
-  {
-    id: "PRO",
-    name: "Pro",
-    tagline: "Pour un usage régulier en prospection foncière.",
-    priceLabel: "99 € / mois",
-    quotaLabel: "100 analyses / 30 jours",
-    retentionLabel: "Conservation de vos analyses sans limite de durée",
-    features: [
-      ...CORE_FEATURES,
-      { label: "Prospection foncière (scan de gisement)", included: true, note: "10 scans / mois" },
-      { label: "Veille territoriale", included: true, note: "5 territoires surveillés" },
-      { label: "Support par e-mail", included: true },
     ],
   },
   {

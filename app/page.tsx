@@ -376,25 +376,16 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-px md:grid-cols-3" style={{ background: "var(--line-strong)", border: "1px solid var(--line-strong)" }}>
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-px md:grid-cols-2" style={{ background: "var(--line-strong)", border: "1px solid var(--line-strong)" }}>
             {PLAN_LIST.map((plan, i) => {
-              const featured = plan.id === "PRO";
               return (
-                <Reveal key={plan.id} delay={i * 100} variant={featured ? "scale" : "up"}>
+                <Reveal key={plan.id} delay={i * 100} variant="up">
                 <div
                   className="relative flex h-full flex-col"
                   style={{ background: "var(--paper-raised)" }}
                 >
-                  {featured ? (
-                    <span
-                      className="font-mono absolute right-0 top-0 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-white"
-                      style={{ background: "var(--terracotta)" }}
-                    >
-                      Le plus choisi
-                    </span>
-                  ) : null}
                   <div className="flex flex-1 flex-col p-7">
-                  <div className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: featured ? "var(--brand)" : "var(--ink-soft)" }}>{plan.name}</div>
+                  <div className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--ink-soft)" }}>{plan.name}</div>
                   <div className="mt-4 flex items-baseline gap-2">
                     <span className="font-display text-4xl font-semibold" style={{ color: "var(--ink)" }}>{plan.priceLabel}</span>
                   </div>
@@ -430,19 +421,14 @@ export default function Home() {
                       Nous contacter
                     </TrackedCta>
                   ) : (
-                    // Pro = payer d'abord : /checkout/pro crée une session
-                    // Stripe Checkout invité (aucune session requise) et
-                    // renvoie vers /welcome après paiement, où le compte est
-                    // créé puis rattaché à l'abonnement. Free reste routé
-                    // vers l'inscription directe (pas de paiement à faire).
                     <TrackedCta
-                      href={plan.id === "PRO" ? `${APP_URL}/checkout/pro` : `${APP_URL}/dashboard`}
-                      eventName={plan.id === "PRO" ? "start_checkout" : "start_free_analysis"}
+                      href={`${APP_URL}/dashboard`}
+                      eventName="start_free_analysis"
                       eventParams={{ cta_location: "pricing", plan: plan.id }}
                       preserveQuery
-                      className={featured ? "btn-brand mt-7 flex h-11 w-full items-center justify-center text-sm font-semibold" : "btn-ghost mt-7 flex h-11 w-full items-center justify-center text-sm font-medium"}
+                      className="btn-ghost mt-7 flex h-11 w-full items-center justify-center text-sm font-medium"
                     >
-                      {plan.id === "FREE" ? "Commencer gratuitement" : `Passer au plan ${plan.name}`}
+                      Commencer gratuitement
                     </TrackedCta>
                   )}
                   </div>

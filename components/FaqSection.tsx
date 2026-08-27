@@ -15,7 +15,7 @@ const FAQS = [
   },
   {
     q: "Combien ça coûte ?",
-    a: "Le plan Découverte est gratuit, sans carte bancaire, avec un quota d'analyses sur une fenêtre glissante. Les plans payants et leurs quotas exacts sont détaillés dans la section Tarifs — les mêmes chiffres que ceux appliqués réellement par le produit.",
+    a: "Le plan Découverte est gratuit, sans carte bancaire, avec un quota d'analyses sur une fenêtre glissante. L'offre Entreprise est proposée sur mesure selon vos volumes et vos besoins.",
   },
   {
     q: "Sur quelles communes ça fonctionne ?",

@@ -8,11 +8,17 @@
   "url": "https://plu-ia.agentimpact.fr",
   "description": "Analyse foncière et urbanisme assistées par IA : zonage, enveloppe constructible, comparables DVF et bilan promoteur.",
   "publisher": { "@id": "https://plu-ia.agentimpact.fr/#organization" },
-  "offers": {
-    "@type": "AggregateOffer",
-    "priceCurrency": "EUR",
-    "lowPrice": "0",
-    "highPrice": "99",
-    "offerCount": "2"
-  }
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Découverte",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    {
+      "@type": "Offer",
+      "name": "Entreprise",
+      "description": "Tarification sur mesure selon les volumes et besoins."
+    }
+  ]
 }

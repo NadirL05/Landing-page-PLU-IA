@@ -32,7 +32,6 @@ Ce site (plu-ia.agentimpact.fr) est la landing marketing. L'outil s'utilise sur 
 ## Tarifs
 
 - Découverte — gratuit, sans carte bancaire : 2 analyses / 30 jours, 1 scan de prospection foncière / mois, 1 territoire en veille
-- Pro — 99 € / mois : 100 analyses / 30 jours, 10 scans de prospection / mois, 5 territoires en veille, support e-mail
 - Entreprise — sur mesure : volume d'analyses, scans et territoires adaptés, accompagnement à la prise en main
 
 Prix nets, TVA non applicable (article 293 B du CGI, franchise en base). Les prix affichés ici sont une copie d'affichage ; la source de vérité tarifaire et les quotas réellement appliqués vivent dans l'outil sur app-plu-ia.agentimpact.fr.
