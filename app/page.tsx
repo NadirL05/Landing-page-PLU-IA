@@ -78,6 +78,36 @@ const dataSources = [
   "Servitudes SUP — API Carto GPU", "PVGIS — Commission européenne",
 ];
 
+/* Chiffres clés du hero. Chaque valeur est dérivée du contenu réel de
+   cette page (longueur des tableaux ci-dessus, rayon DVF documenté en
+   FIG.05, offre d'essai déjà annoncée sous les CTA) plutôt que saisie à
+   la main : une métrique de crédibilité qui divergerait du produit
+   ferait exactement le contraire de ce que la page revendique — "chaque
+   résultat indique la source dont il provient". */
+const heroStats = [
+  {
+    value: String(dataSources.length),
+    label: "Sources publiques croisées",
+    note: "Cadastre IGN, Géoportail de l'Urbanisme, DVF, Géorisques, zonage A/B/C, OpenStreetMap, RGE Alti — France métropolitaine et DOM, dans la limite des communes publiant leur document sur le GPU.",
+  },
+  {
+    value: String(features.length),
+    label: "Volets d'analyse par parcelle",
+    note: "Zonage, risques et servitudes, volumétrie 3D, bilan promoteur, comparables DVF, export PDF.",
+  },
+  {
+    value: "500",
+    unit: "m",
+    label: "Rayon des comparables DVF",
+    note: "Mutations relevées autour de la parcelle, avec prix au m² de référence.",
+  },
+  {
+    value: "2",
+    label: "Analyses offertes / 30 jours",
+    note: "Sans carte bancaire ni engagement.",
+  },
+];
+
 export default function Home() {
   return (
     <div className="min-h-screen">
@@ -154,7 +184,7 @@ export default function Home() {
           </Reveal>
 
           <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-12 lg:gap-6">
-            <div className="lg:col-span-7">
+            <div className="lg:col-span-6">
               <h1 className="font-display text-[length:var(--text-hero)] font-semibold leading-[0.98] tracking-[-0.03em]" style={{ color: "var(--ink)" }}>
                 Le potentiel d&apos;une parcelle,<br />
                 <span style={{ borderBottom: "4px solid var(--terracotta)" }}>sources à l&apos;appui.</span>
@@ -192,22 +222,37 @@ export default function Home() {
               <span className="mono-label mt-4 inline-block" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · 2 analyses / 30 jours</span>
             </div>
 
-            <div className="relative lg:col-span-5">
+            {/* La planche déborde vers la droite au-delà du conteneur sur
+                grand écran : elle cesse d'être une vignette posée à côté
+                du texte pour devenir l'ancre visuelle de la page, sans
+                pour autant réduire la colonne de titre sous la largeur
+                qui lui permet de respirer. La section porte déjà
+                overflow-hidden — pas de défilement horizontal. */}
+            <div className="relative lg:col-span-6 lg:-mr-[6vw] xl:-mr-[9vw]">
               <Reveal variant="scale" delay={120} className="flex justify-center lg:block">
                 <ParcelVolumeMockup className="max-w-xl lg:max-w-none" />
               </Reveal>
             </div>
           </div>
 
-          <div className="mt-20 flex flex-wrap gap-x-12 gap-y-7 border-t pt-9 lg:mt-24" style={{ borderColor: "var(--line-strong)" }}>
-            {[
-              { title: "Sources croisées", body: "Cadastre IGN, GPU, DVF, Géorisques, zonage A/B/C, OpenStreetMap, RGE Alti." },
-              { title: "Périmètre", body: "France métropolitaine et DOM, dans la limite des communes publiant leur document d'urbanisme sur le GPU." },
-              { title: "Livrable", body: "Analyse en ligne, visualisation 3D, bilan promoteur, export PDF et lien de partage." },
-            ].map((s, i) => (
-              <Reveal key={s.title} delay={i * 90} className="max-w-[240px]">
-                <div className="mono-label" style={{ color: "var(--terracotta)" }}>{s.title}</div>
-                <div className="mt-2 text-[13px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{s.body}</div>
+          {/* Bandeau de crédibilité : des ordres de grandeur vérifiables
+              en lecture rapide, au gabarit à filets 1px du reste de la
+              page (cf. .spec-grid) — une ligne de cartouche, pas quatre
+              cartes flottantes. */}
+          <div className="stat-strip mt-20 lg:mt-24">
+            {heroStats.map((stat, i) => (
+              <Reveal key={stat.label} delay={i * 80} className="h-full">
+                <div className="flex h-full flex-col px-5 py-6 sm:px-6">
+                  <span className="font-mono text-[10px] font-bold tracking-[0.14em]" style={{ color: "var(--line-strong)" }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="stat-value mt-3">
+                    {stat.value}
+                    {stat.unit ? <span className="stat-unit">{stat.unit}</span> : null}
+                  </div>
+                  <div className="mono-label mt-3" style={{ color: "var(--terracotta)" }}>{stat.label}</div>
+                  <p className="mt-2 text-[12.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{stat.note}</p>
+                </div>
               </Reveal>
             ))}
           </div>
