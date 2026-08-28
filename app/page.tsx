@@ -13,10 +13,17 @@ import websiteSchema from "@/public/schema/website.json";
 // Direction "Plan cadastral" : papier froid, encre bleu-cadastre,
 // accent terre-cuite réservé aux annotations/mesures — vocabulaire
 // emprunté aux extraits cadastraux et aux feuilles de plan technique
-// (cartouche, grille de coordonnées, repères d'angle, numérotation
-// de planche) plutôt qu'au SaaS chaleureux générique. Contenu
-// inchangé depuis sas-plu-3d/app/page.tsx (source de vérité produit)
-// — seule la peau visuelle change.
+// (grille de coordonnées, repères d'angle, numérotation de planche)
+// plutôt qu'au SaaS chaleureux générique. Contenu inchangé depuis
+// sas-plu-3d/app/page.tsx (source de vérité produit) — seule la peau
+// visuelle change.
+//
+// EXCEPTION assumée : le hero. Il a été repris sur une direction
+// "objet produit" (fond quasi-blanc, maquette 3D satinée, surfaces à
+// grand rayon et ombres douces), sans quadrillage ni annotation
+// technique — la version planche cadastrale avait été rejetée en
+// test. La palette navy/terre-cuite est conservée, en cohérence avec
+// l'app (app-plu-ia.agentimpact.fr) qui bascule sur la même.
 
 // Stripe Payment Link mode LIVE — compte "Agentimpact-Plu-IA", basculé le 21/08/2026.
 const CALENDLY_URL = "https://calendly.com/nadir-lahyani-agentimpact/30min";
@@ -163,24 +170,16 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ===== HERO — feuille de plan : grille de coordonnées, cartouche, repères d'angle ===== */}
-      <section className="grid-paper relative overflow-hidden pt-8">
+      {/* ===== HERO — surfaces douces, maquette 3D satinée, fond quasi-blanc =====
+           Seul bloc de la page à sortir du vocabulaire "feuille de plan" :
+           pas de quadrillage, pas de cartouche, pas d'étiquette
+           mono-espacée. Navy et terre-cuite y restent en accents. */}
+      <section className="hero-surface relative overflow-hidden pt-8">
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 pb-24 pt-14 lg:pb-32 lg:pt-16">
           <Reveal>
-            <div className="cartouche mb-8">
-              <div>
-                <span className="cartouche-label">Projet</span>
-                <span className="cartouche-value">Analyse parcellaire</span>
-              </div>
-              <div>
-                <span className="cartouche-label">Sources</span>
-                <span className="cartouche-value">Cadastre IGN · GPU · DVF</span>
-              </div>
-              <div>
-                <span className="cartouche-label">Statut</span>
-                <span className="cartouche-value" style={{ color: "var(--terracotta)" }}>Sources vérifiées</span>
-              </div>
-            </div>
+            <span className="hero-pill mb-8">
+              Cadastre IGN · Géoportail de l&apos;Urbanisme · DVF
+            </span>
           </Reveal>
 
           <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-12 lg:gap-6">
@@ -219,38 +218,36 @@ export default function Home() {
                   Voir la démo
                 </TrackedCta>
               </div>
-              <span className="mono-label mt-4 inline-block" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · 2 analyses / 30 jours</span>
+              <span className="mt-4 inline-block text-[13px]" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · 2 analyses / 30 jours</span>
             </div>
 
-            {/* La planche déborde vers la droite au-delà du conteneur sur
+            {/* La maquette déborde vers la droite au-delà du conteneur sur
                 grand écran : elle cesse d'être une vignette posée à côté
                 du texte pour devenir l'ancre visuelle de la page, sans
                 pour autant réduire la colonne de titre sous la largeur
                 qui lui permet de respirer. La section porte déjà
-                overflow-hidden — pas de défilement horizontal. */}
-            <div className="relative lg:col-span-6 lg:-mr-[6vw] xl:-mr-[9vw]">
-              <Reveal variant="scale" delay={120} className="flex justify-center lg:block">
-                <ParcelVolumeMockup className="max-w-xl lg:max-w-none" />
-              </Reveal>
+                overflow-hidden — pas de défilement horizontal.
+                Pas de <Reveal> ici : la scène 3D a sa propre entrée
+                (extrusion des volumes), un scale-in CSS par-dessus
+                ferait deux animations concurrentes sur le même objet. */}
+            <div className="relative flex justify-center lg:col-span-6 lg:-mr-[6vw] lg:block xl:-mr-[9vw]">
+              <ParcelVolumeMockup className="max-w-xl lg:max-w-none" />
             </div>
           </div>
 
           {/* Bandeau de crédibilité : des ordres de grandeur vérifiables
-              en lecture rapide, au gabarit à filets 1px du reste de la
-              page (cf. .spec-grid) — une ligne de cartouche, pas quatre
-              cartes flottantes. */}
-          <div className="stat-strip mt-20 lg:mt-24">
+              en lecture rapide, en cartes à ombre douce séparées par du
+              vide — cohérent avec les surfaces du hero, à l'inverse des
+              filets 1px employés plus bas dans la page. */}
+          <div className="stat-cards mt-20 lg:mt-24">
             {heroStats.map((stat, i) => (
               <Reveal key={stat.label} delay={i * 80} className="h-full">
-                <div className="flex h-full flex-col px-5 py-6 sm:px-6">
-                  <span className="font-mono text-[10px] font-bold tracking-[0.14em]" style={{ color: "var(--line-strong)" }}>
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="stat-value mt-3">
+                <div className="soft-card flex h-full flex-col p-6">
+                  <div className="stat-value">
                     {stat.value}
                     {stat.unit ? <span className="stat-unit">{stat.unit}</span> : null}
                   </div>
-                  <div className="mono-label mt-3" style={{ color: "var(--terracotta)" }}>{stat.label}</div>
+                  <div className="mt-3 text-[13px] font-semibold" style={{ color: "var(--brand)" }}>{stat.label}</div>
                   <p className="mt-2 text-[12.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{stat.note}</p>
                 </div>
               </Reveal>

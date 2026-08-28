@@ -124,39 +124,6 @@ body {
 .reg-marks::before { top: 10px; left: 10px; }
 .reg-marks::after { bottom: 10px; right: 10px; }
 
-/* Cartouche : bloc d'identification façon plan technique
-   (PROJET / RÉFÉRENCE / ÉCHELLE), remplace le badge "chip" flottant
-   générique par un élément qui lit comme du vocabulaire métier. */
-.cartouche {
-  display: inline-grid;
-  grid-auto-flow: column;
-  gap: 0;
-  border: 1px solid var(--line-strong);
-  background: var(--paper-raised);
-}
-.cartouche > div {
-  padding: 7px 14px;
-  border-right: 1px solid var(--line-strong);
-}
-.cartouche > div:last-child { border-right: none; }
-.cartouche .cartouche-label {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-.cartouche .cartouche-value {
-  display: block;
-  margin-top: 2px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ink);
-}
-
 /* Étiquette de coordonnée / mesure — sert d'annotation sur les
    visuels produit et de motif répété (au lieu de "stat pills"
    génériques). */
@@ -282,39 +249,79 @@ body {
 }
 .spec-grid > * { background: var(--paper-raised); }
 
-/* ============ Planche axonométrique du hero ============ */
-/* Graduations d'axe tracées HORS du cadre du visuel, comme la
-   graduation qui borde un tirage de plan : la lecture technique est
-   portée par le bord de feuille, pas par des annotations posées sur
-   le rendu 3D lui-même (qui deviendrait illisible). Purement
-   décoratif — aria-hidden côté JSX. */
-.axis-ruler-x {
-  height: 7px;
-  background-image: repeating-linear-gradient(90deg, var(--line-strong) 0 1px, transparent 1px 28px);
-}
-.axis-ruler-y {
-  width: 7px;
-  background-image: repeating-linear-gradient(180deg, var(--line-strong) 0 1px, transparent 1px 28px);
+/* ============ Hero : surfaces douces ============ */
+/* Le hero sort du vocabulaire "feuille de plan" du reste de la page :
+   fond quasi-blanc sans quadrillage, surfaces à grand rayon et ombres
+   diffuses. Le navy et la terre-cuite y restent, mais comme accents
+   (CTA, soulignement du titre, chiffres) et non comme filets de
+   document technique. En thème sombre, "quasi-blanc" devient la
+   surface haute (--paper-raised) : le contraste relatif est conservé,
+   la page ne bascule pas en clair. */
+.hero-surface {
+  background:
+    radial-gradient(90% 70% at 78% 8%, color-mix(in oklch, var(--brand) 7%, transparent) 0%, transparent 60%),
+    radial-gradient(70% 60% at 5% 100%, color-mix(in oklch, var(--terracotta) 5%, transparent) 0%, transparent 55%),
+    var(--paper-raised);
 }
 
-/* ============ Bandeau de chiffres clés ============ */
-/* Même gabarit à filets 1px que .spec-grid (les séparateurs sont le
-   fond qui transparaît entre les cellules), pour que la bande lise
-   comme une ligne de cartouche et non comme quatre cartes flottantes. */
-.stat-strip {
+/* Panneau accueillant la maquette 3D : rayon généreux, ombre portée
+   douce, aucune bordure de filet. */
+.soft-panel {
+  /* Même surface que le fond du hero : c'est l'ombre seule qui
+     détache le panneau. Un fond plus sombre le ferait lire comme un
+     creux, exactement l'inverse de l'effet recherché. */
+  background: var(--paper-raised);
+  border-radius: 28px;
+  box-shadow:
+    0 1px 2px color-mix(in oklch, var(--ink) 6%, transparent),
+    0 28px 60px -24px color-mix(in oklch, var(--ink) 22%, transparent);
+}
+
+/* Carte flottante (lecture de mesure, chiffres clés). */
+.soft-card {
+  background: var(--paper-raised);
+  border-radius: 18px;
+  box-shadow:
+    0 1px 2px color-mix(in oklch, var(--ink) 6%, transparent),
+    0 18px 40px -18px color-mix(in oklch, var(--ink) 24%, transparent);
+}
+
+/* Pastille d'accroche du hero — remplace le cartouche technique. */
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 15px 7px 12px;
+  border-radius: 999px;
+  background: var(--paper-raised);
+  box-shadow:
+    0 1px 2px color-mix(in oklch, var(--ink) 6%, transparent),
+    0 10px 24px -14px color-mix(in oklch, var(--ink) 26%, transparent);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.hero-pill::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--terracotta);
+}
+
+/* ============ Chiffres clés du hero ============ */
+/* Cartes à ombre douce et rayon généreux, séparées par du vide — plus
+   de bande à filets 1px collée au reste de la page. */
+.stat-cards {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1px;
-  background: var(--line-strong);
-  border-top: 1px solid var(--line-strong);
-  border-bottom: 1px solid var(--line-strong);
+  gap: 16px;
 }
-.stat-strip > * { background: var(--paper-raised); }
 @media (min-width: 640px) {
-  .stat-strip { grid-template-columns: repeat(2, 1fr); }
+  .stat-cards { grid-template-columns: repeat(2, 1fr); }
 }
 @media (min-width: 1024px) {
-  .stat-strip { grid-template-columns: repeat(4, 1fr); }
+  .stat-cards { grid-template-columns: repeat(4, 1fr); }
 }
 .stat-value {
   font-family: var(--font-display);
