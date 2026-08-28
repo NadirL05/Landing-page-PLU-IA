@@ -41,7 +41,7 @@ export function ParcelVolumeMockup({
         <div className="text-[11px] font-semibold uppercase tracking-[0.08em]" style={{ color: "var(--ink-soft)" }}>
           Surface de plancher
         </div>
-        <div className="font-display mt-1 text-xl font-semibold" style={{ color: "var(--ink)" }}>
+        <div className="font-display mt-1 text-xl font-normal" style={{ color: "var(--ink)" }}>
           ≈ 1 240 m²
         </div>
         <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full" style={{ background: "var(--brand-soft)" }}>

@@ -35,7 +35,7 @@ export function FaqSection() {
       />
       <div className="mx-auto max-w-3xl px-6">
         <div className="kicker mb-4">PL.07 — FAQ</div>
-        <h2 className="font-display mb-14 text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
+        <h2 className="font-display mb-14 text-4xl font-normal leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
           Questions fréquentes
         </h2>
 
