@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, type ReactNode } from "react";
 import { Canvas, extend, useFrame, useThree, type ThreeElement } from "@react-three/fiber";
 import { OrbitControls as OrbitControlsImpl } from "three/examples/jsm/controls/OrbitControls.js";
 import * as THREE from "three";
@@ -14,8 +14,12 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
  * prolonge le vocabulaire du plan cadastral plutôt qu'une maquette
  * "rendu architecte" qui le concurrencerait. Matériaux non éclairés
  * (MeshBasicMaterial) : pas d'ombres/PBR, juste de l'encre projetée
- * en volume. OrbitControls three.js branché à la main (pas de drei)
- * pour garder le chunk lazy le plus léger possible.
+ * en volume. Projection orthographique et non perspective : les arêtes
+ * parallèles du volume le restent à l'écran, ce qui est la signature
+ * d'une axonométrie de planche technique — une caméra à fuite
+ * perspective ramènerait le rendu vers la maquette d'architecte.
+ * OrbitControls three.js branché à la main (pas de drei) pour garder
+ * le chunk lazy le plus léger possible.
  */
 
 extend({ OrbitControlsImpl });
@@ -28,6 +32,22 @@ declare module "@react-three/fiber" {
 
 const GRID_SIZE = 6;
 const GRID_STEP = 0.4;
+
+/* Élévation isométrique vraie : une caméra placée sur la diagonale
+   (1,1,1) voit les trois axes sous 120°, soit un angle polaire de
+   acos(1/√3) ≈ 54.74°. On verrouille cette élévation dans les
+   contrôles (min = max) et on ne laisse libre que l'azimut : le
+   volume tourne, mais la lecture reste axonométrique à tout instant. */
+const ISO_POLAR = Math.acos(1 / Math.sqrt(3));
+
+/* Cadrage de la planche : en projection orthographique, react-three-fiber
+   dimensionne le frustum en pixels, donc un `zoom` fixe recadrerait le
+   volume différemment selon la largeur du conteneur (et le rognerait sur
+   mobile). On dérive le zoom de la taille du canvas pour garantir qu'une
+   fenêtre monde constante reste visible, quel que soit le breakpoint. */
+const WORLD_WIDTH = 9.2;
+const WORLD_HEIGHT = 6.4;
+const BASE_ZOOM = 60;
 
 function CoordinateGrid({ color }: { color: string }) {
   const geometry = useMemo(() => {
@@ -124,6 +144,18 @@ function HeightAnnotation({ color }: { color: string }) {
   return <primitive object={line} />;
 }
 
+/* Le cadrage est appliqué en mettant la scène à l'échelle, pas en
+   écrivant `camera.zoom` : muter un objet renvoyé par un hook est
+   refusé par react-hooks/immutability (React Compiler), et une
+   homothétie uniforme sous projection orthographique donne exactement
+   le même résultat à l'écran qu'un changement de zoom. */
+function FittedScene({ children }: { children: ReactNode }) {
+  const size = useThree((state) => state.size);
+  const scale = Math.min(size.width / WORLD_WIDTH, size.height / WORLD_HEIGHT) / BASE_ZOOM;
+
+  return <group scale={scale}>{children}</group>;
+}
+
 function AutoRotateRig({ enabled }: { enabled: boolean }) {
   const controlsRef = useRef<OrbitControlsImpl | null>(null);
   const { camera, gl } = useThree();
@@ -144,10 +176,8 @@ function AutoRotateRig({ enabled }: { enabled: boolean }) {
       enablePan={false}
       enableDamping
       dampingFactor={0.08}
-      minPolarAngle={Math.PI / 3.4}
-      maxPolarAngle={Math.PI / 2.25}
-      minAzimuthAngle={-Math.PI / 2.6}
-      maxAzimuthAngle={Math.PI / 2.6}
+      minPolarAngle={ISO_POLAR}
+      maxPolarAngle={ISO_POLAR}
     />
   );
 }
@@ -158,17 +188,20 @@ export function ParcelMassingScene() {
 
   return (
     <Canvas
+      orthographic
       dpr={[1, 1.5]}
       gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
-      camera={{ position: [5.4, 4.4, 6.2], fov: 32 }}
+      camera={{ position: [7, 7, 7], zoom: BASE_ZOOM, near: -50, far: 200 }}
       style={{ touchAction: "none" }}
     >
-      <group position={[0, -1.9, 0]}>
-        <CoordinateGrid color={palette.grid} />
-        <ParcelFootprint color={palette.line} />
-        <MassingVolumes brand={palette.brand} />
-        <HeightAnnotation color={palette.terracotta} />
-      </group>
+      <FittedScene>
+        <group position={[0, -1.9, 0]}>
+          <CoordinateGrid color={palette.grid} />
+          <ParcelFootprint color={palette.line} />
+          <MassingVolumes brand={palette.brand} />
+          <HeightAnnotation color={palette.terracotta} />
+        </group>
+      </FittedScene>
       <AutoRotateRig enabled={!reducedMotion} />
     </Canvas>
   );
