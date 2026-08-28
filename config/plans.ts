@@ -3,6 +3,14 @@
  * quotas appliqués) : sas-plu-3d/src/config/plans.ts. Ce fichier n'a aucune
  * connexion Stripe — mettre à jour les deux repos ensemble sur tout
  * changement de prix/quota.
+ *
+ * ⚠️ Historique : ce fichier n'affichait plus que FREE/ENTERPRISE
+ * (commit "fix: remove pro plan from landing") pendant que la source de
+ * vérité (sas-plu-3d) avait 4 plans avec Starter à 199 €/mois et Pro à
+ * 599 €/mois — la page tarifs de la landing et la page CGV de l'app
+ * (qui lit PLAN_LIST dynamiquement, elle) affichaient donc deux
+ * structures différentes. Réharmonisé le 2026-08-28 sur les 4 plans
+ * réels.
  */
 
 export interface PlanFeature {
@@ -12,7 +20,7 @@ export interface PlanFeature {
 }
 
 export interface Plan {
-  id: "FREE" | "ENTERPRISE";
+  id: "FREE" | "STARTER" | "PRO" | "ENTERPRISE";
   name: string;
   tagline: string;
   priceLabel: string;
@@ -46,6 +54,34 @@ export const PLAN_LIST: readonly Plan[] = [
       { label: "Prospection foncière (scan de gisement)", included: true, note: "1 scan / mois" },
       { label: "Veille territoriale", included: true, note: "1 territoire surveillé" },
       { label: "Support par e-mail", included: false },
+    ],
+  },
+  {
+    id: "STARTER",
+    name: "Starter",
+    tagline: "Pour un promoteur local qui étudie quelques terrains par mois.",
+    priceLabel: "199 € / mois",
+    quotaLabel: "15 analyses / 30 jours",
+    retentionLabel: "Conservation de vos analyses sans limite de durée",
+    features: [
+      ...CORE_FEATURES,
+      { label: "Prospection foncière (scan de gisement)", included: true, note: "2 scans / mois" },
+      { label: "Veille territoriale", included: true, note: "2 territoires surveillés" },
+      { label: "Support par e-mail", included: true },
+    ],
+  },
+  {
+    id: "PRO",
+    name: "Pro",
+    tagline: "Pour un promoteur actif, plusieurs programmes en parallèle.",
+    priceLabel: "599 € / mois",
+    quotaLabel: "100 analyses / 30 jours",
+    retentionLabel: "Conservation de vos analyses sans limite de durée",
+    features: [
+      ...CORE_FEATURES,
+      { label: "Prospection foncière (scan de gisement)", included: true, note: "10 scans / mois" },
+      { label: "Veille territoriale", included: true, note: "5 territoires surveillés" },
+      { label: "Support par e-mail", included: true },
     ],
   },
   {
