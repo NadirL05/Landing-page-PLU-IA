@@ -23,15 +23,16 @@ function scheduleWhenIdle(callback: () => void): () => void {
 }
 
 /**
- * Le fil de fer 3D est le visuel principal du hero : il est censé
- * apparaître dès le chargement, pas au scroll. Le gating ne porte
- * donc pas sur la position dans le viewport (l'ancien IntersectionObserver
- * se déclenchait presque immédiatement avec un rootMargin de 200px et
- * n'apportait aucun bénéfice perf) mais sur le *moment* où le thread
- * principal est libre : on laisse le LCP (H1 / cartouche) peindre
- * d'abord, puis on monte la scène three.js pendant l'idle post-LCP.
- * Repli silencieux si WebGL est indisponible : la grille de fond
- * (.grid-paper, déjà posée par le parent) reste seule visible.
+ * La maquette 3D est le visuel principal du hero : elle est censée
+ * apparaître dès le chargement, pas à l'entrée dans le viewport (le
+ * mouvement, lui, est piloté par le scroll — voir ParcelMassingScene).
+ * Le gating ne porte donc pas sur la position dans la page (l'ancien
+ * IntersectionObserver se déclenchait presque immédiatement avec un
+ * rootMargin de 200px et n'apportait aucun bénéfice perf) mais sur le
+ * *moment* où le thread principal est libre : on laisse le LCP (H1,
+ * CTA) peindre d'abord, puis on monte la scène three.js pendant
+ * l'idle post-LCP. Repli silencieux si WebGL est indisponible : le
+ * panneau clair du parent reste seul visible, à hauteur inchangée.
  */
 export function ParcelVolumeCanvas() {
   const [shouldMount, setShouldMount] = useState(false);

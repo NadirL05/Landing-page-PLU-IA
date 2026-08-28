@@ -1,154 +1,201 @@
 "use client";
 
-import { useMemo, useRef, type ReactNode } from "react";
-import { Canvas, extend, useFrame, useThree, type ThreeElement } from "@react-three/fiber";
-import { OrbitControls as OrbitControlsImpl } from "three/examples/jsm/controls/OrbitControls.js";
+import { useEffect, useMemo, useRef, type ReactNode } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { useCadastralPalette } from "@/hooks/useCadastralPalette";
+import { useCadastralPalette, type CadastralPalette } from "@/hooks/useCadastralPalette";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 /**
- * Étude de masse en fil de fer : volume constructible extrudé en
- * gradins (façon massing study BIM), posé sur une grille de
- * coordonnées coplanaire au contour de parcelle — un système 3D qui
- * prolonge le vocabulaire du plan cadastral plutôt qu'une maquette
- * "rendu architecte" qui le concurrencerait. Matériaux non éclairés
- * (MeshBasicMaterial) : pas d'ombres/PBR, juste de l'encre projetée
- * en volume. Projection orthographique et non perspective : les arêtes
- * parallèles du volume le restent à l'écran, ce qui est la signature
- * d'une axonométrie de planche technique — une caméra à fuite
- * perspective ramènerait le rendu vers la maquette d'architecte.
- * OrbitControls three.js branché à la main (pas de drei) pour garder
- * le chunk lazy le plus léger possible.
+ * Maquette volumétrique satinée : un socle de parcelle et quatre
+ * volumes bâtis aux arêtes adoucies (chanfrein d'extrusion), en
+ * matériaux MeshStandardMaterial éclairés par une lumière douce —
+ * un objet produit "clay render" posé sur fond clair, pas une
+ * planche technique en fil de fer.
+ *
+ * Trois partis pris tiennent l'écart avec la version précédente :
+ * 1. La caméra n'est plus verrouillée sur l'isométrie vraie (angles
+ *    à 120°, symétrie parfaite). Une élévation plus basse et un
+ *    azimut désaxé donnent une lecture d'objet, pas d'axonométrie.
+ * 2. Les ombres sont des plans dégradés (texture radiale générée en
+ *    canvas), pas des shadow maps : plus douces à peu de frais, et
+ *    aucun frustum d'ombre à recadrer sur un volume qui grandit.
+ * 3. Le rendu est en `frameloop="demand"` : plus aucune image n'est
+ *    calculée en continu. Seuls le scroll et l'entrée initiale
+ *    demandent des frames, et `prefers-reduced-motion` ramène la
+ *    scène à un unique rendu statique.
+ *
+ * La projection reste orthographique et le cadrage dérivé de la
+ * taille du canvas (cf. FittedScene) : c'est ce qui garantit qu'une
+ * fenêtre monde constante reste visible de 320px à 1920px sans
+ * rogner le volume.
  */
 
-extend({ OrbitControlsImpl });
-
-declare module "@react-three/fiber" {
-  interface ThreeElements {
-    orbitControlsImpl: ThreeElement<typeof OrbitControlsImpl>;
-  }
-}
-
-const GRID_SIZE = 6;
-const GRID_STEP = 0.4;
-
-/* Élévation isométrique vraie : une caméra placée sur la diagonale
-   (1,1,1) voit les trois axes sous 120°, soit un angle polaire de
-   acos(1/√3) ≈ 54.74°. On verrouille cette élévation dans les
-   contrôles (min = max) et on ne laisse libre que l'azimut : le
-   volume tourne, mais la lecture reste axonométrique à tout instant. */
-const ISO_POLAR = Math.acos(1 / Math.sqrt(3));
-
-/* Cadrage de la planche : en projection orthographique, react-three-fiber
-   dimensionne le frustum en pixels, donc un `zoom` fixe recadrerait le
-   volume différemment selon la largeur du conteneur (et le rognerait sur
-   mobile). On dérive le zoom de la taille du canvas pour garantir qu'une
-   fenêtre monde constante reste visible, quel que soit le breakpoint. */
-const WORLD_WIDTH = 9.2;
-const WORLD_HEIGHT = 6.4;
+/* Fenêtre monde visible, en unités de scène. Dimensionnée sur la
+   diagonale du socle (7.6 × 5.6) plus la marge nécessaire à la
+   rotation au scroll : sur-dimensionner ne coûte qu'un objet un peu
+   plus petit, sous-dimensionner rogne le volume sur mobile. */
+const WORLD_WIDTH = 11.2;
+const WORLD_HEIGHT = 8.4;
 const BASE_ZOOM = 60;
 
-function CoordinateGrid({ color }: { color: string }) {
-  const geometry = useMemo(() => {
-    const points: number[] = [];
-    const half = GRID_SIZE / 2;
-    for (let i = -half; i <= half; i += GRID_STEP) {
-      points.push(-half, 0, i, half, 0, i);
-      points.push(i, 0, -half, i, 0, half);
-    }
-    const g = new THREE.BufferGeometry();
-    g.setAttribute("position", new THREE.Float32BufferAttribute(points, 3));
-    return g;
-  }, []);
+const ENTRANCE_MS = 1100;
+/* Le hero occupe le haut de page : la course de scroll utile est
+   inférieure à une hauteur d'écran. */
+const SCROLL_RANGE_RATIO = 0.85;
 
-  return (
-    <lineSegments geometry={geometry}>
-      <lineBasicMaterial color={color} transparent opacity={0.5} />
-    </lineSegments>
-  );
-}
+const SLAB = { w: 7.6, d: 5.6, h: 0.36, radius: 0.5 };
 
-function ParcelFootprint({ color }: { color: string }) {
-  // <line> JSX entre en conflit avec l'élément SVG global du DOM ;
-  // on construit l'objet three.js directement, comme pour
-  // HeightAnnotation ci-dessous.
-  const line = useMemo(() => {
-    const points = [
-      new THREE.Vector3(-2.2, 0.004, -1.6),
-      new THREE.Vector3(2.2, 0.004, -1.6),
-      new THREE.Vector3(2.2, 0.004, 1.6),
-      new THREE.Vector3(-2.2, 0.004, 1.6),
-      new THREE.Vector3(-2.2, 0.004, -1.6),
-    ];
-    const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    return new THREE.Line(geometry, new THREE.LineBasicMaterial({ color }));
-  }, [color]);
+type BlockTone = "volume" | "brand" | "terracotta";
 
-  return <primitive object={line} />;
-}
-
-type Volume = {
-  size: [number, number, number];
-  y: number;
+type Block = {
+  /** Empreinte au sol et hauteur du volume. */
+  w: number;
+  d: number;
+  h: number;
+  /** Position du centre de l'empreinte sur le socle. */
+  x: number;
+  z: number;
+  /** Base du volume, mesurée depuis le dessus du socle. */
+  base: number;
+  /** Index du volume porteur : la base suit alors sa croissance. */
+  ridesOn?: number;
+  radius: number;
+  tone: BlockTone;
+  /** Départ de l'animation d'extrusion, en fraction de l'entrée. */
+  delay: number;
+  /** Glissement latéral au scroll (fraction de la position). */
+  drift: number;
 };
 
-function buildMassing(): Volume[] {
-  const base: Volume = { size: [3.2, 1.6, 2.2], y: 0.8 };
-  const mid: Volume = { size: [2.5, 1.4, 1.85], y: base.y + base.size[1] / 2 + 0.7 };
-  const top: Volume = { size: [1.8, 1.05, 1.4], y: mid.y + mid.size[1] / 2 + 0.525 };
-  return [base, mid, top];
+/* Composition volontairement asymétrique : un corps principal en
+   navy, deux ailes en clay quasi-blanc, une casquette terre-cuite
+   fine en unique accent chaud. Le ratio (1 navy + 1 filet
+   terre-cuite pour 3 surfaces claires) est ce qui fait lire un
+   rendu matière plutôt qu'un schéma colorié. */
+const BLOCKS: Block[] = [
+  { w: 3.3, d: 2.5, h: 1.15, x: -1.5, z: 0.7, base: 0, radius: 0.12, tone: "volume", delay: 0.1, drift: 0.09 },
+  { w: 2.25, d: 2.15, h: 3.05, x: 0.7, z: -0.45, base: 0, radius: 0.14, tone: "brand", delay: 0, drift: 0.03 },
+  { w: 1.85, d: 1.45, h: 0.72, x: 2.05, z: 1.5, base: 0, radius: 0.1, tone: "volume", delay: 0.22, drift: 0.14 },
+  { w: 2.45, d: 2.35, h: 0.17, x: 0.7, z: -0.45, base: 3.05, ridesOn: 1, radius: 0.06, tone: "terracotta", delay: 0.42, drift: 0.03 },
+];
+
+function easeOutCubic(t: number): number {
+  return 1 - Math.pow(1 - t, 3);
 }
 
-function MassingVolume({ size, y, brand }: Volume & { brand: string }) {
-  const boxGeometry = useMemo(() => new THREE.BoxGeometry(...size), [size]);
-  const edgesGeometry = useMemo(() => new THREE.EdgesGeometry(boxGeometry), [boxGeometry]);
+function clamp01(value: number): number {
+  return Math.min(1, Math.max(0, value));
+}
+
+function toneColor(tone: BlockTone, palette: CadastralPalette): string {
+  if (tone === "brand") return palette.brand;
+  if (tone === "terracotta") return palette.terracotta;
+  return palette.volume;
+}
+
+/**
+ * Boîte à arêtes adoucies sans dépendance supplémentaire : une
+ * silhouette rectangulaire à coins arrondis, extrudée avec chanfrein.
+ * ExtrudeGeometry n'est pas centrée (l'extrusion part de z = 0 et le
+ * chanfrein déborde de `bevel`) — on la recale pour que la base du
+ * volume tombe exactement sur y = 0, sinon chaque bloc doit être
+ * repositionné à la main.
+ */
+function createRoundedBoxGeometry(w: number, d: number, h: number, radius: number): THREE.BufferGeometry {
+  const bevel = Math.min(0.05, h / 4);
+  const r = Math.min(radius, w / 2 - 0.01, d / 2 - 0.01);
+  const shape = new THREE.Shape();
+  const x0 = -w / 2;
+  const y0 = -d / 2;
+
+  shape.moveTo(x0 + r, y0);
+  shape.lineTo(x0 + w - r, y0);
+  shape.quadraticCurveTo(x0 + w, y0, x0 + w, y0 + r);
+  shape.lineTo(x0 + w, y0 + d - r);
+  shape.quadraticCurveTo(x0 + w, y0 + d, x0 + w - r, y0 + d);
+  shape.lineTo(x0 + r, y0 + d);
+  shape.quadraticCurveTo(x0, y0 + d, x0, y0 + d - r);
+  shape.lineTo(x0, y0 + r);
+  shape.quadraticCurveTo(x0, y0, x0 + r, y0);
+
+  const geometry = new THREE.ExtrudeGeometry(shape, {
+    depth: Math.max(h - 2 * bevel, 0.01),
+    bevelEnabled: true,
+    bevelSize: bevel,
+    bevelThickness: bevel,
+    // Plafonné : quatre volumes arrondis à segments élevés feraient
+    // exploser le nombre de sommets pour un gain invisible à l'écran.
+    bevelSegments: 2,
+    curveSegments: 8,
+  });
+
+  geometry.rotateX(-Math.PI / 2);
+  geometry.translate(0, bevel, 0);
+  geometry.computeVertexNormals();
+  return geometry;
+}
+
+/** Tache radiale douce servant d'ombre portée, générée une fois en 2D. */
+function createShadowTexture(): THREE.Texture {
+  const size = 128;
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+
+  if (ctx) {
+    const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    gradient.addColorStop(0, "rgba(255,255,255,1)");
+    gradient.addColorStop(0.45, "rgba(255,255,255,0.55)");
+    gradient.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, size, size);
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
+function ContactShadow({
+  color,
+  width,
+  depth,
+  y,
+  x = 0,
+  z = 0,
+  opacity,
+}: {
+  color: string;
+  width: number;
+  depth: number;
+  y: number;
+  x?: number;
+  z?: number;
+  opacity: number;
+}) {
+  const texture = useMemo(() => createShadowTexture(), []);
+  useEffect(() => () => texture.dispose(), [texture]);
 
   return (
-    <group position={[0, y, 0]}>
-      <mesh geometry={boxGeometry}>
-        <meshBasicMaterial color={brand} transparent opacity={0.06} />
-      </mesh>
-      <lineSegments geometry={edgesGeometry}>
-        <lineBasicMaterial color={brand} />
-      </lineSegments>
-    </group>
+    <mesh position={[x, y, z]} rotation={[-Math.PI / 2, 0, 0]}>
+      <planeGeometry args={[width, depth]} />
+      <meshBasicMaterial
+        map={texture}
+        color={color}
+        transparent
+        opacity={opacity}
+        depthWrite={false}
+      />
+    </mesh>
   );
 }
 
-function MassingVolumes({ brand }: { brand: string }) {
-  const volumes = useMemo(() => buildMassing(), []);
-  return (
-    <group>
-      {volumes.map((volume, i) => (
-        <MassingVolume key={i} {...volume} brand={brand} />
-      ))}
-    </group>
-  );
-}
-
-function HeightAnnotation({ color }: { color: string }) {
-  // Ligne de rappel pointillée façon cote d'altitude ("H max"),
-  // seule touche terre-cuite du volume — réservée à la mesure.
-  const line = useMemo(() => {
-    const geometry = new THREE.BufferGeometry().setFromPoints([
-      new THREE.Vector3(1.6, 0, 1.2),
-      new THREE.Vector3(1.6, 4.075, 1.2),
-    ]);
-    const material = new THREE.LineDashedMaterial({ color, dashSize: 0.08, gapSize: 0.06 });
-    const object = new THREE.Line(geometry, material);
-    object.computeLineDistances();
-    return object;
-  }, [color]);
-
-  return <primitive object={line} />;
-}
-
-/* Le cadrage est appliqué en mettant la scène à l'échelle, pas en
-   écrivant `camera.zoom` : muter un objet renvoyé par un hook est
-   refusé par react-hooks/immutability (React Compiler), et une
-   homothétie uniforme sous projection orthographique donne exactement
-   le même résultat à l'écran qu'un changement de zoom. */
+/* Homothétie plutôt que `camera.zoom` : muter un objet renvoyé par un
+   hook est refusé par react-hooks/immutability (React Compiler), et
+   sous projection orthographique une mise à l'échelle uniforme donne
+   exactement le même résultat à l'écran. */
 function FittedScene({ children }: { children: ReactNode }) {
   const size = useThree((state) => state.size);
   const scale = Math.min(size.width / WORLD_WIDTH, size.height / WORLD_HEIGHT) / BASE_ZOOM;
@@ -156,30 +203,180 @@ function FittedScene({ children }: { children: ReactNode }) {
   return <group scale={scale}>{children}</group>;
 }
 
-function AutoRotateRig({ enabled }: { enabled: boolean }) {
-  const controlsRef = useRef<OrbitControlsImpl | null>(null);
-  const { camera, gl } = useThree();
+/**
+ * Progression de lecture du hero, bornée à [0,1]. Basée sur le scroll
+ * document plutôt que sur un IntersectionObserver : la maquette est
+ * au-dessus de la ligne de flottaison, donc ce qu'on veut n'est pas
+ * "est-elle visible" (elle l'est dès le chargement) mais "où en est
+ * l'utilisateur dans la traversée du hero".
+ */
+function readScrollProgress(): number {
+  if (typeof window === "undefined") return 0;
+  const range = Math.max(window.innerHeight * SCROLL_RANGE_RATIO, 1);
+  return clamp01(window.scrollY / range);
+}
+
+function Massing({ palette, reducedMotion }: { palette: CadastralPalette; reducedMotion: boolean }) {
+  const invalidate = useThree((state) => state.invalidate);
+  const groupRef = useRef<THREE.Group>(null);
+  const blockRefs = useRef<(THREE.Mesh | null)[]>([]);
+  const entrance = useRef(reducedMotion ? 1 : 0);
+  const scroll = useRef(0);
+
+  const slabGeometry = useMemo(
+    () => createRoundedBoxGeometry(SLAB.w, SLAB.d, SLAB.h, SLAB.radius),
+    []
+  );
+  const blockGeometries = useMemo(
+    () => BLOCKS.map((block) => createRoundedBoxGeometry(block.w, block.d, block.h, block.radius)),
+    []
+  );
+
+  useEffect(() => {
+    const geometries = [slabGeometry, ...blockGeometries];
+    return () => geometries.forEach((geometry) => geometry.dispose());
+  }, [slabGeometry, blockGeometries]);
+
+  // Entrée : extrusion progressive des volumes depuis le socle.
+  useEffect(() => {
+    if (reducedMotion) {
+      entrance.current = 1;
+      invalidate();
+      return undefined;
+    }
+
+    let frame = 0;
+    const start = performance.now();
+    const tick = () => {
+      const t = clamp01((performance.now() - start) / ENTRANCE_MS);
+      entrance.current = t;
+      invalidate();
+      if (t < 1) frame = requestAnimationFrame(tick);
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [reducedMotion, invalidate]);
+
+  // Mouvement piloté par le scroll — aucune rotation automatique.
+  useEffect(() => {
+    if (reducedMotion) {
+      scroll.current = 0;
+      invalidate();
+      return undefined;
+    }
+
+    /* La page est longue : une fois la progression saturée à 1, plus
+       rien ne bouge dans la scène. On ne redemande donc une image que
+       si la valeur a réellement changé, sinon on paierait un rendu
+       WebGL par événement de scroll jusqu'au footer. */
+    const update = () => {
+      const next = readScrollProgress();
+      if (next === scroll.current) return;
+      scroll.current = next;
+      invalidate();
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [reducedMotion, invalidate]);
 
   useFrame(() => {
-    const controls = controlsRef.current;
-    if (!controls) return;
-    controls.autoRotate = enabled;
-    controls.autoRotateSpeed = 1.1;
-    controls.update();
+    const group = groupRef.current;
+    if (!group) return;
+
+    const p = scroll.current;
+    const e = easeOutCubic(entrance.current);
+
+    /* Le scroll fait pivoter et redresser légèrement l'ensemble : la
+       maquette se lit sous un angle qui évolue à mesure qu'on
+       traverse le hero, au lieu de tourner toute seule en boucle. */
+    group.rotation.y = -0.12 + p * 0.34;
+    group.position.y = -1.55 + p * 0.22 + (1 - e) * -0.25;
+    const settle = 0.94 + 0.06 * e;
+    group.scale.setScalar(settle);
+
+    /* Facteur d'extrusion de chaque volume, calculé d'abord : la
+       casquette terre-cuite repose sur le corps principal et doit
+       suivre SA croissance, pas la sienne — sinon elle traverse le
+       volume porteur pendant l'entrée. */
+    const grow = BLOCKS.map((block) => {
+      const local = easeOutCubic(clamp01((entrance.current - block.delay) / (1 - block.delay)));
+      // scaleY = 0 produirait des normales dégénérées : on part de 2%.
+      return 0.02 + 0.98 * local;
+    });
+
+    BLOCKS.forEach((block, index) => {
+      const mesh = blockRefs.current[index];
+      if (!mesh) return;
+
+      const carrier = block.ridesOn;
+      const base =
+        carrier === undefined ? block.base * grow[index] : BLOCKS[carrier].h * grow[carrier];
+
+      mesh.scale.y = grow[index];
+      // Les volumes glissent légèrement vers l'extérieur au scroll.
+      mesh.position.x = block.x * (1 + p * block.drift);
+      mesh.position.z = block.z * (1 + p * block.drift);
+      mesh.position.y = SLAB.h + base;
+    });
   });
 
   return (
-    <orbitControlsImpl
-      ref={controlsRef}
-      args={[camera, gl.domElement]}
-      enableZoom={false}
-      enablePan={false}
-      enableDamping
-      dampingFactor={0.08}
-      minPolarAngle={ISO_POLAR}
-      maxPolarAngle={ISO_POLAR}
-    />
+    <group ref={groupRef}>
+      <ContactShadow
+        color={palette.shadow}
+        width={SLAB.w * 1.45}
+        depth={SLAB.d * 1.45}
+        y={-0.02}
+        z={0.35}
+        opacity={0.16}
+      />
+
+      <mesh geometry={slabGeometry}>
+        <meshStandardMaterial color={palette.surface} roughness={0.72} metalness={0.02} />
+      </mesh>
+
+      <ContactShadow
+        color={palette.shadow}
+        width={5.6}
+        depth={4.4}
+        y={SLAB.h + 0.006}
+        x={0.35}
+        z={0.6}
+        opacity={0.22}
+      />
+
+      {BLOCKS.map((block, index) => (
+        <mesh
+          key={`${block.tone}-${index}`}
+          ref={(mesh) => {
+            blockRefs.current[index] = mesh;
+          }}
+          geometry={blockGeometries[index]}
+          position={[block.x, SLAB.h + block.base, block.z]}
+        >
+          <meshStandardMaterial
+            color={toneColor(block.tone, palette)}
+            roughness={block.tone === "volume" ? 0.55 : 0.42}
+            metalness={0.03}
+          />
+        </mesh>
+      ))}
+    </group>
   );
+}
+
+/** Un rendu est demandé au montage : en mode `demand`, rien ne peint sans lui. */
+function InitialFrame() {
+  const invalidate = useThree((state) => state.invalidate);
+  useEffect(() => invalidate(), [invalidate]);
+  return null;
 }
 
 export function ParcelMassingScene() {
@@ -189,20 +386,24 @@ export function ParcelMassingScene() {
   return (
     <Canvas
       orthographic
-      dpr={[1, 1.5]}
+      frameloop="demand"
+      dpr={[1, 1.75]}
       gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
-      camera={{ position: [7, 7, 7], zoom: BASE_ZOOM, near: -50, far: 200 }}
-      style={{ touchAction: "none" }}
+      /* Élévation ~30° et azimut ~37° : volontairement à côté de
+         l'isométrie vraie (35.26° / 45°, angles égaux à 120° à
+         l'écran). C'est cette symétrie parfaite, plus que les
+         matériaux, qui faisait lire une planche technique — un point
+         de vue désaxé lit comme un objet photographié. */
+      camera={{ position: [9, 8.5, 12], zoom: BASE_ZOOM, near: -80, far: 200 }}
     >
+      <hemisphereLight args={[palette.volume, palette.surface, 1.15]} />
+      <directionalLight position={[-6, 9, 7]} intensity={1.5} />
+      <directionalLight position={[7, 4, -5]} intensity={0.35} />
+
       <FittedScene>
-        <group position={[0, -1.9, 0]}>
-          <CoordinateGrid color={palette.grid} />
-          <ParcelFootprint color={palette.line} />
-          <MassingVolumes brand={palette.brand} />
-          <HeightAnnotation color={palette.terracotta} />
-        </group>
+        <Massing palette={palette} reducedMotion={reducedMotion} />
       </FittedScene>
-      <AutoRotateRig enabled={!reducedMotion} />
+      <InitialFrame />
     </Canvas>
   );
 }

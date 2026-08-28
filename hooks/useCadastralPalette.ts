@@ -7,6 +7,12 @@ export interface CadastralPalette {
   terracotta: string;
   grid: string;
   line: string;
+  /** Socle de parcelle : surface mate légèrement plus froide que le fond. */
+  surface: string;
+  /** Volumes bâtis "clay" : quasi-blanc satiné qui prend la lumière. */
+  volume: string;
+  /** Teinte des ombres de contact (plans dégradés sous les volumes). */
+  shadow: string;
 }
 
 const LIGHT_PALETTE: CadastralPalette = {
@@ -14,6 +20,9 @@ const LIGHT_PALETTE: CadastralPalette = {
   terracotta: "#b5502e",
   grid: "#c7d0dc",
   line: "#8fa0b5",
+  surface: "#e9edf4",
+  volume: "#fbfcfe",
+  shadow: "#25324a",
 };
 
 const DARK_PALETTE: CadastralPalette = {
@@ -21,6 +30,9 @@ const DARK_PALETTE: CadastralPalette = {
   terracotta: "#e08a5c",
   grid: "#3a4658",
   line: "#4a5568",
+  surface: "#2b3549",
+  volume: "#48566f",
+  shadow: "#05070d",
 };
 
 /**
