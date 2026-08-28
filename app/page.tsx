@@ -420,7 +420,7 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-px md:grid-cols-2" style={{ background: "var(--line-strong)", border: "1px solid var(--line-strong)" }}>
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4" style={{ background: "var(--line-strong)", border: "1px solid var(--line-strong)" }}>
             {PLAN_LIST.map((plan, i) => {
               return (
                 <Reveal key={plan.id} delay={i * 100} variant="up">
@@ -464,7 +464,7 @@ export default function Home() {
                     >
                       Nous contacter
                     </TrackedCta>
-                  ) : (
+                  ) : plan.id === "FREE" ? (
                     <TrackedCta
                       href={`${APP_URL}/dashboard`}
                       eventName="start_free_analysis"
@@ -473,6 +473,18 @@ export default function Home() {
                       className="btn-ghost mt-7 flex h-11 w-full items-center justify-center text-sm font-medium"
                     >
                       Commencer gratuitement
+                    </TrackedCta>
+                  ) : (
+                    // Starter/Pro : paiement direct, sans compte préalable — voir
+                    // app/checkout/{starter,pro}/page.tsx côté app (guest checkout
+                    // Stripe, lien au compte après paiement sur /welcome).
+                    <TrackedCta
+                      href={`${APP_URL}/checkout/${plan.id.toLowerCase()}`}
+                      eventName="start_paid_checkout"
+                      eventParams={{ cta_location: "pricing", plan: plan.id }}
+                      className="btn-brand mt-7 flex h-11 w-full items-center justify-center text-sm font-medium"
+                    >
+                      Souscrire
                     </TrackedCta>
                   )}
                   </div>
