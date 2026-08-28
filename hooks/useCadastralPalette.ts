@@ -18,11 +18,11 @@ export interface CadastralPalette {
 const LIGHT_PALETTE: CadastralPalette = {
   brand: "#1d3a6e",
   terracotta: "#b5502e",
-  grid: "#c7d0dc",
-  line: "#8fa0b5",
-  surface: "#e9edf4",
-  volume: "#fbfcfe",
-  shadow: "#25324a",
+  grid: "#dcd4c4",
+  line: "#a89d87",
+  surface: "#ede6d8",
+  volume: "#fdfbf6",
+  shadow: "#332c1f",
 };
 
 const DARK_PALETTE: CadastralPalette = {
