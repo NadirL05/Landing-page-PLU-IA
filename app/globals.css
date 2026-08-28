@@ -44,22 +44,13 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: oklch(15.5% 0.02 255);
-    --paper-raised: oklch(19.5% 0.024 255);
-    --ink: oklch(95% 0.008 240);
-    --ink-soft: oklch(73% 0.018 240);
-    --line: oklch(32% 0.025 250);
-    --line-strong: oklch(42% 0.03 250);
-    --brand: #85a6e8;
-    --brand-soft: oklch(27% 0.045 250);
-    --terracotta: #e08a5c;
-    --terracotta-soft: oklch(29% 0.06 45);
-    --grid-line: oklch(30% 0.025 250 / 0.9);
-    --shadow-card: 0 1px 2px oklch(0% 0 0 / 0.35), 0 14px 34px oklch(0% 0 0 / 0.4);
-  }
-}
+/* Pas de bascule automatique sur prefers-color-scheme : cette landing
+   n'a aucun sélecteur de thème (grep confirmé, aucun ThemeToggle/
+   ThemeProvider dans le repo) — sans ça, un visiteur en dark mode
+   système recevait la palette sombre sans possibilité de revenir au
+   clair, alors que la direction produit est explicitement claire.
+   Les blocs [data-theme] restent en réserve pour un futur sélecteur
+   manuel, mais ne s'activent jamais tout seuls. */
 :root[data-theme="dark"] {
   --paper: oklch(15.5% 0.02 255); --paper-raised: oklch(19.5% 0.024 255);
   --ink: oklch(95% 0.008 240); --ink-soft: oklch(73% 0.018 240);
