@@ -291,30 +291,33 @@ body {
      un liseré blanc est invisible. La définition vient donc d'un filet
      encre à faible alpha, le reflet blanc étant réservé à l'arête haute
      (inset 0 1px 0), là où la lumière tombe.
-   - opacité plancher à 85 % : mesurée, pas choisie à l'œil. Composité en
-     espace sRGB (celui du navigateur) sur le fond le plus sombre qui
-     puisse réellement passer dessous — le texte --ink plein, soit le h1
-     du hero et les chiffres clés défilant sous le bandeau, plus sombre
-     encore que le navy des volumes 3D — le texte --ink-soft tient
-     5.05:1 et --ink 12.6:1, au-dessus du seuil AA de 4.5:1 y compris sur
-     les libellés à 11 px. À 82 % on tombait à 4.72:1 : au-dessus du
-     seuil, mais sans marge pour une future retouche de --ink-soft.
-   - saturate à 145 % et non 160 % : au-delà, les volumes navy de la
-     maquette 3D virent au bleu électrique et sortent de la palette.
+   - opacité plancher à 82 % : mesurée, pas choisie à l'œil (script
+     contrast2.mjs, composité en espace sRGB comme le navigateur) sur le
+     fond le plus sombre qui puisse réellement passer dessous — le texte
+     --ink plein, soit le h1 du hero et les chiffres clés défilant sous
+     le bandeau, plus sombre encore que le navy des volumes 3D. À 82 %,
+     --ink-soft y tient 4.72:1 et --ink 11.8:1, au-dessus du seuil AA de
+     4.5:1. En dessous (78 %) --ink-soft retombe à 4.30:1, sous le seuil
+     — ne pas descendre plus bas sans revoir --ink-soft.
+   - saturate à 170 % (relevé depuis 145 %) pour que l'effet de verre se
+     voie sur un fond clair uni ; au-delà de ~180 %, les volumes navy de
+     la maquette 3D virent au bleu électrique et sortent de la palette.
    Les éléments enveloppés dans <Reveal> sont volontairement exclus : un
    ancêtre porteur d'un transform ou d'une opacité < 1 devient racine de
    backdrop, et le flou n'y capterait plus rien. */
 .glass {
-  background: color-mix(in srgb, var(--paper-raised) 85%, transparent);
-  -webkit-backdrop-filter: blur(20px) saturate(145%);
-  backdrop-filter: blur(20px) saturate(145%);
+  background:
+    linear-gradient(135deg, rgb(255 255 255 / 0.28), transparent 55%),
+    color-mix(in srgb, var(--paper-raised) 82%, transparent);
+  -webkit-backdrop-filter: blur(28px) saturate(170%);
+  backdrop-filter: blur(28px) saturate(170%);
 }
 
 .glass-panel {
-  border: 1px solid color-mix(in srgb, var(--line-strong) 55%, transparent);
+  border: 1.5px solid color-mix(in srgb, var(--line-strong) 65%, transparent);
   border-radius: var(--glass-radius, 18px);
   box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.75),
+    inset 0 1px 0 rgb(255 255 255 / 0.85),
     0 1px 2px color-mix(in oklch, var(--ink) 6%, transparent),
     0 18px 40px -18px color-mix(in oklch, var(--ink) 26%, transparent);
 }
