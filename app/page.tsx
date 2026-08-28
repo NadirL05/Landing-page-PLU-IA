@@ -142,8 +142,11 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
 
-      {/* ===== NAV — bandeau rectangulaire, pas de pill flottante ===== */}
-      <header className="sticky top-0 z-50 border-b" style={{ background: "color-mix(in oklch, var(--paper) 92%, transparent)", borderColor: "var(--line-strong)", backdropFilter: "blur(8px)" }}>
+      {/* ===== NAV — bandeau rectangulaire, pas de pill flottante =====
+           Surface .glass : le fond et le flou d'arrière-plan sont
+           entièrement portés par la feuille de style (une seule source de
+           vérité), le style inline ne garde que la couleur de filet. */}
+      <header className="glass sticky top-0 z-50 border-b" style={{ borderColor: "var(--line-strong)" }}>
         <div className="relative mx-auto flex h-16 max-w-[1180px] items-center justify-between px-5 sm:px-7">
           <div className="flex min-w-0 items-center gap-10">
             <Link href="/" className="flex shrink-0 items-center gap-2.5">

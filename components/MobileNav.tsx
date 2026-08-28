@@ -35,6 +35,11 @@ export function MobileNav() {
       </button>
 
       {isOpen ? (
+        // Surface pleine (.spec-card), volontairement pas .glass : ce panneau
+        // est rendu à l'intérieur du bandeau, qui porte lui-même un
+        // backdrop-filter. Un élément à backdrop-filter devient racine de
+        // backdrop pour ses descendants — un panneau translucide ici ne
+        // flouterait rien et se lirait en gris plat par-dessus la page.
         <div id="mobile-nav-panel" className="spec-card absolute inset-x-4 top-16 z-50 px-6 py-4">
           <nav className="flex flex-col gap-1 text-[15px] font-display" style={{ color: "var(--ink)" }}>
             {NAV_LINKS.map((item) => (
