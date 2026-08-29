@@ -35,13 +35,32 @@ export function ParcelVolumeMockup({
         <ParcelVolumeCanvas />
       </div>
 
+      {/* Annotation de zonage posée sur la maquette : la plus petite des
+          deux surfaces de verre, entièrement au-dessus du volume 3D —
+          c'est là que le flou et la saturation se lisent le mieux.
+          Retrait droit exprimé en pourcentage, pas en pixels : à partir de
+          lg, la page fait déborder la maquette hors du conteneur
+          (lg:-mr-[6vw], xl:-mr-[9vw]) et jusqu'à ~13 % de sa largeur sort
+          du viewport à 1280 px. Un `right-6` serait rogné à cette largeur ;
+          18 % garde la pastille dans la zone visible à 1024, 1280, 1440 et
+          1920 px. La carte du bas est ancrée à gauche pour la même raison. */}
+      <div
+        className="glass glass-panel glass-pill absolute right-[18%] top-6 z-10 hidden items-center gap-2 px-3.5 py-2 text-[11.5px] font-semibold sm:inline-flex"
+        style={{ color: "var(--ink)" }}
+      >
+        <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--terracotta)" }} />
+        Zone UB · GPU
+      </div>
+
       {/* Carte de lecture en chevauchement : la superposition crée la
-          profondeur, comme les cartes flottantes du reste de la page. */}
-      <div className="soft-card absolute -bottom-5 left-6 z-10 hidden w-56 p-4 sm:block sm:left-10">
+          profondeur, comme les cartes flottantes du reste de la page.
+          Traitement verre plutôt qu'aplat — elle chevauche la maquette,
+          donc il y a réellement quelque chose à flouter dessous. */}
+      <div className="glass glass-panel absolute -bottom-5 left-6 z-10 hidden w-56 p-4 sm:block sm:left-10">
         <div className="text-[11px] font-semibold uppercase tracking-[0.08em]" style={{ color: "var(--ink-soft)" }}>
           Surface de plancher
         </div>
-        <div className="font-display mt-1 text-xl font-semibold" style={{ color: "var(--ink)" }}>
+        <div className="font-display mt-1 text-xl font-normal" style={{ color: "var(--ink)" }}>
           ≈ 1 240 m²
         </div>
         <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full" style={{ background: "var(--brand-soft)" }}>

@@ -170,15 +170,18 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
       />
 
-      {/* ===== NAV — bandeau rectangulaire, pas de pill flottante ===== */}
-      <header className="sticky top-0 z-50 border-b" style={{ background: "color-mix(in oklch, var(--paper) 92%, transparent)", borderColor: "var(--line-strong)", backdropFilter: "blur(8px)" }}>
+      {/* ===== NAV — bandeau rectangulaire, pas de pill flottante =====
+           Surface .glass : le fond et le flou d'arrière-plan sont
+           entièrement portés par la feuille de style (une seule source de
+           vérité), le style inline ne garde que la couleur de filet. */}
+      <header className="glass sticky top-0 z-50 border-b" style={{ borderColor: "var(--line-strong)" }}>
         <div className="relative mx-auto flex h-16 max-w-[1180px] items-center justify-between px-5 sm:px-7">
           <div className="flex min-w-0 items-center gap-10">
             <Link href="/" className="flex shrink-0 items-center gap-2.5">
               <div className="flex h-8 w-8 shrink-0 items-center justify-center border" style={{ borderColor: "var(--brand)", color: "var(--brand)" }}>
                 <IconCrosshair />
               </div>
-              <span className="font-display whitespace-nowrap text-[15px] font-semibold tracking-tight" style={{ color: "var(--ink)" }}>{BRAND_NAME}</span>
+              <span className="font-display whitespace-nowrap text-[15px] font-normal tracking-tight" style={{ color: "var(--ink)" }}>{BRAND_NAME}</span>
             </Link>
             <nav className="hidden items-center gap-7 text-[13px] font-medium md:flex" style={{ color: "var(--ink-soft)" }}>
               {[
@@ -212,7 +215,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-12 lg:gap-6">
             <div className="lg:col-span-6">
-              <h1 className="font-display text-[length:var(--text-hero)] font-semibold leading-[0.98] tracking-[-0.03em]" style={{ color: "var(--ink)" }}>
+              <h1 className="font-display text-[length:var(--text-hero)] font-normal leading-[0.98] tracking-[-0.03em]" style={{ color: "var(--ink)" }}>
                 Le potentiel d&apos;une parcelle,<br />
                 <span style={{ borderBottom: "4px solid var(--terracotta)" }}>sources à l&apos;appui.</span>
               </h1>
@@ -308,8 +311,8 @@ export default function Home() {
       <section id="fonctionnalites" className="py-28">
         <div className="mx-auto max-w-[1180px] px-6">
           <Reveal className="mb-14 max-w-3xl">
-            <div className="kicker mb-4">PL.02 — Capacités</div>
-            <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
+            <div className="kicker mb-4">Capacités</div>
+            <h2 className="font-display text-4xl font-normal leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
               De l&apos;adresse au bilan promoteur,<br />sans changer d&apos;onglet.
             </h2>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
@@ -325,7 +328,7 @@ export default function Home() {
                     <div className="flex h-9 w-9 items-center justify-center" style={{ background: "var(--brand-soft)" }}>{f.icon}</div>
                     <span className="font-mono text-[10px] font-bold tracking-[0.1em]" style={{ color: "var(--terracotta)" }}>{f.ref}</span>
                   </div>
-                  <h3 className="font-display mb-2 text-[15px] font-semibold" style={{ color: "var(--ink)" }}>{f.title}</h3>
+                  <h3 className="font-display mb-2 text-[15px] font-normal" style={{ color: "var(--ink)" }}>{f.title}</h3>
                   <p className="text-[13px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{f.body}</p>
                 </div>
               </Reveal>
@@ -340,7 +343,7 @@ export default function Home() {
                 <span className="coord-tag">Parcelle AB0142</span>
                 <div>
                   <div className="mono-label" style={{ color: "var(--ink-soft)" }}>SDP potentielle</div>
-                  <div className="font-display text-lg font-semibold" style={{ color: "var(--ink)" }}>≈ 1 240 m² · emprise 68 %</div>
+                  <div className="font-display text-lg font-normal" style={{ color: "var(--ink)" }}>≈ 1 240 m² · emprise 68 %</div>
                 </div>
               </div>
               <div className="h-1.5 w-full max-w-xs overflow-hidden" style={{ background: "var(--line)" }}>
@@ -355,8 +358,8 @@ export default function Home() {
       <section id="produit" className="relative overflow-hidden border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
         <div className="relative mx-auto max-w-[1180px] px-6">
           <Reveal className="mx-auto mb-16 max-w-2xl text-center">
-            <div className="kicker mx-auto mb-4">PL.03 — Méthode</div>
-            <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
+            <div className="kicker mx-auto mb-4">Méthode</div>
+            <h2 className="font-display text-4xl font-normal leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
               Trois étapes. Zéro friction.
             </h2>
           </Reveal>
@@ -369,7 +372,7 @@ export default function Home() {
               <Reveal key={step.n} delay={i * 110} className="process-row">
                 <div className="process-num" style={{ color: step.color }}>{step.n}</div>
                 <div className="pt-1.5 md:pt-3">
-                  <h3 className="font-display mb-2.5 text-xl font-semibold md:text-2xl" style={{ color: "var(--ink)" }}>{step.title}</h3>
+                  <h3 className="font-display mb-2.5 text-xl font-normal md:text-2xl" style={{ color: "var(--ink)" }}>{step.title}</h3>
                   <p className="max-w-2xl text-[14.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{step.body}</p>
                 </div>
               </Reveal>
@@ -382,8 +385,8 @@ export default function Home() {
       <section id="perimetre" className="border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
           <Reveal className="mb-14 max-w-3xl">
-            <div className="kicker mb-4">PL.04 — Périmètre</div>
-            <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
+            <div className="kicker mb-4">Périmètre</div>
+            <h2 className="font-display text-4xl font-normal leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
               Ce que l&apos;outil fait,<br />et ce qu&apos;il ne fait pas.
             </h2>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
@@ -439,8 +442,8 @@ export default function Home() {
       <section id="tarifs" className="border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
           <Reveal className="mx-auto mb-14 max-w-2xl text-center">
-            <div className="kicker mx-auto mb-4">PL.05 — Tarifs</div>
-            <h2 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
+            <div className="kicker mx-auto mb-4">Tarifs</div>
+            <h2 className="font-display text-4xl font-normal leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
               Un quota d&apos;analyses.<br />Pas de surprise.
             </h2>
             <p className="mt-5 text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
@@ -459,7 +462,7 @@ export default function Home() {
                   <div className="flex flex-1 flex-col p-7">
                   <div className="text-xs font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--ink-soft)" }}>{plan.name}</div>
                   <div className="mt-4 flex items-baseline gap-2">
-                    <span className="font-display text-4xl font-semibold" style={{ color: "var(--ink)" }}>{plan.priceLabel}</span>
+                    <span className="font-display text-4xl font-normal" style={{ color: "var(--ink)" }}>{plan.priceLabel}</span>
                   </div>
                   <p className="mt-1.5 text-[12px] leading-snug" style={{ color: "var(--ink-soft)" }}>{PRICE_TAX_NOTICE}</p>
                   <p className="mt-2 text-[13px]" style={{ color: "var(--ink-soft)" }}>{plan.tagline}</p>
@@ -538,8 +541,8 @@ export default function Home() {
           <div className="reg-marks grid-paper relative overflow-hidden p-12 md:p-16" style={{ border: "1px solid var(--brand)" }}>
             <div className="relative grid grid-cols-1 items-center gap-8 md:grid-cols-[1fr_auto]">
               <div>
-                <div className="kicker mb-4">PL.06 — Vérification</div>
-                <h2 className="font-display text-3xl font-semibold leading-tight tracking-tight md:text-4xl" style={{ color: "var(--ink)" }}>
+                <div className="kicker mb-4">Vérification</div>
+                <h2 className="font-display text-3xl font-normal leading-tight tracking-tight md:text-4xl" style={{ color: "var(--ink)" }}>
                   Testez sur une parcelle<br />que vous connaissez déjà.
                 </h2>
                 <p className="mt-4 max-w-xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
@@ -575,7 +578,7 @@ export default function Home() {
                 <div className="flex h-8 w-8 items-center justify-center border" style={{ borderColor: "var(--brand)", color: "var(--brand)" }}>
                   <IconCrosshair />
                 </div>
-                <span className="font-display text-[15px] font-semibold" style={{ color: "var(--ink)" }}>{BRAND_NAME}</span>
+                <span className="font-display text-[15px] font-normal" style={{ color: "var(--ink)" }}>{BRAND_NAME}</span>
               </div>
               <p className="max-w-xs text-[13px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
                 L&apos;analyse d&apos;urbanisme et de faisabilité foncière à partir des données publiques françaises.

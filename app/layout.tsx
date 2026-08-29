@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
-import { Instrument_Sans, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
+import { Instrument_Serif, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
 import { ConsentGate } from "@/components/analytics/consent-gate";
 import { GoogleTag } from "@/components/analytics/google-tag";
 import { MetaPixel } from "@/components/analytics/meta-pixel";
 import "./globals.css";
 
-const instrument = Instrument_Sans({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-instrument" });
+// Instrument Serif n'existe qu'en 400 (pas de graisses 500-700, c'est une
+// display serif à corps unique) — le poids visuel vient de la taille
+// (--text-hero), pas d'une graisse plus lourde.
+const instrument = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-instrument" });
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-jakarta" });
 const spaceMono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-space-mono" });
 
