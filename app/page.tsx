@@ -1,11 +1,16 @@
 import Link from "next/link";
-import { MobileNav } from "@/components/MobileNav";
 import { FaqSection } from "@/components/FaqSection";
+import { JsonLd } from "@/components/JsonLd";
 import { ParcelVolumeMockup } from "@/components/ParcelVolumeMockup";
 import { Reveal } from "@/components/Reveal";
+import { SiteFooter } from "@/components/SiteFooter";
+import { SiteHeader } from "@/components/SiteHeader";
+import { IconArrow, IconCheck, IconPlay, IconX } from "@/components/icons";
 import { TrackedCta } from "@/components/analytics/tracked-cta";
 import { BRAND_NAME, APP_URL } from "@/config/brand";
 import { PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
+import { APP_ENTRY_PATH, CALENDLY_URL, DATA_ATTRIBUTION, DISCLAIMER_SHORT } from "@/config/site-content";
+import { SOLUTION_PAGES } from "@/config/solutions";
 import organizationSchema from "@/public/schema/organization.json";
 import websiteSchema from "@/public/schema/website.json";
 
@@ -24,14 +29,11 @@ import websiteSchema from "@/public/schema/website.json";
 // test. La palette navy/terre-cuite est conservée, en cohérence avec
 // l'app (app-plu-ia.agentimpact.fr) qui bascule sur la même.
 
-// Stripe Payment Link mode LIVE — compte "Agentimpact-Plu-IA", basculé le 21/08/2026.
-const CALENDLY_URL = "https://calendly.com/nadir-lahyani-agentimpact/30min";
+// CALENDLY_URL / DISCLAIMER_SHORT / DATA_ATTRIBUTION vivent désormais dans
+// config/site-content.ts : les pages métier portent les mêmes mentions, et
+// une clause à portée juridique ne doit pas exister en trois copies.
 
-const DISCLAIMER_SHORT =
-  "Estimations d'aide à la décision issues de sources publiques — ni certificat d'urbanisme, ni conseil juridique ou financier. Vérifications en mairie indispensables.";
-
-const DATA_ATTRIBUTION =
-  "Données : © les contributeurs OpenStreetMap (ODbL) · IGN / Géoplateforme · DVF – Etalab (Licence Ouverte 2.0) · Géorisques – MTE · GPU · INSEE · ADEME · PVGIS – Commission européenne, Joint Research Centre.";
+const APP_DASHBOARD_URL = `${APP_URL}${APP_ENTRY_PATH}`;
 
 function structuredPrice(priceLabel: string): string {
   const price = priceLabel.match(/\d+(?:[.,]\d+)?/)?.[0];
@@ -62,41 +64,14 @@ const softwareApplicationSchema = {
   }),
 };
 
-function IconArrow() {
-  return (
-    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-      <path d="M5 12h14M13 5l7 7-7 7" />
-    </svg>
-  );
-}
-function IconCheck({ color = "var(--brand)" }: { color?: string }) {
-  return (
-    <svg className="h-4 w-4 shrink-0" style={{ color }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
-function IconX() {
-  return (
-    <svg className="h-4 w-4 shrink-0" style={{ color: "var(--ink-soft)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-      <path d="M18 6 6 18M6 6l12 12" />
-    </svg>
-  );
-}
-function IconPlay() {
-  return (
-    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <polygon points="5 3 19 12 5 21 5 3" />
-    </svg>
-  );
-}
+// IconArrow / IconCheck / IconX / IconPlay / IconCrosshair : components/icons.tsx
+// (partagés avec l'en-tête, le pied de page et les pages métier).
 function IconMapPin() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>; }
 function IconBuilding() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 21V8l9-6 9 6v13M9 21V12h6v9" /></svg>; }
 function IconShield() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" /></svg>; }
 function IconDollar() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>; }
 function IconChart() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 3v18h18M7 14l4-4 4 4 6-6" /></svg>; }
 function IconFile() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /></svg>; }
-function IconCrosshair() { return <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="7" /><path d="M12 2v4M12 18v4M2 12h4M18 12h4" /></svg>; }
 
 const features = [
   { ref: "FIG.01", icon: <IconMapPin />, title: "Adresse ou parcelle cadastrale", body: "Saisissez une adresse (Base Adresse Nationale), une référence cadastrale ou pointez la carte : la parcelle et son contour sont récupérés via l'API Carto Cadastre de l'IGN." },
@@ -146,60 +121,18 @@ const heroStats = [
 export default function Home() {
   return (
     <div className="min-h-screen">
-      {/* Audit SEO/GEO 24/08 : les 3 blocs utilisaient deux mécanismes
-       * d'injection différents — dangerouslySetInnerHTML pour l'un,
-       * texte-enfant JSX pour les deux autres. React échappe le texte-enfant
-       * (& → &amp;) au rendu SSR, mais un <script> parse son contenu en mode
-       * "raw text" : les entités HTML n'y sont PAS décodées par le
-       * navigateur. Un futur "&" dans organization.json/website.json (ex.
-       * "Cadastre & GASPAR") serait donc rendu littéralement en "&amp;" dans
-       * le JSON exécuté, corrompant sa valeur. Uniformisé sur
-       * dangerouslySetInnerHTML pour les 3 — data provient toujours de
-       * fichiers JSON statiques contrôlés par l'équipe, jamais d'une entrée
-       * utilisateur (même garantie documentée dans components/json-ld.tsx). */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-      />
+      {/* Les trois blocs JSON-LD passent par <JsonLd>, seule et unique
+       * sérialisation du site (components/JsonLd.tsx) : elle neutralise en
+       * amont les caractères que React échapperait dans un <script>, où les
+       * entités HTML ne sont pas décodées — un futur « & » dans
+       * organization.json (« Cadastre & GASPAR ») aurait sinon été exécuté
+       * en « &amp; », corrompant la valeur. */}
+      <JsonLd schema={softwareApplicationSchema} />
+      <JsonLd schema={organizationSchema} />
+      <JsonLd schema={websiteSchema} />
 
-      {/* ===== NAV — bandeau rectangulaire, pas de pill flottante =====
-           Surface .glass : le fond et le flou d'arrière-plan sont
-           entièrement portés par la feuille de style (une seule source de
-           vérité), le style inline ne garde que la couleur de filet. */}
-      <header className="glass sticky top-0 z-50 border-b" style={{ borderColor: "var(--line-strong)" }}>
-        <div className="relative mx-auto flex h-16 max-w-[1180px] items-center justify-between px-5 sm:px-7">
-          <div className="flex min-w-0 items-center gap-10">
-            <Link href="/" className="flex shrink-0 items-center gap-2.5">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center border" style={{ borderColor: "var(--brand)", color: "var(--brand)" }}>
-                <IconCrosshair />
-              </div>
-              <span className="font-display whitespace-nowrap text-[15px] font-normal tracking-tight" style={{ color: "var(--ink)" }}>{BRAND_NAME}</span>
-            </Link>
-            <nav className="hidden items-center gap-7 text-[13px] font-medium md:flex" style={{ color: "var(--ink-soft)" }}>
-              {[
-                { label: "Produit", href: "#produit" },
-                { label: "Fonctionnalités", href: "#fonctionnalites" },
-                { label: "Sources", href: "#sources" },
-                { label: "Tarifs", href: "#tarifs" },
-                { label: "FAQ", href: "#faq" },
-              ].map((item) => (
-                <a key={item.label} href={item.href} className="transition hover:opacity-70">{item.label}</a>
-              ))}
-            </nav>
-          </div>
-          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <MobileNav />
-          </div>
-        </div>
-      </header>
+      {/* En-tête partagé avec les pages métier (components/SiteHeader.tsx). */}
+      <SiteHeader />
 
       {/* ===== HERO — surfaces douces, maquette 3D satinée, fond quasi-blanc =====
            Seul bloc de la page à sortir du vocabulaire "feuille de plan" :
@@ -226,7 +159,7 @@ export default function Home() {
 
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <TrackedCta
-                  href={`${APP_URL}/dashboard`}
+                  href={APP_DASHBOARD_URL}
                   eventName="start_free_analysis"
                   eventParams={{ cta_location: "hero" }}
                   preserveQuery
@@ -497,7 +430,7 @@ export default function Home() {
                     </TrackedCta>
                   ) : plan.id === "FREE" ? (
                     <TrackedCta
-                      href={`${APP_URL}/dashboard`}
+                      href={APP_DASHBOARD_URL}
                       eventName="start_free_analysis"
                       eventParams={{ cta_location: "pricing", plan: plan.id }}
                       preserveQuery
@@ -551,7 +484,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col gap-2">
                 <TrackedCta
-                  href={`${APP_URL}/dashboard`}
+                  href={APP_DASHBOARD_URL}
                   eventName="start_free_analysis"
                   eventParams={{ cta_location: "final_cta" }}
                   preserveQuery
@@ -569,44 +502,40 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== FOOTER ===== */}
-      <footer className="border-t py-12" style={{ borderColor: "var(--line-strong)" }}>
+      {/* ===== SOLUTIONS — entrée vers les pages métier =====
+           Un bloc de contenu plutôt qu'un menu déroulant : l'entrée reste
+           atteignable au clavier et en mobile sans introduire un composant
+           client à gérer (focus, échappement, fermeture au clic extérieur). */}
+      <section id="solutions" className="border-t py-24" style={{ borderColor: "var(--line-strong)" }} aria-labelledby="solutions-heading">
         <div className="mx-auto max-w-[1180px] px-6">
-          <div className="mb-10 grid grid-cols-2 gap-8 md:grid-cols-5">
-            <div className="col-span-2">
-              <div className="mb-4 flex items-center gap-2.5">
-                <div className="flex h-8 w-8 items-center justify-center border" style={{ borderColor: "var(--brand)", color: "var(--brand)" }}>
-                  <IconCrosshair />
-                </div>
-                <span className="font-display text-[15px] font-normal" style={{ color: "var(--ink)" }}>{BRAND_NAME}</span>
-              </div>
-              <p className="max-w-xs text-[13px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-                L&apos;analyse d&apos;urbanisme et de faisabilité foncière à partir des données publiques françaises.
-              </p>
-              <p className="mt-4 max-w-sm text-[11px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{DATA_ATTRIBUTION}</p>
-            </div>
-            {[
-              { title: "Produit", links: [{ label: "Fonctionnalités", href: "#fonctionnalites" }, { label: "Périmètre & limites", href: "#perimetre" }, { label: "Tarifs", href: "#tarifs" }, { label: "Démo", href: CALENDLY_URL }] },
-              { title: "Données", links: [{ label: "Sources & attributions", href: `${APP_URL}/sources` }, { label: "Sources interrogées", href: "#sources" }] },
-              { title: "Légal", links: [{ label: "Mentions légales", href: `${APP_URL}/mentions-legales` }, { label: "CGV / CGU", href: `${APP_URL}/cgv` }, { label: "Confidentialité (RGPD)", href: `${APP_URL}/confidentialite` }, { label: "Contact", href: CALENDLY_URL }] },
-            ].map((col) => (
-              <div key={col.title}>
-                <div className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--ink-soft)" }}>{col.title}</div>
-                <ul className="space-y-2 text-[13px]" style={{ color: "var(--ink-soft)" }}>
-                  {col.links.map((link) => (
-                    <li key={link.label}><a href={link.href} target={link.href.startsWith("http") ? "_blank" : undefined} rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined} className="transition hover:opacity-70">{link.label}</a></li>
-                  ))}
-                </ul>
-              </div>
+          <Reveal className="mb-12 max-w-3xl">
+            <div className="kicker mb-4">Solutions</div>
+            <h2 id="solutions-heading" className="font-display text-4xl font-normal leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
+              Trois usages, trois façons d&apos;entrer dans l&apos;outil.
+            </h2>
+            <p className="mt-5 max-w-2xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+              Selon le moment où vous intervenez sur un terrain, la question n&apos;est pas la même. Chaque page détaille la méthode, les données mobilisées et les limites à connaître.
+            </p>
+          </Reveal>
+          <div className="spec-grid">
+            {SOLUTION_PAGES.map((page, i) => (
+              <Reveal key={page.slug} delay={i * 80} className="col-span-6 md:col-span-2">
+                <Link href={page.slug} className="card-lift flex h-full flex-col p-7">
+                  <span className="mono-label" style={{ color: "var(--terracotta)" }}>{page.navLabel}</span>
+                  <p className="mt-3 flex-1 text-[13.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{page.summary}</p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-[13px] font-medium" style={{ color: "var(--brand)" }}>
+                    {page.linkLabel}
+                    <IconArrow />
+                  </span>
+                </Link>
+              </Reveal>
             ))}
           </div>
-          <p className="mb-6 border-t pt-6 text-[11px] leading-relaxed" style={{ borderColor: "var(--line)", color: "var(--ink-soft)" }}>{DISCLAIMER_SHORT}</p>
-          <div className="flex items-center justify-between border-t pt-6 text-[11px]" style={{ borderColor: "var(--line)", color: "var(--ink-soft)" }}>
-            <span>© {new Date().getFullYear()} {BRAND_NAME}</span>
-            <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="transition hover:opacity-70">Nous contacter</a>
-          </div>
         </div>
-      </footer>
+      </section>
+
+      {/* Pied de page partagé avec les pages métier (components/SiteFooter.tsx). */}
+      <SiteFooter />
     </div>
   );
 }
