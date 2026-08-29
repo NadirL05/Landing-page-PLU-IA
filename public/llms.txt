@@ -32,6 +32,8 @@ Ce site (plu-ia.agentimpact.fr) est la landing marketing. L'outil s'utilise sur 
 ## Tarifs
 
 - Découverte — gratuit, sans carte bancaire : 2 analyses / 30 jours, 1 scan de prospection foncière / mois, 1 territoire en veille
+- Starter — 199 € / mois : 15 analyses / 30 jours, 2 scans de prospection foncière / mois, 2 territoires en veille, support par e-mail
+- Pro — 599 € / mois : 100 analyses / 30 jours, 10 scans de prospection foncière / mois, 5 territoires en veille, support par e-mail
 - Entreprise — sur mesure : volume d'analyses, scans et territoires adaptés, accompagnement à la prise en main
 
 Prix nets, TVA non applicable (article 293 B du CGI, franchise en base). Les prix affichés ici sont une copie d'affichage ; la source de vérité tarifaire et les quotas réellement appliqués vivent dans l'outil sur app-plu-ia.agentimpact.fr.
@@ -43,5 +45,8 @@ France métropolitaine et DOM, dans la limite des communes qui publient leur doc
 ## Docs
 
 - [Site marketing](https://plu-ia.agentimpact.fr): présentation produit, fonctionnalités, tarifs, FAQ
+- [Bilan promoteur](https://plu-ia.agentimpact.fr/bilan-promoteur): méthode du bilan promoteur, postes d'hypothèses ajustables, frais annexes, limites
+- [Faisabilité foncière](https://plu-ia.agentimpact.fr/faisabilite-fonciere): première étude d'une parcelle, zonage, règles applicables, enveloppe constructible théorique
+- [Prospection foncière](https://plu-ia.agentimpact.fr/prospection-fonciere): repérage de parcelles à potentiel constructible résiduel, composantes du score, faux positifs connus
 - [Application](https://app-plu-ia.agentimpact.fr): outil d'analyse de parcelle
 - [Sitemap](https://plu-ia.agentimpact.fr/sitemap.xml)

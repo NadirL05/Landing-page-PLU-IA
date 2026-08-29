@@ -1,8 +1,11 @@
-"use client";
-
-import { useState } from "react";
+import { JsonLd } from "@/components/JsonLd";
 import { BRAND_NAME } from "@/config/brand";
 import { PLAN_LIST } from "@/config/plans";
+
+export interface FaqItem {
+  readonly q: string;
+  readonly a: string;
+}
 
 function faqPlanPrice(plan: (typeof PLAN_LIST)[number]): string {
   if (plan.id === "FREE") return "0 €";
@@ -10,9 +13,11 @@ function faqPlanPrice(plan: (typeof PLAN_LIST)[number]): string {
   return plan.priceLabel.replace(/\s*\/\s*/g, "/");
 }
 
+/** Dérivé de config/plans.ts : la FAQ visible et le JSON-LD FAQPage ne peuvent
+ *  pas diverger de la grille tarifaire affichée dans la section Tarifs. */
 const pricingAnswer = `Les quatre offres actuelles sont : ${PLAN_LIST.map((plan) => `${plan.name} : ${faqPlanPrice(plan)}`).join(" ; ")}. Découverte est sans carte bancaire, avec un quota d'analyses sur une fenêtre glissante.`;
 
-const FAQS = [
+export const HOME_FAQS: readonly FaqItem[] = [
   {
     q: `Qu'est-ce que ${BRAND_NAME} ?`,
     a: `${BRAND_NAME} croise le cadastre IGN, le Géoportail de l'Urbanisme, les transactions DVF et les risques Géorisques pour produire, à la parcelle, une enveloppe constructible maximale théorique et un bilan promoteur ajustable. Chaque résultat indique la source dont il provient.`,
@@ -31,75 +36,69 @@ const FAQS = [
   },
 ];
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQS.map((faq) => ({
-    "@type": "Question",
-    name: faq.q,
-    acceptedAnswer: { "@type": "Answer", text: faq.a },
-  })),
-};
+function buildFaqSchema(items: readonly FaqItem[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: { "@type": "Answer", text: faq.a },
+    })),
+  };
+}
 
-export function FaqSection() {
-  const [open, setOpen] = useState<number | null>(null);
+interface FaqSectionProps {
+  /** FAQ propre à l'intention de la page. Par défaut : la FAQ produit générale. */
+  items?: readonly FaqItem[];
+  title?: string;
+  eyebrow?: string;
+  id?: string;
+}
 
+/**
+ * FAQ accordéon.
+ *
+ * `<details>/<summary>` natifs plutôt qu'un accordéon piloté par useState :
+ * les réponses restent dépliables sans JavaScript, l'état ouvert/fermé et la
+ * sémantique clavier sont fournis par le navigateur (pas d'aria-expanded à
+ * synchroniser à la main), et la section redevient un composant serveur —
+ * zéro JS envoyé au client pour cette partie de page.
+ *
+ * La question est portée par un h3 englobant le <summary> : elle était
+ * auparavant un simple <span>, invisible pour les extracteurs GEO alors que
+ * le FAQPage JSON-LD s'appuie sur ces mêmes questions.
+ */
+export function FaqSection({
+  items = HOME_FAQS,
+  title = "Questions fréquentes",
+  eyebrow = "PL.07 — FAQ",
+  id = "faq",
+}: FaqSectionProps) {
   return (
-    <section id="faq" className="border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
-      <script
-        type="application/ld+json"
-        // Static, developer-controlled JSON imported at build time from public/schema — never user input.
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+    <section id={id} aria-labelledby={`${id}-heading`} className="border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
+      <JsonLd schema={buildFaqSchema(items)} />
       <div className="mx-auto max-w-3xl px-6">
-        <div className="kicker mb-4">PL.07 — FAQ</div>
-        <h2 className="font-display mb-14 text-4xl font-normal leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
-          Questions fréquentes
+        <div className="kicker mb-4">{eyebrow}</div>
+        <h2 id={`${id}-heading`} className="font-display mb-14 text-4xl font-normal leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
+          {title}
         </h2>
 
         <div className="spec-card overflow-hidden">
-          {FAQS.map((faq, i) => (
-            <div key={faq.q} className={i < FAQS.length - 1 ? "border-b" : ""} style={{ borderColor: "var(--line)" }}>
-              {/* Audit SEO/GEO 24/08 : la question n'était portée par aucun
-                  heading (juste un span dans un button) — invisible pour les
-                  extracteurs GEO (trafilatura et similaires), alors que le
-                  FAQPage JSON-LD associé s'appuie sur ces mêmes questions. h3
-                  enveloppe le button (pas l'inverse — button n'accepte que du
-                  contenu de type phrasing, un h3 imbriqué serait invalide). */}
-              <h3 className="m-0">
-                <button
-                  type="button"
-                  onClick={() => setOpen(open === i ? null : i)}
-                  aria-expanded={open === i}
-                  aria-controls={`faq-panel-${i}`}
-                  id={`faq-question-${i}`}
-                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left transition hover:opacity-80"
-                >
-                  <span className="font-display text-[15px] font-medium" style={{ color: "var(--ink)" }}>{faq.q}</span>
-                  <span
-                    className="font-mono shrink-0 text-lg transition-transform"
-                    style={{ color: "var(--terracotta)", transform: open === i ? "rotate(45deg)" : "none" }}
-                  >
-                    +
-                  </span>
-                </button>
-              </h3>
-              {/* Audit sécu/a11y 24/08 : id/aria-controls/aria-labelledby lient
-                  bouton et panneau (WCAG 4.1.2/1.3.1) ; aria-hidden retire le
-                  panneau fermé de l'arbre d'accessibilité. maxHeight remonté de
-                  240 à 2000 : 240 tronquait les réponses longues au zoom 400%
-                  (WCAG 1.4.4) sans indice visuel. */}
-              <div
-                id={`faq-panel-${i}`}
-                role="region"
-                aria-labelledby={`faq-question-${i}`}
-                aria-hidden={open !== i}
-                className="overflow-hidden px-6 text-[13.5px] leading-relaxed transition-[max-height]"
-                style={{ maxHeight: open === i ? 2000 : 0, paddingBottom: open === i ? 20 : 0, color: "var(--ink-soft)" }}
-              >
+          {items.map((faq, i) => (
+            <details key={faq.q} className={`faq-item${i < items.length - 1 ? " border-b" : ""}`} style={{ borderColor: "var(--line)" }}>
+              {/* Contenu du <summary> : un seul élément de titre, comme
+                  l'autorise le modèle de contenu de summary (phrasing
+                  content OU un élément de heading content). Le « + » est
+                  posé en ::after par la feuille de style — l'ajouter en
+                  <span> ici rendrait le summary invalide. */}
+              <summary className="faq-summary px-6 py-5">
+                <h3 className="font-display m-0 text-[15px] font-medium" style={{ color: "var(--ink)" }}>{faq.q}</h3>
+              </summary>
+              <div className="px-6 pb-5 text-[13.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
                 {faq.a}
               </div>
-            </div>
+            </details>
           ))}
         </div>
       </div>
