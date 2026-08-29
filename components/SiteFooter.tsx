@@ -46,8 +46,13 @@ export function SiteFooter() {
   return (
     <footer className="border-t py-12" style={{ borderColor: "var(--line-strong)" }}>
       <div className="mx-auto max-w-[1180px] px-6">
-        <div className="mb-10 grid grid-cols-2 gap-8 md:grid-cols-6">
-          <div className="col-span-2">
+        {/* 12 colonnes et non 6 : la colonne Solutions ajoutée porte le total
+            à 7 pistes (2 + 2 + 1 + 1 + 1), ce qui faisait passer « Légal » à
+            la ligne sur desktop. Le gabarit en 12 rétablit un compte exact
+            (3 + 3 + 2 + 2 + 2) et laisse respirer les intitulés descriptifs
+            des pages métier. En mobile, `grid-cols-2` est inchangé. */}
+        <div className="mb-10 grid grid-cols-2 gap-8 md:grid-cols-12">
+          <div className="col-span-2 md:col-span-3">
             <div className="mb-4 flex items-center gap-2.5">
               <div className="flex h-8 w-8 items-center justify-center border" style={{ borderColor: "var(--brand)", color: "var(--brand)" }}>
                 <IconCrosshair />
@@ -60,7 +65,7 @@ export function SiteFooter() {
             <p className="mt-4 max-w-sm text-[11px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{DATA_ATTRIBUTION}</p>
           </div>
 
-          <div className="col-span-2">
+          <div className="col-span-2 md:col-span-3">
             <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--ink-soft)" }}>Solutions</h2>
             <ul className="space-y-2 text-[13px]" style={{ color: "var(--ink-soft)" }}>
               {SOLUTION_PAGES.map((page) => (
@@ -72,7 +77,7 @@ export function SiteFooter() {
           </div>
 
           {FOOTER_COLUMNS.map((col) => (
-            <div key={col.title}>
+            <div key={col.title} className="md:col-span-2">
               <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--ink-soft)" }}>{col.title}</h2>
               <ul className="space-y-2 text-[13px]" style={{ color: "var(--ink-soft)" }}>
                 {col.links.map((link) => {
