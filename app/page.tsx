@@ -6,7 +6,6 @@ import { Reveal } from "@/components/Reveal";
 import { TrackedCta } from "@/components/analytics/tracked-cta";
 import { BRAND_NAME, APP_URL } from "@/config/brand";
 import { PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
-import softwareApplicationSchema from "@/public/schema/software-application.json";
 import organizationSchema from "@/public/schema/organization.json";
 import websiteSchema from "@/public/schema/website.json";
 
@@ -33,6 +32,35 @@ const DISCLAIMER_SHORT =
 
 const DATA_ATTRIBUTION =
   "Données : © les contributeurs OpenStreetMap (ODbL) · IGN / Géoplateforme · DVF – Etalab (Licence Ouverte 2.0) · Géorisques – MTE · GPU · INSEE · ADEME · PVGIS – Commission européenne, Joint Research Centre.";
+
+function structuredPrice(priceLabel: string): string {
+  const price = priceLabel.match(/\d+(?:[.,]\d+)?/)?.[0];
+  if (!price) throw new Error(`Prix structuré introuvable pour « ${priceLabel} »`);
+  return price.replace(",", ".");
+}
+
+const softwareApplicationSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "@id": "https://plu-ia.agentimpact.fr/#software",
+  name: "PLU IA",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Web",
+  url: "https://plu-ia.agentimpact.fr",
+  description: "Analyse foncière et urbanisme assistées par IA : zonage, enveloppe constructible, comparables DVF et bilan promoteur.",
+  publisher: { "@id": "https://plu-ia.agentimpact.fr/#organization" },
+  offers: PLAN_LIST.map((plan) => {
+    const offer = { "@type": "Offer", name: plan.name };
+    if (plan.id === "ENTERPRISE") {
+      return { ...offer, description: "Tarification sur mesure selon les volumes et besoins." };
+    }
+    return {
+      ...offer,
+      price: plan.id === "FREE" ? "0" : structuredPrice(plan.priceLabel),
+      priceCurrency: "EUR",
+    };
+  }),
+};
 
 function IconArrow() {
   return (

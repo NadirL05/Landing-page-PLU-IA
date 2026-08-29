@@ -17,6 +17,18 @@
     },
     {
       "@type": "Offer",
+      "name": "Starter",
+      "price": "199",
+      "priceCurrency": "EUR"
+    },
+    {
+      "@type": "Offer",
+      "name": "Pro",
+      "price": "599",
+      "priceCurrency": "EUR"
+    },
+    {
+      "@type": "Offer",
       "name": "Entreprise",
       "description": "Tarification sur mesure selon les volumes et besoins."
     }

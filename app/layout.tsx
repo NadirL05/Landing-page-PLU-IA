@@ -10,6 +10,8 @@ const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "
 const spaceMono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-space-mono" });
 
 const SITE_URL = "https://plu-ia.agentimpact.fr";
+const SITE_DESCRIPTION =
+  "Analyse de parcelle, règles d’urbanisme, potentiel constructible et bilan promoteur : PLU IA croise les données publiques pour éclairer vos décisions.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -17,8 +19,7 @@ export const metadata: Metadata = {
     default: "PLU IA — Analyse de parcelle, urbanisme et bilan promoteur",
     template: "%s | PLU IA",
   },
-  description:
-    "PLU IA croise cadastre IGN, documents d'urbanisme (GPU), transactions DVF et risques Géorisques pour produire une estimation d'aide à la décision : zonage, enveloppe constructible, comparables et bilan promoteur.",
+  description: SITE_DESCRIPTION,
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
   openGraph: {
@@ -26,14 +27,13 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     siteName: "PLU IA",
     title: "PLU IA — Analyse de parcelle, urbanisme et bilan promoteur",
-    description:
-      "Cadastre IGN, GPU, DVF et Géorisques croisés pour une enveloppe constructible et un bilan promoteur, à la parcelle.",
+    description: SITE_DESCRIPTION,
     url: SITE_URL,
   },
   twitter: {
     card: "summary_large_image",
     title: "PLU IA — Analyse de parcelle, urbanisme et bilan promoteur",
-    description: "Zonage, risques, comparables DVF et bilan promoteur, sources à l'appui.",
+    description: SITE_DESCRIPTION,
   },
 };
 

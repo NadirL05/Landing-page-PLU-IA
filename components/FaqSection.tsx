@@ -2,7 +2,15 @@
 
 import { useState } from "react";
 import { BRAND_NAME } from "@/config/brand";
-import faqSchema from "@/public/schema/faq.json";
+import { PLAN_LIST } from "@/config/plans";
+
+function faqPlanPrice(plan: (typeof PLAN_LIST)[number]): string {
+  if (plan.id === "FREE") return "0 €";
+  if (plan.id === "ENTERPRISE") return "sur mesure";
+  return plan.priceLabel.replace(/\s*\/\s*/g, "/");
+}
+
+const pricingAnswer = `Les quatre offres actuelles sont : ${PLAN_LIST.map((plan) => `${plan.name} : ${faqPlanPrice(plan)}`).join(" ; ")}. Découverte est sans carte bancaire, avec un quota d'analyses sur une fenêtre glissante.`;
 
 const FAQS = [
   {
@@ -15,13 +23,23 @@ const FAQS = [
   },
   {
     q: "Combien ça coûte ?",
-    a: "Le plan Découverte est gratuit, sans carte bancaire, avec un quota d'analyses sur une fenêtre glissante. L'offre Entreprise est proposée sur mesure selon vos volumes et vos besoins.",
+    a: pricingAnswer,
   },
   {
     q: "Sur quelles communes ça fonctionne ?",
     a: "France métropolitaine et DOM, dans la limite des communes qui publient leur document d'urbanisme sur le Géoportail de l'Urbanisme. Si une commune n'y publie pas son PLU, le zonage n'est pas garanti par l'outil.",
   },
 ];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: { "@type": "Answer", text: faq.a },
+  })),
+};
 
 export function FaqSection() {
   const [open, setOpen] = useState<number | null>(null);
