@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Agent skills are project tooling, not application source. Some include
+    // intentionally incomplete code templates that must not affect CI.
+    ".agents/**",
+    ".claude/**",
+    "agent/**",
   ]),
 ]);
 
