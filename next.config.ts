@@ -37,6 +37,20 @@ const CSP = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/tarif",
+        destination: "/#tarifs",
+        permanent: true,
+      },
+      {
+        source: "/tarifs",
+        destination: "/#tarifs",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
