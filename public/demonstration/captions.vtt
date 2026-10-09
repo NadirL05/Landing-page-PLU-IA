@@ -1,48 +1,55 @@
 WEBVTT
 
-00:00:00.340 --> 00:00:04.070
-Je vais vous montrer comment PLU-IA
-évalue le potentiel d’une parcelle.
+00:00:00.360 --> 00:00:03.860
+Voici comment PLU-IA évalue
+le potentiel d’une parcelle.
 
-00:00:04.530 --> 00:00:07.680
-On part simplement d’une adresse,
+00:00:04.550 --> 00:00:06.710
+On part d’une adresse,
 ici à Istres,
 
-00:00:07.990 --> 00:00:12.100
+00:00:07.170 --> 00:00:11.000
 et l’outil retrouve la parcelle cadastrale :
 429 m².
 
-00:00:12.690 --> 00:00:15.620
-À partir de là, j’ouvre
-une étude de faisabilité.
+00:00:11.760 --> 00:00:13.560
+J’ouvre alors une étude de faisabilité.
 
-00:00:15.980 --> 00:00:20.400
+00:00:14.290 --> 00:00:18.520
 Elle affiche le zonage et ses limites :
 ce n’est pas une autorisation de construire.
 
-00:00:20.810 --> 00:00:25.420
-Et chaque réponse est sourcée :
-ici, la règle vient de la page 126,
+00:00:19.250 --> 00:00:22.200
+Les réponses renvoient aux sources,
+comme la page 126
 
-00:00:25.470 --> 00:00:27.260
+00:00:22.220 --> 00:00:24.240
 du règlement écrit du PLU d’Istres.
 
-00:00:27.840 --> 00:00:32.920
-Je peux ensuite tester une hypothèse,
-par exemple passer de R+4 à R+1.
+00:00:25.000 --> 00:00:28.440
+Je teste une hypothèse :
+de R+4 à R+1.
 
-00:00:33.390 --> 00:00:38.460
+00:00:29.280 --> 00:00:33.570
 La maquette en 3D donne un volume théorique, indicatif,
-avec les points qui restent à vérifier.
+et les points à vérifier.
 
-00:00:39.050 --> 00:00:44.960
-La synthèse réunit le cadastre, l’urbanisme et les ventes passées,
+00:00:34.390 --> 00:00:39.740
+La synthèse réunit cadastre, urbanisme et ventes passées,
 et signale ce qui n’est pas évalué.
 
-00:00:45.520 --> 00:00:49.190
-Côté marché, vous retrouvez les cinq dernières ventes
+00:00:40.640 --> 00:00:44.150
+Côté marché, on retrouve les cinq dernières ventes
 autour de la parcelle.
 
-00:00:49.610 --> 00:00:54.110
-Si vous avez une parcelle à étudier,
-répondez simplement à cet email : on en discute.
+00:00:44.800 --> 00:00:49.820
+Et PLU-IA peut aussi se connecter
+à Claude ou à ChatGPT, via MCP :
+
+00:00:49.820 --> 00:00:53.130
+vous retrouvez vos études et posez vos questions
+depuis votre assistant.
+
+00:00:53.910 --> 00:00:58.000
+Vous avez une parcelle à étudier ?
+Répondez simplement à cet email, on en discute.
