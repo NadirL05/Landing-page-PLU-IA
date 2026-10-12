@@ -3,6 +3,7 @@ import { Instrument_Serif, Plus_Jakarta_Sans, Space_Mono } from "next/font/googl
 import { ConsentGate } from "@/components/analytics/consent-gate";
 import { GoogleTag } from "@/components/analytics/google-tag";
 import { MetaPixel } from "@/components/analytics/meta-pixel";
+import { BRAND_NAME, BRAND_URL, COMPANY_NAME } from "@/config/brand";
 import "./globals.css";
 
 // Instrument Serif n'existe qu'en 400 (pas de graisses 500-700, c'est une
@@ -12,30 +13,53 @@ const instrument = Instrument_Serif({ subsets: ["latin"], weight: "400", style: 
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-jakarta" });
 const spaceMono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-space-mono" });
 
-const SITE_URL = "https://plu-ia.agentimpact.fr";
 const SITE_DESCRIPTION =
-  "Analyse de parcelle, règles d’urbanisme, potentiel constructible et bilan promoteur : PLU IA croise les données publiques pour éclairer vos décisions.";
+  "Analyse de parcelle, règles d’urbanisme, potentiel constructible et bilan promoteur : Fonciable croise les données publiques pour éclairer vos décisions.";
+const SITE_TITLE = "Fonciable — Analyse foncière, urbanisme et bilan promoteur";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
+  metadataBase: new URL(BRAND_URL),
+  applicationName: BRAND_NAME,
   title: {
-    default: "PLU IA — Analyse de parcelle, urbanisme et bilan promoteur",
-    template: "%s | PLU IA",
+    default: SITE_TITLE,
+    template: `%s | ${BRAND_NAME}`,
   },
   description: SITE_DESCRIPTION,
-  alternates: { canonical: "/" },
-  robots: { index: true, follow: true },
+  keywords: [
+    "analyse foncière",
+    "faisabilité foncière",
+    "bilan promoteur",
+    "PLU",
+    "prospection foncière",
+    "potentiel constructible",
+  ],
+  authors: [{ name: COMPANY_NAME, url: "https://agentimpact.fr" }],
+  creator: COMPANY_NAME,
+  publisher: COMPANY_NAME,
+  category: "immobilier",
+  alternates: { canonical: "/", languages: { "fr-FR": "/" } },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    siteName: "PLU IA",
-    title: "PLU IA — Analyse de parcelle, urbanisme et bilan promoteur",
+    siteName: BRAND_NAME,
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    url: SITE_URL,
+    url: BRAND_URL,
   },
   twitter: {
     card: "summary_large_image",
-    title: "PLU IA — Analyse de parcelle, urbanisme et bilan promoteur",
+    title: SITE_TITLE,
     description: SITE_DESCRIPTION,
   },
 };

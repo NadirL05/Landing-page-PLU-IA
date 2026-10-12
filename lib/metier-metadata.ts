@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { MetierPageContent } from "@/components/metier/types";
+import { BRAND_NAME } from "@/config/brand";
 
 /**
  * Métadonnées des pages métier.
@@ -18,7 +19,7 @@ const OG_IMAGE = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: "PLU IA — Analyse de parcelle, urbanisme et bilan promoteur",
+  alt: "Fonciable — Analyse foncière, urbanisme et bilan promoteur",
 };
 
 export function buildMetierMetadata(content: MetierPageContent): Metadata {
@@ -29,7 +30,7 @@ export function buildMetierMetadata(content: MetierPageContent): Metadata {
     openGraph: {
       type: "article",
       locale: "fr_FR",
-      siteName: "PLU IA",
+      siteName: BRAND_NAME,
       url: content.slug,
       title: content.metaTitle,
       description: content.metaDescription,

@@ -8,7 +8,7 @@
  *
  * Ces pages sont PUBLIQUES et purement éditoriales : aucun moteur de calcul,
  * aucune base de données, aucun formulaire. Tous les calculs restent dans
- * l'application privée (app-plu-ia.agentimpact.fr).
+ * l'application privée (app.fonciable.fr).
  */
 
 export interface SolutionPage {

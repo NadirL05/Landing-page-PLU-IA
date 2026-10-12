@@ -19,7 +19,7 @@ type TrackedCtaProps = {
  * Wraps the funnel-critical CTAs (start analysis, book demo, upgrade) so
  * every click fires a GA4/Google Ads event before navigating away — the
  * only place in the landing where user interaction needs to be measured.
- * `preserveQuery` forwards gclid/utm_* to app-plu-ia.agentimpact.fr so a
+ * `preserveQuery` forwards gclid/utm_* to app.fonciable.fr so a
  * campaign click doesn't lose attribution the moment it crosses domains.
  */
 export function TrackedCta({

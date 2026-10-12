@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { IconCrosshair } from "@/components/icons";
-import { BRAND_NAME, APP_URL } from "@/config/brand";
+import { BRAND_NAME, APP_URL, COMPANY_NAME, COMPANY_URL } from "@/config/brand";
 import { SOLUTION_PAGES } from "@/config/solutions";
 import { CALENDLY_URL, DATA_ATTRIBUTION, DISCLAIMER_SHORT } from "@/config/site-content";
 
@@ -34,9 +34,9 @@ const FOOTER_COLUMNS = [
   {
     title: "Légal",
     links: [
-      { label: "Mentions légales", href: `${APP_URL}/mentions-legales` },
+      { label: "Mentions légales", href: "/mentions-legales" },
       { label: "CGV / CGU", href: `${APP_URL}/cgv` },
-      { label: "Confidentialité (RGPD)", href: `${APP_URL}/confidentialite` },
+      { label: "Confidentialité (RGPD)", href: "/confidentialite" },
       { label: "Contact", href: CALENDLY_URL },
     ],
   },
@@ -63,6 +63,9 @@ export function SiteFooter() {
               L&apos;analyse d&apos;urbanisme et de faisabilité foncière à partir des données publiques françaises.
             </p>
             <p className="mt-4 max-w-sm text-[11px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{DATA_ATTRIBUTION}</p>
+            <p className="mt-3 text-[11px]" style={{ color: "var(--ink-soft)" }}>
+              Un service <a href={COMPANY_URL} className="underline transition hover:opacity-70">{COMPANY_NAME}</a>.
+            </p>
           </div>
 
           <div className="col-span-2 md:col-span-3">
@@ -98,7 +101,7 @@ export function SiteFooter() {
         </div>
         <p className="mb-6 border-t pt-6 text-[11px] leading-relaxed" style={{ borderColor: "var(--line)", color: "var(--ink-soft)" }}>{DISCLAIMER_SHORT}</p>
         <div className="flex items-center justify-between border-t pt-6 text-[11px]" style={{ borderColor: "var(--line)", color: "var(--ink-soft)" }}>
-          <span>© {new Date().getFullYear()} {BRAND_NAME}</span>
+          <span>© {new Date().getFullYear()} {BRAND_NAME} · {COMPANY_NAME}</span>
           <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="transition hover:opacity-70">Nous contacter</a>
         </div>
       </div>

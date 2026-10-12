@@ -4,10 +4,10 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Qu'est-ce que PLU IA ?",
+      "name": "Qu'est-ce que Fonciable ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "PLU IA croise le cadastre IGN, le Géoportail de l'Urbanisme, les transactions DVF et les risques Géorisques pour produire, à la parcelle, une enveloppe constructible maximale théorique et un bilan promoteur ajustable. Chaque résultat indique la source dont il provient."
+        "text": "Fonciable croise le cadastre IGN, le Géoportail de l'Urbanisme, les transactions DVF et les risques Géorisques pour produire, à la parcelle, une enveloppe constructible maximale théorique et un bilan promoteur ajustable. Chaque résultat indique la source dont il provient."
       }
     },
     {
@@ -15,7 +15,7 @@
       "name": "Est-ce un acte d'instruction officiel ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Non. PLU IA ne délivre ni certificat d'urbanisme ni autorisation administrative. C'est un outil d'aide à la décision : les vérifications en mairie restent indispensables, notamment sur les servitudes d'utilité publique, non couvertes par les sources branchées à ce jour."
+        "text": "Non. Fonciable ne délivre ni certificat d'urbanisme ni autorisation administrative. C'est un outil d'aide à la décision : les vérifications en mairie restent indispensables, notamment sur les servitudes d'utilité publique, non couvertes par les sources branchées à ce jour."
       }
     },
     {
