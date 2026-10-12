@@ -1,19 +1,13 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef } from "react";
 import { HousePhotoStack } from "@/components/HousePhotoStack";
-import { useReducedMotionSafe, useWebgl } from "@/hooks/useSceneCapabilities";
-import type { SceneStore } from "@/components/PageHouseScene";
-
-const PageHouseScene = dynamic(
-  () => import("@/components/PageHouseScene").then((mod) => mod.PageHouseScene),
-  { ssr: false }
-);
+import type { SceneStore } from "@/components/sceneStore";
+import { useReducedMotionSafe } from "@/hooks/useSceneCapabilities";
 
 /** Progression montrée en mode statique (reduced-motion) : la maison est livrée. */
 const STATIC_PROGRESS = 0.95;
-/** Progression de la scène en haut de page : voisinage levé, parcelle tracée. */
+/** Progression de la scène en haut de page : la parcelle réelle, vue du ciel. */
 const TOP_PROGRESS = 0.1;
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
@@ -57,8 +51,6 @@ function progressAt(scrollY: number, { ys, ss }: Anchors): number {
 
 export function PageScene() {
   const reduced = useReducedMotionSafe();
-  const webglOk = useWebgl();
-  const canvasLayer = useRef<HTMLDivElement>(null);
   const store = useRef<SceneStore>({ progress: STATIC_PROGRESS });
   const listeners = useRef(new Set<() => void>());
 
@@ -71,12 +63,6 @@ export function PageScene() {
 
   const apply = useCallback((progress: number) => {
     store.current.progress = progress;
-    if (canvasLayer.current) {
-      // Le canvas 3D (acte 1) s'estompe quand les photos (acte 2) prennent le relais.
-      const fade = 1 - clamp01((progress - 0.31) / 0.12);
-      canvasLayer.current.style.opacity = String(fade);
-      canvasLayer.current.style.visibility = fade > 0.001 ? "visible" : "hidden";
-    }
     listeners.current.forEach((listener) => listener());
   }, []);
 
@@ -120,16 +106,5 @@ export function PageScene() {
     };
   }, [reduced, apply]);
 
-  return (
-    <>
-      {webglOk ? (
-        <div ref={canvasLayer} className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-          <div className="h-full w-full max-md:opacity-70">
-            <PageHouseScene store={store} subscribe={subscribe} />
-          </div>
-        </div>
-      ) : null}
-      <HousePhotoStack store={store} subscribe={subscribe} reduced={reduced} />
-    </>
-  );
+  return <HousePhotoStack store={store} subscribe={subscribe} reduced={reduced} />;
 }
