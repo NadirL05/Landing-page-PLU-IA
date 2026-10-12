@@ -40,6 +40,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/:path*",
+        has: [{ type: "host", value: "plu-ia.agentimpact.fr" }],
+        destination: "https://fonciable.fr/:path*",
+        permanent: true,
+      },
+      {
         source: "/tarif",
         destination: "/#tarifs",
         permanent: true,
