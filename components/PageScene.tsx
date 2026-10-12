@@ -129,7 +129,7 @@ export function PageScene() {
           </div>
         </div>
       ) : null}
-      <HousePhotoStack store={store} subscribe={subscribe} />
+      <HousePhotoStack store={store} subscribe={subscribe} reduced={reduced} />
     </>
   );
 }
