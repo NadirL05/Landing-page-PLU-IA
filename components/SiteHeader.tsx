@@ -1,6 +1,6 @@
+import Image from "next/image";
 import Link from "next/link";
 import { MobileNav } from "@/components/MobileNav";
-import { IconCrosshair } from "@/components/icons";
 import { APP_URL, BRAND_NAME } from "@/config/brand";
 import { APP_ENTRY_PATH } from "@/config/site-content";
 
@@ -32,9 +32,7 @@ export function SiteHeader() {
       <div className="relative mx-auto flex h-16 max-w-[1180px] items-center justify-between px-5 sm:px-7">
         <div className="flex min-w-0 items-center gap-10">
           <Link href="/" className="flex shrink-0 items-center gap-2.5">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center border" style={{ borderColor: "var(--brand)", color: "var(--brand)" }}>
-              <IconCrosshair />
-            </div>
+            <Image src="/brand/fonciable-logo.png" alt="" width={32} height={32} unoptimized className="h-8 w-8 shrink-0 rounded-md" priority />
             <span className="font-display whitespace-nowrap text-[15px] font-normal tracking-tight" style={{ color: "var(--ink)" }}>{BRAND_NAME}</span>
           </Link>
           <nav aria-label="Navigation principale" className="hidden items-center gap-7 text-[13px] font-medium md:flex" style={{ color: "var(--ink-soft)" }}>
