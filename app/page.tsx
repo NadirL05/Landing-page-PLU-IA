@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { FaqSection } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
-import { ParcelVolumeMockup } from "@/components/ParcelVolumeMockup";
+import { PageScene } from "@/components/PageScene";
 import { Reveal } from "@/components/Reveal";
-import { ScrollStory } from "@/components/ScrollStory";
+import { ScrollBeat } from "@/components/ScrollBeat";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { IconArrow, IconCheck, IconPlay, IconX } from "@/components/icons";
@@ -135,11 +135,24 @@ export default function Home() {
       {/* En-tête partagé avec les pages métier (components/SiteHeader.tsx). */}
       <SiteHeader />
 
-      {/* ===== HERO — surfaces douces, maquette 3D satinée, fond quasi-blanc =====
-           Seul bloc de la page à sortir du vocabulaire "feuille de plan" :
-           pas de quadrillage, pas de cartouche, pas d'étiquette
-           mono-espacée. Navy et terre-cuite y restent en accents. */}
-      <section className="hero-surface relative overflow-hidden pt-8">
+      {/* Scène 3D fixe derrière toute la page : une parcelle, puis une maison
+          qui se construit au fil du scroll (components/PageScene.tsx). Le
+          contenu passe au-dessus (z-10) ; les sections de texte posent un
+          voile clair (.scene-veil) pour rester lisibles, et trois « pauses »
+          (<ScrollBeat>) laissent la scène se lire seule. */}
+      <PageScene />
+      <div className="relative z-10">
+
+      {/* ===== HERO — fond transparent : la maison 3D fixe se lit à droite =====
+           Le texte et les chiffres du hero sont inchangés. L'ancienne
+           maquette 3D encadrée est remplacée par la scène de page. */}
+      <section className="relative overflow-hidden pt-8" style={{ background: "transparent" }}>
+        {/* Voile côté texte : le paragraphe du hero ne doit jamais passer sur un toit du voisinage. */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          aria-hidden="true"
+          style={{ background: "linear-gradient(90deg, color-mix(in srgb, var(--paper) 94%, transparent) 0%, color-mix(in srgb, var(--paper) 70%, transparent) 42%, transparent 66%)" }}
+        />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 pb-24 pt-14 lg:pb-32 lg:pt-16">
           <Reveal>
             <span className="hero-pill mb-8">
@@ -186,18 +199,10 @@ export default function Home() {
               <span className="mt-4 inline-block text-[13px]" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · 2 analyses / 30 jours</span>
             </div>
 
-            {/* La maquette déborde vers la droite au-delà du conteneur sur
-                grand écran : elle cesse d'être une vignette posée à côté
-                du texte pour devenir l'ancre visuelle de la page, sans
-                pour autant réduire la colonne de titre sous la largeur
-                qui lui permet de respirer. La section porte déjà
-                overflow-hidden — pas de défilement horizontal.
-                Pas de <Reveal> ici : la scène 3D a sa propre entrée
-                (extrusion des volumes), un scale-in CSS par-dessus
-                ferait deux animations concurrentes sur le même objet. */}
-            <div className="relative flex justify-center lg:col-span-6 lg:-mr-[6vw] lg:block xl:-mr-[9vw]">
-              <ParcelVolumeMockup className="max-w-xl lg:max-w-none" />
-            </div>
+            {/* Colonne laissée libre : la scène 3D fixe y passe (décalée à
+                droite sur grand écran). Hauteur réservée pour ne pas
+                écraser le hero. */}
+            <div className="min-h-[320px] lg:col-span-6 lg:min-h-[480px]" aria-hidden="true" />
           </div>
 
           {/* Bandeau de crédibilité : des ordres de grandeur vérifiables
@@ -223,11 +228,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== HISTOIRE AU SCROLL — zone épinglée, scène 3D pilotée par le scroll ===== */}
-      <ScrollStory ctaHref={APP_DASHBOARD_URL} />
+      {/* ===== PAUSE 01 — la parcelle et son contour ===== */}
+      <ScrollBeat
+        progress={0.3}
+        kicker="01 · Adresse"
+        title="Une adresse. Une parcelle."
+        body="Saisissez une adresse ou une référence cadastrale : la parcelle et son contour sont récupérés via l'API Carto Cadastre de l'IGN."
+        source="Source : Base Adresse Nationale · Cadastre IGN"
+      />
 
       {/* ===== SOURCES ===== */}
-      <section id="sources" className="border-y py-10" style={{ borderColor: "var(--line-strong)" }}>
+      <section id="sources" className="scene-veil border-y py-10" style={{ borderColor: "var(--line-strong)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
           <p className="mono-label mb-8 text-center" style={{ color: "var(--ink-soft)" }}>
             Les sources publiques interrogées par {BRAND_NAME}
@@ -245,7 +256,7 @@ export default function Home() {
       </section>
 
       {/* ===== FEATURES — grille "fiches techniques", numérotation FIG.0x ===== */}
-      <section id="fonctionnalites" className="py-28">
+      <section id="fonctionnalites" className="scene-veil py-28">
         <div className="mx-auto max-w-[1180px] px-6">
           <Reveal className="mb-14 max-w-3xl">
             <div className="kicker mb-4">Capacités</div>
@@ -291,8 +302,17 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ===== PAUSE 02 — les règles du PLU ===== */}
+      <ScrollBeat
+        progress={0.62}
+        kicker="02 · Règles"
+        title="Le PLU, lu pour vous."
+        body="Le zonage est lu dans le Géoportail de l'Urbanisme, puis le règlement de la zone est analysé pour en extraire emprise, retraits et espaces verts."
+        source="Source : Géoportail de l'Urbanisme"
+      />
+
       {/* ===== PROCESS — numérotation de planche (PL.0x) ===== */}
-      <section id="produit" className="relative overflow-hidden border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
+      <section id="produit" className="scene-veil relative overflow-hidden border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
         <div className="relative mx-auto max-w-[1180px] px-6">
           <Reveal className="mx-auto mb-16 max-w-2xl text-center">
             <div className="kicker mx-auto mb-4">Méthode</div>
@@ -319,7 +339,7 @@ export default function Home() {
       </section>
 
       {/* ===== PÉRIMÈTRE & LIMITES ===== */}
-      <section id="perimetre" className="border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
+      <section id="perimetre" className="scene-veil border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
           <Reveal className="mb-14 max-w-3xl">
             <div className="kicker mb-4">Périmètre</div>
@@ -375,8 +395,29 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ===== PAUSE 03 — le potentiel constructible ===== */}
+      <ScrollBeat
+        progress={0.93}
+        kicker="03 · Potentiel"
+        title="Ce que le terrain permet de bâtir."
+        body="L'enveloppe constructible maximale théorique se dessine. Elle ne remplace pas la vérification en mairie, et l'outil indique quand il ne sait pas."
+        source="Enveloppe théorique · à confirmer en mairie"
+      >
+        <TrackedCta
+          href={APP_DASHBOARD_URL}
+          eventName="start_free_analysis"
+          eventParams={{ cta_location: "scene_beat" }}
+          preserveQuery
+          className="btn-brand inline-flex items-center gap-2 px-7 text-sm font-semibold"
+          style={{ height: 52 }}
+        >
+          Lancer une analyse gratuite
+          <IconArrow />
+        </TrackedCta>
+      </ScrollBeat>
+
       {/* ===== PRICING ===== */}
-      <section id="tarifs" className="border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
+      <section id="tarifs" className="scene-veil border-t py-28" style={{ borderColor: "var(--line-strong)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
           <Reveal className="mx-auto mb-14 max-w-2xl text-center">
             <div className="kicker mx-auto mb-4">Tarifs</div>
@@ -469,10 +510,12 @@ export default function Home() {
         </div>
       </section>
 
-      <FaqSection />
+      <div className="scene-veil">
+        <FaqSection />
+      </div>
 
       {/* ===== CTA — feuille de plan encadrée, repères d'angle ===== */}
-      <section className="border-t py-24" style={{ borderColor: "var(--line-strong)" }}>
+      <section className="scene-veil border-t py-24" style={{ borderColor: "var(--line-strong)" }}>
         <div className="mx-auto max-w-[1180px] px-6">
           <Reveal variant="scale">
           <div className="reg-marks grid-paper relative overflow-hidden p-12 md:p-16" style={{ border: "1px solid var(--brand)" }}>
@@ -510,7 +553,7 @@ export default function Home() {
            Un bloc de contenu plutôt qu'un menu déroulant : l'entrée reste
            atteignable au clavier et en mobile sans introduire un composant
            client à gérer (focus, échappement, fermeture au clic extérieur). */}
-      <section id="solutions" className="border-t py-24" style={{ borderColor: "var(--line-strong)" }} aria-labelledby="solutions-heading">
+      <section id="solutions" className="scene-veil border-t py-24" style={{ borderColor: "var(--line-strong)" }} aria-labelledby="solutions-heading">
         <div className="mx-auto max-w-[1180px] px-6">
           <Reveal className="mb-12 max-w-3xl">
             <div className="kicker mb-4">Solutions</div>
@@ -539,7 +582,10 @@ export default function Home() {
       </section>
 
       {/* Pied de page partagé avec les pages métier (components/SiteFooter.tsx). */}
-      <SiteFooter />
+      <div className="scene-veil">
+        <SiteFooter />
+      </div>
+      </div>
     </div>
   );
 }
