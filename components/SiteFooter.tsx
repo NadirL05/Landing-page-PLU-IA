@@ -1,5 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import { IconCrosshair } from "@/components/icons";
 import { BRAND_NAME, APP_URL, COMPANY_NAME, COMPANY_URL } from "@/config/brand";
 import { SOLUTION_PAGES } from "@/config/solutions";
 import { CALENDLY_URL, DATA_ATTRIBUTION, DISCLAIMER_SHORT } from "@/config/site-content";
@@ -54,9 +54,7 @@ export function SiteFooter() {
         <div className="mb-10 grid grid-cols-2 gap-8 md:grid-cols-12">
           <div className="col-span-2 md:col-span-3">
             <div className="mb-4 flex items-center gap-2.5">
-              <div className="flex h-8 w-8 items-center justify-center border" style={{ borderColor: "var(--brand)", color: "var(--brand)" }}>
-                <IconCrosshair />
-              </div>
+              <Image src="/brand/fonciable-logo.png" alt="" width={32} height={32} unoptimized className="h-8 w-8 rounded-md" />
               <span className="font-display text-[15px] font-normal" style={{ color: "var(--ink)" }}>{BRAND_NAME}</span>
             </div>
             <p className="max-w-xs text-[13px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
