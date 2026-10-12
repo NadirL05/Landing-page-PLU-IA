@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef } from "react";
+import { HousePhotoStack } from "@/components/HousePhotoStack";
 import { useReducedMotionSafe, useWebgl } from "@/hooks/useSceneCapabilities";
 import type { SceneStore } from "@/components/PageHouseScene";
 
@@ -10,10 +11,12 @@ const PageHouseScene = dynamic(
   { ssr: false }
 );
 
-/** Progression montrée en mode statique (reduced-motion) : la maison est terminée. */
+/** Progression montrée en mode statique (reduced-motion) : la maison est livrée. */
 const STATIC_PROGRESS = 0.95;
 /** Progression de la scène en haut de page : voisinage levé, parcelle tracée. */
 const TOP_PROGRESS = 0.1;
+
+const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
 
 type Anchors = { ys: number[]; ss: number[] };
 
@@ -55,6 +58,7 @@ function progressAt(scrollY: number, { ys, ss }: Anchors): number {
 export function PageScene() {
   const reduced = useReducedMotionSafe();
   const webglOk = useWebgl();
+  const canvasLayer = useRef<HTMLDivElement>(null);
   const store = useRef<SceneStore>({ progress: STATIC_PROGRESS });
   const listeners = useRef(new Set<() => void>());
 
@@ -67,12 +71,18 @@ export function PageScene() {
 
   const apply = useCallback((progress: number) => {
     store.current.progress = progress;
+    if (canvasLayer.current) {
+      // Le canvas 3D (acte 1) s'estompe quand les photos (acte 2) prennent le relais.
+      const fade = 1 - clamp01((progress - 0.31) / 0.12);
+      canvasLayer.current.style.opacity = String(fade);
+      canvasLayer.current.style.visibility = fade > 0.001 ? "visible" : "hidden";
+    }
     listeners.current.forEach((listener) => listener());
   }, []);
 
   useEffect(() => {
-    if (!webglOk) return undefined;
     if (reduced) {
+      store.current.focus = 1;
       apply(STATIC_PROGRESS);
       return undefined;
     }
@@ -81,6 +91,11 @@ export function PageScene() {
     let frame = 0;
     const update = () => {
       frame = 0;
+      // Pastilles visibles seulement à proximité d'une pause (pas sous le voile du contenu).
+      const centres = anchors.ys.slice(1, -1);
+      const distance = centres.length ? Math.min(...centres.map((y) => Math.abs(window.scrollY - y))) : 0;
+      const viewport = window.innerHeight;
+      store.current.focus = 1 - clamp01((distance - 0.35 * viewport) / (0.45 * viewport));
       apply(progressAt(window.scrollY, anchors));
     };
     const onScroll = () => {
@@ -103,13 +118,18 @@ export function PageScene() {
       observer.disconnect();
       if (frame) window.cancelAnimationFrame(frame);
     };
-  }, [webglOk, reduced, apply]);
-
-  if (!webglOk) return null;
+  }, [reduced, apply]);
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-0 opacity-60 md:opacity-100" aria-hidden="true">
-      <PageHouseScene store={store} subscribe={subscribe} />
-    </div>
+    <>
+      {webglOk ? (
+        <div ref={canvasLayer} className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+          <div className="h-full w-full max-md:opacity-70">
+            <PageHouseScene store={store} subscribe={subscribe} />
+          </div>
+        </div>
+      ) : null}
+      <HousePhotoStack store={store} subscribe={subscribe} />
+    </>
   );
 }
