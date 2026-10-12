@@ -7,7 +7,7 @@ import { SOLUTION_PAGES } from "@/config/solutions";
  *
  * Ne contiennent QUE des pages publiques réellement servies en 200 par ce
  * domaine : l'accueil et les trois pages métier. Pas d'ancres (elles ne sont
- * pas des URLs distinctes), pas de route de app-plu-ia.agentimpact.fr (autre
+ * pas des URLs distinctes), pas de route de app.fonciable.fr (autre
  * domaine, majoritairement authentifié et en noindex), pas de fichier
  * technique.
  *
@@ -34,3 +34,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 }
+

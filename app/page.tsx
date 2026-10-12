@@ -27,7 +27,7 @@ import websiteSchema from "@/public/schema/website.json";
 // grand rayon et ombres douces), sans quadrillage ni annotation
 // technique — la version planche cadastrale avait été rejetée en
 // test. La palette navy/terre-cuite est conservée, en cohérence avec
-// l'app (app-plu-ia.agentimpact.fr) qui bascule sur la même.
+// l'app (app.fonciable.fr) qui bascule sur la même.
 
 // CALENDLY_URL / DISCLAIMER_SHORT / DATA_ATTRIBUTION vivent désormais dans
 // config/site-content.ts : les pages métier portent les mêmes mentions, et
@@ -44,13 +44,13 @@ function structuredPrice(priceLabel: string): string {
 const softwareApplicationSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "@id": "https://plu-ia.agentimpact.fr/#software",
-  name: "PLU IA",
+  "@id": "https://fonciable.fr/#software",
+  name: "Fonciable",
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
-  url: "https://plu-ia.agentimpact.fr",
+  url: "https://fonciable.fr",
   description: "Analyse foncière et urbanisme assistées par IA : zonage, enveloppe constructible, comparables DVF et bilan promoteur.",
-  publisher: { "@id": "https://plu-ia.agentimpact.fr/#organization" },
+  publisher: { "@id": "https://fonciable.fr/#organization" },
   offers: PLAN_LIST.map((plan) => {
     const offer = { "@type": "Offer", name: plan.name };
     if (plan.id === "ENTERPRISE") {
@@ -539,3 +539,4 @@ export default function Home() {
     </div>
   );
 }
+

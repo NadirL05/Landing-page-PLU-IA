@@ -1,4 +1,4 @@
-License: https://plu-ia.agentimpact.fr/rsl.xml
+License: https://fonciable.fr/rsl.xml
 
 # Audit SEO/GEO 24/08 : Content-Signal est un directive PAR GROUPE — un
 # crawler ne lit que son propre groupe (ou retombe sur `*` s'il n'en a pas).
@@ -11,4 +11,5 @@ User-agent: *
 Allow: /
 Content-Signal: ai-train=no, search=yes, ai-input=yes
 
-Sitemap: https://plu-ia.agentimpact.fr/sitemap.xml
+Sitemap: https://fonciable.fr/sitemap.xml
+

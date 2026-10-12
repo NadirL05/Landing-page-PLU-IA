@@ -13,11 +13,12 @@ export async function GET() {
         name: "plu-ia-context",
         type: "context",
         description:
-          "Contexte PLU IA : analyse de parcelle française (zonage PLU, enveloppe constructible, comparables DVF, risques Géorisques, bilan promoteur) pour les professionnels de l'immobilier et de la promotion. Voir llms.txt pour le résumé complet du produit, des sources de données et des tarifs.",
-        url: "https://plu-ia.agentimpact.fr/llms.txt",
+          "Contexte Fonciable : analyse de parcelle française (zonage PLU, enveloppe constructible, comparables DVF, risques Géorisques, bilan promoteur) pour les professionnels de l'immobilier et de la promotion. Voir llms.txt pour le résumé complet du produit, des sources de données et des tarifs.",
+        url: "https://fonciable.fr/llms.txt",
       },
     ],
   };
 
   return Response.json(index);
 }
+

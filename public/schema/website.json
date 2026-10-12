@@ -1,9 +1,10 @@
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": "https://plu-ia.agentimpact.fr/#website",
-  "url": "https://plu-ia.agentimpact.fr",
-  "name": "PLU IA",
+  "@id": "https://fonciable.fr/#website",
+  "url": "https://fonciable.fr",
+  "name": "Fonciable",
   "inLanguage": "fr",
-  "publisher": { "@id": "https://plu-ia.agentimpact.fr/#organization" }
+  "publisher": { "@id": "https://fonciable.fr/#organization" }
 }
+

@@ -18,7 +18,7 @@ const OG_IMAGE = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: "PLU IA — Analyse de parcelle, urbanisme et bilan promoteur",
+  alt: "Fonciable — Analyse de parcelle, urbanisme et bilan promoteur",
 };
 
 export function buildMetierMetadata(content: MetierPageContent): Metadata {
@@ -29,7 +29,7 @@ export function buildMetierMetadata(content: MetierPageContent): Metadata {
     openGraph: {
       type: "article",
       locale: "fr_FR",
-      siteName: "PLU IA",
+      siteName: "Fonciable",
       url: content.slug,
       title: content.metaTitle,
       description: content.metaDescription,
@@ -43,3 +43,4 @@ export function buildMetierMetadata(content: MetierPageContent): Metadata {
     },
   };
 }
+

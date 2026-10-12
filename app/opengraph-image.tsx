@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "PLU IA — Analyse de parcelle, urbanisme et bilan promoteur";
+export const alt = "Fonciable — Analyse de parcelle, urbanisme et bilan promoteur";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -32,7 +32,7 @@ export default function OpengraphImage() {
             textTransform: "uppercase",
           }}
         >
-          PLU IA
+          Fonciable
         </div>
         <div
           style={{
@@ -69,3 +69,4 @@ export default function OpengraphImage() {
     { ...size }
   );
 }
+

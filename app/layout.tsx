@@ -12,15 +12,15 @@ const instrument = Instrument_Serif({ subsets: ["latin"], weight: "400", style: 
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-jakarta" });
 const spaceMono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: "--font-space-mono" });
 
-const SITE_URL = "https://plu-ia.agentimpact.fr";
+const SITE_URL = "https://fonciable.fr";
 const SITE_DESCRIPTION =
-  "Analyse de parcelle, règles d’urbanisme, potentiel constructible et bilan promoteur : PLU IA croise les données publiques pour éclairer vos décisions.";
+  "Analyse de parcelle, règles d’urbanisme, potentiel constructible et bilan promoteur : Fonciable croise les données publiques pour éclairer vos décisions.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "PLU IA — Analyse de parcelle, urbanisme et bilan promoteur",
-    template: "%s | PLU IA",
+    default: "Fonciable — Analyse de parcelle, urbanisme et bilan promoteur",
+    template: "%s | Fonciable",
   },
   description: SITE_DESCRIPTION,
   alternates: { canonical: "/" },
@@ -28,14 +28,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    siteName: "PLU IA",
-    title: "PLU IA — Analyse de parcelle, urbanisme et bilan promoteur",
+    siteName: "Fonciable",
+    title: "Fonciable — Analyse de parcelle, urbanisme et bilan promoteur",
     description: SITE_DESCRIPTION,
     url: SITE_URL,
   },
   twitter: {
     card: "summary_large_image",
-    title: "PLU IA — Analyse de parcelle, urbanisme et bilan promoteur",
+    title: "Fonciable — Analyse de parcelle, urbanisme et bilan promoteur",
     description: SITE_DESCRIPTION,
   },
 };
@@ -116,3 +116,4 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     </html>
   );
 }
+
