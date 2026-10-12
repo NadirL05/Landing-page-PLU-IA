@@ -27,7 +27,7 @@ export const PROSPECTION_FONCIERE: MetierPageContent = {
   metaTitle: "Prospection foncière : repérer les parcelles à potentiel constructible",
   metaDescription:
     "Balayer un territoire pour identifier les parcelles au potentiel constructible résiduel : méthode de scoring, sources publiques utilisées et limites connues.",
-  dateModified: "2026-08-29",
+  dateModified: "2026-10-12",
 
   eyebrow: "Balayage de territoire · potentiel résiduel · fiabilité",
   h1: "Repérer les parcelles qui méritent un appel",

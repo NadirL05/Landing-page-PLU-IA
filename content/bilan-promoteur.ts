@@ -23,12 +23,12 @@ export const BILAN_PROMOTEUR: MetierPageContent = {
   metaTitle: "Bilan promoteur : méthode, hypothèses et calcul de faisabilité",
   metaDescription:
     "Comprendre un bilan promoteur : charge foncière, coûts de construction, prix de sortie, frais annexes et marge. Méthode, hypothèses à poser et limites.",
-  dateModified: "2026-08-29",
+  dateModified: "2026-10-12",
 
   eyebrow: "Faisabilité financière · charge foncière · marge",
   h1: "Le bilan promoteur, poste par poste",
   lede:
-    "Le bilan promoteur est le calcul qui décide si une opération se fait ou non : ce qu'on vendra, ce que ça coûtera, ce qu'il reste. Cette page explique comment il se construit, quelles hypothèses il faut poser, et ce que PLU IA calcule à partir des données publiques d'une parcelle.",
+    "Le bilan promoteur est le calcul qui décide si une opération se fait ou non : ce qu'on vendra, ce que ça coûtera, ce qu'il reste. Cette page explique comment il se construit, quelles hypothèses il faut poser, et ce que Fonciable calcule à partir des données publiques d'une parcelle.",
   ctaPrimaryLabel: "Établir un bilan promoteur",
   ctaSecondaryLabel: "Voir une démonstration",
   ctaNote: "Sans carte bancaire · 2 analyses / 30 jours",
@@ -56,7 +56,7 @@ export const BILAN_PROMOTEUR: MetierPageContent = {
   },
 
   capabilities: {
-    title: "Ce que PLU IA calcule, et à partir de quoi",
+    title: "Ce que Fonciable calcule, et à partir de quoi",
     intro:
       "L'outil relie trois choses : les données de la parcelle, le potentiel constructible déduit des règles applicables, et les hypothèses financières que vous ajustez. Le calcul lui-même se fait dans l'application, jamais sur cette page.",
     items: [
@@ -181,8 +181,8 @@ export const BILAN_PROMOTEUR: MetierPageContent = {
       a: "Quatre familles : les recettes (prix de vente au m², prix des parkings, ou loyer et taux de capitalisation en locatif), les coûts de travaux (coût de construction au m², mode constructif, sous-sols, provision liée à la pente), les frais annexes (notaire, maîtrise d'œuvre, frais financiers, commercialisation, assurances, aléas, taxe d'aménagement) et l'objectif de marge.",
     },
     {
-      q: "PLU IA calcule-t-il un bilan à ma place ?",
-      a: "PLU IA produit un bilan à partir des données publiques de la parcelle et d'hypothèses de départ que vous ajustez ensuite. C'est une aide à la décision : les coûts, les prix de sortie, les taxes, les honoraires et les contraintes du terrain doivent être confirmés par les professionnels de l'opération avant tout engagement.",
+      q: "Fonciable calcule-t-il un bilan à ma place ?",
+      a: "Fonciable produit un bilan à partir des données publiques de la parcelle et d'hypothèses de départ que vous ajustez ensuite. C'est une aide à la décision : les coûts, les prix de sortie, les taxes, les honoraires et les contraintes du terrain doivent être confirmés par les professionnels de l'opération avant tout engagement.",
     },
     {
       q: "Le bilan tient-il compte de la TVA ?",

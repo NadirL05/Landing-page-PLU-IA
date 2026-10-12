@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { MobileNav } from "@/components/MobileNav";
 import { IconCrosshair } from "@/components/icons";
-import { BRAND_NAME } from "@/config/brand";
+import { APP_URL, BRAND_NAME } from "@/config/brand";
+import { APP_ENTRY_PATH } from "@/config/site-content";
 
 /**
  * Bandeau de navigation commun à l'accueil et aux pages métier. Extrait de
@@ -44,6 +45,12 @@ export function SiteHeader() {
           </nav>
         </div>
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <a
+            href={`${APP_URL}${APP_ENTRY_PATH}`}
+            className="btn-brand hidden h-10 items-center px-4 text-[12px] font-semibold md:inline-flex"
+          >
+            Ouvrir l’application
+          </a>
           <MobileNav />
         </div>
       </div>

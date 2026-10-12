@@ -20,12 +20,12 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
   metaTitle: "Faisabilité foncière : évaluer rapidement le potentiel d'une parcelle",
   metaDescription:
     "Première étude de faisabilité d'une parcelle : cadastre, zonage, règles applicables, enveloppe constructible théorique, risques connus et comparables DVF.",
-  dateModified: "2026-08-29",
+  dateModified: "2026-10-12",
 
   eyebrow: "Cadastre · zonage · enveloppe constructible",
   h1: "Une parcelle mérite-t-elle une étude approfondie ?",
   lede:
-    "L'étude de faisabilité foncière répond à une seule question, le plus tôt possible : ce terrain peut-il porter une opération ? Cette page explique quelles informations réunir, comment les lire, et ce que PLU IA rassemble automatiquement à partir des données publiques.",
+    "L'étude de faisabilité foncière répond à une seule question, le plus tôt possible : ce terrain peut-il porter une opération ? Cette page explique quelles informations réunir, comment les lire, et ce que Fonciable rassemble automatiquement à partir des données publiques.",
   ctaPrimaryLabel: "Analyser une parcelle",
   ctaSecondaryLabel: "Voir une démonstration",
   ctaNote: "Sans carte bancaire · 2 analyses / 30 jours",
@@ -55,7 +55,7 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
   capabilities: {
     title: "Ce que l'outil rassemble pour une première étude",
     intro:
-      "PLU IA reconstitue en une fois le dossier d'entrée d'une étude de faisabilité. Chaque élément indique sa source et son niveau de certitude ; rien n'est calculé sur cette page publique.",
+      "Fonciable reconstitue en une fois le dossier d'entrée d'une étude de faisabilité. Chaque élément indique sa source et son niveau de certitude ; rien n'est calculé sur cette page publique.",
     items: [
       {
         ref: "FF.01",
@@ -162,7 +162,7 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
       "L'absence de servitude ou de risque dans les bases consultées ne prouve pas leur absence sur le terrain : la vérification en mairie est indispensable.",
       "L'enveloppe constructible affichée est un maximum théorique : prospects, gabarit, règles d'aspect, avis d'un architecte des Bâtiments de France ou prescriptions particulières la réduisent fréquemment.",
       "La surface et le contour cadastraux ne remplacent pas un bornage : seul un géomètre-expert établit les limites de propriété.",
-      "PLU IA ne délivre ni certificat d'urbanisme, ni autorisation, ni aucun acte opposable : c'est une aide à la décision, à confronter aux services compétents.",
+      "Fonciable ne délivre ni certificat d'urbanisme, ni autorisation, ni aucun acte opposable : c'est une aide à la décision, à confronter aux services compétents.",
     ],
   },
 
@@ -177,7 +177,7 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
     },
     {
       q: "Comment connaître le zonage d'une parcelle ?",
-      a: "Le zonage figure dans le PLU ou le PLUi de la commune. Quand la commune publie son document sur le Géoportail de l'Urbanisme, PLU IA le lit automatiquement à partir de la position de la parcelle. Dans le cas contraire, il faut se rapprocher du service urbanisme de la mairie, qui reste dans tous les cas la source de référence.",
+      a: "Le zonage figure dans le PLU ou le PLUi de la commune. Quand la commune publie son document sur le Géoportail de l'Urbanisme, Fonciable le lit automatiquement à partir de la position de la parcelle. Dans le cas contraire, il faut se rapprocher du service urbanisme de la mairie, qui reste dans tous les cas la source de référence.",
     },
     {
       q: "L'enveloppe constructible affichée est-elle constructible en pratique ?",
