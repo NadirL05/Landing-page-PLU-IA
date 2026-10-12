@@ -551,3 +551,26 @@ button:focus-visible {
   .btn-brand, .btn-ghost, .faq-summary::after, html { transition: none !important; scroll-behavior: auto !important; }
   .reveal, .reveal-scale { opacity: 1 !important; transform: none !important; transition: none !important; }
 }
+
+/* Voile des sections de contenu au-dessus de la scène 3D fixe : assez
+   opaque pour que le texte reste lisible, assez translucide pour que la
+   maison se devine derrière. Les « pauses » (ScrollBeat) n'en ont pas. */
+.scene-veil {
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* Photos de la maison : leur fond ivoire se fond dans le papier de la page
+   par un masque (bords estompés sur ~14 %), pas par mix-blend-mode :
+   l'opacité de la couche, animée au scroll, l'isolerait de la page. */
+.house-photo-mask {
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 14%, #000 86%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 12%, #000 84%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0, #000 14%, #000 86%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 12%, #000 84%, transparent 100%);
+  mask-composite: intersect;
+}
