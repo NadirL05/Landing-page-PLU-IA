@@ -4,7 +4,7 @@
 
 Fonciable croise le cadastre IGN, les documents d'urbanisme (Géoportail de l'Urbanisme), les transactions immobilières (DVF) et les risques recensés (Géorisques) pour produire une estimation d'aide à la décision sur une parcelle donnée : zonage applicable, enveloppe constructible maximale théorique, comparables de prix au m² et bilan promoteur ajustable (chiffre d'affaires, coûts, marge). Chaque résultat indique sa source. Ce n'est ni un acte d'instruction officiel, ni un certificat d'urbanisme, ni un conseil juridique ou financier — les vérifications en mairie restent indispensables, notamment pour les servitudes d'utilité publique.
 
-Ce site (fonciable.fr) est la landing marketing. L'outil s'utilise sur app.fonciable.fr.
+Fonciable est un service AgentImpact. Ce site (fonciable.fr) présente le produit ; l'outil s'utilise sur app.fonciable.fr.
 
 ## Fonctionnalités
 
@@ -48,6 +48,7 @@ France métropolitaine et DOM, dans la limite des communes qui publient leur doc
 - [Bilan promoteur](https://fonciable.fr/bilan-promoteur): méthode du bilan promoteur, postes d'hypothèses ajustables, frais annexes, limites
 - [Faisabilité foncière](https://fonciable.fr/faisabilite-fonciere): première étude d'une parcelle, zonage, règles applicables, enveloppe constructible théorique
 - [Prospection foncière](https://fonciable.fr/prospection-fonciere): repérage de parcelles à potentiel constructible résiduel, composantes du score, faux positifs connus
+- [Mentions légales](https://fonciable.fr/mentions-legales): éditeur, publication et hébergement
+- [Politique de confidentialité](https://fonciable.fr/confidentialite): données, cookies et droits RGPD
 - [Application](https://app.fonciable.fr): outil d'analyse de parcelle
 - [Sitemap](https://fonciable.fr/sitemap.xml)
-

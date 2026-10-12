@@ -20,7 +20,7 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
   metaTitle: "Faisabilité foncière : évaluer rapidement le potentiel d'une parcelle",
   metaDescription:
     "Première étude de faisabilité d'une parcelle : cadastre, zonage, règles applicables, enveloppe constructible théorique, risques connus et comparables DVF.",
-  dateModified: "2026-08-29",
+  dateModified: "2026-10-12",
 
   eyebrow: "Cadastre · zonage · enveloppe constructible",
   h1: "Une parcelle mérite-t-elle une étude approfondie ?",
@@ -195,4 +195,3 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
     label: "Analyser une parcelle",
   },
 };
-

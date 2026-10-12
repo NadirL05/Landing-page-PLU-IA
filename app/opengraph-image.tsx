@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Fonciable — Analyse de parcelle, urbanisme et bilan promoteur";
+export const alt = "Fonciable — Analyse foncière, urbanisme et bilan promoteur";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -69,4 +69,3 @@ export default function OpengraphImage() {
     { ...size }
   );
 }
-

@@ -50,4 +50,3 @@ export const SOLUTION_PAGES: readonly SolutionPage[] = [
 export function otherSolutionPages(currentSlug: string): readonly SolutionPage[] {
   return SOLUTION_PAGES.filter((page) => page.slug !== currentSlug);
 }
-

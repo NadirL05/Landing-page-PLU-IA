@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { SOLUTION_PAGES } from "@/config/solutions";
+import { APP_URL } from "@/config/brand";
+import { APP_ENTRY_PATH } from "@/config/site-content";
 
 /** Ancres de l'accueil, en absolu : depuis /bilan-promoteur, « #tarifs » ne
  *  résout rien. Même liste que le bandeau desktop (components/SiteHeader.tsx),
@@ -64,6 +66,13 @@ export function MobileNav() {
                 {item.label}
               </Link>
             ))}
+            <a
+              href={`${APP_URL}${APP_ENTRY_PATH}`}
+              onClick={() => setIsOpen(false)}
+              className="btn-brand mt-4 flex h-11 items-center justify-center px-4 text-[13px] font-semibold"
+            >
+              Ouvrir l’application
+            </a>
           </nav>
         </div>
       ) : null}

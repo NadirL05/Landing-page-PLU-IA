@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fonciable — landing marketing
 
-## Getting Started
+Landing publique de [Fonciable](https://fonciable.fr), service AgentImpact d'analyse foncière et d'urbanisme. L'application est séparée et accessible sur [app.fonciable.fr](https://app.fonciable.fr).
 
-First, run the development server:
+## Développement local
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ouvrir [http://localhost:3000](http://localhost:3000). Les vérifications principales sont :
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `npm run lint`
+- `npm run build`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Architecture
 
-## Learn More
+- Next.js App Router, TypeScript et Tailwind CSS v4.
+- `config/brand.ts` centralise la marque et les domaines.
+- `config/plans.ts` est une copie d'affichage ; la source de vérité des prix et quotas reste dans l'application.
+- Les pages métier réutilisent `components/metier/MetierPage.tsx`.
+- Les métadonnées, données structurées, sitemap, robots et fichiers de découverte IA sont versionnés dans ce dépôt.
 
-To learn more about Next.js, take a look at the following resources:
+## Périmètre
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ce dépôt ne contient ni l'application authentifiée, ni sa base de données, ni sa configuration Stripe/Clerk, ni le DNS de production.

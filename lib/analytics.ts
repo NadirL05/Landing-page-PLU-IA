@@ -29,8 +29,8 @@ export function trackEvent(name: string, params: Record<string, string | number 
 
 // Audit sécu 24/08 : n'autoriser que les paramètres d'attribution connus —
 // forwarder `search.slice(1)` brut (toute la query string) faisait de cette
-// fonction un passthrough non filtré vers app.fonciable.fr :
-// n'importe quel visiteur arrivant sur fonciable.fr/?<n'importe_quoi>
+// fonction un passthrough non filtré vers le domaine applicatif :
+// n'importe quel visiteur arrivant sur la landing avec une query arbitraire
 // voyait ce paramètre recopié tel quel dans les liens CTA. Le lien affiché
 // pointe vers le vrai domaine (donc passe les filtres anti-phishing basiques
 // et rassure visuellement), mais relayait n'importe quel paramètre à l'app
@@ -67,4 +67,3 @@ export function withCurrentQuery(url: string): string {
   const separator = url.includes("?") ? "&" : "?";
   return `${url}${separator}${qs}`;
 }
-

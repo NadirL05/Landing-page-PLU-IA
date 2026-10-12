@@ -23,7 +23,7 @@ export const BILAN_PROMOTEUR: MetierPageContent = {
   metaTitle: "Bilan promoteur : méthode, hypothèses et calcul de faisabilité",
   metaDescription:
     "Comprendre un bilan promoteur : charge foncière, coûts de construction, prix de sortie, frais annexes et marge. Méthode, hypothèses à poser et limites.",
-  dateModified: "2026-08-29",
+  dateModified: "2026-10-12",
 
   eyebrow: "Faisabilité financière · charge foncière · marge",
   h1: "Le bilan promoteur, poste par poste",
@@ -196,4 +196,3 @@ export const BILAN_PROMOTEUR: MetierPageContent = {
     label: "Établir un bilan promoteur",
   },
 };
-

@@ -7,4 +7,6 @@ export const BRAND_NAME = "Fonciable";
 export const BRAND_TAGLINE = "Analyse foncière et urbanisme assistées par IA.";
 export const BRAND_URL = "https://fonciable.fr";
 export const APP_URL = "https://app.fonciable.fr";
-
+export const COMPANY_NAME = "AgentImpact";
+export const COMPANY_URL = "https://agentimpact.fr";
+export const CONTACT_EMAIL = "nadir.lahyani@agentimpact.fr";

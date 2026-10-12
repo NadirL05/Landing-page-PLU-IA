@@ -8,8 +8,57 @@
   --font-mono: var(--font-space-mono), ui-monospace, monospace;
 }
 
+/* Pages légales : même vocabulaire de planche que le reste du site, avec une
+   largeur de lecture courte et une hiérarchie stable pour les longs textes. */
+.legal-content section + section {
+  border-top: 1px solid var(--line);
+  margin-top: 2rem;
+  padding-top: 2rem;
+}
+
+.legal-content h2 {
+  color: var(--ink);
+  font-family: var(--font-instrument), serif;
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.legal-content section > div {
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+  line-height: 1.75;
+}
+
+.legal-content p + p,
+.legal-content p + ul,
+.legal-content ul + p {
+  margin-top: 0.9rem;
+}
+
+.legal-content ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+
+.legal-content li + li {
+  margin-top: 0.35rem;
+}
+
+.legal-content strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.legal-content a {
+  color: var(--brand);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
 /* ============================================================
-   Identité "Plan cadastral" — PLU-IA analyse des documents
+   Identité "Plan cadastral" — Fonciable analyse des documents
    d'urbanisme réglementaires (PLU, cadastre, DVF). La direction
    emprunte au vocabulaire des plans techniques français : papier
    froid, encre bleu-cadastre, accent terre-cuite réservé aux

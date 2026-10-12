@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { IconArrow, IconCheck, IconPlay, IconX } from "@/components/icons";
 import { TrackedCta } from "@/components/analytics/tracked-cta";
-import { BRAND_NAME, APP_URL } from "@/config/brand";
+import { BRAND_NAME, BRAND_URL, APP_URL } from "@/config/brand";
 import { PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
 import { APP_ENTRY_PATH, CALENDLY_URL, DATA_ATTRIBUTION, DISCLAIMER_SHORT } from "@/config/site-content";
 import { SOLUTION_PAGES } from "@/config/solutions";
@@ -44,13 +44,13 @@ function structuredPrice(priceLabel: string): string {
 const softwareApplicationSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "@id": "https://fonciable.fr/#software",
-  name: "Fonciable",
+  "@id": `${BRAND_URL}/#software`,
+  name: BRAND_NAME,
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
-  url: "https://fonciable.fr",
+  url: BRAND_URL,
   description: "Analyse foncière et urbanisme assistées par IA : zonage, enveloppe constructible, comparables DVF et bilan promoteur.",
-  publisher: { "@id": "https://fonciable.fr/#organization" },
+  publisher: { "@id": `${BRAND_URL}/#organization` },
   offers: PLAN_LIST.map((plan) => {
     const offer = { "@type": "Offer", name: plan.name };
     if (plan.id === "ENTERPRISE") {
@@ -539,4 +539,3 @@ export default function Home() {
     </div>
   );
 }
-

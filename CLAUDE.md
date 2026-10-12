@@ -1,13 +1,13 @@
-# CLAUDE.md — Landing-page-PLU-IA
+# CLAUDE.md — Landing-page-PLU-IA (Fonciable)
 
-Landing marketing seule pour PLU IA. Next.js App Router, TypeScript, Tailwind v4.
+Landing marketing de Fonciable, un service AgentImpact. Next.js App Router, TypeScript, Tailwind v4.
 
 ## Split landing/outil
 
-- Ce repo = landing seule, cible `plu-ia.agentimpact.fr`.
-- Outil réel = `NadirL05/sas-plu-3d`, migré vers `app-plu-ia.agentimpact.fr` (Stripe webhooks + Clerk redirect URLs à mettre à jour là-bas, pas ici).
+- Ce repo = landing seule, cible `fonciable.fr`.
+- Outil réel = `NadirL05/sas-plu-3d`, cible `app.fonciable.fr` (Stripe webhooks + Clerk redirect URLs à mettre à jour là-bas, pas ici).
 - **Source de vérité prix/quotas/Stripe** = `sas-plu-3d/src/config/plans.ts`. Ce repo n'a que des copies d'affichage (`config/plans.ts`, `config/brand.ts`) — toute modification de prix doit être répercutée dans les deux repos.
-- Pas de Clerk ici : `HeaderAuthActions`/`MobileNav` sont statiques, tous les CTA pointent vers `APP_URL` (`app-plu-ia.agentimpact.fr`).
+- Pas de Clerk ici : l'en-tête et `MobileNav` sont statiques, tous les CTA applicatifs pointent vers `APP_URL` (`app.fonciable.fr`).
 
 ## Piège résolu : env var Vercel avec retour à la ligne = SyntaxError silencieux
 
@@ -44,9 +44,9 @@ Sujet clos, plus rien à retester.
 
 ## Ce qui n'est pas encore fait
 
-- Confirmer via check headless (Playwright, pas WebFetch) que les routes authentifiées de `app-plu-ia.agentimpact.fr` (Clerk) sont bien en `noindex` et ne dupliquent pas les metadata de cette landing.
+- Confirmer via check headless (Playwright, pas WebFetch) que les routes authentifiées de `app.fonciable.fr` (Clerk) sont bien en `noindex` et ne dupliquent pas les metadata de cette landing.
 
 ## Fait
 
-- Domaine `plu-ia.agentimpact.fr` attaché à ce projet Vercel — confirmé (sitemap.xml live sert bien cette landing, plus l'outil).
+- Domaine historique `plu-ia.agentimpact.fr` attaché à ce projet Vercel avant la migration Fonciable. La configuration DNS/Vercel de `fonciable.fr` est hors de ce dépôt et doit être validée séparément avant mise en production.
 - Audit SEO/GEO technique passé le 21/08/2026 : OG/Twitter image ajoutée (`app/opengraph-image.tsx`), `lastModified` posé sur le sitemap. Aucun blocage CRITICAL trouvé.

@@ -10,6 +10,8 @@ export async function GET() {
     $schema: "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
     skills: [
       {
+        // Identifiant technique historique conservé pour ne pas casser les
+        // consommateurs ayant déjà enregistré cette ressource de découverte.
         name: "plu-ia-context",
         type: "context",
         description:
@@ -21,4 +23,3 @@ export async function GET() {
 
   return Response.json(index);
 }
-
