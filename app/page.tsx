@@ -3,6 +3,7 @@ import { FaqSection } from "@/components/FaqSection";
 import { JsonLd } from "@/components/JsonLd";
 import { ParcelVolumeMockup } from "@/components/ParcelVolumeMockup";
 import { Reveal } from "@/components/Reveal";
+import { ScrollStory } from "@/components/ScrollStory";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { IconArrow, IconCheck, IconPlay, IconX } from "@/components/icons";
@@ -221,6 +222,9 @@ export default function Home() {
           <p className="mt-10 max-w-2xl text-[12px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{DISCLAIMER_SHORT}</p>
         </div>
       </section>
+
+      {/* ===== HISTOIRE AU SCROLL — zone épinglée, scène 3D pilotée par le scroll ===== */}
+      <ScrollStory ctaHref={APP_DASHBOARD_URL} />
 
       {/* ===== SOURCES ===== */}
       <section id="sources" className="border-y py-10" style={{ borderColor: "var(--line-strong)" }}>
