@@ -29,9 +29,8 @@ export const BILAN_PROMOTEUR: MetierPageContent = {
   h1: "Le bilan promoteur, poste par poste",
   lede:
     "Le bilan promoteur est le calcul qui décide si une opération se fait ou non : ce qu'on vendra, ce que ça coûtera, ce qu'il reste. Cette page explique comment il se construit, quelles hypothèses il faut poser, et ce que Fonciable calcule à partir des données publiques d'une parcelle.",
-  ctaPrimaryLabel: "Établir un bilan promoteur",
-  ctaSecondaryLabel: "Voir une démonstration",
-  ctaNote: "Sans carte bancaire · 2 analyses / 30 jours",
+  ctaPrimaryLabel: "Prendre rendez-vous",
+  ctaNote: "Échangeons sur vos hypothèses et votre opération.",
 
   problem: {
     title: "Un bilan se joue sur les hypothèses, pas sur la formule",
@@ -191,8 +190,8 @@ export const BILAN_PROMOTEUR: MetierPageContent = {
   ],
 
   finalCta: {
-    title: "Testez la méthode sur un terrain que vous connaissez",
-    body: "Le meilleur moyen de juger un bilan automatisé est de le confronter à une opération dont vous connaissez déjà l'issue. Le plan Découverte inclut deux analyses par période de 30 jours, sans carte bancaire.",
-    label: "Établir un bilan promoteur",
+    title: "Parlons d'une opération que vous connaissez",
+    body: "Apportez un terrain ou un bilan existant : nous vous montrerons comment Fonciable présente ses hypothèses et ses limites.",
+    label: "Prendre rendez-vous",
   },
 };

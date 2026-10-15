@@ -6,11 +6,11 @@ import { Reveal } from "@/components/Reveal";
 import { ScrollBeat } from "@/components/ScrollBeat";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { IconArrow, IconCheck, IconPlay, IconX } from "@/components/icons";
+import { IconArrow, IconCheck, IconX } from "@/components/icons";
 import { TrackedCta } from "@/components/analytics/tracked-cta";
 import { BRAND_NAME, BRAND_URL, APP_URL } from "@/config/brand";
-import { PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
-import { APP_ENTRY_PATH, CALENDLY_URL, DATA_ATTRIBUTION, DISCLAIMER_SHORT } from "@/config/site-content";
+import { PUBLIC_PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
+import { CALENDLY_URL, DATA_ATTRIBUTION, DISCLAIMER_SHORT } from "@/config/site-content";
 import { SOLUTION_PAGES } from "@/config/solutions";
 import organizationSchema from "@/public/schema/organization.json";
 import websiteSchema from "@/public/schema/website.json";
@@ -34,8 +34,6 @@ import websiteSchema from "@/public/schema/website.json";
 // config/site-content.ts : les pages métier portent les mêmes mentions, et
 // une clause à portée juridique ne doit pas exister en trois copies.
 
-const APP_DASHBOARD_URL = `${APP_URL}${APP_ENTRY_PATH}`;
-
 function structuredPrice(priceLabel: string): string {
   const price = priceLabel.match(/\d+(?:[.,]\d+)?/)?.[0];
   if (!price) throw new Error(`Prix structuré introuvable pour « ${priceLabel} »`);
@@ -52,20 +50,20 @@ const softwareApplicationSchema = {
   url: BRAND_URL,
   description: "Analyse foncière et urbanisme assistées par IA : zonage, enveloppe constructible, comparables DVF et bilan promoteur.",
   publisher: { "@id": `${BRAND_URL}/#organization` },
-  offers: PLAN_LIST.map((plan) => {
+  offers: PUBLIC_PLAN_LIST.map((plan) => {
     const offer = { "@type": "Offer", name: plan.name };
     if (plan.id === "ENTERPRISE") {
       return { ...offer, description: "Tarification sur mesure selon les volumes et besoins." };
     }
     return {
       ...offer,
-      price: plan.id === "FREE" ? "0" : structuredPrice(plan.priceLabel),
+      price: structuredPrice(plan.priceLabel),
       priceCurrency: "EUR",
     };
   }),
 };
 
-// IconArrow / IconCheck / IconX / IconPlay / IconCrosshair : components/icons.tsx
+// IconArrow / IconCheck / IconX / IconCrosshair : components/icons.tsx
 // (partagés avec l'en-tête, le pied de page et les pages métier).
 function IconMapPin() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>; }
 function IconBuilding() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 21V8l9-6 9 6v13M9 21V12h6v9" /></svg>; }
@@ -89,12 +87,8 @@ const dataSources = [
   "Servitudes SUP — API Carto GPU", "PVGIS — Commission européenne",
 ];
 
-/* Chiffres clés du hero. Chaque valeur est dérivée du contenu réel de
-   cette page (longueur des tableaux ci-dessus, rayon DVF documenté en
-   FIG.05, offre d'essai déjà annoncée sous les CTA) plutôt que saisie à
-   la main : une métrique de crédibilité qui divergerait du produit
-   ferait exactement le contraire de ce que la page revendique — "chaque
-   résultat indique la source dont il provient". */
+/* Chiffres clés du hero, dérivés des sources et fonctionnalités présentées
+   sur cette page ainsi que du rayon DVF documenté en FIG.05. */
 const heroStats = [
   {
     value: String(dataSources.length),
@@ -111,11 +105,6 @@ const heroStats = [
     unit: "m",
     label: "Rayon des comparables DVF",
     note: "Mutations relevées autour de la parcelle, avec prix au m² de référence.",
-  },
-  {
-    value: "2",
-    label: "Analyses offertes / 30 jours",
-    note: "Sans carte bancaire ni engagement.",
   },
 ];
 
@@ -173,30 +162,19 @@ export default function Home() {
 
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <TrackedCta
-                  href={APP_DASHBOARD_URL}
-                  eventName="start_free_analysis"
-                  eventParams={{ cta_location: "hero" }}
-                  preserveQuery
-                  className="btn-brand inline-flex h-13 items-center gap-2 px-7 text-sm font-semibold"
-                  style={{ height: 52 }}
-                >
-                  Lancer une analyse gratuite
-                  <IconArrow />
-                </TrackedCta>
-                <TrackedCta
                   href={CALENDLY_URL}
                   eventName="book_demo"
                   eventParams={{ cta_location: "hero" }}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-ghost inline-flex items-center gap-2 px-6 text-sm font-medium"
+                  className="btn-brand inline-flex h-13 items-center gap-2 px-7 text-sm font-semibold"
                   style={{ height: 52 }}
                 >
-                  <IconPlay />
-                  Voir la démo
+                  Prendre rendez-vous
+                  <IconArrow />
                 </TrackedCta>
               </div>
-              <span className="mt-4 inline-block text-[13px]" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · 2 analyses / 30 jours</span>
+              <span className="mt-4 inline-block text-[13px]" style={{ color: "var(--ink-soft)" }}>Échange personnalisé autour de votre projet foncier.</span>
             </div>
 
             {/* Colonne laissée libre : la scène 3D fixe y passe (décalée à
@@ -404,14 +382,15 @@ export default function Home() {
         source="Enveloppe théorique · à confirmer en mairie"
       >
         <TrackedCta
-          href={APP_DASHBOARD_URL}
-          eventName="start_free_analysis"
+          href={CALENDLY_URL}
+          eventName="book_demo"
           eventParams={{ cta_location: "scene_beat" }}
-          preserveQuery
+          target="_blank"
+          rel="noopener noreferrer"
           className="btn-brand inline-flex items-center gap-2 px-7 text-sm font-semibold"
           style={{ height: 52 }}
         >
-          Lancer une analyse gratuite
+          Prendre rendez-vous
           <IconArrow />
         </TrackedCta>
       </ScrollBeat>
@@ -425,12 +404,12 @@ export default function Home() {
               Un quota d&apos;analyses.<br />Pas de surprise.
             </h2>
             <p className="mt-5 text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-              Commencez gratuitement, sans carte bancaire. Les quotas sont comptés sur une fenêtre glissante de 30 jours et sont exactement ceux appliqués par le produit.
+              Choisissez l&apos;offre adaptée à votre volume d&apos;analyses ou échangeons sur votre projet. Les quotas sont comptés sur une fenêtre glissante de 30 jours.
             </p>
           </Reveal>
 
-          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4" style={{ background: "var(--line-strong)", border: "1px solid var(--line-strong)" }}>
-            {PLAN_LIST.map((plan, i) => {
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3" style={{ background: "var(--line-strong)", border: "1px solid var(--line-strong)" }}>
+            {PUBLIC_PLAN_LIST.map((plan, i) => {
               return (
                 <Reveal key={plan.id} delay={i * 100} variant="up">
                 <div
@@ -473,16 +452,6 @@ export default function Home() {
                     >
                       Nous contacter
                     </TrackedCta>
-                  ) : plan.id === "FREE" ? (
-                    <TrackedCta
-                      href={APP_DASHBOARD_URL}
-                      eventName="start_free_analysis"
-                      eventParams={{ cta_location: "pricing", plan: plan.id }}
-                      preserveQuery
-                      className="btn-ghost mt-7 flex h-11 w-full items-center justify-center text-sm font-medium"
-                    >
-                      Commencer gratuitement
-                    </TrackedCta>
                   ) : (
                     // Starter/Pro : paiement direct, sans compte préalable — voir
                     // app/checkout/{starter,pro}/page.tsx côté app (guest checkout
@@ -523,25 +492,25 @@ export default function Home() {
               <div>
                 <div className="kicker mb-4">Vérification</div>
                 <h2 className="font-display text-3xl font-normal leading-tight tracking-tight md:text-4xl" style={{ color: "var(--ink)" }}>
-                  Testez sur une parcelle<br />que vous connaissez déjà.
+                  Parlons d&apos;une parcelle<br />que vous connaissez déjà.
                 </h2>
                 <p className="mt-4 max-w-xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-                  Le plan Découverte inclut 2 analyses / 30 jours, sans carte bancaire. Le meilleur moyen de juger la qualité d&apos;une analyse est de la confronter à un terrain dont vous connaissez l&apos;issue.
+                  Présentez-nous un terrain ou une opération : nous pourrons vous montrer comment Fonciable aide à en qualifier le potentiel.
                 </p>
               </div>
               <div className="flex flex-col gap-2">
                 <TrackedCta
-                  href={APP_DASHBOARD_URL}
-                  eventName="start_free_analysis"
+                  href={CALENDLY_URL}
+                  eventName="book_demo"
                   eventParams={{ cta_location: "final_cta" }}
-                  preserveQuery
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-brand inline-flex items-center justify-center gap-2 px-6 text-sm font-semibold"
                   style={{ height: 52 }}
                 >
-                  Analyser une parcelle
+                  Prendre rendez-vous
                   <IconArrow />
                 </TrackedCta>
-                <span className="text-center text-[11px]" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · sans engagement</span>
               </div>
             </div>
           </div>

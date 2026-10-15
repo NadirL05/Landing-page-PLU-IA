@@ -30,9 +30,7 @@ export interface MetierPageContent {
   readonly h1: string;
   readonly lede: string;
   readonly ctaPrimaryLabel: string;
-  /** CTA secondaire optionnel vers la démonstration (Calendly). */
-  readonly ctaSecondaryLabel?: string;
-  /** Mention sous les CTA (essai, absence d'engagement…). */
+  /** Mention sous le bouton de prise de rendez-vous. */
   readonly ctaNote: string;
 
   /* ---- 3. Problème métier ---- */
