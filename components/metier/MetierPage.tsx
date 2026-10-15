@@ -4,10 +4,10 @@ import { JsonLd } from "@/components/JsonLd";
 import { Reveal } from "@/components/Reveal";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { IconArrow, IconCheck, IconPlay } from "@/components/icons";
+import { IconArrow, IconCheck } from "@/components/icons";
 import { TrackedCta } from "@/components/analytics/tracked-cta";
 import { APP_URL, BRAND_NAME } from "@/config/brand";
-import { APP_ENTRY_PATH, CALENDLY_URL, DISCLAIMER_SHORT } from "@/config/site-content";
+import { CALENDLY_URL, DISCLAIMER_SHORT } from "@/config/site-content";
 import { otherSolutionPages } from "@/config/solutions";
 import { buildBreadcrumbSchema, buildWebPageSchema } from "@/lib/page-schema";
 import type { MetierPageContent } from "@/components/metier/types";
@@ -27,7 +27,6 @@ import type { MetierPageContent } from "@/components/metier/types";
  */
 export function MetierPage({ content }: { content: MetierPageContent }) {
   const others = otherSolutionPages(content.slug);
-  const appHref = `${APP_URL}${APP_ENTRY_PATH}`;
   /** Identifie la page dans GA4/Meta sans créer d'événement supplémentaire :
    *  on réutilise les noms d'événements déjà en place. */
   const pageParam = content.slug.replace("/", "");
@@ -79,30 +78,17 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <TrackedCta
-                  href={appHref}
-                  eventName="start_free_analysis"
+                  href={CALENDLY_URL}
+                  eventName="book_demo"
                   eventParams={{ cta_location: "hero", page: pageParam }}
-                  preserveQuery
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-brand inline-flex items-center gap-2 px-7 text-sm font-semibold"
                   style={{ height: 52 }}
                 >
                   {content.ctaPrimaryLabel}
                   <IconArrow />
                 </TrackedCta>
-                {content.ctaSecondaryLabel ? (
-                  <TrackedCta
-                    href={CALENDLY_URL}
-                    eventName="book_demo"
-                    eventParams={{ cta_location: "hero", page: pageParam }}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-ghost inline-flex items-center gap-2 px-6 text-sm font-medium"
-                    style={{ height: 52 }}
-                  >
-                    <IconPlay />
-                    {content.ctaSecondaryLabel}
-                  </TrackedCta>
-                ) : null}
               </div>
               <span className="mt-4 inline-block text-[13px]" style={{ color: "var(--ink-soft)" }}>{content.ctaNote}</span>
             </Reveal>
@@ -300,7 +286,7 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
               <div className="reg-marks grid-paper relative overflow-hidden p-10 md:p-14" style={{ border: "1px solid var(--brand)" }}>
                 <div className="relative grid grid-cols-1 items-center gap-8 md:grid-cols-[1fr_auto]">
                   <div>
-                    <div className="kicker mb-4">Passer à l&apos;outil</div>
+                    <div className="kicker mb-4">Échanger sur votre projet</div>
                     <h2 id="cta-heading" className="font-display text-3xl font-normal leading-tight tracking-tight md:text-4xl" style={{ color: "var(--ink)" }}>
                       {content.finalCta.title}
                     </h2>
@@ -310,17 +296,17 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
                   </div>
                   <div className="flex flex-col gap-2">
                     <TrackedCta
-                      href={appHref}
-                      eventName="start_free_analysis"
+                      href={CALENDLY_URL}
+                      eventName="book_demo"
                       eventParams={{ cta_location: "final_cta", page: pageParam }}
-                      preserveQuery
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="btn-brand inline-flex items-center justify-center gap-2 px-6 text-sm font-semibold"
                       style={{ height: 52 }}
                     >
                       {content.finalCta.label}
                       <IconArrow />
                     </TrackedCta>
-                    <span className="text-center text-[11px]" style={{ color: "var(--ink-soft)" }}>Sans carte bancaire · sans engagement</span>
                   </div>
                 </div>
               </div>

@@ -1,21 +1,19 @@
 import { JsonLd } from "@/components/JsonLd";
 import { BRAND_NAME } from "@/config/brand";
-import { PLAN_LIST } from "@/config/plans";
+import { PUBLIC_PLAN_LIST } from "@/config/plans";
 
 export interface FaqItem {
   readonly q: string;
   readonly a: string;
 }
 
-function faqPlanPrice(plan: (typeof PLAN_LIST)[number]): string {
-  if (plan.id === "FREE") return "0 €";
+function faqPlanPrice(plan: (typeof PUBLIC_PLAN_LIST)[number]): string {
   if (plan.id === "ENTERPRISE") return "sur mesure";
   return plan.priceLabel.replace(/\s*\/\s*/g, "/");
 }
 
-/** Dérivé de config/plans.ts : la FAQ visible et le JSON-LD FAQPage ne peuvent
- *  pas diverger de la grille tarifaire affichée dans la section Tarifs. */
-const pricingAnswer = `Les quatre offres actuelles sont : ${PLAN_LIST.map((plan) => `${plan.name} : ${faqPlanPrice(plan)}`).join(" ; ")}. Découverte est sans carte bancaire, avec un quota d'analyses sur une fenêtre glissante.`;
+/** Dérivé des offres affichées : la FAQ et le JSON-LD suivent la grille tarifaire. */
+const pricingAnswer = `Les offres présentées sont : ${PUBLIC_PLAN_LIST.map((plan) => `${plan.name} : ${faqPlanPrice(plan)}`).join(" ; ")}. Pour une présentation adaptée à votre projet, prenez rendez-vous.`;
 
 export const HOME_FAQS: readonly FaqItem[] = [
   {

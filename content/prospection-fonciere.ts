@@ -33,9 +33,8 @@ export const PROSPECTION_FONCIERE: MetierPageContent = {
   h1: "Repérer les parcelles qui méritent un appel",
   lede:
     "La prospection foncière consiste à faire remonter, sur un territoire donné, les terrains dont le potentiel constructible n'est pas encore consommé. Cette page explique la méthode, les données qu'elle mobilise et — surtout — les faux positifs qu'elle peut produire.",
-  ctaPrimaryLabel: "Repérer des opportunités foncières",
-  ctaSecondaryLabel: "Voir une démonstration",
-  ctaNote: "Sans carte bancaire · 1 scan de prospection inclus dans l'offre Découverte",
+  ctaPrimaryLabel: "Prendre rendez-vous",
+  ctaNote: "Échangeons sur votre territoire de prospection.",
 
   problem: {
     title: "Le gisement n'est pas rare, il est difficile à voir",
@@ -196,8 +195,8 @@ export const PROSPECTION_FONCIERE: MetierPageContent = {
   ],
 
   finalCta: {
-    title: "Balayez un territoire que vous connaissez déjà",
-    body: "Lancez un scan sur une commune dont vous connaissez le tissu : c'est le moyen le plus rapide de juger la pertinence des candidats remontés — et de mesurer les faux positifs annoncés plus haut.",
-    label: "Repérer des opportunités foncières",
+    title: "Parlons d'un territoire que vous connaissez déjà",
+    body: "Présentez-nous une commune ou un secteur : nous pourrons vous montrer comment Fonciable qualifie les candidats et signale les limites des données.",
+    label: "Prendre rendez-vous",
   },
 };

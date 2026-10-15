@@ -26,9 +26,8 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
   h1: "Une parcelle mérite-t-elle une étude approfondie ?",
   lede:
     "L'étude de faisabilité foncière répond à une seule question, le plus tôt possible : ce terrain peut-il porter une opération ? Cette page explique quelles informations réunir, comment les lire, et ce que Fonciable rassemble automatiquement à partir des données publiques.",
-  ctaPrimaryLabel: "Analyser une parcelle",
-  ctaSecondaryLabel: "Voir une démonstration",
-  ctaNote: "Sans carte bancaire · 2 analyses / 30 jours",
+  ctaPrimaryLabel: "Prendre rendez-vous",
+  ctaNote: "Parlons d'une parcelle et de vos questions de faisabilité.",
 
   problem: {
     title: "Le coût d'une étude, c'est surtout le temps passé sur les mauvaises parcelles",
@@ -190,8 +189,8 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
   ],
 
   finalCta: {
-    title: "Vérifiez une parcelle avant d'y consacrer une visite",
-    body: "Analysez un terrain dont vous connaissez déjà le dossier : c'est la façon la plus rapide de mesurer ce que l'outil apporte, et ce qu'il laisse à votre appréciation.",
-    label: "Analyser une parcelle",
+    title: "Échangeons sur une parcelle avant votre prochaine visite",
+    body: "Apportez un terrain dont vous connaissez déjà le dossier : nous vous montrerons comment Fonciable aide à préparer sa qualification.",
+    label: "Prendre rendez-vous",
   },
 };

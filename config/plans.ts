@@ -101,3 +101,6 @@ export const PLAN_LIST: readonly Plan[] = [
     ],
   },
 ];
+
+/** Offres présentées sur le site commercial ; le plan Découverte reste défini côté produit. */
+export const PUBLIC_PLAN_LIST = PLAN_LIST.filter((plan) => plan.id !== "FREE");
