@@ -12,6 +12,19 @@ import type { MetierPageContent } from "@/components/metier/types";
  *  - comparables DVF : `MarketEvidence` (même fichier) ;
  *  - zones A et N inconstructibles écartées : NON_CONSTRUCTIBLE_ZONE_FAMILIES
  *    (src/config/plu-definitions.ts, appliqué dans src/lib/gisement-sources.ts).
+ *
+ * Ajouts « constructibilité / surface constructible » du 2026-10-20, vérifiés
+ * au commit 62959d2 de sas-plu-3d (détail : docs/briefs/analyse-plu-parcelle.md §6) :
+ *  - zone rattachée au document d'urbanisme en vigueur ; RNU ou zonage non
+ *    rattaché = aucune règle de zone déduite : src/lib/plu-gpu-link.ts:1-14 et
+ *    :379, src/lib/plu-engine.ts:1450-1452 ;
+ *  - zones AU non confondues avec les zones A : src/lib/gisement-sources.ts:2004-2006 ;
+ *  - aucun bilan en zone A ou N : src/lib/finance/scenario.ts:146-147 ;
+ *  - surface de plancher potentielle = surface × emprise au sol maximale ×
+ *    niveaux permis par la hauteur maximale : src/lib/finance/scenario.ts:161-175 ;
+ *  - pas de calcul sur la parcelle entière tant que l'application des règles à
+ *    toute la parcelle n'est pas vérifiée, et l'outil le signale :
+ *    src/lib/finance/scenario.ts:139-145, src/lib/committee-dossier.ts:109-110.
  */
 export const FAISABILITE_FONCIERE: MetierPageContent = {
   slug: "/faisabilite-fonciere",
@@ -20,7 +33,7 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
   metaTitle: "Faisabilité foncière : évaluer rapidement le potentiel d'une parcelle",
   metaDescription:
     "Première étude de faisabilité d'une parcelle : cadastre, zonage, règles applicables, enveloppe constructible théorique, risques connus et comparables DVF.",
-  dateModified: "2026-10-12",
+  dateModified: "2026-10-20",
 
   eyebrow: "Cadastre · zonage · enveloppe constructible",
   h1: "Une parcelle mérite-t-elle une étude approfondie ?",
@@ -52,7 +65,7 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
   },
 
   capabilities: {
-    title: "Ce que l'outil rassemble pour une première étude",
+    title: "Ce que l'outil rassemble pour une première étude de constructibilité",
     intro:
       "Fonciable reconstitue en une fois le dossier d'entrée d'une étude de faisabilité. Chaque élément indique sa source et son niveau de certitude ; rien n'est calculé sur cette page publique.",
     items: [
@@ -90,7 +103,7 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
   },
 
   steps: {
-    title: "Quatre étapes avant de décider d'aller plus loin",
+    title: "Quatre étapes pour estimer la constructibilité d'une parcelle",
     items: [
       {
         n: "01",
@@ -104,7 +117,7 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
       },
       {
         n: "03",
-        title: "Estimer l'enveloppe constructible",
+        title: "Estimer l'enveloppe et la surface constructibles",
         body: "Les règles retenues sont converties en volume maximal théorique, visualisé en 3D, puis en surface de plancher potentielle.",
       },
       {
@@ -175,8 +188,16 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
       a: "La référence et la surface cadastrales de la parcelle, la zone du document d'urbanisme qui la couvre, les règles de cette zone (emprise au sol, hauteur, retraits, espaces verts, stationnement), les risques et servitudes recensés, et des références de prix locales pour situer la valeur de sortie.",
     },
     {
+      q: "Comment savoir si un terrain est constructible ?",
+      a: "Tout part de la zone du document d'urbanisme qui couvre la parcelle. Fonciable lit cette zone dans le Géoportail de l'Urbanisme et la rattache au document en vigueur. Les zones agricoles (A) et naturelles (N) sont identifiées comme inconstructibles et aucun bilan n'est produit pour elles ; les zones à urbaniser (AU) ne sont pas confondues avec les zones agricoles. Si la commune relève du règlement national d'urbanisme ou si aucun zonage n'est rattaché, aucune règle de zone n'en est déduite. Seule la mairie, par un certificat d'urbanisme, confirme la constructibilité.",
+    },
+    {
       q: "Comment connaître le zonage d'une parcelle ?",
       a: "Le zonage figure dans le PLU ou le PLUi de la commune. Quand la commune publie son document sur le Géoportail de l'Urbanisme, Fonciable le lit automatiquement à partir de la position de la parcelle. Dans le cas contraire, il faut se rapprocher du service urbanisme de la mairie, qui reste dans tous les cas la source de référence.",
+    },
+    {
+      q: "Comment est estimée la surface constructible d'une parcelle ?",
+      a: "Fonciable part de la surface cadastrale de la parcelle et de l'emprise au sol maximale autorisée par la zone, ce qui donne l'emprise bâtissable. Le nombre de niveaux est déduit de la hauteur maximale. La surface de plancher potentielle est l'emprise multipliée par ce nombre de niveaux. Ce calcul n'est fait qu'en zone constructible et seulement lorsque l'application des règles à toute la parcelle est vérifiée ; sinon, l'outil le signale au lieu d'afficher un chiffre.",
     },
     {
       q: "L'enveloppe constructible affichée est-elle constructible en pratique ?",
