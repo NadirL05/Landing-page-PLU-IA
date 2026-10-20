@@ -52,7 +52,7 @@ Pas de base de données. Les « entités » sont des constantes versionnées. [L
 | Plan | `config/plans.ts` | `id` (FREE/STARTER/PRO/ENTERPRISE), `name`, `priceLabel`, `quotaLabel`, `features[]` | copie de `sas-plu-3d/src/config/plans.ts` ; `PUBLIC_PLAN_LIST` exclut FREE ; alimente bloc tarifs + JSON-LD offers |
 | Contenu transverse | `config/site-content.ts` | `CALENDLY_URL`, `DISCLAIMER_SHORT`, `DATA_ATTRIBUTION`, `APP_ENTRY_PATH` | accueil, pages métier, pied de page |
 | Page solution | `config/solutions.ts` | `slug`, `navLabel`, `linkLabel`, `summary` | 1-1 avec un `content/<slug>.ts` ; sitemap, nav, maillage |
-| Contenu métier | `content/<slug>.ts` | `MetierPageContent` : méta, hero, problem, capabilities, steps, sources, proof (exemple fictif), limits, faq, finalCta | rendu par `MetierPage` |
+| Contenu métier | `content/<slug>.ts` | `MetierPageContent` : méta, hero, problem, capabilities (+ `contextLink` optionnel), steps, sources, proof (exemple fictif étiqueté, ou réel vérifié à la source avec preuves dans `docs/PREUVES-*.md`), limits, faq, finalCta | rendu par `MetierPage` |
 | Schémas statiques | `public/schema/{organization,website,software-application,faq}.json` | `@id` `https://fonciable.fr/#…` | référencés par `lib/page-schema.ts` |
 | Fichiers de découverte | `public/llms.txt`, `robots.txt`, `rsl.xml` | texte | doivent rester alignés sur `config/plans.ts` (copie manuelle) |
 

@@ -146,6 +146,15 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
                 </Reveal>
               ))}
             </div>
+            {content.capabilities.contextLink ? (
+              <p className="mt-8 max-w-3xl text-[14px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+                {content.capabilities.contextLink.text}{" "}
+                <Link href={content.capabilities.contextLink.href} className="underline transition hover:opacity-70" style={{ color: "var(--brand)" }}>
+                  {content.capabilities.contextLink.label}
+                </Link>
+                .
+              </p>
+            ) : null}
           </div>
         </section>
 
@@ -204,7 +213,7 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
           </div>
         </section>
 
-        {/* ===== 7. Preuve — exemple explicitement fictif ===== */}
+        {/* ===== 7. Preuve — exemple fictif étiqueté ou réel sourcé ===== */}
         <section className="border-t py-24" style={{ borderColor: "var(--line-strong)" }} aria-labelledby="exemple-heading">
           <div className="mx-auto max-w-[1180px] px-6">
             <Reveal className="mb-10 max-w-3xl">

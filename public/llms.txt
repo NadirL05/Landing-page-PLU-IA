@@ -51,6 +51,7 @@ France métropolitaine et DOM, dans la limite des communes qui publient leur doc
 - [Bilan promoteur](https://fonciable.fr/bilan-promoteur): méthode du bilan promoteur, postes d'hypothèses ajustables, frais annexes, limites
 - [Faisabilité foncière](https://fonciable.fr/faisabilite-fonciere): première étude d'une parcelle, zonage, règles applicables, enveloppe constructible théorique
 - [Prospection foncière](https://fonciable.fr/prospection-fonciere): repérage de parcelles à potentiel constructible résiduel, composantes du score, faux positifs connus
+- [Analyse PLU d'une parcelle](https://fonciable.fr/analyse-plu-parcelle): zonage du Géoportail de l'Urbanisme, règles de zone avec leur source, enveloppe constructible théorique, refus publiés, exemple réel à Nantes, limites
 - [Mentions légales](https://fonciable.fr/mentions-legales): éditeur, publication et hébergement
 - [Politique de confidentialité](https://fonciable.fr/confidentialite): données, cookies et droits RGPD
 - [Application](https://app.fonciable.fr): outil d'analyse de parcelle
