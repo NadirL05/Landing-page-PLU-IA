@@ -79,6 +79,7 @@ Pas de base de données. Les « entités » sont des constantes versionnées. [L
 | Vercel | hébergement, build, Cron Monitors auto (`automaticVercelMonitors`) | `.vercel/project.json` (non versionné), `next.config.ts` | — |
 | Stripe | **aucune intégration ici** ; liens vers le checkout de l'app | — | — |
 | Webhooks entrants | **aucun** | — | — |
+| IndexNow (Bing, Yandex, Seznam, Naver…) | Script manuel `scripts/indexnow.mjs` (Node 18+, sans dépendance), **non exécuté par les agents** : lancé par Nadir après chaque mise en ligne de pages (`node scripts/indexnow.mjs --dry-run`, puis sans option). Lit `https://fonciable.fr/sitemap.xml` (ou `--sitemap=<chemin>` pour un essai local), refuse toute URL hors `fonciable.fr`, envoie `{ host, key, keyLocation, urlList }` en POST à `https://api.indexnow.org/indexnow` | `scripts/indexnow.mjs`, `public/beffcce7030c7b5a8ce480cf8bf02f16.txt` | URL publiques du sitemap ; clé **publique par conception** (servie à `https://fonciable.fr/<clé>.txt`), pas un secret, aucune variable d'environnement. Google n'utilise pas IndexNow : sitemap à soumettre dans Search Console. |
 
 ## 6. Variables d'environnement (noms seulement)
 
@@ -99,6 +100,7 @@ Le DSN Sentry est écrit en dur dans 3 fichiers (valeur publique par conception,
 
 - **SEO** : chaque page publique a `title`, `description`, `canonical` auto-référent, OpenGraph/Twitter avec image, et figure dans `app/sitemap.ts` (`lastModified` figé, mis à jour à la main). [Lu]
 - **GEO** : `llms.txt` et JSON-LD cohérents avec le HTML visible (prix, offres, ancien nom). [Lu : commit `f0a1656`]
+- **Indexation** : après une mise en ligne de nouvelles pages, Nadir lance `node scripts/indexnow.mjs` (IndexNow) et soumet `https://fonciable.fr/sitemap.xml` dans Google Search Console. La clé IndexNow ne doit pas changer sans renommer `public/<clé>.txt` et la constante `KEY` du script ensemble.
 - **Accessibilité / mouvement** : respect de `prefers-reduced-motion`, contenu visible sans JS (`<noscript>` force `.reveal` visible). [Lu]
 - **Performance** : CMP chargé en `async` (ne doit plus être l'élément LCP). Core Web Vitals cibles : **[À CONFIRMER]** (non mesurés).
 - **Sécurité** : en-têtes CSP, HSTS preload, X-Frame-Options DENY, nosniff, Referrer-Policy, Permissions-Policy sur toutes les routes. [Lu : `next.config.ts`, vérifié en prod par `curl -sI`]

@@ -170,3 +170,12 @@ test.describe("E6 — maillage et découverte", () => {
     }
   });
 });
+
+test.describe("E7 — IndexNow", () => {
+  test("la clé publique est servie à la racine", async ({ request }) => {
+    const key = "beffcce7030c7b5a8ce480cf8bf02f16";
+    const response = await request.get(`/${key}.txt`);
+    expect(response.status()).toBe(200);
+    expect((await response.text()).trim()).toBe(key);
+  });
+});
