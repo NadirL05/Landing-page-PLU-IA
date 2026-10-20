@@ -8,7 +8,7 @@ import { IconArrow, IconCheck } from "@/components/icons";
 import { TrackedCta } from "@/components/analytics/tracked-cta";
 import { APP_URL, BRAND_NAME } from "@/config/brand";
 import { CALENDLY_URL, DISCLAIMER_SHORT } from "@/config/site-content";
-import { otherSolutionPages } from "@/config/solutions";
+import { relatedPages } from "@/config/solutions";
 import { buildBreadcrumbSchema, buildWebPageSchema } from "@/lib/page-schema";
 import type { MetierPageContent } from "@/components/metier/types";
 
@@ -26,10 +26,16 @@ import type { MetierPageContent } from "@/components/metier/types";
  * complet est présent dans le HTML rendu, sans JavaScript.
  */
 export function MetierPage({ content }: { content: MetierPageContent }) {
-  const others = otherSolutionPages(content.slug);
+  const others = relatedPages(content.slug, content.related);
+  const proof = content.proof;
+  const crumbs = [
+    { name: "Accueil", path: "/" },
+    ...(content.parent ? [{ name: content.parent.navLabel, path: content.parent.slug }] : []),
+    { name: content.navLabel, path: content.slug },
+  ];
   /** Identifie la page dans GA4/Meta sans créer d'événement supplémentaire :
    *  on réutilise les noms d'événements déjà en place. */
-  const pageParam = content.slug.replace("/", "");
+  const pageParam = content.slug.slice(1).replaceAll("/", "_");
 
   return (
     <div className="min-h-screen">
@@ -42,10 +48,7 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
         })}
       />
       <JsonLd
-        schema={buildBreadcrumbSchema([
-          { name: "Accueil", path: "/" },
-          { name: content.navLabel, path: content.slug },
-        ])}
+        schema={buildBreadcrumbSchema(crumbs)}
       />
 
       <SiteHeader />
@@ -54,8 +57,13 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
         {/* ===== 1. Fil d'Ariane ===== */}
         <nav aria-label="Fil d'Ariane" className="mx-auto max-w-[1180px] px-6 pt-6">
           <ol className="breadcrumb">
-            <li><Link href="/">Accueil</Link></li>
-            <li aria-current="page">{content.navLabel}</li>
+            {crumbs.map((crumb, i) =>
+              i === crumbs.length - 1 ? (
+                <li key={crumb.path} aria-current="page">{crumb.name}</li>
+              ) : (
+                <li key={crumb.path}><Link href={crumb.path}>{crumb.name}</Link></li>
+              )
+            )}
           </ol>
         </nav>
 
@@ -95,6 +103,60 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
             <p className="mt-10 max-w-2xl text-[12px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{DISCLAIMER_SHORT}</p>
           </div>
         </section>
+
+        {/* ===== 2 bis. Guide : définition, méthode, textes officiels ===== */}
+        {content.guide ? (
+          <section className="border-t py-24" style={{ borderColor: "var(--line-strong)" }} aria-labelledby="guide-heading">
+            <div className="mx-auto max-w-[1180px] px-6">
+              <Reveal className="mb-12 max-w-3xl">
+                <div className="kicker mb-4">{content.guide.kicker}</div>
+                <h2 id="guide-heading" className="font-display text-3xl font-normal leading-[1.08] tracking-tight md:text-4xl" style={{ color: "var(--ink)" }}>
+                  {content.guide.title}
+                </h2>
+                {content.guide.intro ? (
+                  <p className="mt-5 max-w-2xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{content.guide.intro}</p>
+                ) : null}
+              </Reveal>
+              <div className="max-w-3xl space-y-12">
+                {content.guide.blocks.map((block) => (
+                  <div key={block.title}>
+                    <h3 className="font-display mb-4 text-2xl font-normal" style={{ color: "var(--ink)" }}>{block.title}</h3>
+                    {block.paragraphs.map((paragraph) => (
+                      <p key={paragraph} className="mt-3 text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{paragraph}</p>
+                    ))}
+                    {block.list ? (
+                      <ul className="mt-4 list-none space-y-2.5 p-0 text-[14.5px] leading-relaxed" style={{ color: "var(--ink)" }}>
+                        {block.list.map((item) => (
+                          <li key={item} className="border-l-2 pl-4" style={{ borderColor: "var(--terracotta)" }}>{item}</li>
+                        ))}
+                      </ul>
+                    ) : null}
+                    {block.link ? (
+                      <p className="mt-4 text-[14px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+                        {block.link.text}{" "}
+                        <Link href={block.link.href} className="underline transition hover:opacity-70" style={{ color: "var(--brand)" }}>
+                          {block.link.label}
+                        </Link>
+                        .
+                      </p>
+                    ) : null}
+                    {block.sources ? (
+                      <p className="mt-4 text-[12.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+                        Source{block.sources.length > 1 ? "s" : ""} :{" "}
+                        {block.sources.map((source, i) => (
+                          <span key={source.href}>
+                            {i > 0 ? " ; " : null}
+                            <a href={source.href} target="_blank" rel="noopener" className="underline transition hover:opacity-70">{source.label}</a>
+                          </span>
+                        ))}
+                      </p>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
 
         {/* ===== 3. Problème métier ===== */}
         <section className="border-t py-24" style={{ borderColor: "var(--line-strong)" }} aria-labelledby="probleme-heading">
@@ -214,15 +276,16 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
         </section>
 
         {/* ===== 7. Preuve — exemple fictif étiqueté ou réel sourcé ===== */}
+        {proof ? (
         <section className="border-t py-24" style={{ borderColor: "var(--line-strong)" }} aria-labelledby="exemple-heading">
           <div className="mx-auto max-w-[1180px] px-6">
             <Reveal className="mb-10 max-w-3xl">
               <div className="kicker mb-4">Exemple</div>
               <h2 id="exemple-heading" className="font-display text-3xl font-normal leading-[1.08] tracking-tight md:text-4xl" style={{ color: "var(--ink)" }}>
-                {content.proof.title}
+                {proof.title}
               </h2>
               <p className="mt-5 max-w-2xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-                {content.proof.intro}
+                {proof.intro}
               </p>
             </Reveal>
             <Reveal delay={80}>
@@ -232,30 +295,45 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
                   résultat client. Les valeurs sont inventées et annoncées
                   comme telles dans la légende ci-dessous. */}
               <figure className="spec-card m-0 p-7 md:p-9">
-                <span className="coord-tag">{content.proof.tag}</span>
+                <span className="coord-tag">{proof.tag}</span>
                 <div className="mt-6">
-                  {content.proof.rows.map((row) => (
+                  {proof.rows.map((row) => (
                     <div key={row.label} className="figure-row">
                       <span className="text-[13.5px]" style={{ color: "var(--ink-soft)" }}>{row.label}</span>
                       <span className="figure-value">{row.value}</span>
                     </div>
                   ))}
                 </div>
-                {content.proof.bar ? (
+                {proof.bar ? (
                   <div className="mt-7">
-                    <div className="mono-label mb-2" style={{ color: "var(--ink-soft)" }}>{content.proof.bar.label}</div>
+                    <div className="mono-label mb-2" style={{ color: "var(--ink-soft)" }}>{proof.bar.label}</div>
                     <div className="h-1.5 w-full overflow-hidden" style={{ background: "var(--line)" }}>
-                      <div className="h-full" style={{ width: `${content.proof.bar.pct}%`, background: "var(--terracotta)" }} />
+                      <div className="h-full" style={{ width: `${proof.bar.pct}%`, background: "var(--terracotta)" }} />
                     </div>
                   </div>
                 ) : null}
                 <figcaption className="mt-7 border-t pt-5 text-[12px] leading-relaxed" style={{ borderColor: "var(--line)", color: "var(--ink-soft)" }}>
-                  {content.proof.caption}
+                  {proof.caption}
                 </figcaption>
               </figure>
             </Reveal>
+            {content.download ? (
+              <div className="mt-8 flex max-w-3xl flex-col gap-3 border p-7" style={{ borderColor: "var(--brand)" }}>
+                <a
+                  href={content.download.href}
+                  download
+                  className="inline-flex items-center gap-2 text-[15px] font-semibold underline transition hover:opacity-70"
+                  style={{ color: "var(--brand)" }}
+                >
+                  {content.download.label} ({content.download.format})
+                  <IconArrow />
+                </a>
+                <p className="text-[12.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{content.download.note}</p>
+              </div>
+            ) : null}
           </div>
         </section>
+        ) : null}
 
         {/* ===== 8. Limites et vérifications ===== */}
         <section className="border-t py-24" style={{ borderColor: "var(--line-strong)" }} aria-labelledby="limites-heading">

@@ -18,6 +18,18 @@ export interface MetierPageContent {
   /** Libellé du fil d'Ariane et de la navigation. */
   readonly navLabel: string;
 
+  /**
+   * Page parente dans le fil d'Ariane (ex. « /zonage-plu » pour
+   * « /zonage-plu/zone-u »). Absente : la page est rattachée à l'accueil.
+   */
+  readonly parent?: { readonly navLabel: string; readonly slug: string };
+
+  /**
+   * Pages proposées dans le bloc « À lire aussi » (chemins du référentiel
+   * config/solutions.ts). Absent : toutes les autres pages « Solutions ».
+   */
+  readonly related?: readonly string[];
+
   /* ---- Métadonnées ---- */
   readonly metaTitle: string;
   /** ~150-160 caractères. */
@@ -32,6 +44,14 @@ export interface MetierPageContent {
   readonly ctaPrimaryLabel: string;
   /** Mention sous le bouton de prise de rendez-vous. */
   readonly ctaNote: string;
+
+  /* ---- 2 bis. Guide (optionnel) : définition, méthode, textes officiels ---- */
+  readonly guide?: {
+    readonly kicker: string;
+    readonly title: string;
+    readonly intro?: string;
+    readonly blocks: readonly GuideBlock[];
+  };
 
   /* ---- 3. Problème métier ---- */
   readonly problem: {
@@ -64,13 +84,25 @@ export interface MetierPageContent {
   };
 
   /* ---- 7. Preuve (exemple fictif étiqueté, ou réel vérifié à la source) ---- */
-  readonly proof: {
+  /** Absent sur les pages purement définitionnelles (pages de zone) : mieux vaut aucun exemple qu'un exemple artificiel. */
+  readonly proof?: {
     readonly title: string;
     readonly intro: string;
     readonly tag: string;
     readonly rows: readonly { readonly label: string; readonly value: string }[];
     readonly bar?: { readonly label: string; readonly pct: number };
     readonly caption: string;
+  };
+
+  /**
+   * Fichier réellement servi depuis public/ (ex. modèle de bilan). Ne jamais
+   * annoncer un fichier qui n'existe pas : le test E2E vérifie qu'il répond 200.
+   */
+  readonly download?: {
+    readonly href: string;
+    readonly label: string;
+    readonly format: string;
+    readonly note: string;
   };
 
   /* ---- 8. Limites et vérifications ---- */
@@ -89,4 +121,15 @@ export interface MetierPageContent {
     readonly body: string;
     readonly label: string;
   };
+}
+
+/** Bloc du guide : un sous-titre, des paragraphes, une liste et une source optionnelles. */
+export interface GuideBlock {
+  readonly title: string;
+  readonly paragraphs: readonly string[];
+  readonly list?: readonly string[];
+  /** Texte officiel ou page de référence (Légifrance, service-public…). */
+  readonly sources?: readonly { readonly label: string; readonly href: string }[];
+  /** Lien interne contextuel (maillage). */
+  readonly link?: { readonly text: string; readonly href: string; readonly label: string };
 }

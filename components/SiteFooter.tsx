@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BRAND_NAME, FORMER_BRAND_NAME, APP_URL, COMPANY_NAME, COMPANY_URL } from "@/config/brand";
-import { SOLUTION_PAGES } from "@/config/solutions";
+import { GUIDE_PAGES, SOLUTION_PAGES } from "@/config/solutions";
 import { CALENDLY_URL, DATA_ATTRIBUTION, DISCLAIMER_SHORT } from "@/config/site-content";
 
 /**
@@ -72,6 +72,16 @@ export function SiteFooter() {
               {SOLUTION_PAGES.map((page) => (
                 <li key={page.slug}>
                   <Link href={page.slug} className="transition hover:opacity-70">{page.linkLabel}</Link>
+                </li>
+              ))}
+            </ul>
+            {/* Guides de fond (IMPLEMENTATION_PLAN § E) : même colonne, pour
+                ne pas casser la grille de 12 décrite ci-dessus. */}
+            <h2 className="mb-3 mt-7 text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--ink-soft)" }}>Guides</h2>
+            <ul className="space-y-2 text-[13px]" style={{ color: "var(--ink-soft)" }}>
+              {GUIDE_PAGES.map((page) => (
+                <li key={page.slug}>
+                  <Link href={page.slug} className="transition hover:opacity-70">{page.navLabel}</Link>
                 </li>
               ))}
             </ul>

@@ -53,7 +53,90 @@ export const SOLUTION_PAGES: readonly SolutionPage[] = [
   },
 ];
 
+/**
+ * Guides de fond (décision de Nadir du 20/10/2026, IMPLEMENTATION_PLAN § E) :
+ * une page par requête cœur de cible. Même gabarit que les pages Solutions,
+ * mais hors de la navigation principale (pied de page, accueil, maillage).
+ */
+export const GUIDE_PAGES: readonly SolutionPage[] = [
+  {
+    slug: "/charge-fonciere",
+    navLabel: "Charge foncière",
+    linkLabel: "Charge foncière : définition et calcul à rebours",
+    summary:
+      "Calculer ce qu'une opération peut payer pour un terrain : charge foncière admissible, incidence foncière, exemple chiffré fictif.",
+  },
+  {
+    slug: "/terrain-constructible",
+    navLabel: "Terrain constructible",
+    linkLabel: "Savoir si un terrain est constructible : la méthode",
+    summary:
+      "Document d'urbanisme, zone, règlement, servitudes, réseaux, certificat d'urbanisme : les six vérifications de la constructibilité d'un terrain.",
+  },
+  {
+    slug: "/division-parcellaire",
+    navLabel: "Division parcellaire",
+    linkLabel: "Division parcellaire : règles, autorisations et étapes",
+    summary:
+      "Déclaration préalable ou permis d'aménager, application du PLU aux lots, rôle du géomètre-expert : préparer la division d'un terrain.",
+  },
+  {
+    slug: "/zonage-plu",
+    navLabel: "Zonage PLU",
+    linkLabel: "Zonage PLU : les zones U, AU, A et N expliquées",
+    summary:
+      "Ce que dit le code de l'urbanisme des zones U, AU, A et N, pourquoi UA, UB ou AUa varient d'un PLU à l'autre, et comment trouver la zone d'une parcelle.",
+  },
+];
+
+/**
+ * Pages filles de /zonage-plu, une par famille de zones du code de
+ * l'urbanisme (art. R151-18 à R151-25). Jamais de page par commune ici.
+ */
+export const ZONE_PAGES: readonly SolutionPage[] = [
+  {
+    slug: "/zonage-plu/zone-u",
+    navLabel: "Zone U",
+    linkLabel: "Zone U : la zone urbaine et ses secteurs UA, UB",
+    summary: "Définition de l'article R151-18, lecture des secteurs UA et UB, vérifications avant de construire.",
+  },
+  {
+    slug: "/zonage-plu/zone-au",
+    navLabel: "Zone AU",
+    linkLabel: "Zone AU : zone à urbaniser, ouverte ou fermée",
+    summary: "Définition de l'article R151-20, zones ouvertes et fermées, appellations 1AU, 2AU et AUa.",
+  },
+  {
+    slug: "/zonage-plu/zone-a",
+    navLabel: "Zone A",
+    linkLabel: "Zone A : la zone agricole",
+    summary: "Définition de l'article R151-22 et constructions qui peuvent y être autorisées (article R151-23).",
+  },
+  {
+    slug: "/zonage-plu/zone-n",
+    navLabel: "Zone N",
+    linkLabel: "Zone N : la zone naturelle et forestière",
+    summary: "Les cinq motifs de l'article R151-24 et constructions qui peuvent y être autorisées (article R151-25).",
+  },
+];
+
+/** Toutes les pages éditoriales publiques : sitemap, llms.txt, maillage. */
+export const ALL_EDITORIAL_PAGES: readonly SolutionPage[] = [...SOLUTION_PAGES, ...GUIDE_PAGES, ...ZONE_PAGES];
+
 /** Les autres pages métier, pour le maillage interne d'une page donnée. */
 export function otherSolutionPages(currentSlug: string): readonly SolutionPage[] {
   return SOLUTION_PAGES.filter((page) => page.slug !== currentSlug);
+}
+
+/**
+ * Pages du bloc « À lire aussi ». Un chemin absent du référentiel fait
+ * échouer le build : un lien interne vers une page inexistante serait une 404.
+ */
+export function relatedPages(currentSlug: string, related?: readonly string[]): readonly SolutionPage[] {
+  if (!related) return otherSolutionPages(currentSlug);
+  return related.map((slug) => {
+    const page = ALL_EDITORIAL_PAGES.find((candidate) => candidate.slug === slug);
+    if (!page) throw new Error(`Page liée inconnue du référentiel : ${slug} (depuis ${currentSlug})`);
+    return page;
+  });
 }

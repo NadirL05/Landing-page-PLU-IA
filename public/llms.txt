@@ -10,7 +10,7 @@ Fonciable est un service AgentImpact. Ce site (fonciable.fr) présente le produi
 
 ## Fonctionnalités
 
-- Recherche par adresse (Base Adresse Nationale), référence cadastrale ou pointage carte
+- Recherche par adresse (Base Adresse Nationale) ou pointage carte ; analyse d'une unité foncière (parcelles contiguës)
 - Zonage et règlement d'urbanisme (Géoportail de l'Urbanisme, PDF de zone analysé automatiquement)
 - Risques recensés (Géorisques / GASPAR) et aléa retrait-gonflement des argiles
 - Bilan promoteur ajustable : surface de plancher potentielle, chiffre d'affaires, coûts de construction, frais, marge
@@ -48,10 +48,19 @@ France métropolitaine et DOM, dans la limite des communes qui publient leur doc
 ## Docs
 
 - [Site marketing](https://fonciable.fr): présentation produit, fonctionnalités, tarifs, FAQ
-- [Bilan promoteur](https://fonciable.fr/bilan-promoteur): méthode du bilan promoteur, postes d'hypothèses ajustables, frais annexes, limites
+- [Bilan promoteur](https://fonciable.fr/bilan-promoteur): postes du bilan promoteur, méthode du compte à rebours, modèle Excel gratuit (exemple fictif), ce que calcule Fonciable, limites
 - [Faisabilité foncière](https://fonciable.fr/faisabilite-fonciere): première étude d'une parcelle, zonage, règles applicables, enveloppe constructible théorique
 - [Prospection foncière](https://fonciable.fr/prospection-fonciere): repérage de parcelles à potentiel constructible résiduel, composantes du score, faux positifs connus
 - [Analyse PLU d'une parcelle](https://fonciable.fr/analyse-plu-parcelle): zonage du Géoportail de l'Urbanisme, règles de zone avec leur source, enveloppe constructible théorique, refus publiés, exemple réel à Nantes, limites
+- [Charge foncière](https://fonciable.fr/charge-fonciere): définition, calcul à rebours de la charge foncière admissible, incidence foncière, exemple fictif
+- [Savoir si un terrain est constructible](https://fonciable.fr/terrain-constructible): six vérifications (document d'urbanisme, zone, règlement, servitudes et risques, réseaux, certificat d'urbanisme), textes officiels, exemple réel à Nantes
+- [Division parcellaire](https://fonciable.fr/division-parcellaire): lotissement, déclaration préalable ou permis d'aménager, application du PLU aux lots (art. R151-21), rôle du géomètre-expert
+- [Zonage PLU](https://fonciable.fr/zonage-plu): zones U, AU, A et N selon le code de l'urbanisme, sous-secteurs propres à chaque PLU (UA, UB, AUa), trouver la zone d'une parcelle
+- [Zone U](https://fonciable.fr/zonage-plu/zone-u): zone urbaine (art. R151-18), secteurs UA et UB
+- [Zone AU](https://fonciable.fr/zonage-plu/zone-au): zone à urbaniser ouverte ou fermée (art. R151-20), 1AU, 2AU, AUa
+- [Zone A](https://fonciable.fr/zonage-plu/zone-a): zone agricole (art. R151-22 et R151-23)
+- [Zone N](https://fonciable.fr/zonage-plu/zone-n): zone naturelle et forestière (art. R151-24 et R151-25)
+- [Modèle de bilan promoteur (XLSX, exemple fictif)](https://fonciable.fr/modeles/bilan-promoteur-exemple-fictif.xlsx): compte à rebours et bilan direct, formules simples
 - [Mentions légales](https://fonciable.fr/mentions-legales): éditeur, publication et hébergement
 - [Politique de confidentialité](https://fonciable.fr/confidentialite): données, cookies et droits RGPD
 - [Application](https://app.fonciable.fr): outil d'analyse de parcelle

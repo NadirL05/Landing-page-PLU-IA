@@ -1,4 +1,4 @@
-import { otherSolutionPages, SOLUTION_PAGES } from "../../config/solutions";
+import { ALL_EDITORIAL_PAGES, otherSolutionPages, SOLUTION_PAGES } from "../../config/solutions";
 import { BRAND_URL, expect, readJsonLd, schemaTypes, test } from "./fixtures";
 
 /**
@@ -20,14 +20,14 @@ async function sitemapLocs(request: import("@playwright/test").APIRequestContext
 }
 
 test.describe("Sitemap", () => {
-  test("contient l'accueil, chaque page métier et les pages légales, sans doublon", async ({ request }) => {
+  test("contient l'accueil, chaque page éditoriale (Solutions, guides, zones) et les pages légales, sans doublon", async ({ request }) => {
     const locs = await sitemapLocs(request);
     expect(new Set(locs).size).toBe(locs.length);
     expect(locs).toContain(`${BRAND_URL}/`);
-    for (const page of SOLUTION_PAGES) expect(locs).toContain(`${BRAND_URL}${page.slug}`);
+    for (const page of ALL_EDITORIAL_PAGES) expect(locs).toContain(`${BRAND_URL}${page.slug}`);
     expect(locs).toContain(`${BRAND_URL}/mentions-legales`);
     expect(locs).toContain(`${BRAND_URL}/confidentialite`);
-    expect(locs).toHaveLength(SOLUTION_PAGES.length + 3);
+    expect(locs).toHaveLength(ALL_EDITORIAL_PAGES.length + 3);
     for (const loc of locs) expect(loc.startsWith(`${BRAND_URL}/`)).toBe(true);
   });
 

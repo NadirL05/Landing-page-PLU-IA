@@ -4,7 +4,7 @@
 
 ## 1. État réel (mis à jour le 2026-10-20, étapes B2/B3)
 
-- **E2E Playwright en place** : `@playwright/test` (devDependency), Chromium seul (headless shell, contrainte disque), `playwright.config.ts`, specs dans `tests/e2e/`. 20 tests, tous verts. [Lu]
+- **E2E Playwright en place** : `@playwright/test` (devDependency), Chromium seul (headless shell, contrainte disque), `playwright.config.ts`, specs dans `tests/e2e/`. 34 tests au 20/10/2026 après la section E (20 avant), tous verts. [Lu]
 - **Commande unique** : `npm test` (lint + `tsc --noEmit` + build + e2e), voir §6. [Lu]
 - **Pas de tests unitaires** : Vitest non installé, le choix d'outil reste **[À CONFIRMER]** (item 13 de `.cadrage-valide`). Les fonctions de `lib/` ne sont couvertes qu'indirectement par l'E2E (JSON-LD, sitemap, métadonnées).
 - Pas de CI GitHub (`.github/` absent) : la commande tourne en local ; Vercel n'exécute que `next build`. [Lu]
@@ -57,6 +57,14 @@ Scénarios complémentaires : `GET /page-inexistante` → 404 + meta `noindex` ;
 | C1 / C2 | Revue : texte de `/confidentialite` concorde avec la config Sentry/CMP |
 | C3 / C4 | `git diff` relu |
 | D1-D4 | E2E ciblé (vocabulaire présent, `utm_*` transmis pour D4) |
+| E0 Cadrage SEO cœur | Revue : PRD §4/§7 et plan § E cohérents (pas de test automatisé) |
+| E1 `/bilan-promoteur` | E2E (`tests/e2e/seo-coeur.spec.ts`) : H1 et title attendus, lien vers `/modeles/bilan-promoteur-exemple-fictif.xlsx` servi en 200 (type XLSX) ; build + contrôle du HTML pré-rendu ; ouverture du XLSX par un lecteur indépendant (formules présentes, aucune erreur de calcul) |
+| E2 `/charge-fonciere` | E2E : 200, H1, canonical, WebPage + BreadcrumbList + FAQPage, lien vers `/bilan-promoteur` |
+| E3 `/terrain-constructible` | E2E : idem, lien Légifrance L410-1, lien vers `/zonage-plu` |
+| E4 `/division-parcellaire` | E2E : idem, liens Légifrance R151-21 et service-public |
+| E5 `/zonage-plu` et 4 pages de zone | E2E : 5 pages en 200, lien Légifrance de l'article R151-xx attendu sur chaque page de zone, BreadcrumbList à 3 niveaux (accueil → zonage PLU → zone), liens entre pages de zone |
+| E6 Maillage | E2E : sitemap = accueil + toutes les pages du référentiel + 2 pages légales ; chaque guide relié depuis l'accueil ; `llms.txt` liste chaque nouvelle URL ; aucun texte de `<main>` ne contient « PLU-IA » ou « PLU IA » (le pied de page commun garde « anciennement PLU-IA », hors périmètre) |
+| E7 IndexNow | E2E : `/<clé>.txt` en 200 et contenu = clé ; `node --check scripts/indexnow.mjs` ; `node scripts/indexnow.mjs --dry-run` liste les URL sans appel réseau |
 
 ## 5. Données et comptes de test
 
@@ -73,6 +81,8 @@ npm test   # = npm run lint && npm run typecheck && npm run build && PW_SKIP_BUI
 - Première installation du navigateur (≈ 200 Mo, Chromium headless shell seul) : `npx playwright install --only-shell chromium`.
 - E2E seuls (reconstruit le site avant de lancer le serveur) : `npm run test:e2e`.
 - Résultat au 2026-10-20 : **20 passés, 0 échec, ≈ 12 s** (dont build) ; stable sur `npx playwright test --repeat-each=3` (60/60).
+- Résultat après la section E (branche `feat/seo-pages-coeur`, 2026-10-20) : **34 passés, 0 échec** (`npm test`).
+- Hors `npm test` (section E) : `node --check scripts/indexnow.mjs` et `node scripts/indexnow.mjs --dry-run --sitemap=.next/server/app/sitemap.xml.body` (aucun appel réseau) ; recalcul du modèle XLSX par un lecteur indépendant (bibliothèque Python `formulas`, environnement jetable).
 - Rapports : `playwright-report/` et `test-results/` (traces en cas d'échec), non versionnés.
 - Vitest (`vitest run`) s'ajoutera à la chaîne quand le choix d'outil sera confirmé.
 
@@ -87,6 +97,13 @@ npm test   # = npm run lint && npm run typecheck && npm run build && PW_SKIP_BUI
 | | `/analyse-plu-parcelle` | H1 validé exact, « 44109000BZ0070 » visible, canonical, `index, follow` (A4) |
 | | Maillage | `/` relie chaque page métier ; `/faisabilite-fonciere` relie `/analyse-plu-parcelle` (A5) |
 | | 404 / redirections | URL inconnue → 404, page `not-found`, `noindex` ; `/tarifs`, `/tarif` → 308 `/#tarifs` |
+
+| `tests/e2e/seo-coeur.spec.ts` | E1 | `/bilan-promoteur` : H1, title, canonical, lien et fichier XLSX (200, type spreadsheetml, signature ZIP), mention « Exemple fictif » |
+| | E2-E4 | `/charge-fonciere`, `/terrain-constructible`, `/division-parcellaire` : H1, canonical, WebPage + BreadcrumbList + FAQPage, disclaimer « certificat d'urbanisme », liens Légifrance / service-public attendus, liens internes |
+| | E5 | `/zonage-plu` et 4 pages de zone : H1, article Légifrance de chaque zone, fil d'Ariane accueil → Zonage PLU → zone, liens entre zones |
+| | E6 | accueil et pied de page → chaque guide ; `/zonage-plu` → chaque zone ; chaque page éditoriale reçoit au moins un lien interne ; `llms.txt` liste chaque page et le XLSX ; aucun « PLU-IA » dans `<main>` ; aucun tiret cadratin sur les pages § E |
+| | E7 | `/<clé IndexNow>.txt` en 200, contenu = clé |
+| `tests/e2e/seo.spec.ts` (mis à jour) | Sitemap | accueil + `ALL_EDITORIAL_PAGES` (13) + 2 légales = 15 URL ; chaque URL : 200, H1 unique, canonical, indexable, JSON-LD valide |
 
 Non couvert : tests unitaires de `lib/` [À CONFIRMER Vitest] ; cohérence prix `config/plans.ts` == `public/llms.txt` ; `/demonstration.html` ; consentement accordé (le CMP réel est bloqué) ; redirections par hôte (`plu-ia.agentimpact.fr`, `www`).
 

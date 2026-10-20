@@ -27,6 +27,9 @@ Visiteur ──HTTPS──> Vercel (fonciable.fr, région cdg1 observée)
                      ├─ /bilan-promoteur        app/<slug>/page.tsx ─> MetierPage + content/<slug>.ts
                      ├─ /faisabilite-fonciere   idem
                      ├─ /prospection-fonciere   idem
+                     ├─ /charge-fonciere, /terrain-constructible, /division-parcellaire, /zonage-plu   guides (même gabarit, § E du plan)
+                     ├─ /zonage-plu/zone-u|zone-au|zone-a|zone-n   pages de zone (fil d'Ariane à 3 niveaux)
+                     ├─ /modeles/bilan-promoteur-exemple-fictif.xlsx   modèle téléchargeable (public/)
                      ├─ /mentions-legales, /confidentialite  (LegalPage)
                      ├─ /sitemap.xml, /opengraph-image, /.well-known/*  (statique)
                      ├─ /monitoring             tunnel Sentry (withSentryConfig.tunnelRoute)
@@ -51,8 +54,9 @@ Pas de base de données. Les « entités » sont des constantes versionnées. [L
 | Marque | `config/brand.ts` | `BRAND_NAME`, `FORMER_BRAND_NAME`, `BRAND_URL`, `APP_URL`, `COMPANY_NAME`, `CONTACT_EMAIL` | utilisée partout (métadonnées, liens, légal) |
 | Plan | `config/plans.ts` | `id` (FREE/STARTER/PRO/ENTERPRISE), `name`, `priceLabel`, `quotaLabel`, `features[]` | copie de `sas-plu-3d/src/config/plans.ts` ; `PUBLIC_PLAN_LIST` exclut FREE ; alimente bloc tarifs + JSON-LD offers |
 | Contenu transverse | `config/site-content.ts` | `CALENDLY_URL`, `DISCLAIMER_SHORT`, `DATA_ATTRIBUTION`, `APP_ENTRY_PATH` | accueil, pages métier, pied de page |
-| Page solution | `config/solutions.ts` | `slug`, `navLabel`, `linkLabel`, `summary` | 1-1 avec un `content/<slug>.ts` ; sitemap, nav, maillage |
-| Contenu métier | `content/<slug>.ts` | `MetierPageContent` : méta, hero, problem, capabilities (+ `contextLink` optionnel), steps, sources, proof (exemple fictif étiqueté, ou réel vérifié à la source avec preuves dans `docs/PREUVES-*.md`), limits, faq, finalCta | rendu par `MetierPage` |
+| Page solution | `config/solutions.ts` | `slug`, `navLabel`, `linkLabel`, `summary` | 1-1 avec un `content/<slug>.ts` ; trois listes : `SOLUTION_PAGES` (navigation, bloc Solutions), `GUIDE_PAGES` (accueil « Guides pratiques », pied de page), `ZONE_PAGES` (filles de `/zonage-plu`) ; `ALL_EDITORIAL_PAGES` alimente sitemap et tests ; `relatedPages` lève une erreur au build si un lien « À lire aussi » vise une page inconnue |
+| Contenu métier | `content/<slug>.ts` | `MetierPageContent` : méta, `parent` et `related` optionnels (fil d'Ariane, « À lire aussi »), hero, `guide` optionnel (définitions, méthode, liens Légifrance), problem, capabilities (+ `contextLink` optionnel), steps, sources, proof (exemple fictif étiqueté, ou réel vérifié à la source avec preuves dans `docs/PREUVES-*.md`), limits, faq, finalCta | rendu par `MetierPage` |
+| Modèle téléchargeable | `public/modeles/bilan-promoteur-exemple-fictif.xlsx` | 3 onglets (Lisez-moi, Compte à rebours, Bilan direct), formules simples, valeurs fictives | généré par `scripts/modele-bilan-promoteur.py` (openpyxl dans un environnement Python jetable, hors dépendances du site) ; valeurs reprises dans la section « Exemple » de `content/bilan-promoteur.ts` |
 | Schémas statiques | `public/schema/{organization,website,software-application,faq}.json` | `@id` `https://fonciable.fr/#…` | référencés par `lib/page-schema.ts` |
 | Fichiers de découverte | `public/llms.txt`, `robots.txt`, `rsl.xml` | texte | doivent rester alignés sur `config/plans.ts` (copie manuelle) |
 
@@ -75,6 +79,7 @@ Pas de base de données. Les « entités » sont des constantes versionnées. [L
 | Vercel | hébergement, build, Cron Monitors auto (`automaticVercelMonitors`) | `.vercel/project.json` (non versionné), `next.config.ts` | — |
 | Stripe | **aucune intégration ici** ; liens vers le checkout de l'app | — | — |
 | Webhooks entrants | **aucun** | — | — |
+| IndexNow (Bing, Yandex, Seznam, Naver…) | Script manuel `scripts/indexnow.mjs` (Node 18+, sans dépendance), **non exécuté par les agents** : lancé par Nadir après chaque mise en ligne de pages (`node scripts/indexnow.mjs --dry-run`, puis sans option). Lit `https://fonciable.fr/sitemap.xml` (ou `--sitemap=<chemin>` pour un essai local), refuse toute URL hors `fonciable.fr`, envoie `{ host, key, keyLocation, urlList }` en POST à `https://api.indexnow.org/indexnow` | `scripts/indexnow.mjs`, `public/beffcce7030c7b5a8ce480cf8bf02f16.txt` | URL publiques du sitemap ; clé **publique par conception** (servie à `https://fonciable.fr/<clé>.txt`), pas un secret, aucune variable d'environnement. Google n'utilise pas IndexNow : sitemap à soumettre dans Search Console. |
 
 ## 6. Variables d'environnement (noms seulement)
 
@@ -95,6 +100,7 @@ Le DSN Sentry est écrit en dur dans 3 fichiers (valeur publique par conception,
 
 - **SEO** : chaque page publique a `title`, `description`, `canonical` auto-référent, OpenGraph/Twitter avec image, et figure dans `app/sitemap.ts` (`lastModified` figé, mis à jour à la main). [Lu]
 - **GEO** : `llms.txt` et JSON-LD cohérents avec le HTML visible (prix, offres, ancien nom). [Lu : commit `f0a1656`]
+- **Indexation** : après une mise en ligne de nouvelles pages, Nadir lance `node scripts/indexnow.mjs` (IndexNow) et soumet `https://fonciable.fr/sitemap.xml` dans Google Search Console. La clé IndexNow ne doit pas changer sans renommer `public/<clé>.txt` et la constante `KEY` du script ensemble.
 - **Accessibilité / mouvement** : respect de `prefers-reduced-motion`, contenu visible sans JS (`<noscript>` force `.reveal` visible). [Lu]
 - **Performance** : CMP chargé en `async` (ne doit plus être l'élément LCP). Core Web Vitals cibles : **[À CONFIRMER]** (non mesurés).
 - **Sécurité** : en-têtes CSP, HSTS preload, X-Frame-Options DENY, nosniff, Referrer-Policy, Permissions-Policy sur toutes les routes. [Lu : `next.config.ts`, vérifié en prod par `curl -sI`]
