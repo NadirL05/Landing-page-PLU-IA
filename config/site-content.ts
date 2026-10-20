@@ -14,7 +14,7 @@
 export const CALENDLY_URL = "https://calendly.com/nadir-lahyani-agentimpact/30min";
 
 export const DISCLAIMER_SHORT =
-  "Estimations d'aide à la décision issues de sources publiques — ni certificat d'urbanisme, ni conseil juridique ou financier. Vérifications en mairie indispensables.";
+  "Estimations d'aide à la décision issues de sources publiques : ni certificat d'urbanisme, ni conseil juridique ou financier. Vérifications en mairie indispensables.";
 
 export const DATA_ATTRIBUTION =
   "Données : © les contributeurs OpenStreetMap (ODbL) · IGN / Géoplateforme · DVF – Etalab (Licence Ouverte 2.0) · Géorisques – MTE · GPU · INSEE · ADEME · PVGIS – Commission européenne, Joint Research Centre.";

@@ -53,7 +53,36 @@ export const SOLUTION_PAGES: readonly SolutionPage[] = [
   },
 ];
 
+/**
+ * Guides de fond (décision de Nadir du 20/10/2026, IMPLEMENTATION_PLAN § E) :
+ * une page par requête cœur de cible. Même gabarit que les pages Solutions,
+ * mais hors de la navigation principale (pied de page, accueil, maillage).
+ */
+export const GUIDE_PAGES: readonly SolutionPage[] = [];
+
+/**
+ * Pages filles de /zonage-plu, une par famille de zones du code de
+ * l'urbanisme (art. R151-18 à R151-25). Jamais de page par commune ici.
+ */
+export const ZONE_PAGES: readonly SolutionPage[] = [];
+
+/** Toutes les pages éditoriales publiques : sitemap, llms.txt, maillage. */
+export const ALL_EDITORIAL_PAGES: readonly SolutionPage[] = [...SOLUTION_PAGES, ...GUIDE_PAGES, ...ZONE_PAGES];
+
 /** Les autres pages métier, pour le maillage interne d'une page donnée. */
 export function otherSolutionPages(currentSlug: string): readonly SolutionPage[] {
   return SOLUTION_PAGES.filter((page) => page.slug !== currentSlug);
+}
+
+/**
+ * Pages du bloc « À lire aussi ». Un chemin absent du référentiel fait
+ * échouer le build : un lien interne vers une page inexistante serait une 404.
+ */
+export function relatedPages(currentSlug: string, related?: readonly string[]): readonly SolutionPage[] {
+  if (!related) return otherSolutionPages(currentSlug);
+  return related.map((slug) => {
+    const page = ALL_EDITORIAL_PAGES.find((candidate) => candidate.slug === slug);
+    if (!page) throw new Error(`Page liée inconnue du référentiel : ${slug} (depuis ${currentSlug})`);
+    return page;
+  });
 }
