@@ -3,18 +3,15 @@
   "@type": "SoftwareApplication",
   "@id": "https://fonciable.fr/#software",
   "name": "Fonciable",
+  "alternateName": "PLU-IA",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Web",
   "url": "https://fonciable.fr",
   "description": "Analyse foncière et urbanisme assistées par IA : zonage, enveloppe constructible, comparables DVF et bilan promoteur.",
-  "publisher": { "@id": "https://fonciable.fr/#organization" },
+  "publisher": {
+    "@id": "https://fonciable.fr/#organization"
+  },
   "offers": [
-    {
-      "@type": "Offer",
-      "name": "Découverte",
-      "price": "0",
-      "priceCurrency": "EUR"
-    },
     {
       "@type": "Offer",
       "name": "Starter",

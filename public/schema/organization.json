@@ -3,6 +3,7 @@
   "@type": "Organization",
   "@id": "https://fonciable.fr/#organization",
   "name": "Fonciable",
+  "alternateName": "PLU-IA",
   "url": "https://fonciable.fr",
   "logo": "https://fonciable.fr/icon-512.png",
   "description": "Fonciable croise cadastre IGN, documents d'urbanisme (GPU), transactions DVF et risques Géorisques pour produire une estimation d'aide à la décision : zonage, enveloppe constructible, comparables et bilan promoteur.",

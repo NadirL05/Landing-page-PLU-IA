@@ -4,6 +4,8 @@
  * Toute modification de prix/quota doit être répercutée dans les deux repos.
  */
 export const BRAND_NAME = "Fonciable";
+/** Ancien nom du produit, exposé pour que moteurs et IA relient les deux noms. */
+export const FORMER_BRAND_NAME = "PLU-IA";
 export const BRAND_TAGLINE = "Analyse foncière et urbanisme assistées par IA.";
 export const BRAND_URL = "https://fonciable.fr";
 export const APP_URL = "https://app.fonciable.fr";
