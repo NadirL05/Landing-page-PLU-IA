@@ -58,7 +58,15 @@ export const SOLUTION_PAGES: readonly SolutionPage[] = [
  * une page par requête cœur de cible. Même gabarit que les pages Solutions,
  * mais hors de la navigation principale (pied de page, accueil, maillage).
  */
-export const GUIDE_PAGES: readonly SolutionPage[] = [];
+export const GUIDE_PAGES: readonly SolutionPage[] = [
+  {
+    slug: "/charge-fonciere",
+    navLabel: "Charge foncière",
+    linkLabel: "Charge foncière : définition et calcul à rebours",
+    summary:
+      "Calculer ce qu'une opération peut payer pour un terrain : charge foncière admissible, incidence foncière, exemple chiffré fictif.",
+  },
+];
 
 /**
  * Pages filles de /zonage-plu, une par famille de zones du code de

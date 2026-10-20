@@ -45,6 +45,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const BILAN_PROMOTEUR: MetierPageContent = {
   slug: "/bilan-promoteur",
   navLabel: "Bilan promoteur",
+  related: ["/faisabilite-fonciere", "/prospection-fonciere", "/analyse-plu-parcelle", "/charge-fonciere"],
 
   metaTitle: "Bilan promoteur : méthode, postes et modèle Excel",
   metaDescription:
@@ -96,6 +97,11 @@ export const BILAN_PROMOTEUR: MetierPageContent = {
           "Prix maximal du terrain = charge foncière admissible ÷ (1 + taux des frais d'acquisition).",
           "Incidence foncière = charge foncière ÷ surface de plancher, pour comparer des terrains entre eux.",
         ],
+        link: {
+          text: "La notion de charge foncière, son calcul et ce qui la fait varier sont détaillés sur",
+          href: "/charge-fonciere",
+          label: "la page Charge foncière",
+        },
       },
       {
         title: "Bilan direct ou à rebours : deux lectures du même calcul",

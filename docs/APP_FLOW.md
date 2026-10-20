@@ -20,6 +20,7 @@
 | E11 | Menu mobile (surcouche) | `components/MobileNav.tsx` | Navigation < md | — |
 | — | `/sitemap.xml`, `/robots.txt`, `/llms.txt`, `/rsl.xml`, `/opengraph-image`, `/.well-known/mcp/server-card.json`, `/.well-known/agent-skills/index.json` | fichiers techniques | machines | — |
 | E12 | `/analyse-plu-parcelle` | `app/analyse-plu-parcelle/page.tsx` + `content/analyse-plu-parcelle.ts` | Page métier PLU (exemple réel sourcé, cf. `docs/PREUVES-page-analyse-plu.md`) | oui |
+| E13 | `/charge-fonciere` | `app/charge-fonciere/page.tsx` + `content/charge-fonciere.ts` | Guide SEO cœur (§ E du plan) : définition, calcul à rebours, exemple fictif | oui |
 
 Sorties externes : Calendly (nouvel onglet), `app.fonciable.fr/dashboard`, `/checkout/starter`, `/checkout/pro`, `/cgv`, `/sources`, `/confidentialite`. [Lu]
 

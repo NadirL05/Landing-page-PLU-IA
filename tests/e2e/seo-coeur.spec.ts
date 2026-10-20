@@ -28,3 +28,35 @@ test.describe("E1 — /bilan-promoteur", () => {
     expect(types).toEqual(expect.arrayContaining(["WebPage", "BreadcrumbList", "FAQPage"]));
   });
 });
+
+/** Contrôles communs d'une page guide : H1, canonical, JSON-LD, liens attendus. */
+async function checkGuide(
+  page: import("@playwright/test").Page,
+  path: string,
+  h1: string,
+  links: readonly string[],
+) {
+  const response = await page.goto(path);
+  expect(response?.status()).toBe(200);
+  await expect(page.locator("h1")).toHaveText(h1);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${BRAND_URL}${path}`);
+  const blocks = await readJsonLd(page);
+  expect(schemaTypes(blocks)).toEqual(expect.arrayContaining(["WebPage", "BreadcrumbList", "FAQPage"]));
+  for (const href of links) {
+    expect(await page.locator(`main a[href="${href}"]`).count(), href).toBeGreaterThan(0);
+  }
+  // Le disclaimer « pas un certificat d'urbanisme » est présent sur chaque page.
+  await expect(page.locator("main").getByText(/certificat d.urbanisme/).first()).toBeVisible();
+  return blocks;
+}
+
+test.describe("E2 — /charge-fonciere", () => {
+  test("H1, canonical, JSON-LD, lien vers le bilan promoteur et le modèle", async ({ page }) => {
+    await checkGuide(page, "/charge-fonciere", "Charge foncière : définition et calcul à rebours", [
+      "/bilan-promoteur",
+      "/modeles/bilan-promoteur-exemple-fictif.xlsx",
+    ]);
+    await page.goto("/bilan-promoteur");
+    expect(await page.locator('main a[href="/charge-fonciere"]').count()).toBeGreaterThan(0);
+  });
+});
