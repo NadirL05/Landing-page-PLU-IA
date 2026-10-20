@@ -132,6 +132,9 @@ export default function Home() {
           (<ScrollBeat>) laissent la scène se lire seule. */}
       <PageScene />
       <div className="relative z-10">
+      {/* Repère <main> : absent jusqu'au 20/10/2026 (trouvé par les tests E2E),
+          alors que les pages métier l'ont. Le pied de page reste hors de <main>. */}
+      <main>
 
       {/* ===== HERO — fond transparent : la maison 3D fixe se lit à droite =====
            Le texte et les chiffres du hero sont inchangés. L'ancienne
@@ -528,7 +531,7 @@ export default function Home() {
           <Reveal className="mb-12 max-w-3xl">
             <div className="kicker mb-4">Solutions</div>
             <h2 id="solutions-heading" className="font-display text-4xl font-normal leading-[1.05] tracking-tight md:text-5xl" style={{ color: "var(--ink)" }}>
-              Trois usages, trois façons d&apos;entrer dans l&apos;outil.
+              Quatre usages, quatre façons d&apos;entrer dans l&apos;outil.
             </h2>
             <p className="mt-5 max-w-2xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
               Selon le moment où vous intervenez sur un terrain, la question n&apos;est pas la même. Chaque page détaille la méthode, les données mobilisées et les limites à connaître.
@@ -536,7 +539,7 @@ export default function Home() {
           </Reveal>
           <div className="spec-grid">
             {SOLUTION_PAGES.map((page, i) => (
-              <Reveal key={page.slug} delay={i * 80} className="col-span-6 md:col-span-2">
+              <Reveal key={page.slug} delay={i * 80} className="col-span-6 md:col-span-3">
                 <Link href={page.slug} className="card-lift flex h-full flex-col p-7">
                   <span className="mono-label" style={{ color: "var(--terracotta)" }}>{page.navLabel}</span>
                   <p className="mt-3 flex-1 text-[13.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{page.summary}</p>
@@ -550,6 +553,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Pied de page partagé avec les pages métier (components/SiteFooter.tsx). */}
       <div className="scene-veil">

@@ -9,7 +9,6 @@ Cadrage validé par Nadir le 2026-10-20 (« je valide », dans le chat).
 6. URL de la page LinkedIn Fonciable pour Organization.sameAs. (PRD, plan D3)
 7. Contenus comparatifs « alternative à Kel Foncier ». (PRD)
 8. Mot « IA » visible sur l'accueil. (plan D2)
-9. Slug, H1 et exemple réel de la page PLU — bloque A1/A3. (plan A)
 10. SENTRY_AUTH_TOKEN présent sur Vercel. (TRD)
 11. Objectifs Core Web Vitals. (TRD)
 12. Usage voulu de /demonstration.html et son état d'erreur. (APP_FLOW)
@@ -19,3 +18,6 @@ Cadrage validé par Nadir le 2026-10-20 (« je valide », dans le chat).
 16. Garanties des transferts hors UE. (SECURITY)
 17. Tunnel /monitoring : POST renvoie 404 en production. (SECURITY)
 18. .mcp.json : ignorer ou versionner — bloque C4. (plan C4)
+
+Tranché depuis la validation :
+- Item 9 (slug, H1 et exemple réel de la page PLU) : tranché le 20/10 par Nadir (`/analyse-plu-parcelle`, H1 validé, exemple réel du refus de Nantes PC0441092600175).

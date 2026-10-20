@@ -17,6 +17,9 @@ const eslintConfig = defineConfig([
     ".agents/**",
     ".claude/**",
     "agent/**",
+    // Rapports Playwright générés (non versionnés).
+    "playwright-report/**",
+    "test-results/**",
   ]),
 ]);
 

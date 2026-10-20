@@ -19,7 +19,7 @@
 | E10 | Bannière CMP (surcouche) | script consentmanager dans `app/layout.tsx` | Consentement | — |
 | E11 | Menu mobile (surcouche) | `components/MobileNav.tsx` | Navigation < md | — |
 | — | `/sitemap.xml`, `/robots.txt`, `/llms.txt`, `/rsl.xml`, `/opengraph-image`, `/.well-known/mcp/server-card.json`, `/.well-known/agent-skills/index.json` | fichiers techniques | machines | — |
-| À venir | `/analyse-plu-parcelle` (slug **[À CONFIRMER]**) | `content/analyse-plu-parcelle.ts` | Page métier PLU | oui |
+| E12 | `/analyse-plu-parcelle` | `app/analyse-plu-parcelle/page.tsx` + `content/analyse-plu-parcelle.ts` | Page métier PLU (exemple réel sourcé, cf. `docs/PREUVES-page-analyse-plu.md`) | oui |
 
 Sorties externes : Calendly (nouvel onglet), `app.fonciable.fr/dashboard`, `/checkout/starter`, `/checkout/pro`, `/cgv`, `/sources`, `/confidentialite`. [Lu]
 
@@ -37,13 +37,13 @@ Sorties externes : Calendly (nouvel onglet), `app.fonciable.fr/dashboard`, `/che
 flowchart TD
   A[Arrivée : recherche / réseau / lien] --> B{Page d'entrée}
   B -->|/| H[Accueil]
-  B -->|/bilan-promoteur, /faisabilite-fonciere, /prospection-fonciere| M[Page métier]
+  B -->|/bilan-promoteur, /faisabilite-fonciere, /prospection-fonciere, /analyse-plu-parcelle| M[Page métier]
   H --> CMP[Bannière CMP]
   M --> CMP
   CMP -->|accepte| GA[GA4 + Meta Pixel montés]
   CMP -->|refuse / ignore| NOGA[Aucun traceur]
   H --> C[Compréhension : sources, fonctionnalités, limites, tarifs, FAQ]
-  M --> C2[Problème, capacités, parcours, sources, exemple fictif, limites, FAQ]
+  M --> C2[Problème, capacités, parcours, sources, exemple fictif ou réel sourcé, limites, FAQ]
   C2 -->|maillage| M
   C2 -->|accueil| H
   C --> D{Action}
@@ -55,7 +55,7 @@ flowchart TD
 
 ## 3. Parcours secondaires
 
-- **Page métier → page métier / accueil** : bloc « autres solutions » et fil d'Ariane (`otherSolutionPages`, `BreadcrumbList`). [Lu]
+- **Page métier → page métier / accueil** : bloc « autres solutions » et fil d'Ariane (`otherSolutionPages`, `BreadcrumbList`) ; lien contextuel optionnel `capabilities.contextLink` (`/faisabilite-fonciere` ↔ `/analyse-plu-parcelle`). [Lu]
 - **Ancres de navigation** : Produit, Fonctionnalités, Sources, Tarifs, FAQ, Solutions (`/#…`), depuis n'importe quelle page. [Lu : `SiteHeader.tsx`]
 - **Anciennes URL** : `plu-ia.agentimpact.fr/*` → 308 → `fonciable.fr/*` ; `/tarif`, `/tarifs` → 308 → `/#tarifs` ; `www.fonciable.fr` → 308 → apex [Lu : `next.config.ts` ; `curl -sI` 2026-10-20].
 - **Légal** : pied de page → mentions légales, confidentialité, CGV (app). [Lu]
@@ -71,7 +71,7 @@ Pages pré-rendues statiques : pas de chargement de données → l'état « char
 | Écran | Vide | Chargement | Erreur |
 |---|---|---|---|
 | E1 Accueil | N/A (contenu statique) ; sans ID analytics, `GoogleTag`/`MetaPixel` rendent `null` | Scène 3D : si pas de WebGL ou `prefers-reduced-motion` → rendu statique « maison livrée » ; sans JS → `<noscript>` rend les blocs `.reveal` visibles | Exception de rendu → `global-error.tsx` (message générique + Sentry) ; prix sans nombre → `structuredPrice` lève une erreur **au build** (garde-fou) |
-| E2-E4 Pages métier | N/A (contenu typé obligatoire, TypeScript bloque un champ manquant au build) | Idem, sans scène 3D lourde | `global-error.tsx` |
+| E2-E4, E12 Pages métier | N/A (contenu typé obligatoire, TypeScript bloque un champ manquant au build) | Idem, sans scène 3D lourde | `global-error.tsx` |
 | E5-E6 Légal | N/A | statique | `global-error.tsx` |
 | E7 404 | — | — | Message « Cette parcelle du site n'existe pas », liens accueil + app, `noindex` |
 | E8 Erreur globale | — | — | Page autonome (styles inline, sans dépendance au layout) + `Sentry.captureException` ; pas de détail technique affiché |

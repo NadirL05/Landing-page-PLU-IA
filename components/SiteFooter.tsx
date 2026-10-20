@@ -9,7 +9,7 @@ import { CALENDLY_URL, DATA_ATTRIBUTION, DISCLAIMER_SHORT } from "@/config/site-
  * `app/page.tsx`. Deux corrections au passage :
  *  - les ancres d'accueil sont écrites en absolu (« /#tarifs »), sinon elles
  *    ne résolvent rien depuis une page métier ;
- *  - une colonne « Solutions » expose les trois pages métier avec un intitulé
+ * *  - une colonne « Solutions » expose les pages métier avec un intitulé
  *    descriptif (jamais « en savoir plus »), condition d'un maillage interne
  *    lisible autant pour un lecteur d'écran que pour un crawler.
  */
