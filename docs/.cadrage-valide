@@ -1,0 +1,21 @@
+Cadrage validé par Nadir le 2026-10-20 (« je valide », dans le chat).
+
+[À CONFIRMER] restants au moment de la validation (bloquent seulement l'étape qui en dépend) :
+1. Cibles (marchands de biens / développeurs fonciers / architectes) et segment prioritaire. (PRD)
+2. Prix de config/plans.ts identiques à sas-plu-3d/src/config/plans.ts. (PRD)
+3. Offre Découverte encore active côté app. (PRD)
+4. Valeurs cibles et échéances des indicateurs (RDV, souscriptions, abonnements, indexation, GEO). (PRD)
+5. Activer preserveQuery sur les CTA vers l'app. (PRD, plan D4)
+6. URL de la page LinkedIn Fonciable pour Organization.sameAs. (PRD, plan D3)
+7. Contenus comparatifs « alternative à Kel Foncier ». (PRD)
+8. Mot « IA » visible sur l'accueil. (plan D2)
+9. Slug, H1 et exemple réel de la page PLU — bloque A1/A3. (plan A)
+10. SENTRY_AUTH_TOKEN présent sur Vercel. (TRD)
+11. Objectifs Core Web Vitals. (TRD)
+12. Usage voulu de /demonstration.html et son état d'erreur. (APP_FLOW)
+13. Outil de tests unitaires (Vitest) et couverture. (TESTING)
+14. Sentry : consentement ou mention dans la politique — bloque C1. (SECURITY)
+15. Durées de conservation RGPD — bloque C2. (SECURITY)
+16. Garanties des transferts hors UE. (SECURITY)
+17. Tunnel /monitoring : POST renvoie 404 en production. (SECURITY)
+18. .mcp.json : ignorer ou versionner — bloque C4. (plan C4)
