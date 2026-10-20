@@ -57,6 +57,14 @@ Scénarios complémentaires : `GET /page-inexistante` → 404 + meta `noindex` ;
 | C1 / C2 | Revue : texte de `/confidentialite` concorde avec la config Sentry/CMP |
 | C3 / C4 | `git diff` relu |
 | D1-D4 | E2E ciblé (vocabulaire présent, `utm_*` transmis pour D4) |
+| E0 Cadrage SEO cœur | Revue : PRD §4/§7 et plan § E cohérents (pas de test automatisé) |
+| E1 `/bilan-promoteur` | E2E (`tests/e2e/seo-coeur.spec.ts`) : H1 et title attendus, lien vers `/modeles/bilan-promoteur-exemple-fictif.xlsx` servi en 200 (type XLSX) ; build + contrôle du HTML pré-rendu ; ouverture du XLSX par un lecteur indépendant (formules présentes, aucune erreur de calcul) |
+| E2 `/charge-fonciere` | E2E : 200, H1, canonical, WebPage + BreadcrumbList + FAQPage, lien vers `/bilan-promoteur` |
+| E3 `/terrain-constructible` | E2E : idem, lien Légifrance L410-1, lien vers `/zonage-plu` |
+| E4 `/division-parcellaire` | E2E : idem, liens Légifrance R151-21 et service-public |
+| E5 `/zonage-plu` et 4 pages de zone | E2E : 5 pages en 200, lien Légifrance de l'article R151-xx attendu sur chaque page de zone, BreadcrumbList à 3 niveaux (accueil → zonage PLU → zone), liens entre pages de zone |
+| E6 Maillage | E2E : sitemap = accueil + toutes les pages du référentiel + 2 pages légales ; chaque guide relié depuis l'accueil ; `llms.txt` liste chaque nouvelle URL ; aucun texte visible ne contient « PLU-IA » ou « PLU IA » |
+| E7 IndexNow | E2E : `/<clé>.txt` en 200 et contenu = clé ; `node --check scripts/indexnow.mjs` ; `node scripts/indexnow.mjs --dry-run` liste les URL sans appel réseau |
 
 ## 5. Données et comptes de test
 

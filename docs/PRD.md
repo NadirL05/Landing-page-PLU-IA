@@ -45,6 +45,19 @@ Problème propre à la landing : un prospect qui arrive sur fonciable.fr doit co
 - Page de démonstration autonome `/demonstration.html` (noindex). [Lu : `public/demonstration.html`]
 - Redirections : `plu-ia.agentimpact.fr` → `fonciable.fr` (308, chemin conservé), `/tarif(s)` → `/#tarifs`. [Lu : `next.config.ts`]
 
+### Utile — en cours : contenus SEO cœur (décision de Nadir du 20/10/2026)
+Objectif : entrer dans le **top 10 Google France** sur 5 requêtes cœur de cible, **au plus tard le 20/01/2027**. Données : `SEO-GEO-Marketing/missions/fonciable/v4/drafts/11_donnees_mots_cles.md` (volumes DataForSEO Google Ads France, top 10 relevés le 20/10/2026). Au 20/10/2026, fonciable.fr n'a aucun domaine référent ni mot-clé positionné.
+
+| Requête principale (volume/mois) | Variantes couvertes | Page |
+|---|---|---|
+| bilan promoteur (390) | bilan promoteur excel (390) | `/bilan-promoteur` (optimisée, modèle XLSX réel et fictif) |
+| charge foncière (140) | calcul à rebours, charge foncière admissible | `/charge-fonciere` |
+| savoir si un terrain est constructible (170) | constructibilité terrain (2 400), terrain constructible (2 400) | `/terrain-constructible` |
+| division parcellaire (720) | — | `/division-parcellaire` |
+| zonage plu (1 000) | zone plu (1 000), zone ua (480), zone ub (720), zone aua (8 100) | `/zonage-plu` + `/zonage-plu/zone-u`, `zone-au`, `zone-a`, `zone-n` |
+
+Règles : chaque affirmation sur Fonciable a son fichier de preuve dans `sas-plu-3d` (en-tête du fichier `content/*.ts`), sinon elle est retirée ; définitions juridiques citées avec lien Légifrance ; aucune règle chiffrée générale inventée pour les secteurs UA, UB, AUa (propres à chaque PLU) ; pas de page par commune dans cette première vague. Plan : `IMPLEMENTATION_PLAN.md` § E.
+
 ### Plus tard / à venir
 - **Page métier « Analyse PLU d'une parcelle »** (priorité 1 de la suite) — ciblage des intentions « PLU », « constructibilité », « analyse PLU parcelle », « surface constructible ». Origine : diagnostic SEO/GEO du 20/10/2026 (relais 03 O2, 04, 08 D3) : aucune page ne couvre cette intention, Fonciable non observé sur 10/10 requêtes du proxy SERP, concurrents visibles Parcello, InfoPLU, Kel Foncier, IZIRED, Aprilyos. Contenu : méthode, sources, limites, exemple (fictif et étiqueté comme tel tant qu'aucun exemple réel autorisé n'existe), maillée depuis l'accueil et `/faisabilite-fonciere`. Voir `IMPLEMENTATION_PLAN.md` § A.
 - Enrichir `/faisabilite-fonciere` avec le vocabulaire « constructibilité / surface constructible ». [Diagnostic relais 04]
@@ -86,6 +99,7 @@ Aucune donnée GA4/GSC/Calendly n'est accessible depuis ce dépôt → toutes le
 | Rendez-vous Calendly pris depuis la landing | événement GA4 `book_demo` + Calendly | [À CONFIRMER] / mois | [À CONFIRMER] |
 | Clics « Souscrire » | événement GA4 `start_paid_checkout` | [À CONFIRMER] / mois | [À CONFIRMER] |
 | Abonnements payants issus de la landing | Stripe côté `sas-plu-3d` | [À CONFIRMER] | [À CONFIRMER] |
+| Position Google France des 5 requêtes cœur (§4 « contenus SEO cœur ») | GSC « Performances » (position moyenne, filtre pays France) + relevé top 10 (Treg / DataForSEO) | ≤ 10 sur chacune des 5 requêtes principales | 20/01/2027 (aucune position n'est garantie : 0 domaine référent au 20/10/2026) |
 | Mentions Fonciable dans le panel GEO v1 (15 questions) | captures ChatGPT/Perplexity | [À CONFIRMER] (non mesuré au 20/10) | retest J+6 à 8 semaines après la page PLU |
 
 ## 8. Hypothèses à valider
@@ -95,3 +109,4 @@ Aucune donnée GA4/GSC/Calendly n'est accessible depuis ce dépôt → toutes le
 3. Les personas marchand de biens / développeur foncier / architecte sont pertinents — **[À CONFIRMER]**.
 4. Les prix de `config/plans.ts` sont identiques à la source de vérité `sas-plu-3d` — **[À CONFIRMER]**.
 5. Une page métier dédiée améliore la visibilité sur « analyse PLU parcelle » (à mesurer par GSC + panel GEO).
+6. Des pages de fond sur les 5 requêtes cœur, sans backlink acquis, peuvent atteindre le top 10 d'ici le 20/01/2027 : à mesurer dans GSC ; l'autorité (liens, data.gouv, comparateurs) reste un chantier séparé.
