@@ -1,5 +1,5 @@
 /**
- * Référentiel des trois pages métier publiques (SEO/GEO).
+ * Référentiel des pages métier publiques (SEO/GEO).
  *
  * Source unique pour : la navigation, le pied de page, le bloc "Solutions" de
  * l'accueil, le maillage interne entre pages métier, le fil d'Ariane et le
@@ -44,9 +44,16 @@ export const SOLUTION_PAGES: readonly SolutionPage[] = [
     summary:
       "Balayer un territoire pour faire remonter les parcelles au potentiel constructible résiduel le plus crédible.",
   },
+  {
+    slug: "/analyse-plu-parcelle",
+    navLabel: "Analyse PLU",
+    linkLabel: "Analyse PLU d'une parcelle : zonage et règles sourcés",
+    summary:
+      "Lire la zone, les règles du règlement et l'enveloppe constructible théorique d'une parcelle, chaque valeur avec sa source.",
+  },
 ];
 
-/** Les deux autres pages métier, pour le maillage interne d'une page donnée. */
+/** Les autres pages métier, pour le maillage interne d'une page donnée. */
 export function otherSolutionPages(currentSlug: string): readonly SolutionPage[] {
   return SOLUTION_PAGES.filter((page) => page.slug !== currentSlug);
 }

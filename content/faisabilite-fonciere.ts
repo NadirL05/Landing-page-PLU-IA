@@ -87,6 +87,11 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
         body: "Les mutations issues des Demandes de Valeurs Foncières autour de la parcelle (rayon de 500 m par défaut) donnent un prix au m² de référence, qui sert ensuite d'appui au bilan promoteur.",
       },
     ],
+    contextLink: {
+      text: "La lecture du zonage et du règlement de zone, avec un exemple réel à Nantes, est détaillée sur",
+      href: "/analyse-plu-parcelle",
+      label: "la page Analyse PLU d'une parcelle",
+    },
   },
 
   steps: {

@@ -3,8 +3,8 @@ import type { FaqItem } from "@/components/FaqSection";
 /**
  * Contrat éditorial d'une page métier.
  *
- * Les trois pages publiques (/bilan-promoteur, /faisabilite-fonciere,
- * /prospection-fonciere) partagent une seule et même mise en page
+ * Les pages publiques (/bilan-promoteur, /faisabilite-fonciere,
+ * /prospection-fonciere, /analyse-plu-parcelle) partagent une seule et même mise en page
  * (components/metier/MetierPage.tsx) : ce type est la seule chose qui change
  * d'une page à l'autre. Trois gabarits recopiés auraient divergé dès la
  * première correction de disclaimer.
@@ -45,6 +45,8 @@ export interface MetierPageContent {
     readonly title: string;
     readonly intro: string;
     readonly items: readonly { readonly ref: string; readonly title: string; readonly body: string }[];
+    /** Lien contextuel optionnel vers une autre page métier (maillage interne). */
+    readonly contextLink?: { readonly text: string; readonly href: string; readonly label: string };
   };
 
   /* ---- 5. Parcours ---- */
@@ -61,7 +63,7 @@ export interface MetierPageContent {
     readonly note: string;
   };
 
-  /* ---- 7. Preuve (exemple explicitement fictif) ---- */
+  /* ---- 7. Preuve (exemple fictif étiqueté, ou réel vérifié à la source) ---- */
   readonly proof: {
     readonly title: string;
     readonly intro: string;
