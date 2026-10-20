@@ -22,6 +22,7 @@
 | E12 | `/analyse-plu-parcelle` | `app/analyse-plu-parcelle/page.tsx` + `content/analyse-plu-parcelle.ts` | Page métier PLU (exemple réel sourcé, cf. `docs/PREUVES-page-analyse-plu.md`) | oui |
 | E13 | `/charge-fonciere` | `app/charge-fonciere/page.tsx` + `content/charge-fonciere.ts` | Guide SEO cœur (§ E du plan) : définition, calcul à rebours, exemple fictif | oui |
 | E14 | `/terrain-constructible` | `app/terrain-constructible/page.tsx` + `content/terrain-constructible.ts` | Guide SEO cœur : six vérifications de constructibilité, exemple réel sourcé (Nantes) | oui |
+| E15 | `/division-parcellaire` | `app/division-parcellaire/page.tsx` + `content/division-parcellaire.ts` | Guide SEO cœur : autorisations, R151-21, étapes, exemple fictif de principe | oui |
 
 Sorties externes : Calendly (nouvel onglet), `app.fonciable.fr/dashboard`, `/checkout/starter`, `/checkout/pro`, `/cgv`, `/sources`, `/confidentialite`. [Lu]
 

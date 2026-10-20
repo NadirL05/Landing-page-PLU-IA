@@ -72,3 +72,15 @@ test.describe("E3 — /terrain-constructible", () => {
     await expect(page.getByText("44109000BZ0070").first()).toBeVisible();
   });
 });
+
+test.describe("E4 — /division-parcellaire", () => {
+  test("H1, canonical, JSON-LD, textes officiels", async ({ page }) => {
+    await checkGuide(page, "/division-parcellaire", "Division parcellaire : règles, autorisations et étapes", [
+      "/prospection-fonciere",
+      "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000025019439",
+      "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031720609",
+      "https://www.service-public.gouv.fr/particuliers/vosdroits/F37932",
+    ]);
+    await expect(page.getByText("Exemple fictif, calcul de principe")).toBeVisible();
+  });
+});

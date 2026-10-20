@@ -73,6 +73,13 @@ export const GUIDE_PAGES: readonly SolutionPage[] = [
     summary:
       "Document d'urbanisme, zone, règlement, servitudes, réseaux, certificat d'urbanisme : les six vérifications de la constructibilité d'un terrain.",
   },
+  {
+    slug: "/division-parcellaire",
+    navLabel: "Division parcellaire",
+    linkLabel: "Division parcellaire : règles, autorisations et étapes",
+    summary:
+      "Déclaration préalable ou permis d'aménager, application du PLU aux lots, rôle du géomètre-expert : préparer la division d'un terrain.",
+  },
 ];
 
 /**
