@@ -5,7 +5,12 @@
  * données, sous peine de laisser diverger une mention à valeur juridique.
  */
 
-/** Stripe Payment Link mode LIVE — compte "Agentimpact-Plu-IA", basculé le 21/08/2026. */
+/**
+ * Lien Calendly de prise de rendez-vous (créneau de 30 minutes). Utilisé par
+ * les CTA « Prendre rendez-vous » de l'accueil et des pages métier, et par les
+ * liens Démo et Contact du pied de page. Ce n'est pas un lien de paiement : la
+ * souscription passe par l'application (`APP_URL`).
+ */
 export const CALENDLY_URL = "https://calendly.com/nadir-lahyani-agentimpact/30min";
 
 export const DISCLAIMER_SHORT =

@@ -72,11 +72,11 @@ Prérequis bloquants : validation du cadrage ; slug, H1 et exemple tranchés par
 ### C. Durcissement et conformité (voir `SECURITY.md`)
 - [ ] **C1 — Sentry et RGPD** : décider si Sentry (Replay, `sendDefaultPii: true`) passe sous consentement ou est mentionné dans `/confidentialite` ; réduire `tracesSampleRate`. Fini quand : politique et configuration concordent. [À CONFIRMER : choix de Nadir]
 - [ ] **C2 — Durées de conservation chiffrées** dans `/confidentialite` (aujourd'hui génériques). Fini quand : chaque traitement a une durée. [À CONFIRMER : durées]
-- [ ] **C3 — Corriger le commentaire obsolète** au-dessus de `CALENDLY_URL` (`config/site-content.ts`). Fini quand : commentaire exact.
+- [x] **C3 — Corriger le commentaire obsolète** au-dessus de `CALENDLY_URL` (`config/site-content.ts`). Fini quand : commentaire exact. Fait le 2026-10-20 : le commentaire décrit le lien Calendly et ses usages ; `git diff` relu, lint, `tsc --noEmit` et build OK.
 - [ ] **C4 — Ajouter `.mcp.json` à `.gitignore`** ou le versionner volontairement [À CONFIRMER].
 
 ### D. SEO/GEO hors page PLU (diagnostic 20/10, après A)
-- [ ] **D1** — Enrichir `/faisabilite-fonciere` avec « constructibilité / surface constructible ». Fini quand : vocabulaire présent dans H2/FAQ, build OK.
+- [x] **D1** — Enrichir `/faisabilite-fonciere` avec « constructibilité / surface constructible ». Fini quand : vocabulaire présent dans H2/FAQ, build OK. Fait le 2026-10-20 : 2 H2 et 2 questions FAQ ajoutées, uniquement des affirmations prouvées en A2 ; lint, `tsc --noEmit` et build OK ; E2E Playwright non disponible (B2), remplacé par un contrôle du HTML pré-rendu (2 H2 et 2 `Question` JSON-LD contiennent « constructib »).
 - [ ] **D2** — Mot « IA » visible sur l'accueil si conforme au positionnement [À CONFIRMER]. Fini quand : HTML brut de `/` contient « IA » hors scripts.
 - [ ] **D3** — `sameAs` LinkedIn Fonciable dans `public/schema/organization.json` [À CONFIRMER URL].
 - [ ] **D4** — Activer `preserveQuery` sur les CTA vers l'app [À CONFIRMER]. Fini quand : un clic depuis `/?utm_source=x` mène à `…/checkout/pro?utm_source=x`.
