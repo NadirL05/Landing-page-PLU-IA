@@ -132,6 +132,9 @@ export default function Home() {
           (<ScrollBeat>) laissent la scène se lire seule. */}
       <PageScene />
       <div className="relative z-10">
+      {/* Repère <main> : absent jusqu'au 20/10/2026 (trouvé par les tests E2E),
+          alors que les pages métier l'ont. Le pied de page reste hors de <main>. */}
+      <main>
 
       {/* ===== HERO — fond transparent : la maison 3D fixe se lit à droite =====
            Le texte et les chiffres du hero sont inchangés. L'ancienne
@@ -550,6 +553,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Pied de page partagé avec les pages métier (components/SiteFooter.tsx). */}
       <div className="scene-veil">
