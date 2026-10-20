@@ -1,12 +1,12 @@
 import type { MetadataRoute } from "next";
 import { BRAND_URL } from "@/config/brand";
-import { SOLUTION_PAGES } from "@/config/solutions";
+import { GUIDE_PAGES, SOLUTION_PAGES, ZONE_PAGES } from "@/config/solutions";
 
 /**
  * Sitemap de la landing.
  *
  * Ne contiennent QUE des pages publiques réellement servies en 200 par ce
- * domaine : l'accueil et les pages métier. Pas d'ancres (elles ne sont
+ * domaine : l'accueil, les pages métier, les guides et les pages de zone. Pas d'ancres (elles ne sont
  * pas des URLs distinctes), pas de route de app.fonciable.fr (autre
  * domaine applicatif, majoritairement authentifié et en noindex), pas de fichier
  * technique.
@@ -31,6 +31,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: SITE_LAST_MODIFIED,
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...GUIDE_PAGES.map((page) => ({
+      url: `${BRAND_URL}${page.slug}`,
+      lastModified: SITE_LAST_MODIFIED,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+    ...ZONE_PAGES.map((page) => ({
+      url: `${BRAND_URL}${page.slug}`,
+      lastModified: SITE_LAST_MODIFIED,
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
     })),
     {
       url: `${BRAND_URL}/mentions-legales`,

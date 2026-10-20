@@ -29,6 +29,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const FAISABILITE_FONCIERE: MetierPageContent = {
   slug: "/faisabilite-fonciere",
   navLabel: "Faisabilité foncière",
+  related: ["/bilan-promoteur", "/prospection-fonciere", "/analyse-plu-parcelle", "/terrain-constructible", "/charge-fonciere"],
 
   metaTitle: "Faisabilité foncière : évaluer rapidement le potentiel d'une parcelle",
   metaDescription:

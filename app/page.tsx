@@ -11,7 +11,7 @@ import { TrackedCta } from "@/components/analytics/tracked-cta";
 import { BRAND_NAME, FORMER_BRAND_NAME, BRAND_URL, APP_URL } from "@/config/brand";
 import { PUBLIC_PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
 import { CALENDLY_URL, DATA_ATTRIBUTION, DISCLAIMER_SHORT } from "@/config/site-content";
-import { SOLUTION_PAGES } from "@/config/solutions";
+import { GUIDE_PAGES, SOLUTION_PAGES } from "@/config/solutions";
 import organizationSchema from "@/public/schema/organization.json";
 import websiteSchema from "@/public/schema/website.json";
 
@@ -551,6 +551,22 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
+          {/* Guides de fond (IMPLEMENTATION_PLAN § E) : méthode et textes
+              officiels, chacun relié aux pages Solutions. */}
+          <Reveal className="mt-14">
+            <h3 className="font-display mb-6 text-2xl font-normal tracking-tight" style={{ color: "var(--ink)" }}>Guides pratiques</h3>
+            <ul className="m-0 grid list-none grid-cols-1 gap-x-8 gap-y-4 p-0 md:grid-cols-2">
+              {GUIDE_PAGES.map((page) => (
+                <li key={page.slug}>
+                  <Link href={page.slug} className="inline-flex items-center gap-2 text-[14.5px] font-medium transition hover:opacity-70" style={{ color: "var(--brand)" }}>
+                    {page.linkLabel}
+                    <IconArrow />
+                  </Link>
+                  <p className="mt-1 text-[13px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{page.summary}</p>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
         </div>
       </section>
       </main>

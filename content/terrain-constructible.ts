@@ -43,7 +43,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
   slug: "/terrain-constructible",
   navLabel: "Terrain constructible",
-  related: ["/faisabilite-fonciere", "/analyse-plu-parcelle", "/charge-fonciere", "/bilan-promoteur"],
+  related: ["/zonage-plu", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/division-parcellaire", "/charge-fonciere"],
 
   metaTitle: "Savoir si un terrain est constructible : la méthode",
   metaDescription:
@@ -85,6 +85,11 @@ export const TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
           { label: "art. R151-22 (zones A)", href: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031720607" },
           { label: "art. R151-24 (zones N)", href: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031720603" },
         ],
+        link: {
+          text: "Chaque famille de zones, et les sous-secteurs comme UA, UB ou AUa, sont détaillés sur",
+          href: "/zonage-plu",
+          label: "la page Zonage PLU",
+        },
       },
       {
         title: "3. Lire le règlement de la zone",

@@ -34,7 +34,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const CHARGE_FONCIERE: MetierPageContent = {
   slug: "/charge-fonciere",
   navLabel: "Charge foncière",
-  related: ["/bilan-promoteur", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/prospection-fonciere"],
+  related: ["/bilan-promoteur", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/terrain-constructible", "/prospection-fonciere"],
 
   metaTitle: "Charge foncière : définition, calcul à rebours et exemple",
   metaDescription:

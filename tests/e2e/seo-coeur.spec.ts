@@ -1,3 +1,4 @@
+import { ALL_EDITORIAL_PAGES, GUIDE_PAGES, ZONE_PAGES } from "../../config/solutions";
 import { BRAND_URL, expect, readJsonLd, schemaTypes, test } from "./fixtures";
 
 /**
@@ -123,4 +124,49 @@ test.describe("E5 — /zonage-plu et pages de zone", () => {
       ]);
     });
   }
+});
+
+test.describe("E6 — maillage et découverte", () => {
+  test("l'accueil et le pied de page relient chaque guide", async ({ page }) => {
+    await page.goto("/");
+    for (const guide of GUIDE_PAGES) {
+      expect(await page.locator(`main a[href="${guide.slug}"]`).count(), guide.slug).toBeGreaterThan(0);
+      expect(await page.locator(`footer a[href="${guide.slug}"]`).count(), guide.slug).toBeGreaterThan(0);
+    }
+  });
+
+  test("chaque page de zone est reliée depuis /zonage-plu, chaque guide depuis au moins une autre page éditoriale", async ({ page }) => {
+    await page.goto("/zonage-plu");
+    for (const zone of ZONE_PAGES) {
+      expect(await page.locator(`main a[href="${zone.slug}"]`).count(), zone.slug).toBeGreaterThan(0);
+    }
+    const inbound = new Map<string, number>();
+    for (const source of ALL_EDITORIAL_PAGES) {
+      await page.goto(source.slug);
+      const hrefs = await page.locator("main a[href^='/']").evaluateAll((els) => els.map((el) => el.getAttribute("href")));
+      for (const href of hrefs) if (href && href !== source.slug) inbound.set(href, (inbound.get(href) ?? 0) + 1);
+    }
+    for (const target of ALL_EDITORIAL_PAGES) {
+      expect(inbound.get(target.slug) ?? 0, target.slug).toBeGreaterThan(0);
+    }
+  });
+
+  test("llms.txt liste chaque page éditoriale et le modèle XLSX", async ({ request }) => {
+    const text = await (await request.get("/llms.txt")).text();
+    for (const p of ALL_EDITORIAL_PAGES) expect(text, p.slug).toContain(`(${BRAND_URL}${p.slug})`);
+    expect(text).toContain(`${BRAND_URL}/modeles/bilan-promoteur-exemple-fictif.xlsx`);
+  });
+
+  test("aucun contenu principal ne mentionne l'ancien nom ; pas de tiret cadratin sur les pages § E", async ({ page }) => {
+    for (const p of ALL_EDITORIAL_PAGES) {
+      await page.goto(p.slug);
+      const text = await page.locator("main").innerText();
+      expect(text, p.slug).not.toMatch(/PLU[- ]IA/i);
+    }
+    // Pages rédigées ou réécrites en § E : aucun tiret cadratin.
+    for (const slug of ["/bilan-promoteur", ...GUIDE_PAGES.map((g) => g.slug), ...ZONE_PAGES.map((z) => z.slug)]) {
+      await page.goto(slug);
+      expect(await page.locator("main").innerText(), slug).not.toContain("—");
+    }
+  });
 });

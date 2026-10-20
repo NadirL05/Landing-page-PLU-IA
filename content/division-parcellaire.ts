@@ -44,7 +44,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const DIVISION_PARCELLAIRE: MetierPageContent = {
   slug: "/division-parcellaire",
   navLabel: "Division parcellaire",
-  related: ["/terrain-constructible", "/prospection-fonciere", "/analyse-plu-parcelle", "/faisabilite-fonciere"],
+  related: ["/terrain-constructible", "/zonage-plu", "/prospection-fonciere", "/analyse-plu-parcelle", "/faisabilite-fonciere"],
 
   metaTitle: "Division parcellaire : règles, autorisations et étapes",
   metaDescription:
@@ -101,6 +101,11 @@ export const DIVISION_PARCELLAIRE: MetierPageContent = {
           "3. Déposer la déclaration préalable ou le permis d'aménager en mairie.",
           "4. En cas de vente, signer l'acte chez le notaire, qui publie la division au service de la publicité foncière.",
         ],
+        link: {
+          text: "Pour la première étape, la méthode de vérification de la zone et des règles est détaillée sur",
+          href: "/terrain-constructible",
+          label: "la page Savoir si un terrain est constructible",
+        },
       },
     ],
   },
