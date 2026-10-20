@@ -69,7 +69,7 @@ Prérequis bloquants : validation du cadrage ; slug, H1 et exemple tranchés par
 ### C. Durcissement et conformité (voir `SECURITY.md`)
 - [ ] **C1 — Sentry et RGPD** : décider si Sentry (Replay, `sendDefaultPii: true`) passe sous consentement ou est mentionné dans `/confidentialite` ; réduire `tracesSampleRate`. Fini quand : politique et configuration concordent. [À CONFIRMER : choix de Nadir]
 - [ ] **C2 — Durées de conservation chiffrées** dans `/confidentialite` (aujourd'hui génériques). Fini quand : chaque traitement a une durée. [À CONFIRMER : durées]
-- [ ] **C3 — Corriger le commentaire obsolète** au-dessus de `CALENDLY_URL` (`config/site-content.ts`). Fini quand : commentaire exact.
+- [x] **C3 — Corriger le commentaire obsolète** au-dessus de `CALENDLY_URL` (`config/site-content.ts`). Fini quand : commentaire exact. Fait le 2026-10-20 : le commentaire décrit le lien Calendly et ses usages ; `git diff` relu, lint, `tsc --noEmit` et build OK.
 - [ ] **C4 — Ajouter `.mcp.json` à `.gitignore`** ou le versionner volontairement [À CONFIRMER].
 
 ### D. SEO/GEO hors page PLU (diagnostic 20/10, après A)
