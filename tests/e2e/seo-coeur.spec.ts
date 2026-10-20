@@ -60,3 +60,15 @@ test.describe("E2 — /charge-fonciere", () => {
     expect(await page.locator('main a[href="/charge-fonciere"]').count()).toBeGreaterThan(0);
   });
 });
+
+test.describe("E3 — /terrain-constructible", () => {
+  test("H1, canonical, JSON-LD, textes officiels et exemple réel", async ({ page }) => {
+    await checkGuide(page, "/terrain-constructible", "Comment savoir si un terrain est constructible ?", [
+      "/analyse-plu-parcelle",
+      "https://www.legifrance.gouv.fr/codes/id/LEGISCTA000006143348",
+      "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031210179",
+      "https://www.service-public.gouv.fr/particuliers/vosdroits/F1633",
+    ]);
+    await expect(page.getByText("44109000BZ0070").first()).toBeVisible();
+  });
+});

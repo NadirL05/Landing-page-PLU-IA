@@ -66,6 +66,13 @@ export const GUIDE_PAGES: readonly SolutionPage[] = [
     summary:
       "Calculer ce qu'une opération peut payer pour un terrain : charge foncière admissible, incidence foncière, exemple chiffré fictif.",
   },
+  {
+    slug: "/terrain-constructible",
+    navLabel: "Terrain constructible",
+    linkLabel: "Savoir si un terrain est constructible : la méthode",
+    summary:
+      "Document d'urbanisme, zone, règlement, servitudes, réseaux, certificat d'urbanisme : les six vérifications de la constructibilité d'un terrain.",
+  },
 ];
 
 /**
