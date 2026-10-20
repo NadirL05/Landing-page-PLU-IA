@@ -31,11 +31,11 @@
   Preuves : `next.config.ts` (`headers()` sur `/:path*`) ; `curl -sI https://fonciable.fr` le 2026-10-20 renvoie `content-security-policy` (default-src 'self', frame-src 'none', object-src 'none'…), `strict-transport-security: max-age=31536000; includeSubDomains; preload`, `x-frame-options: DENY`, `x-content-type-options: nosniff`, `referrer-policy`, `permissions-policy`. Cookies : la landing n'émet aucun `Set-Cookie` côté serveur (`curl -sI` sur `/` et `/bilan-promoteur`) → N/A pour les attributs serveur ; les cookies tiers (CMP, GA, Meta) ne sont pas contrôlables ici.
   Réserves connues et assumées : `script-src 'unsafe-inline'` (pas de nonce sans middleware, commentaire `next.config.ts`) ; `style-src 'unsafe-inline'`.
 
-- [ ] **`npm audit` (ou équivalent) sans vulnérabilité critique.** — **NON CONFORME**
-  Preuve : `npm audit` le 2026-10-20 → **11 vulnérabilités : 1 critique, 10 hautes**.
-  - Critique : `next` 16.3.1 (plage 16.0.0 – 16.3.7) — dont RCE dans `next/og ImageResponse` (utilisé par `app/opengraph-image.tsx`), RCE Image Optimization (AVIF), SSRF Image Optimization, empoisonnement de cache SSG/ISR. Correctif : `next@16.4.2` (hors plage déclarée → mise à jour manuelle, plan B1).
-  - Hautes (dépendances indirectes ou de dev) : `eslint-config-next`, `@next/eslint-plugin-next`, `brace-expansion`, `braces`, `fast-glob`, `fast-uri`, `js-yaml`, `micromatch`, `sharp`, `source-map-js`.
-  Aucun `npm audit fix` lancé (consigne). Débloque : étape B1.
+- [x] **`npm audit` (ou équivalent) sans vulnérabilité critique.**
+  Preuve (2026-10-20, après B1) : `npm audit --audit-level=critical` → code de sortie 0 ; **0 critique, 5 hautes**.
+  - Corrigé : `next` 16.3.1 → **16.4.2** (RCE `next/og`, RCE/SSRF Image Optimization, empoisonnement de cache) ; `eslint-config-next` → 16.4.2 ; `npm audit fix` sans `--force` pour `brace-expansion`, `fast-uri`, `js-yaml`, `sharp`, `source-map-js`.
+  - Restant (5 hautes, outillage de lint en dev uniquement, absent du bundle) : `eslint-config-next`, `@next/eslint-plugin-next`, `braces`, `fast-glob`, `micromatch`. Seul correctif proposé : rétrograder `eslint-config-next` en 14.x (incompatible Next 16) → accepté en l'état, à revoir à la prochaine version d'`eslint-config-next`.
+  - Vérification : `npm run lint`, `tsc --noEmit`, `npm run build` OK ; `next start` local : `/`, `/opengraph-image` (image/png), `/faisabilite-fonciere`, `/llms.txt`, `/sitemap.xml` en 200.
 
 - [ ] **RGPD : données collectées listées, durée de conservation, mentions présentes.** — **PARTIEL**
   Présent : `app/mentions-legales/page.tsx` (éditeur, SIREN, hébergeur) ; `app/confidentialite/page.tsx` (responsable, données, finalités et bases légales, prestataires Vercel/consentmanager/Google/Meta, droits, CNIL, cookies) ; CMP consentmanager + `ConsentGate` fail closed (`components/analytics/consent-gate.tsx`) ; GA4/Meta montés seulement après consentement.
@@ -48,8 +48,8 @@
 
 | Statut | Points |
 |---|---|
-| Cochés avec preuve (4) | secrets/.gitignore · clés publiques seules · erreurs génériques · en-têtes CSP/HSTS (+ cookies N/A côté serveur) |
-| Non cochés (2) | `npm audit` (1 critique `next`) · RGPD (partiel : Sentry, durées) |
+| Cochés avec preuve (5) | secrets/.gitignore · clés publiques seules · erreurs génériques · en-têtes CSP/HSTS (+ cookies N/A côté serveur) · `npm audit` sans critique (B1) |
+| Non cochés (1) | RGPD (partiel : Sentry, durées) |
 | N/A justifiés (4) | validation serveur · contrôle d'accès/RLS · rate limiting · signature webhooks |
 
-**Bloquant avant tout nouveau déploiement de fonctionnalité** : la vulnérabilité critique `next` (B1). Recommandé dans la foulée : C1 (Sentry/RGPD).
+Vulnérabilité critique `next` corrigée par B1 (2026-10-20). Recommandé ensuite : C1 (Sentry/RGPD).

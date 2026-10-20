@@ -56,7 +56,7 @@ Prérequis bloquants : validation du cadrage ; slug, H1 et exemple **[À CONFIRM
 - [ ] **A7 — Recette et mise en ligne** (≤ 2 h). Lint, build, tests de `TESTING.md` § A ; Rich Results Test ; preview Vercel relue par Nadir ; déploiement production **uniquement après accord explicite de Nadir** (SECURITY porte §8). Fini quand : URL de production en 200, page soumise à l'indexation dans GSC. Réf. : APP_FLOW §2, SECURITY.
 
 ### B. Socle qualité (pré-requis à toute autre évolution)
-- [ ] **B1 — Mettre à jour Next.js** hors plage vulnérable (16.3.1 → ≥ 16.4.2 selon `npm audit`) et `eslint-config-next` ; relire `node_modules/next/dist/docs/`. Fini quand : `npm audit --audit-level=critical` sort en 0, build OK. Réf. : SECURITY.
+- [x] **B1 — Mettre à jour Next.js** hors plage vulnérable (16.3.1 → ≥ 16.4.2 selon `npm audit`) et `eslint-config-next` ; relire `node_modules/next/dist/docs/`. Fini quand : `npm audit --audit-level=critical` sort en 0, build OK. Réf. : SECURITY. Fait le 2026-10-20 : next 16.4.2, audit critique = 0, lint/tsc/build OK.
 - [ ] **B2 — Installer Playwright** et le scénario E2E du parcours principal (`TESTING.md` §3). Fini quand : `npm test` passe en local. Réf. : TESTING.
 - [ ] **B3 — Script `test`** unique dans `package.json` (lint + typecheck + build + e2e). Fini quand : une seule commande rejoue tout. Réf. : TESTING §6.
 
