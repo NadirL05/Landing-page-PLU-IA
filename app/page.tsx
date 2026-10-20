@@ -8,7 +8,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { IconArrow, IconCheck, IconX } from "@/components/icons";
 import { TrackedCta } from "@/components/analytics/tracked-cta";
-import { BRAND_NAME, BRAND_URL, APP_URL } from "@/config/brand";
+import { BRAND_NAME, FORMER_BRAND_NAME, BRAND_URL, APP_URL } from "@/config/brand";
 import { PUBLIC_PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
 import { CALENDLY_URL, DATA_ATTRIBUTION, DISCLAIMER_SHORT } from "@/config/site-content";
 import { SOLUTION_PAGES } from "@/config/solutions";
@@ -45,6 +45,7 @@ const softwareApplicationSchema = {
   "@type": "SoftwareApplication",
   "@id": `${BRAND_URL}/#software`,
   name: BRAND_NAME,
+  alternateName: FORMER_BRAND_NAME,
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   url: BRAND_URL,
