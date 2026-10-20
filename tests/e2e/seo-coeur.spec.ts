@@ -84,3 +84,43 @@ test.describe("E4 — /division-parcellaire", () => {
     await expect(page.getByText("Exemple fictif, calcul de principe")).toBeVisible();
   });
 });
+
+test.describe("E5 — /zonage-plu et pages de zone", () => {
+  test("/zonage-plu : H1, articles R151-18 à R151-24, liens vers chaque zone", async ({ page }) => {
+    await checkGuide(page, "/zonage-plu", "Zonage PLU : les zones U, AU, A et N expliquées", [
+      "/zonage-plu/zone-u",
+      "/zonage-plu/zone-au",
+      "/zonage-plu/zone-a",
+      "/zonage-plu/zone-n",
+      "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031720615",
+      "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031720611",
+      "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031720607",
+      "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031720603",
+    ]);
+  });
+
+  const zones = [
+    { path: "/zonage-plu/zone-u", h1: "Zone U du PLU : la zone urbaine et ses secteurs UA, UB", article: "LEGIARTI000031720615" },
+    { path: "/zonage-plu/zone-au", h1: "Zone AU du PLU : zone à urbaniser, ouverte ou fermée", article: "LEGIARTI000031720611" },
+    { path: "/zonage-plu/zone-a", h1: "Zone A du PLU : la zone agricole et ce qui peut y être autorisé", article: "LEGIARTI000031720607" },
+    { path: "/zonage-plu/zone-n", h1: "Zone N du PLU : la zone naturelle et forestière", article: "LEGIARTI000031720603" },
+  ];
+  for (const zone of zones) {
+    test(`${zone.path} : article Légifrance, fil d'Ariane à 3 niveaux, liens vers les autres zones`, async ({ page }) => {
+      const others = zones.filter((z) => z.path !== zone.path).map((z) => z.path);
+      const blocks = await checkGuide(page, zone.path, zone.h1, [
+        "/zonage-plu",
+        `https://www.legifrance.gouv.fr/codes/article_lc/${zone.article}`,
+        ...others,
+      ]);
+      const breadcrumb = blocks.find((b) => (b as Record<string, unknown>)["@type"] === "BreadcrumbList") as {
+        itemListElement: { position: number; item: string }[];
+      };
+      expect(breadcrumb.itemListElement.map((i) => i.item)).toEqual([
+        `${BRAND_URL}/`,
+        `${BRAND_URL}/zonage-plu`,
+        `${BRAND_URL}${zone.path}`,
+      ]);
+    });
+  }
+});

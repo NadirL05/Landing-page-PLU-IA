@@ -27,6 +27,7 @@ import type { MetierPageContent } from "@/components/metier/types";
  */
 export function MetierPage({ content }: { content: MetierPageContent }) {
   const others = relatedPages(content.slug, content.related);
+  const proof = content.proof;
   const crumbs = [
     { name: "Accueil", path: "/" },
     ...(content.parent ? [{ name: content.parent.navLabel, path: content.parent.slug }] : []),
@@ -275,15 +276,16 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
         </section>
 
         {/* ===== 7. Preuve — exemple fictif étiqueté ou réel sourcé ===== */}
+        {proof ? (
         <section className="border-t py-24" style={{ borderColor: "var(--line-strong)" }} aria-labelledby="exemple-heading">
           <div className="mx-auto max-w-[1180px] px-6">
             <Reveal className="mb-10 max-w-3xl">
               <div className="kicker mb-4">Exemple</div>
               <h2 id="exemple-heading" className="font-display text-3xl font-normal leading-[1.08] tracking-tight md:text-4xl" style={{ color: "var(--ink)" }}>
-                {content.proof.title}
+                {proof.title}
               </h2>
               <p className="mt-5 max-w-2xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
-                {content.proof.intro}
+                {proof.intro}
               </p>
             </Reveal>
             <Reveal delay={80}>
@@ -293,25 +295,25 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
                   résultat client. Les valeurs sont inventées et annoncées
                   comme telles dans la légende ci-dessous. */}
               <figure className="spec-card m-0 p-7 md:p-9">
-                <span className="coord-tag">{content.proof.tag}</span>
+                <span className="coord-tag">{proof.tag}</span>
                 <div className="mt-6">
-                  {content.proof.rows.map((row) => (
+                  {proof.rows.map((row) => (
                     <div key={row.label} className="figure-row">
                       <span className="text-[13.5px]" style={{ color: "var(--ink-soft)" }}>{row.label}</span>
                       <span className="figure-value">{row.value}</span>
                     </div>
                   ))}
                 </div>
-                {content.proof.bar ? (
+                {proof.bar ? (
                   <div className="mt-7">
-                    <div className="mono-label mb-2" style={{ color: "var(--ink-soft)" }}>{content.proof.bar.label}</div>
+                    <div className="mono-label mb-2" style={{ color: "var(--ink-soft)" }}>{proof.bar.label}</div>
                     <div className="h-1.5 w-full overflow-hidden" style={{ background: "var(--line)" }}>
-                      <div className="h-full" style={{ width: `${content.proof.bar.pct}%`, background: "var(--terracotta)" }} />
+                      <div className="h-full" style={{ width: `${proof.bar.pct}%`, background: "var(--terracotta)" }} />
                     </div>
                   </div>
                 ) : null}
                 <figcaption className="mt-7 border-t pt-5 text-[12px] leading-relaxed" style={{ borderColor: "var(--line)", color: "var(--ink-soft)" }}>
-                  {content.proof.caption}
+                  {proof.caption}
                 </figcaption>
               </figure>
             </Reveal>
@@ -331,6 +333,7 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
             ) : null}
           </div>
         </section>
+        ) : null}
 
         {/* ===== 8. Limites et vérifications ===== */}
         <section className="border-t py-24" style={{ borderColor: "var(--line-strong)" }} aria-labelledby="limites-heading">

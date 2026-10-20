@@ -47,7 +47,7 @@ export const TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
 
   metaTitle: "Savoir si un terrain est constructible : la méthode",
   metaDescription:
-    "Comment savoir si un terrain est constructible : document d'urbanisme, zone du PLU, règles, servitudes et risques, réseaux, certificat d'urbanisme. Méthode et limites.",
+    "Savoir si un terrain est constructible : document d'urbanisme, zone du PLU, règles, servitudes et risques, réseaux, certificat d'urbanisme. Méthode et limites.",
   dateModified: "2026-10-20",
 
   eyebrow: "Constructibilité · zonage · certificat d'urbanisme",

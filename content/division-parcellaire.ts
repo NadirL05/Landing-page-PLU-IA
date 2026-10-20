@@ -48,7 +48,7 @@ export const DIVISION_PARCELLAIRE: MetierPageContent = {
 
   metaTitle: "Division parcellaire : règles, autorisations et étapes",
   metaDescription:
-    "Division parcellaire : quand faut-il une déclaration préalable ou un permis d'aménager, comment le PLU s'applique aux lots, rôle du géomètre-expert, étapes et limites.",
+    "Division parcellaire : déclaration préalable ou permis d'aménager, application du PLU aux lots, rôle du géomètre-expert, étapes et limites.",
   dateModified: "2026-10-20",
 
   eyebrow: "Lotissement · déclaration préalable · unité foncière",

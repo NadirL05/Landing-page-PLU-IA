@@ -80,13 +80,45 @@ export const GUIDE_PAGES: readonly SolutionPage[] = [
     summary:
       "Déclaration préalable ou permis d'aménager, application du PLU aux lots, rôle du géomètre-expert : préparer la division d'un terrain.",
   },
+  {
+    slug: "/zonage-plu",
+    navLabel: "Zonage PLU",
+    linkLabel: "Zonage PLU : les zones U, AU, A et N expliquées",
+    summary:
+      "Ce que dit le code de l'urbanisme des zones U, AU, A et N, pourquoi UA, UB ou AUa varient d'un PLU à l'autre, et comment trouver la zone d'une parcelle.",
+  },
 ];
 
 /**
  * Pages filles de /zonage-plu, une par famille de zones du code de
  * l'urbanisme (art. R151-18 à R151-25). Jamais de page par commune ici.
  */
-export const ZONE_PAGES: readonly SolutionPage[] = [];
+export const ZONE_PAGES: readonly SolutionPage[] = [
+  {
+    slug: "/zonage-plu/zone-u",
+    navLabel: "Zone U",
+    linkLabel: "Zone U : la zone urbaine et ses secteurs UA, UB",
+    summary: "Définition de l'article R151-18, lecture des secteurs UA et UB, vérifications avant de construire.",
+  },
+  {
+    slug: "/zonage-plu/zone-au",
+    navLabel: "Zone AU",
+    linkLabel: "Zone AU : zone à urbaniser, ouverte ou fermée",
+    summary: "Définition de l'article R151-20, zones ouvertes et fermées, appellations 1AU, 2AU et AUa.",
+  },
+  {
+    slug: "/zonage-plu/zone-a",
+    navLabel: "Zone A",
+    linkLabel: "Zone A : la zone agricole",
+    summary: "Définition de l'article R151-22 et constructions qui peuvent y être autorisées (article R151-23).",
+  },
+  {
+    slug: "/zonage-plu/zone-n",
+    navLabel: "Zone N",
+    linkLabel: "Zone N : la zone naturelle et forestière",
+    summary: "Les cinq motifs de l'article R151-24 et constructions qui peuvent y être autorisées (article R151-25).",
+  },
+];
 
 /** Toutes les pages éditoriales publiques : sitemap, llms.txt, maillage. */
 export const ALL_EDITORIAL_PAGES: readonly SolutionPage[] = [...SOLUTION_PAGES, ...GUIDE_PAGES, ...ZONE_PAGES];

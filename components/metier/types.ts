@@ -84,7 +84,8 @@ export interface MetierPageContent {
   };
 
   /* ---- 7. Preuve (exemple fictif étiqueté, ou réel vérifié à la source) ---- */
-  readonly proof: {
+  /** Absent sur les pages purement définitionnelles (pages de zone) : mieux vaut aucun exemple qu'un exemple artificiel. */
+  readonly proof?: {
     readonly title: string;
     readonly intro: string;
     readonly tag: string;
