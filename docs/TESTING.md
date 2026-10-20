@@ -2,10 +2,12 @@
 
 > Rédigé le 2026-10-20. Dépend de `IMPLEMENTATION_PLAN.md`.
 
-## 1. État réel aujourd'hui
+## 1. État réel (mis à jour le 2026-10-20, étapes B2/B3)
 
-- **Aucun test automatisé** : pas de dossier de tests, pas de Playwright/Vitest/Jest dans `package.json`, pas de script `test`, pas de CI GitHub (`.github/` absent). [Lu]
-- Contrôles existants : `npm run lint` (ESLint 9, **passe** le 2026-10-20) et `npm run build` (typecheck TypeScript + pré-rendu ; exécuté aussi par Vercel à chaque déploiement). [Lu]
+- **E2E Playwright en place** : `@playwright/test` (devDependency), Chromium seul (headless shell, contrainte disque), `playwright.config.ts`, specs dans `tests/e2e/`. 20 tests, tous verts. [Lu]
+- **Commande unique** : `npm test` (lint + `tsc --noEmit` + build + e2e), voir §6. [Lu]
+- **Pas de tests unitaires** : Vitest non installé, le choix d'outil reste **[À CONFIRMER]** (item 13 de `.cadrage-valide`). Les fonctions de `lib/` ne sont couvertes qu'indirectement par l'E2E (JSON-LD, sitemap, métadonnées).
+- Pas de CI GitHub (`.github/` absent) : la commande tourne en local ; Vercel n'exécute que `next build`. [Lu]
 - Garde-fous au build : `structuredPrice` (`app/page.tsx`) lève une erreur si un prix Starter/Pro n'a pas de nombre ; le typage `MetierPageContent` bloque un contenu incomplet. [Lu]
 - Vérifications manuelles passées documentées dans `CLAUDE.md` (inspection DOM du CMP, audit SEO du 21/08).
 
@@ -23,7 +25,7 @@ Couverture visée : 100 % des fonctions de `lib/` et de `components/JsonLd.tsx` 
 
 ## 3. Scénario E2E du parcours principal (Playwright)
 
-Pré-requis : `npm run build && npm run start` (port 3000), variables analytics **non définies** (aucun appel réel à Google/Meta), réseau sortant vers Calendly/app **intercepté** (`page.route`) — aucun vrai rendez-vous, aucune vraie souscription.
+Pré-requis (automatisés par `playwright.config.ts`) : `npm run build` puis `next start` sur **127.0.0.1:3107** (port dédié, jamais un serveur déjà lancé), variables analytics **vidées** (aucun appel réel à Google/Meta). Isolation réseau dans `tests/e2e/fixtures.ts` : Calendly et `app.fonciable.fr` reçoivent une réponse simulée (on vérifie l'URL atteinte, aucun vrai rendez-vous ni checkout) ; tout autre hôte externe (GA, Meta, CMP consentmanager, Sentry) et le tunnel `/monitoring` sont bloqués.
 
 1. `GET /` → statut 200 ; `<h1>` visible ; `<title>` contient « Fonciable ».
 2. Les en-têtes de réponse contiennent `content-security-policy`, `strict-transport-security`, `x-frame-options: DENY`.
@@ -64,14 +66,30 @@ Scénarios complémentaires : `GET /page-inexistante` → 404 + meta `noindex` ;
 
 ## 6. Commande unique
 
-Aujourd'hui (seul contrôle existant) :
-
 ```bash
-npm run lint && npm run build
+npm test   # = npm run lint && npm run typecheck && npm run build && PW_SKIP_BUILD=1 playwright test
 ```
 
-Cible après B3 (script à créer) :
+- Première installation du navigateur (≈ 200 Mo, Chromium headless shell seul) : `npx playwright install --only-shell chromium`.
+- E2E seuls (reconstruit le site avant de lancer le serveur) : `npm run test:e2e`.
+- Résultat au 2026-10-20 : **20 passés, 0 échec, ≈ 12 s** (dont build) ; stable sur `npx playwright test --repeat-each=3` (60/60).
+- Rapports : `playwright-report/` et `test-results/` (traces en cas d'échec), non versionnés.
+- Vitest (`vitest run`) s'ajoutera à la chaîne quand le choix d'outil sera confirmé.
 
-```bash
-npm test   # = eslint && tsc --noEmit && vitest run && next build && playwright test
-```
+## 7. Ce qui est couvert (au 2026-10-20)
+
+| Fichier | Test | Couvre |
+|---|---|---|
+| `tests/e2e/parcours-principal.spec.ts` | §3.1 à §3.10 | accueil 200 + H1 + titre ; en-têtes CSP/HSTS/XFO/nosniff ; JSON-LD `SoftwareApplication` Starter 199 / Pro 599 ; aucun traceur sans consentement ; ancre Tarifs (3 offres, pas de Découverte, href des CTA) ; CTA hero → Calendly nouvel onglet ; Souscrire Pro → `/checkout/pro` ; Ouvrir l'application → `/dashboard` ; menu mobile 390×844 ; `prefers-reduced-motion` sans erreur JS ni console |
+| `tests/e2e/seo.spec.ts` | Sitemap | 7 URLs (accueil, chaque `SOLUTION_PAGES`, 2 pages légales), sans doublon |
+| | Chaque URL du sitemap | 200, H1 unique non vide, un seul `<main>`, canonical auto-référent, pas de `noindex`, chaque JSON-LD se parse (`@context` schema.org) |
+| | Chaque page métier | `WebPage` (url exacte), `BreadcrumbList` (accueil → page, positions continues), `FAQPage` non vide ; liens vers les autres pages métier et l'accueil |
+| | `/analyse-plu-parcelle` | H1 validé exact, « 44109000BZ0070 » visible, canonical, `index, follow` (A4) |
+| | Maillage | `/` relie chaque page métier ; `/faisabilite-fonciere` relie `/analyse-plu-parcelle` (A5) |
+| | 404 / redirections | URL inconnue → 404, page `not-found`, `noindex` ; `/tarifs`, `/tarif` → 308 `/#tarifs` |
+
+Non couvert : tests unitaires de `lib/` [À CONFIRMER Vitest] ; cohérence prix `config/plans.ts` == `public/llms.txt` ; `/demonstration.html` ; consentement accordé (le CMP réel est bloqué) ; redirections par hôte (`plu-ia.agentimpact.fr`, `www`).
+
+Défauts trouvés par ces tests :
+- **Corrigé** (20/10) : l'accueil n'avait pas de repère `<main>` (les pages métier, légales et 404 l'ont) ; ajouté dans `app/page.tsx`, pied de page laissé hors de `<main>`. Test de non-régression : « un seul `<main>` » sur chaque URL du sitemap.
+- **Signalé, non corrigé** : la page 404 hérite du canonical racine du layout (`<link rel="canonical" href="https://fonciable.fr">`) et porte deux `meta robots` (`noindex` ajouté par Next.js et `noindex, follow` de `app/not-found.tsx`). Signaux contradictoires (noindex + canonical vers l'accueil) à trancher par Nadir ; non testé pour ne pas bloquer `npm test`.
