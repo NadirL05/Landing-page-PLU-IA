@@ -5,7 +5,7 @@
 ## 1. État réel (mis à jour le 2026-10-20, étapes B2/B3)
 
 - **E2E Playwright en place** : `@playwright/test` (devDependency), Chromium seul (headless shell, contrainte disque), `playwright.config.ts`, specs dans `tests/e2e/`. 34 tests au 20/10/2026 après la section E (20 avant), tous verts. [Lu]
-- **Commande unique** : `npm test` (lint + `tsc --noEmit` + build + e2e), voir §6. [Lu]
+- **Commande unique** : `npm test` (lint + types de routes Next + `tsc --noEmit` + build Webpack + e2e), voir §6. [Lu]
 - **Pas de tests unitaires** : Vitest non installé, le choix d'outil reste **[À CONFIRMER]** (item 13 de `.cadrage-valide`). Les fonctions de `lib/` ne sont couvertes qu'indirectement par l'E2E (JSON-LD, sitemap, métadonnées).
 - Pas de CI GitHub (`.github/` absent) : la commande tourne en local ; Vercel n'exécute que `next build`. [Lu]
 - Garde-fous au build : `structuredPrice` (`app/page.tsx`) lève une erreur si un prix Starter/Pro n'a pas de nombre ; le typage `MetierPageContent` bloque un contenu incomplet. [Lu]
@@ -75,7 +75,7 @@ Scénarios complémentaires : `GET /page-inexistante` → 404 + meta `noindex` ;
 ## 6. Commande unique
 
 ```bash
-npm test   # = npm run lint && npm run typecheck && npm run build && PW_SKIP_BUILD=1 playwright test
+npm test   # = lint + next typegen/tsc + next build --webpack + Playwright
 ```
 
 - Première installation du navigateur (≈ 200 Mo, Chromium headless shell seul) : `npx playwright install --only-shell chromium`.
@@ -110,3 +110,13 @@ Non couvert : tests unitaires de `lib/` [À CONFIRMER Vitest] ; cohérence prix 
 Défauts trouvés par ces tests :
 - **Corrigé** (20/10) : l'accueil n'avait pas de repère `<main>` (les pages métier, légales et 404 l'ont) ; ajouté dans `app/page.tsx`, pied de page laissé hors de `<main>`. Test de non-régression : « un seul `<main>` » sur chaque URL du sitemap.
 - **Signalé, non corrigé** : la page 404 hérite du canonical racine du layout (`<link rel="canonical" href="https://fonciable.fr">`) et porte deux `meta robots` (`noindex` ajouté par Next.js et `noindex, follow` de `app/not-found.tsx`). Signaux contradictoires (noindex + canonical vers l'accueil) à trancher par Nadir ; non testé pour ne pas bloquer `npm test`.
+
+## Démonstration Fonciable — H1/H2
+
+La commande unique reste `npm test`. Le test E2E de retrait F7 est remplacé par : page en 200, H1 Fonciable, absence de l’ancien nom, lecteur avec métadonnées chargées et durée 41–43 s, Range MP4 en 206/type `video/mp4`/signature `ftyp`, VTT valide et médias/fonts en 200. Données : captures de test du 18 octobre, simulations hypothétiques ; aucun accès à un compte ni envoi externe. QA séparée : FFprobe, mesure FFmpeg loudnorm, six images décodées à 3/9/17/25/33/41,7 s. Les cases H1/H2 ne sont cochées qu’après succès.
+
+### Exécution sur une copie neuve
+
+`typecheck` génère les types de routes avec `next typegen` avant TypeScript, car `LayoutProps` n’existe pas encore dans une copie sans `.next`. La commande unique `npm test` construit avec Webpack : Turbopack tente de créer un processus qui ouvre un port et échoue avec EPERM sur ce Mac. `npm run build` reste inchangé pour le déploiement Vercel ; aucun fallback de production ajouté.
+
+Résultat H1/H2 le 21/10 : **`npm test` complet réussi, 36 tests Playwright passés (0 échec)**. Audit : 0 critique. QA média : −14,57 LUFS, −1,36 dBTP. Le moteur Webpack concerne la recette, pas le script `build` de Vercel.

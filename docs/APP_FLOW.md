@@ -15,7 +15,7 @@
 | E6 | `/confidentialite` | `app/confidentialite/page.tsx` | RGPD / cookies | oui (priorité 0.2) |
 | E7 | toute URL inconnue | `app/not-found.tsx` | 404 | non (`robots: noindex`) |
 | E8 | erreur racine | `app/global-error.tsx` | Erreur fatale de rendu | — |
-| E9 | ~~`/demonstration.html`~~ | supprimé le 21/10/2026 | Démo vidéo retirée (narration « PLU-IA ») ; `/demonstration.html` et `/demonstration/*` → 308 → `/` | — |
+| E9 | `/demonstration.html` | `public/demonstration.html` + `public/demonstration/*` | Démo Fonciable (~42 s), lecteur natif avec contrôles, affiche, sous-titres et lien vers l’app ; sans traceur ni script | non |
 | E10 | Bannière CMP (surcouche) | script consentmanager dans `app/layout.tsx` | Consentement | — |
 | E11 | Menu mobile (surcouche) | `components/MobileNav.tsx` | Navigation < md | — |
 | — | `/sitemap.xml`, `/robots.txt`, `/llms.txt`, `/rsl.xml`, `/opengraph-image`, `/.well-known/mcp/server-card.json`, `/.well-known/agent-skills/index.json` | fichiers techniques | machines | — |
@@ -62,12 +62,12 @@ flowchart TD
 
 - **Page métier → page métier / accueil** : bloc « autres solutions » et fil d'Ariane (`otherSolutionPages`, `BreadcrumbList`) ; lien contextuel optionnel `capabilities.contextLink` (`/faisabilite-fonciere` ↔ `/analyse-plu-parcelle`). [Lu]
 - **Ancres de navigation** : Produit, Fonctionnalités, Sources, Tarifs, FAQ, Solutions (`/#…`), depuis n'importe quelle page. [Lu : `SiteHeader.tsx`]
-- **Anciennes URL** : `plu-ia.agentimpact.fr/*` → 308 → `fonciable.fr/*` ; `/tarif`, `/tarifs` → 308 → `/#tarifs` ; `/demonstration.html`, `/demonstration/*` → 308 → `/` (depuis le 21/10/2026) ; `www.fonciable.fr` → 308 → apex [Lu : `next.config.ts` ; `curl -sI` 2026-10-20].
+- **Anciennes URL** : `plu-ia.agentimpact.fr/*` → 308 → `fonciable.fr/*` ; `/tarif`, `/tarifs` → 308 → `/#tarifs` ; `www.fonciable.fr` → 308 → apex [Lu : `next.config.ts` ; `curl -sI` 2026-10-20].
 - **Légal** : pied de page → mentions légales, confidentialité, CGV (app). [Lu]
 - **Gestion du consentement** : réouverture via l'icône du CMP. [Lu : texte de `/confidentialite`]
 - **Contact** : pied de page « Nous contacter » / « Contact » → Calendly ; e-mail affiché sur les pages légales. [Lu]
 - **Agents IA / crawlers** : `robots.txt` → `sitemap.xml`, `llms.txt`, en-tête `Link` → server-card MCP. [Lu]
-- **Ancien lien vers la démo** `/demonstration.html` (et `/demonstration/*`) : 308 → `/` depuis le 21/10/2026 (vidéo retirée, décision de Nadir, en attendant un nouvel enregistrement). [Lu : `next.config.ts`]
+- **Démo** : `/demonstration.html` sert la nouvelle vidéo Fonciable et ses médias en accès direct, puis propose un lien vers `https://app.fonciable.fr/dashboard`. Affiche pendant le chargement ; contrôles HTML natifs et lien direct MP4 en repli ; pas de lecture automatique ni de traceur. Remplace la vidéo historique retirée plus tôt le 21 octobre.
 
 ## 4. États par écran
 
@@ -80,6 +80,7 @@ Pages pré-rendues statiques : pas de chargement de données → l'état « char
 | E5-E6 Légal | N/A | statique | `global-error.tsx` |
 | E7 404 | — | — | Message « Cette parcelle du site n'existe pas », liens accueil + app, `noindex` |
 | E8 Erreur globale | — | — | Page autonome (styles inline, sans dépendance au layout) + `Sentry.captureException` ; pas de détail technique affiché |
+| E9 Démonstration | Pas de données requises ; affiche locale | Métadonnées MP4, contrôles natifs et VTT local | Lien direct de téléchargement MP4 ; message de repli HTML si le lecteur n’est pas pris en charge |
 | E10 CMP | Si le script CMP ne charge pas : aucun consentement lu → fail closed, aucun traceur | `async` | idem fail closed |
 | E11 Menu mobile | — | — | — |
 

@@ -140,11 +140,29 @@ test.describe("404 et redirections", () => {
     }
   });
 
-  test("démo vidéo retirée : /demonstration.html et /demonstration/* → 308 vers /", async ({ request }) => {
-    for (const path of ["/demonstration.html", "/demonstration/video.mp4", "/demonstration/captions.vtt"]) {
-      const response = await request.get(path, { maxRedirects: 0 });
-      expect(response.status(), path).toBe(308);
-      expect(response.headers()["location"], path).toBe("/");
+  test("démo Fonciable : page et médias accessibles, lecteur et sous-titres chargés", async ({ page, request }) => {
+    const response = await page.goto("/demonstration.html");
+    expect(response?.status()).toBe(200);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("De la parcelle au dossier, avec Fonciable");
+    await expect(page.locator("body")).not.toContainText(/PLU[- ]IA/i);
+    const video = page.locator("video");
+    await expect(video).toHaveAttribute("src", "/demonstration/video.mp4");
+    await expect(page.locator("video track")).toHaveAttribute("src", "/demonstration/captions.vtt");
+    await expect.poll(() => video.evaluate((el: HTMLVideoElement) => el.readyState)).toBeGreaterThanOrEqual(1);
+    const duration = await video.evaluate((el: HTMLVideoElement) => el.duration);
+    expect(duration).toBeGreaterThan(41);
+    expect(duration).toBeLessThan(43);
+    const partial = await request.get("/demonstration/video.mp4", { headers: { Range: "bytes=0-31" }, maxRedirects: 0 });
+    expect(partial.status()).toBe(206);
+    expect(partial.headers()["content-type"]).toContain("video/mp4");
+    expect((await partial.body()).subarray(4, 8).toString()).toBe("ftyp");
+    const captions = await request.get("/demonstration/captions.vtt", { maxRedirects: 0 });
+    expect(captions.status()).toBe(200);
+    expect(await captions.text()).toContain("WEBVTT");
+    expect(await captions.text()).not.toMatch(/PLU[- ]IA/i);
+    for (const path of ["vignette.jpg", "icone.png", "fonts/syne.woff2", "fonts/outfit.ttf"]) {
+      const asset = await request.get(`/demonstration/${path}`, { maxRedirects: 0 });
+      expect(asset.status(), path).toBe(200);
     }
   });
 });
