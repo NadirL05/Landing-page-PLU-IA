@@ -10,7 +10,8 @@ export async function GET() {
     $schema: "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
     skills: [
       {
-        // Renommé de « plu-ia-context » le 21/10/2026 (décision de Nadir).
+        // Identifiant renommé le 21/10/2026 (ancien nom de marque retiré,
+        // décision de Nadir ; historique dans docs/IMPLEMENTATION_PLAN.md F8).
         // Aucune URL ne contenait l'ancien identifiant : pas de redirection.
         name: "fonciable-context",
         type: "context",
