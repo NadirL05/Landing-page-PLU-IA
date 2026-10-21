@@ -42,8 +42,8 @@ Problème propre à la landing : un prospect qui arrive sur fonciable.fr doit co
 - Cartes de découverte agents : `/.well-known/mcp/server-card.json` (transport « none », documenté honnêtement) et `/.well-known/agent-skills/index.json` (skill `fonciable-context`, renommé le 21/10/2026). [Lu]
 - Scène 3D au scroll (React Three Fiber) avec repli `prefers-reduced-motion` et détection WebGL. [Lu : `components/PageScene.tsx`, `hooks/useSceneCapabilities.ts`]
 - Attribution des campagnes : transmission filtrée de `gclid`, `utm_*`, `fbclid` vers l'app. [Lu : `lib/analytics.ts`] (Note : aucun CTA n'utilise aujourd'hui `preserveQuery` — [Lu : grep], donc la transmission n'est pas active.)
-- Page de démonstration vidéo : retirée le 21/10/2026 (narration « PLU-IA ») en attendant un nouvel enregistrement. TODO(NADIR) : nouvelle vidéo.
-- Redirections : `plu-ia.agentimpact.fr` → `fonciable.fr` (308, chemin conservé), `/tarif(s)` → `/#tarifs`, `/demonstration.html` et `/demonstration/*` → `/`. [Lu : `next.config.ts`]
+- Page de démonstration vidéo : remise en place demandée par Nadir le 21/10/2026 (« bas vas y » après validation de la V4). Nouvelle composition HyperFrames Fonciable, environ 42 s, captures réelles datées du 18 octobre, musique et texte sans narration. Aucun résultat de simulation présenté comme validé.
+- Redirections : `plu-ia.agentimpact.fr` → `fonciable.fr` (308, chemin conservé), `/tarif(s)` → `/#tarifs`, les anciennes redirections de la démo sont retirées pour servir `/demonstration.html` et ses médias. [Lu : `next.config.ts`]
 
 ### Utile — en cours : contenus SEO cœur (décision de Nadir du 20/10/2026)
 Objectif : entrer dans le **top 10 Google France** sur 5 requêtes cœur de cible, **au plus tard le 20/01/2027**. Données : `SEO-GEO-Marketing/missions/fonciable/v4/drafts/11_donnees_mots_cles.md` (volumes DataForSEO Google Ads France, top 10 relevés le 20/10/2026). Au 20/10/2026, fonciable.fr n'a aucun domaine référent ni mot-clé positionné.

@@ -115,3 +115,7 @@ Le DSN Sentry est écrit en dur dans 3 fichiers (valeur publique par conception,
 - Valeurs d'env Vercel à coller sans retour à la ligne (incident du 21/08). [Lu : `CLAUDE.md`]
 - Pas de CI GitHub (`.github/` absent) : seules les vérifications Vercel au build s'appliquent. [Lu]
 - `next` 16.3.1 est dans la plage vulnérable signalée par `npm audit` (voir `SECURITY.md`).
+
+## Démonstration Fonciable — remise en place du 21 octobre 2026
+
+Fichiers publics autonomes : `public/demonstration.html`, MP4 H.264/AAC 1920×1080 à 30 i/s (~42 s), VTT UTF-8, vignette JPEG, icône PNG, polices locales Syne/Outfit. Lecteur HTML avec contrôles et `playsinline`, `preload="metadata"`, sans autoplay ni JS. Les redirections de ces chemins vers `/` sont retirées ; les autres restent identiques. Aucun ajout de collecte ou d’outil tiers. Les captures source datent du 18 octobre ; musique originale, pas de voix off.
