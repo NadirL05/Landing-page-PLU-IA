@@ -157,6 +157,16 @@ test.describe("E6 — maillage et découverte", () => {
     expect(text).toContain(`${BRAND_URL}/modeles/bilan-promoteur-exemple-fictif.xlsx`);
   });
 
+  test("agent-skills : identifiant fonciable-context, plus d'ancien nom", async ({ request }) => {
+    const response = await request.get("/.well-known/agent-skills/index.json");
+    expect(response.status()).toBe(200);
+    const body = await response.text();
+    const index = JSON.parse(body) as { skills: { name: string; url: string }[] };
+    expect(index.skills.map((s) => s.name)).toEqual(["fonciable-context"]);
+    expect(index.skills[0].url).toBe(`${BRAND_URL}/llms.txt`);
+    expect(body).not.toMatch(/plu[- ]ia/i);
+  });
+
   test("aucun contenu principal ne mentionne l'ancien nom ; pas de tiret cadratin sur les pages § E", async ({ page }) => {
     for (const p of ALL_EDITORIAL_PAGES) {
       await page.goto(p.slug);

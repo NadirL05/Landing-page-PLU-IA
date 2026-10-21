@@ -39,7 +39,7 @@ Problème propre à la landing : un prospect qui arrive sur fonciable.fr doit co
 
 ### Utile — déjà en production
 - Découverte SEO/GEO : `sitemap.xml`, `robots.txt` (Content-Signal), `llms.txt`, `rsl.xml`, JSON-LD (SoftwareApplication, Organization, WebSite, FAQPage, WebPage, BreadcrumbList), image OpenGraph. [Lu]
-- Cartes de découverte agents : `/.well-known/mcp/server-card.json` (transport « none », documenté honnêtement) et `/.well-known/agent-skills/index.json`. [Lu]
+- Cartes de découverte agents : `/.well-known/mcp/server-card.json` (transport « none », documenté honnêtement) et `/.well-known/agent-skills/index.json` (skill `fonciable-context`, renommé le 21/10/2026). [Lu]
 - Scène 3D au scroll (React Three Fiber) avec repli `prefers-reduced-motion` et détection WebGL. [Lu : `components/PageScene.tsx`, `hooks/useSceneCapabilities.ts`]
 - Attribution des campagnes : transmission filtrée de `gclid`, `utm_*`, `fbclid` vers l'app. [Lu : `lib/analytics.ts`] (Note : aucun CTA n'utilise aujourd'hui `preserveQuery` — [Lu : grep], donc la transmission n'est pas active.)
 - Page de démonstration vidéo : retirée le 21/10/2026 (narration « PLU-IA ») en attendant un nouvel enregistrement. TODO(NADIR) : nouvelle vidéo.
