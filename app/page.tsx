@@ -8,10 +8,11 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { IconArrow, IconCheck, IconX } from "@/components/icons";
 import { TrackedCta } from "@/components/analytics/tracked-cta";
-import { BRAND_NAME, FORMER_BRAND_NAME, BRAND_URL, APP_URL } from "@/config/brand";
+import { BRAND_NAME, BRAND_URL, APP_URL } from "@/config/brand";
 import { PUBLIC_PLAN_LIST, PRICE_TAX_NOTICE } from "@/config/plans";
 import { CALENDLY_URL, DATA_ATTRIBUTION, DISCLAIMER_SHORT } from "@/config/site-content";
 import { GUIDE_PAGES, SOLUTION_PAGES } from "@/config/solutions";
+import { PUBLISHER_ORGANIZATION } from "@/lib/page-schema";
 import organizationSchema from "@/public/schema/organization.json";
 import websiteSchema from "@/public/schema/website.json";
 
@@ -45,12 +46,11 @@ const softwareApplicationSchema = {
   "@type": "SoftwareApplication",
   "@id": `${BRAND_URL}/#software`,
   name: BRAND_NAME,
-  alternateName: FORMER_BRAND_NAME,
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   url: BRAND_URL,
   description: "Analyse foncière et urbanisme assistées par IA : zonage, enveloppe constructible, comparables DVF et bilan promoteur.",
-  publisher: { "@id": `${BRAND_URL}/#organization` },
+  publisher: PUBLISHER_ORGANIZATION,
   offers: PUBLIC_PLAN_LIST.map((plan) => {
     const offer = { "@type": "Offer", name: plan.name };
     if (plan.id === "ENTERPRISE") {
@@ -71,6 +71,7 @@ function IconBuilding() { return <svg className="h-5 w-5" style={{ color: "var(-
 function IconShield() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" /></svg>; }
 function IconDollar() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>; }
 function IconChart() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M3 3v18h18M7 14l4-4 4 4 6-6" /></svg>; }
+function IconSun() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>; }
 function IconFile() { return <svg className="h-5 w-5" style={{ color: "var(--brand)" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><path d="M14 2v6h6" /></svg>; }
 
 const features = [
@@ -79,7 +80,8 @@ const features = [
   { ref: "FIG.03", icon: <IconShield />, title: "Risques et servitudes", body: "Risques déclarés sur la commune (Géorisques / GASPAR), aléa retrait-gonflement des argiles à la coordonnée, et servitudes d'utilité publique (ABF, PPRI, PPRT, sites classés) via l'API Carto du Géoportail de l'Urbanisme. Vérification en mairie indispensable — l'absence de résultat ne garantit pas l'absence de servitude." },
   { ref: "FIG.04", icon: <IconDollar />, title: "Bilan promoteur", body: "Surface de plancher potentielle, chiffre d'affaires, coûts de construction, frais et marge. Vous ajustez les hypothèses et le bilan est recalculé." },
   { ref: "FIG.05", icon: <IconChart />, title: "Comparables DVF", body: "Mutations issues des Demandes de Valeurs Foncières autour de la parcelle (rayon de 500 m par défaut), avec prix au m² de référence." },
-  { ref: "FIG.06", icon: <IconFile />, title: "Export PDF et partage", body: "Le rapport d'analyse s'exporte en PDF et peut être partagé via un lien public que vous activez ou désactivez." },
+  { ref: "FIG.06", icon: <IconSun />, title: "Potentiel solaire", body: "Irradiation solaire annuelle et orientation optimale à la position de la parcelle, d'après PVGIS (Commission européenne). Une indisponibilité de PVGIS ne bloque pas l'analyse." },
+  { ref: "FIG.07", icon: <IconFile />, title: "Export PDF et partage", body: "Le rapport d'analyse s'exporte en PDF et peut être partagé via un lien public que vous activez ou désactivez." },
 ];
 
 const dataSources = [
@@ -99,7 +101,7 @@ const heroStats = [
   {
     value: String(features.length),
     label: "Volets d'analyse par parcelle",
-    note: "Zonage, risques et servitudes, volumétrie 3D, bilan promoteur, comparables DVF, export PDF.",
+    note: "Parcelle, zonage et règles, risques et servitudes, bilan promoteur, comparables DVF, potentiel solaire, export PDF.",
   },
   {
     value: "500",
@@ -252,7 +254,10 @@ export default function Home() {
 
           <div className="spec-grid">
             {features.map((f, i) => (
-              <Reveal key={f.title} delay={i * 60} className="col-span-6 sm:col-span-3 md:col-span-2">
+              /* Nombre impair de fiches (7 depuis l'ajout du potentiel
+                 solaire) : la dernière occupe toute la ligne plutôt que de
+                 laisser une case vide dans la grille. */
+              <Reveal key={f.title} delay={i * 60} className={i === features.length - 1 && features.length % 2 === 1 ? "col-span-6" : "col-span-6 sm:col-span-3 md:col-span-2"}>
                 <div className="card-lift flex h-full flex-col p-6" style={{ borderTop: "2px solid transparent" }}>
                   <div className="mb-4 flex items-center justify-between">
                     <div className="flex h-9 w-9 items-center justify-center" style={{ background: "var(--brand-soft)" }}>{f.icon}</div>

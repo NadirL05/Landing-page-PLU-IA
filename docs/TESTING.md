@@ -63,7 +63,7 @@ Scénarios complémentaires : `GET /page-inexistante` → 404 + meta `noindex` ;
 | E3 `/terrain-constructible` | E2E : idem, lien Légifrance L410-1, lien vers `/zonage-plu` |
 | E4 `/division-parcellaire` | E2E : idem, liens Légifrance R151-21 et service-public |
 | E5 `/zonage-plu` et 4 pages de zone | E2E : 5 pages en 200, lien Légifrance de l'article R151-xx attendu sur chaque page de zone, BreadcrumbList à 3 niveaux (accueil → zonage PLU → zone), liens entre pages de zone |
-| E6 Maillage | E2E : sitemap = accueil + toutes les pages du référentiel + 2 pages légales ; chaque guide relié depuis l'accueil ; `llms.txt` liste chaque nouvelle URL ; aucun texte de `<main>` ne contient « PLU-IA » ou « PLU IA » (le pied de page commun garde « anciennement PLU-IA », hors périmètre) |
+| E6 Maillage | E2E : sitemap = accueil + toutes les pages du référentiel + 2 pages légales ; chaque guide relié depuis l'accueil ; `llms.txt` liste chaque nouvelle URL ; aucun texte de `<main>` ne contient « PLU-IA » ou « PLU IA » ; depuis le 21/10, le pied de page non plus (« Édité par AgentImpact ») |
 | E7 IndexNow | E2E : `/<clé>.txt` en 200 et contenu = clé ; `node --check scripts/indexnow.mjs` ; `node scripts/indexnow.mjs --dry-run` liste les URL sans appel réseau |
 
 ## 5. Données et comptes de test

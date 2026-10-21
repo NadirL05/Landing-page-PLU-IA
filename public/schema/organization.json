@@ -3,7 +3,6 @@
   "@type": "Organization",
   "@id": "https://fonciable.fr/#organization",
   "name": "Fonciable",
-  "alternateName": "PLU-IA",
   "url": "https://fonciable.fr",
   "logo": "https://fonciable.fr/icon-512.png",
   "description": "Fonciable croise cadastre IGN, documents d'urbanisme (GPU), transactions DVF et risques Géorisques pour produire une estimation d'aide à la décision : zonage, enveloppe constructible, comparables et bilan promoteur.",
@@ -12,7 +11,7 @@
   "parentOrganization": {
     "@type": "Organization",
     "name": "AgentImpact",
-    "url": "https://agentimpact.fr"
+    "url": "https://www.agentimpact.fr/"
   },
   "founder": {
     "@type": "Person",
@@ -20,7 +19,7 @@
     "sameAs": "https://www.linkedin.com/in/nadir-lahyani"
   },
   "sameAs": [
-    "https://agentimpact.fr",
+    "https://www.agentimpact.fr/",
     "https://www.linkedin.com/in/nadir-lahyani"
   ]
 }

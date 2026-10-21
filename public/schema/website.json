@@ -5,5 +5,9 @@
   "url": "https://fonciable.fr",
   "name": "Fonciable",
   "inLanguage": "fr",
-  "publisher": { "@id": "https://fonciable.fr/#organization" }
+  "publisher": {
+    "@type": "Organization",
+    "name": "AgentImpact",
+    "url": "https://www.agentimpact.fr/"
+  }
 }

@@ -1,4 +1,4 @@
-import { BRAND_URL } from "@/config/brand";
+import { BRAND_URL, COMPANY_NAME, COMPANY_URL } from "@/config/brand";
 
 /**
  * Constructeurs de données structurées pour les pages métier.
@@ -17,6 +17,17 @@ import { BRAND_URL } from "@/config/brand";
 export const ORGANIZATION_ID = `${BRAND_URL}/#organization`;
 export const WEBSITE_ID = `${BRAND_URL}/#website`;
 export const SOFTWARE_ID = `${BRAND_URL}/#software`;
+
+/**
+ * Éditeur du site et du produit : AgentImpact. Posé en `publisher` sur
+ * WebSite, SoftwareApplication et chaque WebPage. Volontairement réduit au
+ * nom et à l'URL : aucune adresse ni SIRET n'est publié ici.
+ */
+export const PUBLISHER_ORGANIZATION = {
+  "@type": "Organization",
+  name: COMPANY_NAME,
+  url: COMPANY_URL,
+} as const;
 
 export interface BreadcrumbStep {
   readonly name: string;
@@ -56,7 +67,7 @@ export function buildWebPageSchema({ slug, name, description, dateModified }: We
     inLanguage: "fr",
     isPartOf: { "@id": WEBSITE_ID },
     about: { "@id": SOFTWARE_ID },
-    publisher: { "@id": ORGANIZATION_ID },
+    publisher: PUBLISHER_ORGANIZATION,
     dateModified,
   };
 }

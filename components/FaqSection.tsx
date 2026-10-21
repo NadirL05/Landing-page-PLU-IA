@@ -1,6 +1,6 @@
 import { JsonLd } from "@/components/JsonLd";
 import { BRAND_NAME } from "@/config/brand";
-import { PUBLIC_PLAN_LIST } from "@/config/plans";
+import { PRICE_TAX_NOTICE, PUBLIC_PLAN_LIST } from "@/config/plans";
 
 export interface FaqItem {
   readonly q: string;
@@ -12,8 +12,12 @@ function faqPlanPrice(plan: (typeof PUBLIC_PLAN_LIST)[number]): string {
   return plan.priceLabel.replace(/\s*\/\s*/g, "/");
 }
 
-/** Dérivé des offres affichées : la FAQ et le JSON-LD suivent la grille tarifaire. */
-const pricingAnswer = `Les offres présentées sont : ${PUBLIC_PLAN_LIST.map((plan) => `${plan.name} : ${faqPlanPrice(plan)}`).join(" ; ")}. Pour une présentation adaptée à votre projet, prenez rendez-vous.`;
+/**
+ * Dérivé des offres affichées : la FAQ et le JSON-LD suivent la grille
+ * tarifaire. La mention fiscale est celle affichée sous chaque prix
+ * (PRICE_TAX_NOTICE) : franchise en base, donc ni « HT » ni « TTC ».
+ */
+const pricingAnswer = `Les offres présentées sont : ${PUBLIC_PLAN_LIST.map((plan) => `${plan.name} : ${faqPlanPrice(plan)}`).join(" ; ")}. ${PRICE_TAX_NOTICE} Pour une présentation adaptée à votre projet, prenez rendez-vous.`;
 
 export const HOME_FAQS: readonly FaqItem[] = [
   {
@@ -22,7 +26,7 @@ export const HOME_FAQS: readonly FaqItem[] = [
   },
   {
     q: "Est-ce un acte d'instruction officiel ?",
-    a: `Non. ${BRAND_NAME} ne délivre ni certificat d'urbanisme ni autorisation administrative. C'est un outil d'aide à la décision : les vérifications en mairie restent indispensables, notamment sur les servitudes d'utilité publique, non couvertes par les sources branchées à ce jour.`,
+    a: `Non. ${BRAND_NAME} ne délivre ni certificat d'urbanisme ni autorisation administrative. C'est un outil d'aide à la décision : les vérifications en mairie restent indispensables. Les servitudes d'utilité publique publiées sur le Géoportail de l'Urbanisme sont interrogées via l'API Carto, mais toutes n'y sont pas publiées : l'absence de résultat ne prouve pas l'absence de servitude.`,
   },
   {
     q: "Combien ça coûte ?",

@@ -15,7 +15,7 @@
       "name": "Est-ce un acte d'instruction officiel ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Non. Fonciable ne délivre ni certificat d'urbanisme ni autorisation administrative. C'est un outil d'aide à la décision : les vérifications en mairie restent indispensables, notamment sur les servitudes d'utilité publique, non couvertes par les sources branchées à ce jour."
+        "text": "Non. Fonciable ne délivre ni certificat d'urbanisme ni autorisation administrative. C'est un outil d'aide à la décision : les vérifications en mairie restent indispensables. Les servitudes d'utilité publique publiées sur le Géoportail de l'Urbanisme sont interrogées via l'API Carto, mais toutes n'y sont pas publiées : l'absence de résultat ne prouve pas l'absence de servitude."
       }
     },
     {
@@ -23,7 +23,7 @@
       "name": "Combien ça coûte ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Les offres présentées sont : Starter : 199 €/mois ; Pro : 599 €/mois ; Entreprise : sur mesure. Pour une présentation adaptée à votre projet, prenez rendez-vous."
+        "text": "Les offres présentées sont : Starter : 199 €/mois ; Pro : 599 €/mois ; Entreprise : sur mesure. Prix nets — TVA non applicable, article 293 B du CGI (franchise en base). Pour une présentation adaptée à votre projet, prenez rendez-vous."
       }
     },
     {

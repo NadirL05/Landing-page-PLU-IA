@@ -11,8 +11,8 @@ import { BRAND_URL, expect, readJsonLd, schemaTypes, test } from "./fixtures";
 test.describe("E1 — /bilan-promoteur", () => {
   test("H1, title et modèle XLSX réellement servi", async ({ page, request }) => {
     await page.goto("/bilan-promoteur");
-    await expect(page.locator("h1")).toHaveText("Bilan promoteur : la méthode, les postes et un modèle Excel");
-    await expect(page).toHaveTitle("Bilan promoteur : méthode, postes et modèle Excel | Fonciable");
+    await expect(page.locator("h1")).toHaveText("Bilan promoteur en ligne : la méthode, les postes et un modèle Excel");
+    await expect(page).toHaveTitle("Bilan promoteur en ligne et modèle Excel gratuit | Fonciable");
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${BRAND_URL}/bilan-promoteur`);
     const link = page.locator('main a[href="/modeles/bilan-promoteur-exemple-fictif.xlsx"]');
     await expect(link).toHaveCount(1);
