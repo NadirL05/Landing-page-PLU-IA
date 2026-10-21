@@ -17,3 +17,7 @@ Six images décodées regardées à 3/9/17/25/33/41,7 s, identiques aux scènes 
 Page HTML autonome sans JS, traceur, formulaire ou cookie propre. Polices et médias servis sur la même origine. Les liens vers l’app restent une navigation explicite. Aucun nouvel identifiant ou secret.
 
 L’audit npm du 21/10 relève 0 critique et 5 hautes dans l’outillage de développement, comme le point B1 existant. Les arbitrages globaux Sentry, durées de conservation et garanties de transfert restent ouverts dans SECURITY.md. La PR n’est pas fusionnée en production tant que cette porte reste ouverte.
+
+## Exception explicite pour cette tâche — 21 octobre 2026
+
+Après présentation du blocage, Nadir a écrit exactement « skip docs pour cette tâche » dans le chat. L’exception est limitée au remplacement de la démonstration vidéo (PR #34) ; son accord de déploiement était déjà enregistré. Les choix Sentry/RGPD existants ne sont pas déclarés résolus et aucune case de conformité n’est cochée par dérogation.

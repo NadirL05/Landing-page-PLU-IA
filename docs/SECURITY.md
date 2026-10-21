@@ -57,3 +57,7 @@ Vulnérabilité critique `next` corrigée par B1 (2026-10-20). Recommandé ensui
 ## Démonstration — contrôle du 21 octobre
 
 La nouvelle page HTML et ses médias sont autonomes : pas de script, de traceur, de formulaire ou de ressource tierce. Preuves : `public/demonstration.html`, assets locaux, E2E de la démonstration ; QA média et hash dans `PREUVES-demonstration-video.md`. `npm audit --audit-level=critical` du 21/10 sort en 0 (0 critique, 5 hautes de développement inchangées). Aucun des trois arbitrages RGPD ci-dessus n’est marqué résolu par ce changement ; ils bloquent toujours la fusion/déploiement de production selon la règle du propriétaire.
+
+## Exception explicite pour cette tâche — 21 octobre 2026
+
+Après présentation du blocage, Nadir a écrit exactement « skip docs pour cette tâche » dans le chat. L’exception est limitée au remplacement de la démonstration vidéo (PR #34) ; son accord de déploiement était déjà enregistré. Les choix Sentry/RGPD existants ne sont pas déclarés résolus et aucune case de conformité n’est cochée par dérogation.

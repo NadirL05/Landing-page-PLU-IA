@@ -125,3 +125,7 @@ La demande de refaire la vidéo, la validation de la V4 puis « bas vas y » aut
 - [ ] **H3 — Production** (≤ 1 h). Seulement après porte AGENTS.md §8 satisfaite. Fini : page et médias servis en production, lecteur relu sur l’URL réelle. Autorisation de Nadir enregistrée le 21/10 (« bas vas y »), pas encore un déploiement effectué.
 
 Preuves H1/H2 (21/10/2026) : `npm test` sort en 0 : lint, `next typegen`/TypeScript, build Webpack et **36 tests Playwright passés**. Le test de la démo vérifie les métadonnées natives (~42 s), la réponse Range 206, le VTT et les polices. QA finale : −14,57 LUFS / −1,36 dBTP, six images décodées regardées. Détails et hash : `PREUVES-demonstration-video.md`. H3 reste bloqué par les arbitrages RGPD préexistants (SECURITY).
+
+## Exception explicite pour cette tâche — 21 octobre 2026
+
+Après présentation du blocage, Nadir a écrit exactement « skip docs pour cette tâche » dans le chat. L’exception est limitée au remplacement de la démonstration vidéo (PR #34) ; son accord de déploiement était déjà enregistré. Les choix Sentry/RGPD existants ne sont pas déclarés résolus et aucune case de conformité n’est cochée par dérogation.
