@@ -90,8 +90,20 @@ function useConsent(category: ConsentCategory): boolean {
   return granted;
 }
 
-export function ConsentGate({ category, children }: { category: ConsentCategory; children: ReactNode }) {
+/**
+ * `fallback` (facultatif) : rendu tant que la catégorie n'est pas consentie
+ * (ex. lien texte sans script à la place du badge La Fabrique du Net).
+ */
+export function ConsentGate({
+  category,
+  children,
+  fallback = null,
+}: {
+  category: ConsentCategory;
+  children: ReactNode;
+  fallback?: ReactNode;
+}) {
   const granted = useConsent(category);
-  if (!granted) return null;
+  if (!granted) return <>{fallback}</>;
   return <>{children}</>;
 }

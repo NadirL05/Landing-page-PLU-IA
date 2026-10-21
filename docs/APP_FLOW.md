@@ -66,7 +66,7 @@ flowchart TD
 - **Légal** : pied de page → mentions légales, confidentialité, CGV (app). [Lu]
 - **Gestion du consentement** : réouverture via l'icône du CMP. [Lu : texte de `/confidentialite`]
 - **Contact** : pied de page « Nous contacter » / « Contact » → Calendly ; e-mail affiché sur les pages légales. [Lu]
-- **Badge La Fabrique du Net** : colonne de marque du pied de page (toutes les pages), sous « Édité par AgentImpact » → fiche `https://www.lafabriquedunet.fr/logiciel/fonciable` dans un nouvel onglet. États : chargement = emplacement vide réservé à 54 px (pas de décalage) ; erreur ou script bloqué = emplacement vide, le reste du pied de page est inchangé ; pas d'état vide. Une seule occurrence, y compris après navigation client.
+- **Badge La Fabrique du Net** : colonne de marque du pied de page (toutes les pages), sous « Édité par AgentImpact » → fiche `https://www.lafabriquedunet.fr/logiciel/fonciable` dans un nouvel onglet. Sans consentement marketing (et dans le HTML pré-rendu) : lien texte « Fonciable sur La Fabrique du Net », sans script. Après consentement : badge chargé dans un emplacement de 54 px ; erreur ou script bloqué = emplacement vide, le reste du pied de page est inchangé. Une seule occurrence, y compris après navigation client.
 - **Agents IA / crawlers** : `robots.txt` → `sitemap.xml`, `llms.txt`, en-tête `Link` → server-card MCP. [Lu]
 - **Démo** : `/demonstration.html` sert la nouvelle vidéo Fonciable et ses médias en accès direct, puis propose un lien vers `https://app.fonciable.fr/dashboard`. Affiche pendant le chargement ; contrôles HTML natifs et lien direct MP4 en repli ; pas de lecture automatique ni de traceur. Remplace la vidéo historique retirée plus tôt le 21 octobre.
 
