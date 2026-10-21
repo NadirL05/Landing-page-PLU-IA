@@ -45,3 +45,7 @@ Dépôt `NadirL05/sas-plu-3d`, clone `--depth 1` en lecture, commit `62959d2641e
 ## 3. Affirmations générales (méthode, limites, FAQ)
 
 Pas de chiffre ni de fonctionnalité nouvelle : méthode générale du PLU (zones, secteurs, articles du règlement), limites reprises de `/faisabilite-fonciere` et de `DISCLAIMER_SHORT`. Le certificat d'urbanisme comme seul acte qui fige les règles : code de l'urbanisme, art. L410-1.
+
+## Mise à jour du 2026-10-21 : minimisation
+
+Le numéro de dossier (PC0441092600175) a été retiré des pages /analyse-plu-parcelle, /terrain-constructible et /zonage-plu/zone-u : dans le jeu de données de Nantes Métropole, il mène au nom d'un particulier et au détail de son projet. Les pages gardent la parcelle, la surface, la zone et la date du refus (données cadastrales et d'urbanisme publiques). Décision de Nadir du 21/10/2026.

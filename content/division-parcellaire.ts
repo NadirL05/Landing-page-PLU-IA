@@ -67,7 +67,7 @@ export const DIVISION_PARCELLAIRE: MetierPageContent = {
       {
         title: "Division et lotissement",
         paragraphs: [
-          "Le code de l'urbanisme définit le lotissement comme la division en propriété ou en jouissance d'une unité foncière, ou de plusieurs unités foncières contiguës, ayant pour objet de créer un ou plusieurs lots destinés à être bâtis. Détacher un seul lot à bâtir d'un jardin suffit donc à constituer un lotissement.",
+          "Le code de l'urbanisme définit le lotissement comme la division en propriété ou en jouissance d'une unité foncière, ou de plusieurs unités foncières contiguës, ayant pour objet de créer un ou plusieurs lots destinés à être bâtis. Détacher un seul lot à bâtir d'un jardin suffit donc, sauf exceptions prévues à l'article R442-1, à constituer un lotissement.",
           "L'unité foncière désigne l'ensemble des parcelles contiguës qui appartiennent au même propriétaire : c'est elle, et non chaque parcelle cadastrale isolée, qui sert de base au raisonnement.",
         ],
         sources: [{ label: "Code de l'urbanisme, art. L442-1 (Légifrance)", href: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000025019439" }],
@@ -75,7 +75,7 @@ export const DIVISION_PARCELLAIRE: MetierPageContent = {
       {
         title: "Déclaration préalable ou permis d'aménager",
         paragraphs: [
-          "Un lotissement qui prévoit la création ou l'aménagement de voies, d'espaces ou d'équipements communs à plusieurs lots relève du permis d'aménager. Les autres lotissements relèvent de la déclaration préalable : c'est le cas courant du détachement d'un lot desservi directement par la voie publique.",
+          "Un lotissement qui prévoit la création ou l'aménagement de voies, d'espaces ou d'équipements communs à plusieurs lots et propres au lotissement, à la charge du lotisseur, relève du permis d'aménager. Les autres lotissements relèvent de la déclaration préalable : c'est le cas courant du détachement d'un lot desservi directement par la voie publique.",
           "Une division sans projet de construction peut aussi être soumise à déclaration préalable dans les zones que la commune a délimitées pour protéger certains paysages ou milieux. L'article qui fixe les cas de permis d'aménager a été modifié en 2026 pour les demandes déposées depuis le 28 septembre 2026 : vérifiez la version en vigueur à la date de votre demande, et interrogez le service urbanisme en cas de doute.",
         ],
         sources: [
