@@ -1,0 +1,59 @@
+# CI — même chaîne que `npm test` (docs/TESTING.md §6), découpée en étapes lisibles.
+# Aucun secret requis : le build n'a besoin d'aucune variable d'environnement,
+# les IDs analytics sont vidés par playwright.config.ts et tout appel externe
+# est bloqué ou simulé par tests/e2e/fixtures.ts.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Installer les dépendances
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build -- --webpack
+
+      - name: Installer Chromium (Playwright)
+        run: npx playwright install --with-deps chromium
+
+      - name: Tests E2E (Playwright, Chromium)
+        run: npx playwright test
+        env:
+          PW_SKIP_BUILD: "1"
+
+      - name: Rapport Playwright
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
