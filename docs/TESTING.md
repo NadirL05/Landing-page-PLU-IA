@@ -7,7 +7,7 @@
 - **E2E Playwright en place** : `@playwright/test` (devDependency), Chromium seul (headless shell, contrainte disque), `playwright.config.ts`, specs dans `tests/e2e/`. 34 tests au 20/10/2026 après la section E (20 avant), tous verts. [Lu]
 - **Commande unique** : `npm test` (lint + types de routes Next + `tsc --noEmit` + build Webpack + e2e), voir §6. [Lu]
 - **Pas de tests unitaires** : Vitest non installé, le choix d'outil reste **[À CONFIRMER]** (item 13 de `.cadrage-valide`). Les fonctions de `lib/` ne sont couvertes qu'indirectement par l'E2E (JSON-LD, sitemap, métadonnées).
-- Pas de CI GitHub (`.github/` absent) : la commande tourne en local ; Vercel n'exécute que `next build`. [Lu]
+- **CI GitHub** (ajoutée le 2026-10-21, validée par Nadir) : `.github/workflows/ci.yml` rejoue la chaîne de `npm test` sur chaque pull request et chaque push sur `main` : `npm ci`, `npm run lint`, `npm run typecheck`, `npm run build -- --webpack`, `npx playwright install --with-deps chromium`, puis `PW_SKIP_BUILD=1 npx playwright test` (Chromium seul). Node 24, cache npm, aucun secret ni variable d'environnement requis. Rapport Playwright publié en artefact en cas d'échec. Vercel continue de n'exécuter que `next build`.
 - Garde-fous au build : `structuredPrice` (`app/page.tsx`) lève une erreur si un prix Starter/Pro n'a pas de nombre ; le typage `MetierPageContent` bloque un contenu incomplet. [Lu]
 - Vérifications manuelles passées documentées dans `CLAUDE.md` (inspection DOM du CMP, audit SEO du 21/08).
 

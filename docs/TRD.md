@@ -116,7 +116,7 @@ Le DSN Sentry est écrit en dur dans 3 fichiers (valeur publique par conception,
 - Pas de nonce CSP possible sans middleware → `script-src 'unsafe-inline'` assumé. [Lu : commentaire `next.config.ts`]
 - Le CMP consentmanager est partagé avec 2 autres dépôts (hostia, hector) : toute modification de CSP/CMP doit être propagée. [Lu : `CLAUDE.md`]
 - Valeurs d'env Vercel à coller sans retour à la ligne (incident du 21/08). [Lu : `CLAUDE.md`]
-- Pas de CI GitHub (`.github/` absent) : seules les vérifications Vercel au build s'appliquent. [Lu]
+- CI GitHub Actions (`.github/workflows/ci.yml`, depuis le 2026-10-21) : lint, typecheck, build et E2E Playwright Chromium sur chaque PR et push sur `main`, sans secret ; voir `TESTING.md` §1. Le déploiement reste géré par Vercel.
 - `next` 16.3.1 est dans la plage vulnérable signalée par `npm audit` (voir `SECURITY.md`).
 
 ## Démonstration Fonciable — remise en place du 21 octobre 2026
