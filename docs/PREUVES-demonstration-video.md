@@ -16,8 +16,12 @@ Six images décodées regardées à 3/9/17/25/33/41,7 s, identiques aux scènes 
 
 Page HTML autonome sans JS, traceur, formulaire ou cookie propre. Polices et médias servis sur la même origine. Les liens vers l’app restent une navigation explicite. Aucun nouvel identifiant ou secret.
 
-L’audit npm du 21/10 relève 0 critique et 5 hautes dans l’outillage de développement, comme le point B1 existant. Les arbitrages globaux Sentry, durées de conservation et garanties de transfert restent ouverts dans SECURITY.md. La PR n’est pas fusionnée en production tant que cette porte reste ouverte.
+L’audit npm du 21/10 relève 0 critique et 5 hautes dans l’outillage de développement, comme le point B1 existant. Les arbitrages globaux Sentry, durées de conservation et garanties de transfert restent ouverts dans SECURITY.md. Le blocage initial a été levé pour cette tâche par l’exception explicite ci-dessous ; ces arbitrages restent ouverts.
 
 ## Exception explicite pour cette tâche — 21 octobre 2026
 
 Après présentation du blocage, Nadir a écrit exactement « skip docs pour cette tâche » dans le chat. L’exception est limitée au remplacement de la démonstration vidéo (PR #34) ; son accord de déploiement était déjà enregistré. Les choix Sentry/RGPD existants ne sont pas déclarés résolus et aucune case de conformité n’est cochée par dérogation.
+
+## Vérification de production
+
+Production vérifiée le 21/10/2026 : PR #34 fusionnée, commit 682cc98ab2f836f7396fe06eb87e518428fd63b5 ; Vercel dpl_3FwPymh4bwzBuDMS2bovbUDhcMPS READY et alias fonciable.fr actif. https://fonciable.fr/demonstration.html répond 200 ; MP4 Range 206. MP4 téléchargé depuis la production : SHA-256 807490c3832c3e4ae6342bd56fd6d80a8ca0935eae30d81f95af8aa8622ed98c, identique au fichier validé. Lecture et sous-titres constatés dans Safari (durée affichée 41 s). VTT public téléchargé sans erreur.
