@@ -112,7 +112,7 @@ export const TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
       {
         title: "6. Demander un certificat d'urbanisme",
         paragraphs: [
-          "Le certificat d'urbanisme est le seul document qui fige les règles. Le certificat d'information indique les règles applicables, les servitudes et les taxes ; le certificat opérationnel dit en plus si un projet précis est réalisable. La demande se fait en mairie, gratuitement ; l'instruction prend un mois pour le premier et deux mois pour le second.",
+          "Le certificat d'urbanisme permet de figer les règles applicables au terrain pendant 18 mois, sauf celles qui touchent à la sécurité ou à la salubrité publique, et sa durée peut être prorogée d'un an. Le certificat d'information indique les règles applicables, les servitudes et les taxes ; le certificat opérationnel dit en plus si un projet précis est réalisable. La demande se fait en mairie, gratuitement ; l'instruction prend un mois pour le premier et deux mois pour le second.",
           "Pendant dix-huit mois après sa délivrance, une demande d'autorisation est examinée au regard des règles en vigueur à la date du certificat. Le certificat n'est pas pour autant une autorisation de construire.",
         ],
         sources: [
@@ -238,8 +238,7 @@ export const TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
       { label: "Parcelle cadastrale", value: "44109000BZ0070" },
       { label: "Surface cadastrale", value: "538 m²" },
       { label: "Zone du PLUm de Nantes Métropole", value: "UMap (zone urbaine U)" },
-      { label: "Dossier", value: "Permis de construire PC0441092600175" },
-      { label: "Décision publiée", value: "Refus du 8 octobre 2026" },
+      { label: "Décision publiée", value: "Refus d'un permis de construire, 8 octobre 2026" },
     ],
     caption:
       "Valeurs relevées le 20 octobre 2026 : référence et surface à l'API Carto Cadastre de l'IGN, zone au Géoportail de l'Urbanisme, décision au jeu de données « Demandes d'autorisation et décisions d'urbanisme de Nantes Métropole » (data.nantesmetropole.fr, Licence Ouverte). Ce refus concerne un projet précis et ne dit rien de ce qu'un autre projet pourrait obtenir. Le motif du refus n'est pas publié dans ce jeu de données.",

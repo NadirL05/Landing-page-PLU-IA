@@ -117,7 +117,7 @@ export const ZONE_A: MetierPageContent = {
     },
     {
       q: "Peut-on construire en zone A ?",
-      a: "Seulement ce que prévoit l'article R151-23 : les constructions et installations nécessaires à l'exploitation agricole ou aux CUMA agréées, et, dans les conditions des articles L151-11 à L151-13, des extensions, annexes, changements de destination et aménagements. Hors de ces cas, par exemple un secteur de taille et de capacité d'accueil limitées délimité par le PLU, une maison neuve sans lien avec l'activité agricole n'y est pas autorisée.",
+      a: "Seulement ce que prévoit l'article R151-23 : les constructions et installations nécessaires à l'exploitation agricole ou aux CUMA agréées, et, dans les conditions des articles L151-11 à L151-13, des extensions, annexes, changements de destination et aménagements. Hors de ces cas, dont les secteurs de taille et de capacité d'accueil limitées (STECAL) que le PLU peut délimiter (article L151-13), une maison neuve sans lien avec l'activité agricole n'y est pas autorisée.",
     },
     {
       q: "Une zone A peut-elle devenir constructible ?",

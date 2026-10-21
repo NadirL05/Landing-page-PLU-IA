@@ -130,7 +130,7 @@ export const ZONE_U: MetierPageContent = {
     rows: [
       { label: "Secteur (PLUm de Nantes Métropole)", value: "UMap, type U" },
       { label: "Surface cadastrale", value: "538 m²" },
-      { label: "Décision publiée", value: "Refus du permis PC0441092600175, 8 octobre 2026" },
+      { label: "Décision publiée", value: "Refus d'un permis de construire, 8 octobre 2026" },
     ],
     caption:
       "Valeurs relevées le 20 octobre 2026 : zone au Géoportail de l'Urbanisme, surface à l'API Carto Cadastre de l'IGN, décision au jeu de données ouvert de Nantes Métropole (Licence Ouverte). Le motif du refus n'est pas publié ; ce refus ne préjuge pas d'un autre projet.",
