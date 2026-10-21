@@ -69,9 +69,10 @@ export default function ConfidentialitePage() {
           européen selon les garanties prévues par leurs contrats et la réglementation applicable.
         </p>
         <p>
-          Le badge « Testé par La Fabrique du Net » du pied de page est chargé depuis www.lafabriquedunet.fr sur chaque page :
-          votre adresse IP et le domaine du site leur sont alors transmis, et La Fabrique du Net peut déposer ses propres cookies
-          techniques, régis par sa propre politique de confidentialité.
+          Le badge « Testé par La Fabrique du Net » du pied de page n’est chargé depuis www.lafabriquedunet.fr qu’après votre
+          consentement marketing. Il transmet alors votre adresse IP et le domaine du site à La Fabrique du Net, qui peut déposer
+          ses propres cookies, régis par sa propre politique de confidentialité. Sans ce consentement, seul un lien texte est
+          affiché et aucune donnée ne leur est transmise.
         </p>
         <p>
           Les données liées à un compte, une analyse ou un abonnement dans l’application sont décrites dans la politique de
