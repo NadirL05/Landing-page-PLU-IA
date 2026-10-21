@@ -75,6 +75,7 @@ Pas de base de données. Les « entités » sont des constantes versionnées. [L
 | Google Analytics 4 / Google Ads | `gtag.js` après consentement analytics | `components/analytics/google-tag.tsx` | pages vues, événements CTA |
 | Meta Pixel | `fbevents.js` après consentement marketing | `components/analytics/meta-pixel.tsx` | PageView, événements custom |
 | consentmanager.net | script CMP semi-automatique | `app/layout.tsx` | preuve et état du consentement |
+| La Fabrique du Net (badge « Testé par La Fabrique du Net ») | Script tiers `https://www.lafabriquedunet.fr/badge/software/fonciable/badge.js?color=outline&size=md`, inséré par `useEffect` dans le conteneur du pied de page (pas `next/script`, qui l'ajouterait à `document.body` et casserait le placement par `document.currentScript`). Le script crée un lien `target="_blank" rel="noopener"` vers `https://www.lafabriquedunet.fr/logiciel/fonciable` avec un SVG inline. Non soumis au consentement. | `components/LaFabriqueDuNetBadge.tsx`, `components/SiteFooter.tsx`, `next.config.ts` (CSP) | IP du visiteur et domaine d'origine (Referrer-Policy) ; leur serveur renvoie ses propres cookies (`XSRF-TOKEN`, session, 2 h), observés par `curl -D` le 21/10/2026 |
 | Sentry (org `agentimpact`, projet `landing-plu-ia`, région `de`) | SDK + tunnel `/monitoring` | `instrumentation*.ts`, `sentry.*.config.ts`, `next.config.ts` | erreurs, traces, replays, PII par défaut |
 | Vercel | hébergement, build, Cron Monitors auto (`automaticVercelMonitors`) | `.vercel/project.json` (non versionné), `next.config.ts` | — |
 | Stripe | **aucune intégration ici** ; liens vers le checkout de l'app | — | — |
@@ -104,6 +105,8 @@ Le DSN Sentry est écrit en dur dans 3 fichiers (valeur publique par conception,
 - **Accessibilité / mouvement** : respect de `prefers-reduced-motion`, contenu visible sans JS (`<noscript>` force `.reveal` visible). [Lu]
 - **Performance** : CMP chargé en `async` (ne doit plus être l'élément LCP). Core Web Vitals cibles : **[À CONFIRMER]** (non mesurés).
 - **Sécurité** : en-têtes CSP, HSTS preload, X-Frame-Options DENY, nosniff, Referrer-Policy, Permissions-Policy sur toutes les routes. [Lu : `next.config.ts`, vérifié en prod par `curl -sI`]
+  - CSP du 21/10/2026 : `https://www.lafabriquedunet.fr` ajouté à `script-src` **uniquement** (badge du pied de page, SVG inline : ni image, ni police, ni requête). Aucune autre directive élargie, pas de nouveau `'unsafe-inline'`. Pas de nonce ni de `strict-dynamic` : l'origine est autorisée par la liste d'hôtes de `script-src`.
+- **Accessibilité du badge** : taille `md` (230 × 41,4 px), conteneur réservé à 54 px (aucun décalage), axe-core 4.13 `target-size` et `link-name` sans violation (mesure du 21/10/2026).
 - **Vérité du contenu** : aucun chiffre, avis, témoignage ou intégration inventés ; exemples chiffrés étiquetés « fictifs ». [Lu : `lib/page-schema.ts`, `MetierPageContent.proof`]
 - **Langue** : français (`lang="fr"`, `fr_FR`).
 

@@ -61,3 +61,11 @@ La nouvelle page HTML et ses médias sont autonomes : pas de script, de traceur,
 ## Exception explicite pour cette tâche — 21 octobre 2026
 
 Après présentation du blocage, Nadir a écrit exactement « skip docs pour cette tâche » dans le chat. L’exception est limitée au remplacement de la démonstration vidéo (PR #34) ; son accord de déploiement était déjà enregistré. Les choix Sentry/RGPD existants ne sont pas déclarés résolus et aucune case de conformité n’est cochée par dérogation.
+
+## Badge La Fabrique du Net — 21 octobre 2026 (plan I1)
+
+- **CSP** : `https://www.lafabriquedunet.fr` ajouté à `script-src` seulement (`next.config.ts`). Le script (lu par `curl` le 21/10) insère un lien et un SVG inline par `innerHTML`, sans image, police, requête ni `eval` : aucune autre directive n'est élargie et aucun `'unsafe-inline'` n'est ajouté. Preuve : `tests/e2e/badge-lafabriquedunet.spec.ts` (origine présente dans `script-src`, absente de toute autre directive) ; `curl -sI` sur `next start` local.
+- **Confiance accordée à un tiers** : un script hébergé par La Fabrique du Net s'exécute sur chaque page avec les droits de l'origine `fonciable.fr`. Pas de Subresource Integrity possible (le fichier est servi dynamiquement, `cache-control: max-age=86400`, contenu susceptible de changer). Risque accepté pour une landing sans session, sans formulaire ni donnée personnelle saisie ; à réévaluer si un formulaire est ajouté.
+- **RGPD** : prestataire déclaré dans `/confidentialite` § 4 (IP transmise, cookies techniques propres à La Fabrique du Net). Le chargement n'est pas soumis au consentement. Le serveur du badge renvoie `XSRF-TOKEN` et `la_fabrique_du_net_session` (2 h, domaine `.lafabriquedunet.fr`) : cookies tiers, bloqués par défaut par Safari et Firefox. Qualification (traceur exempté ou non) **[À CONFIRMER par Nadir]** ; s'ils devaient être soumis au consentement, monter le badge derrière `ConsentGate`.
+- Ce changement ne coche ni ne décoche aucune case de la checklist ci-dessus ; la case RGPD reste partielle.
+
