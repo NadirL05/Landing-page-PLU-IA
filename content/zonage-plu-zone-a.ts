@@ -20,7 +20,7 @@ export const ZONE_A: MetierPageContent = {
   parent: { navLabel: "Zonage PLU", slug: "/zonage-plu" },
   related: ["/zonage-plu/zone-u", "/zonage-plu/zone-au", "/zonage-plu/zone-n", "/terrain-constructible"],
 
-  metaTitle: "Zone A du PLU : zone agricole, ce qui y est autorisé",
+  metaTitle: "Zone A du PLU (agricole) : ce qui est autorisé",
   metaDescription:
     "Zone A du PLU : définition de la zone agricole (art. R151-22), constructions qui peuvent y être autorisées (art. R151-23), effet sur un projet immobilier.",
   dateModified: "2026-10-20",

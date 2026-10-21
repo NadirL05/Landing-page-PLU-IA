@@ -45,9 +45,9 @@ export const TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
   navLabel: "Terrain constructible",
   related: ["/zonage-plu", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/division-parcellaire", "/charge-fonciere"],
 
-  metaTitle: "Savoir si un terrain est constructible : la méthode",
+  metaTitle: "Savoir si un terrain est constructible : méthode",
   metaDescription:
-    "Savoir si un terrain est constructible : document d'urbanisme, zone du PLU, règles, servitudes et risques, réseaux, certificat d'urbanisme. Méthode et limites.",
+    "Terrain constructible : document d'urbanisme, zone du PLU, règles, servitudes et risques, réseaux, certificat d'urbanisme. Méthode et limites.",
   dateModified: "2026-10-20",
 
   eyebrow: "Constructibilité · zonage · certificat d'urbanisme",

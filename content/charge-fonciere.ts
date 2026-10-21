@@ -36,9 +36,9 @@ export const CHARGE_FONCIERE: MetierPageContent = {
   navLabel: "Charge foncière",
   related: ["/bilan-promoteur", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/terrain-constructible", "/prospection-fonciere"],
 
-  metaTitle: "Charge foncière : définition, calcul à rebours et exemple",
+  metaTitle: "Charge foncière : définition, calcul et exemple",
   metaDescription:
-    "Charge foncière : définition, calcul à rebours de la charge foncière admissible, incidence foncière au m² de surface de plancher, exemple fictif et limites.",
+    "Charge foncière : définition, calcul à rebours de la charge foncière admissible, incidence foncière au m² de surface de plancher, exemple fictif, limites.",
   dateModified: "2026-10-20",
 
   eyebrow: "Foncier · compte à rebours · incidence foncière",

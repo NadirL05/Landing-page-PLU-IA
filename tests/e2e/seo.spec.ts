@@ -45,6 +45,12 @@ test.describe("Sitemap", () => {
         expect(normalize((await canonical.getAttribute("href"))!), loc).toBe(normalize(loc));
         const robots = await page.locator('meta[name="robots"]').getAttribute("content");
         expect(robots ?? "", loc).not.toContain("noindex");
+        // Longueurs SEO (rapport du 21/10/2026, §9.8) : title ≤ 60 caractères,
+        // suffixe « | Fonciable » compris ; meta description ≤ 155.
+        expect((await page.title()).length, `${loc} title`).toBeLessThanOrEqual(60);
+        const description = await page.locator('meta[name="description"]').getAttribute("content");
+        expect(description?.length ?? 0, `${loc} description`).toBeGreaterThan(0);
+        expect(description!.length, `${loc} description`).toBeLessThanOrEqual(155);
         // Chaque bloc JSON-LD doit se parser (readJsonLd lève sinon).
         const blocks = await readJsonLd(page);
         for (const block of blocks) {

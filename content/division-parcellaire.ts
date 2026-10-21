@@ -46,7 +46,7 @@ export const DIVISION_PARCELLAIRE: MetierPageContent = {
   navLabel: "Division parcellaire",
   related: ["/terrain-constructible", "/zonage-plu", "/prospection-fonciere", "/analyse-plu-parcelle", "/faisabilite-fonciere"],
 
-  metaTitle: "Division parcellaire : règles, autorisations et étapes",
+  metaTitle: "Division parcellaire : autorisations et étapes",
   metaDescription:
     "Division parcellaire : déclaration préalable ou permis d'aménager, application du PLU aux lots, rôle du géomètre-expert, étapes et limites.",
   dateModified: "2026-10-20",

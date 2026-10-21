@@ -23,7 +23,7 @@ export const ZONE_N: MetierPageContent = {
 
   metaTitle: "Zone N du PLU : zone naturelle et forestière",
   metaDescription:
-    "Zone N du PLU : les cinq motifs de classement en zone naturelle et forestière (art. R151-24) et les constructions qui peuvent y être autorisées (art. R151-25).",
+    "Zone N du PLU : cinq motifs de classement en zone naturelle et forestière (art. R151-24) et constructions qui peuvent y être autorisées (art. R151-25).",
   dateModified: "2026-10-20",
 
   eyebrow: "Zonage PLU · zone naturelle et forestière",
