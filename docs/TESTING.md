@@ -29,9 +29,9 @@ Pré-requis (automatisés par `playwright.config.ts`) : `npm run build` puis `ne
 
 1. `GET /` → statut 200 ; `<h1>` visible ; `<title>` contient « Fonciable ».
 2. Les en-têtes de réponse contiennent `content-security-policy`, `strict-transport-security`, `x-frame-options: DENY`.
-3. Le JSON-LD de la page se parse (`JSON.parse` de chaque `script[type="application/ld+json"]`) et contient `SoftwareApplication` avec offers Starter (199) et Pro (599).
+3. Le JSON-LD de la page se parse (`JSON.parse` de chaque `script[type="application/ld+json"]`) et contient `SoftwareApplication` avec exactement 3 offers (Starter 199, Pro 599, Entreprise) et aucune offre à 0.
 4. Sans consentement : aucun `script[src*="googletagmanager"]` ni `connect.facebook.net` dans le DOM.
-5. Clic sur l'ancre « Tarifs » → la section `#tarifs` est dans la fenêtre ; 3 cartes (Starter, Pro, Entreprise) ; aucune carte « Découverte ».
+5. Clic sur l'ancre « Tarifs » → la section `#tarifs` est dans la fenêtre ; 3 cartes (Starter, Pro, Entreprise) ; aucune carte « Découverte » ni mention « gratuit » (offre gratuite retirée le 21/10/2026) ; mention « Prix hors taxes (HT), TVA 20 % en sus. » visible, aucune mention « 293 B » / « TVA non applicable » sur la page.
 6. Clic sur le CTA hero « Prendre rendez-vous » → une nouvelle page s'ouvre sur `https://calendly.com/nadir-lahyani-agentimpact/30min` (requête interceptée).
 7. Retour, clic « Souscrire » (Pro) → navigation vers `https://app.fonciable.fr/checkout/pro` (interceptée).
 8. Clic « Ouvrir l'application » (en-tête) → `https://app.fonciable.fr/dashboard` (intercepté).
@@ -83,6 +83,7 @@ npm test   # = lint + next typegen/tsc + next build --webpack + Playwright
 - E2E seuls (reconstruit le site avant de lancer le serveur) : `npm run test:e2e`.
 - Résultat au 2026-10-20 : **20 passés, 0 échec, ≈ 12 s** (dont build) ; stable sur `npx playwright test --repeat-each=3` (60/60).
 - Résultat après la section E (branche `feat/seo-pages-coeur`, 2026-10-20) : **34 passés, 0 échec** (`npm test`).
+- Résultat après le retrait de l'offre gratuite (branche `fix/retirer-offre-decouverte`, 2026-10-21, avec la mention TVA) : **40 passés, 0 échec** (`npm test`).
 - Hors `npm test` (section E) : `node --check scripts/indexnow.mjs` et `node scripts/indexnow.mjs --dry-run --sitemap=.next/server/app/sitemap.xml.body` (aucun appel réseau) ; recalcul du modèle XLSX par un lecteur indépendant (bibliothèque Python `formulas`, environnement jetable).
 - Rapports : `playwright-report/` et `test-results/` (traces en cas d'échec), non versionnés.
 - Vitest (`vitest run`) s'ajoutera à la chaîne quand le choix d'outil sera confirmé.

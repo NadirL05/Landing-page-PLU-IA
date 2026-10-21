@@ -32,9 +32,12 @@ test.describe("Parcours principal — accueil", () => {
     const app = blocks.find(
       (b) => (b as Record<string, unknown>)["@type"] === "SoftwareApplication"
     ) as { offers: { name: string; price?: string }[] };
+    expect(app.offers.map((o) => o.name)).toEqual(["Starter", "Pro", "Entreprise"]);
     const prices = Object.fromEntries(app.offers.map((o) => [o.name, o.price]));
     expect(prices.Starter).toBe("199");
     expect(prices.Pro).toBe("599");
+    // Aucune offre gratuite (offre retirée le 21/10/2026).
+    expect(app.offers.some((o) => o.price === "0")).toBe(false);
   });
 
   test("§3.4 sans consentement : aucun traceur GA ni Meta dans le DOM", async ({ page }) => {
@@ -44,7 +47,7 @@ test.describe("Parcours principal — accueil", () => {
     await expect(page.locator('script[src*="connect.facebook.net"]')).toHaveCount(0);
   });
 
-  test("§3.5 ancre Tarifs : section visible, 3 offres, pas de Découverte", async ({ page }) => {
+  test("§3.5 ancre Tarifs : section visible, 3 offres, aucune offre gratuite", async ({ page }) => {
     await page.goto("/");
     await page
       .getByRole("navigation", { name: "Navigation principale", exact: true })
@@ -57,6 +60,10 @@ test.describe("Parcours principal — accueil", () => {
       await expect(tarifs.getByText(name, { exact: true })).toHaveCount(1);
     }
     await expect(tarifs.getByText("Découverte", { exact: true })).toHaveCount(0);
+    await expect(tarifs.getByText(/gratuit/i)).toHaveCount(0);
+    // Mention fiscale : assujetti à la TVA depuis le 21/10/2026.
+    await expect(tarifs.getByText("Prix hors taxes (HT), TVA 20 % en sus.").first()).toBeVisible();
+    await expect(page.getByText(/293 B|TVA non applicable/)).toHaveCount(0);
     // Deux souscriptions (Starter, Pro) + un contact (Entreprise).
     const subscribe = tarifs.getByRole("link", { name: "Souscrire" });
     await expect(subscribe).toHaveCount(2);

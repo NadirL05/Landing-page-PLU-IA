@@ -78,16 +78,15 @@ Règles : chaque affirmation sur Fonciable a son fichier de preuve dans `sas-plu
 
 ## 6. Modèle de revenu et prix
 
-Copie d'affichage de `config/plans.ts` (source de vérité : `sas-plu-3d/src/config/plans.ts`, non relue ici → concordance **[À CONFIRMER]**). Prix nets, TVA non applicable (art. 293 B du CGI).
+Copie d'affichage de `config/plans.ts` (source de vérité : `sas-plu-3d/src/config/plans.ts`, non relue ici → concordance **[À CONFIRMER]**). Prix hors taxes (HT), TVA 20 % en sus (Nadir assujetti à la TVA, confirmé le 21/10/2026). Numéro de TVA intracommunautaire à publier dans les mentions légales : **[À CONFIRMER]**.
 
 | Plan | Prix affiché | Quota | Prospection | Veille | Support e-mail | Affiché sur la landing |
 |---|---|---|---|---|---|---|
-| Découverte (FREE) | Gratuit | 2 analyses / 30 j | 1 scan / mois | 1 territoire | non | **Non** (`PUBLIC_PLAN_LIST` l'exclut) |
 | Starter | 199 € / mois | 15 analyses / 30 j | 2 scans / mois | 2 territoires | oui | Oui |
 | Pro | 599 € / mois | 100 analyses / 30 j | 10 scans / mois | 5 territoires | oui | Oui |
 | Entreprise | Sur mesure | sur mesure | sur demande | sur demande | oui | Oui (CTA Calendly) |
 
-Modèle : abonnement mensuel SaaS vendu sur `app.fonciable.fr` (checkout Stripe côté app). Essai gratuit / offre Découverte encore active côté app : **[À CONFIRMER]** (diagnostic SEO E1 ; `llms.txt` a été réaligné le 20/10 sur les 3 offres affichées, commit `f0a1656`).
+Modèle : abonnement mensuel SaaS vendu sur `app.fonciable.fr` (checkout Stripe côté app). Trois offres seulement : Starter 199 €/mois, Pro 599 €/mois, Entreprise sur devis. L'offre gratuite a été retirée le 21/10/2026 (décision de Nadir) : plus aucune mention sur la landing, la FAQ, le JSON-LD ni `llms.txt`. Retrait de l'offre gratuite côté app (`sas-plu-3d`) : hors de ce dépôt, **[À CONFIRMER]**.
 
 ## 7. Indicateurs de succès (mesurables)
 
@@ -105,7 +104,7 @@ Aucune donnée GA4/GSC/Calendly n'est accessible depuis ce dépôt → toutes le
 ## 8. Hypothèses à valider
 
 1. Les acheteurs cherchent avec le vocabulaire « analyse PLU », « constructibilité », « IA » (proxy SERP non localisé, sans volumes) → à confirmer par GSC sous 4-6 semaines.
-2. La prise de rendez-vous convertit mieux que l'essai gratuit (le commit `a51b4fc` a remplacé les CTA d'essai par la prise de RDV) — **[À CONFIRMER]** par les chiffres.
+2. La prise de rendez-vous convertit mieux que les anciens CTA d'essai (le commit `a51b4fc` les a remplacés par la prise de RDV ; l'offre gratuite est retirée depuis le 21/10/2026) — **[À CONFIRMER]** par les chiffres.
 3. Les personas marchand de biens / développeur foncier / architecte sont pertinents — **[À CONFIRMER]**.
 4. Les prix de `config/plans.ts` sont identiques à la source de vérité `sas-plu-3d` — **[À CONFIRMER]**.
 5. Une page métier dédiée améliore la visibilité sur « analyse PLU parcelle » (à mesurer par GSC + panel GEO).

@@ -4,13 +4,16 @@
  * connexion Stripe — mettre à jour les deux repos ensemble sur tout
  * changement de prix/quota.
  *
- * ⚠️ Historique : ce fichier n'affichait plus que FREE/ENTERPRISE
+ * ⚠️ Historique : ce fichier n'affichait plus que l'offre gratuite et Entreprise
  * (commit "fix: remove pro plan from landing") pendant que la source de
  * vérité (sas-plu-3d) avait 4 plans avec Starter à 199 €/mois et Pro à
  * 599 €/mois — la page tarifs de la landing et la page CGV de l'app
  * (qui lit PLAN_LIST dynamiquement, elle) affichaient donc deux
  * structures différentes. Réharmonisé le 2026-08-28 sur les 4 plans
  * réels.
+ *
+ * 2026-10-21 : l'offre gratuite a été retirée (décision de Nadir). Seules
+ * restent Starter (199 €/mois), Pro (599 €/mois) et Entreprise (sur devis).
  */
 
 export interface PlanFeature {
@@ -20,7 +23,7 @@ export interface PlanFeature {
 }
 
 export interface Plan {
-  id: "FREE" | "STARTER" | "PRO" | "ENTERPRISE";
+  id: "STARTER" | "PRO" | "ENTERPRISE";
   name: string;
   tagline: string;
   priceLabel: string;
@@ -29,8 +32,8 @@ export interface Plan {
   features: PlanFeature[];
 }
 
-export const PRICE_TAX_NOTICE =
-  "Prix nets — TVA non applicable, article 293 B du CGI (franchise en base).";
+/** Nadir Lahyani EI est assujetti à la TVA (confirmé le 21/10/2026) : prix affichés HT. */
+export const PRICE_TAX_NOTICE = "Prix hors taxes (HT), TVA 20 % en sus.";
 
 const CORE_FEATURES: PlanFeature[] = [
   { label: "Analyse automatisée du PLU (zonage, règles, contraintes)", included: true },
@@ -42,20 +45,6 @@ const CORE_FEATURES: PlanFeature[] = [
 ];
 
 export const PLAN_LIST: readonly Plan[] = [
-  {
-    id: "FREE",
-    name: "Découverte",
-    tagline: "Tester l'outil sur vos premiers terrains.",
-    priceLabel: "Gratuit",
-    quotaLabel: "2 analyses / 30 jours",
-    retentionLabel: "Conservation de vos analyses sans limite de durée",
-    features: [
-      ...CORE_FEATURES,
-      { label: "Prospection foncière (scan de gisement)", included: true, note: "1 scan / mois" },
-      { label: "Veille territoriale", included: true, note: "1 territoire surveillé" },
-      { label: "Support par e-mail", included: false },
-    ],
-  },
   {
     id: "STARTER",
     name: "Starter",
@@ -102,5 +91,5 @@ export const PLAN_LIST: readonly Plan[] = [
   },
 ];
 
-/** Offres présentées sur le site commercial ; le plan Découverte reste défini côté produit. */
-export const PUBLIC_PLAN_LIST = PLAN_LIST.filter((plan) => plan.id !== "FREE");
+/** Offres présentées sur le site commercial (bloc tarifs, FAQ, JSON-LD offers). */
+export const PUBLIC_PLAN_LIST = PLAN_LIST;

@@ -42,7 +42,7 @@ export default function MentionsLegalesPage() {
           <li><strong>Service :</strong> {BRAND_NAME}</li>
           <li><strong>Adresse :</strong> 61 rue de Lyon, 75012 Paris, France</li>
           <li><strong>SIREN :</strong> 942 311 333 — <strong>SIRET :</strong> 942 311 333 00010</li>
-          <li><strong>TVA :</strong> non applicable, article 293 B du code général des impôts</li>
+          <li><strong>TVA :</strong> assujetti à la TVA</li>
           <li><strong>Courriel :</strong> <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></li>
           <li><strong>Site :</strong> <a href={BRAND_URL}>{BRAND_URL}</a></li>
         </ul>
