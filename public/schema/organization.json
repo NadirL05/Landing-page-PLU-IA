@@ -11,7 +11,10 @@
   "parentOrganization": {
     "@type": "Organization",
     "name": "AgentImpact",
-    "url": "https://www.agentimpact.fr/"
+    "url": "https://www.agentimpact.fr/",
+    "sameAs": [
+      "https://www.linkedin.com/company/agentimpact-nadir/"
+    ]
   },
   "founder": {
     "@type": "Person",
@@ -19,7 +22,6 @@
     "sameAs": "https://www.linkedin.com/in/nadir-lahyani"
   },
   "sameAs": [
-    "https://www.agentimpact.fr/",
-    "https://www.linkedin.com/in/nadir-lahyani"
+    "https://www.linkedin.com/showcase/fonciable/"
   ]
 }
