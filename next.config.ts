@@ -17,9 +17,12 @@ import { withSentryConfig } from "@sentry/nextjs";
 //   externe (gtag.js / fbevents.js) — sans ces domaines en script-src, la CSP
 //   les bloquait silencieusement (GoogleTag n'ayant encore jamais eu d'ID
 //   configuré, ce trou n'avait encore jamais été exercé en prod).
+// - https://www.lafabriquedunet.fr en script-src UNIQUEMENT : badge du pied de page
+//   (components/LaFabriqueDuNetBadge.tsx). Son SVG est inline et ne charge ni
+//   image, ni police, ni requête : aucune autre directive n'est élargie.
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://cdn.consentmanager.net https://*.delivery.consentmanager.net",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://cdn.consentmanager.net https://*.delivery.consentmanager.net https://www.lafabriquedunet.fr",
   "style-src 'self' 'unsafe-inline'",
   // *.delivery.consentmanager.net : pixel de preuve de consentement
   // (/delivery/info/) — bloqué silencieusement sans ce wildcard, sur chaque

@@ -126,6 +126,11 @@ La demande de refaire la vidéo, la validation de la V4 puis « bas vas y » aut
 
 Preuves H1/H2 (21/10/2026) : `npm test` sort en 0 : lint, `next typegen`/TypeScript, build Webpack et **36 tests Playwright passés**. Le test de la démo vérifie les métadonnées natives (~42 s), la réponse Range 206, le VTT et les polices. QA finale : −14,57 LUFS / −1,36 dBTP, six images décodées regardées. Détails et hash : `PREUVES-demonstration-video.md`. H3 a été réalisé après l’exception explicite de Nadir ci-dessous ; les arbitrages RGPD préexistants restent ouverts (SECURITY).
 
+## I — Badge La Fabrique du Net (demande de Nadir du 21 octobre)
+
+- [x] **I1 — Badge dans le pied de page** (≤ 2 h). Composant client `components/LaFabriqueDuNetBadge.tsx` (script ajouté par `useEffect` dans un conteneur de 54 px, nettoyé au démontage), monté dans `SiteFooter` ; `https://www.lafabriquedunet.fr` en `script-src` seulement ; prestataire déclaré dans `/confidentialite`. Fini quand : un seul badge dans le pied de page, y compris après navigation client ; cible ≥ 24 px ; CSP élargie sur `script-src` seulement ; `npm test` vert. Réf. : TRD §5 et §7, APP_FLOW §3, SECURITY « Badge La Fabrique du Net ».
+  - Preuve (2026-10-21) : `npm test` sort en 0 (lint, `next typegen`/TypeScript, build Webpack, **39 tests Playwright passés**, dont 3 dans `tests/e2e/badge-lafabriquedunet.spec.ts`). Mesure avec le vrai `badge.js` servi localement : lien 230 × 41,4 px (`md`), conteneur 54 px ; `sm` 180 × 32,4 px et `lg` 300 × 54 px passent aussi ; axe-core 4.13 : `target-size` et `link-name` sans violation, `color-contrast` « à vérifier » (texte SVG #FE8C74 sur blanc, environ 2,3:1, fourni par le tiers). Aucune erreur CSP en console. Non déployé.
+
 ## Exception explicite pour cette tâche — 21 octobre 2026
 
 Après présentation du blocage, Nadir a écrit exactement « skip docs pour cette tâche » dans le chat. L’exception est limitée au remplacement de la démonstration vidéo (PR #34) ; son accord de déploiement était déjà enregistré. Les choix Sentry/RGPD existants ne sont pas déclarés résolus et aucune case de conformité n’est cochée par dérogation.

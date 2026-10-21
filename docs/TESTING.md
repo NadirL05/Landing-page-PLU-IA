@@ -65,6 +65,7 @@ Scénarios complémentaires : `GET /page-inexistante` → 404 + meta `noindex` ;
 | E5 `/zonage-plu` et 4 pages de zone | E2E : 5 pages en 200, lien Légifrance de l'article R151-xx attendu sur chaque page de zone, BreadcrumbList à 3 niveaux (accueil → zonage PLU → zone), liens entre pages de zone |
 | E6 Maillage | E2E : sitemap = accueil + toutes les pages du référentiel + 2 pages légales ; chaque guide relié depuis l'accueil ; `llms.txt` liste chaque nouvelle URL ; aucun texte de `<main>` ne contient « PLU-IA » ou « PLU IA » ; depuis le 21/10, le pied de page non plus (« Édité par AgentImpact ») |
 | E7 IndexNow | E2E : `/<clé>.txt` en 200 et contenu = clé ; `node --check scripts/indexnow.mjs` ; `node scripts/indexnow.mjs --dry-run` liste les URL sans appel réseau |
+| I1 Badge La Fabrique du Net | E2E (`tests/e2e/badge-lafabriquedunet.spec.ts`, script tiers simulé dans `fixtures.ts`) : origine dans `script-src` et dans aucune autre directive ; un seul lien vers la fiche dans le pied de page, cible ≥ 24 px, conteneur de 54 px ; toujours un seul badge et un seul script après navigation client et retour. Mesure ponctuelle hors `npm test` : vrai `badge.js` servi localement + axe-core (`target-size`, `link-name`) |
 
 ## 5. Données et comptes de test
 
@@ -103,6 +104,7 @@ npm test   # = lint + next typegen/tsc + next build --webpack + Playwright
 | | E5 | `/zonage-plu` et 4 pages de zone : H1, article Légifrance de chaque zone, fil d'Ariane accueil → Zonage PLU → zone, liens entre zones |
 | | E6 | accueil et pied de page → chaque guide ; `/zonage-plu` → chaque zone ; chaque page éditoriale reçoit au moins un lien interne ; `llms.txt` liste chaque page et le XLSX ; aucun « PLU-IA » dans `<main>` ; aucun tiret cadratin sur les pages § E |
 | | E7 | `/<clé IndexNow>.txt` en 200, contenu = clé |
+| `tests/e2e/badge-lafabriquedunet.spec.ts` | I1 | CSP (`script-src` seul), badge unique dans le pied de page, cible ≥ 24 px, conteneur de 54 px, pas de doublon après navigation client (21/10/2026 : `npm test` = 39 passés) |
 | `tests/e2e/seo.spec.ts` (mis à jour) | Sitemap | accueil + `ALL_EDITORIAL_PAGES` (13) + 2 légales = 15 URL ; chaque URL : 200, H1 unique, canonical, indexable, JSON-LD valide |
 
 Non couvert : tests unitaires de `lib/` [À CONFIRMER Vitest] ; cohérence prix `config/plans.ts` == `public/llms.txt` ; consentement accordé (le CMP réel est bloqué) ; redirections par hôte (`plu-ia.agentimpact.fr`, `www`).

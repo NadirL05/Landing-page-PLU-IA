@@ -3,6 +3,7 @@ import Link from "next/link";
 import { BRAND_NAME, APP_URL, COMPANY_NAME, COMPANY_URL } from "@/config/brand";
 import { GUIDE_PAGES, SOLUTION_PAGES } from "@/config/solutions";
 import { CALENDLY_URL, DATA_ATTRIBUTION, DISCLAIMER_SHORT } from "@/config/site-content";
+import { LaFabriqueDuNetBadge } from "@/components/LaFabriqueDuNetBadge";
 
 /**
  * Pied de page commun à l'accueil et aux pages métier. Extrait de
@@ -64,6 +65,7 @@ export function SiteFooter() {
             <p className="mt-3 text-[11px]" style={{ color: "var(--ink-soft)" }}>
               Édité par <a href={COMPANY_URL} className="underline transition hover:opacity-70">{COMPANY_NAME}</a>.
             </p>
+            <LaFabriqueDuNetBadge />
           </div>
 
           <div className="col-span-2 md:col-span-3">

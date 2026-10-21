@@ -6,6 +6,9 @@ import { test as base, expect } from "@playwright/test";
  * - Calendly et app.fonciable.fr : réponse simulée (page vide 200) afin de
  *   vérifier la navigation sans prendre de vrai rendez-vous ni ouvrir de
  *   checkout réel. Chaque URL simulée est consignée dans `stubbed`.
+ * - Badge La Fabrique du Net : script simulé (`LFDN_BADGE_STUB`) qui respecte
+ *   le même contrat que l'original (document.currentScript + insertBefore),
+ *   sans appel au vrai serveur.
  * - Tout le reste hors 127.0.0.1 (GA, Meta, CMP consentmanager, Sentry…) :
  *   requête annulée.
  * - `/monitoring` (tunnel Sentry, même origine) : annulé aussi, sinon le
@@ -13,6 +16,25 @@ import { test as base, expect } from "@playwright/test";
  */
 const STUBBED_HOSTS = new Set(["calendly.com", "app.fonciable.fr"]);
 const LOCAL_HOSTS = new Set(["127.0.0.1", "localhost"]);
+const LFDN_HOST = "www.lafabriquedunet.fr";
+export const LFDN_BADGE_HREF = "https://www.lafabriquedunet.fr/logiciel/fonciable";
+
+/** Reproduit le contrat du badge.js réel (lu le 21/10/2026) : lien + SVG 300 × 54 mis à l'échelle. */
+const LFDN_BADGE_STUB = `(function () {
+  var s = document.currentScript;
+  if (!s || !s.parentNode) return;
+  var size = (new URL(s.src).searchParams.get("size") || "md").toLowerCase();
+  var w = { sm: "180px", md: "230px", lg: "300px" }[size] || "230px";
+  var a = document.createElement("a");
+  a.href = ${JSON.stringify("https://www.lafabriquedunet.fr/logiciel/fonciable")};
+  a.target = "_blank";
+  a.rel = "noopener";
+  a.title = "Testé par La Fabrique du Net";
+  a.style.cssText = "display:inline-flex;align-items:center;text-decoration:none;line-height:1;";
+  a.innerHTML = '<svg width="300" height="54" viewBox="0 0 300 54" xmlns="http://www.w3.org/2000/svg"><rect width="300" height="54" rx="10.5" fill="white"/><text x="53" y="38">La Fabrique du Net</text></svg>';
+  a.querySelector("svg").style.cssText = "display:block;width:" + w + ";height:auto;";
+  s.parentNode.insertBefore(a, s);
+})();`;
 
 type Fixtures = {
   stubbed: string[];
@@ -39,6 +61,10 @@ export const test = base.extend<Fixtures>({
           return route.abort();
         }
         return route.continue();
+      }
+      if (url.hostname === LFDN_HOST && url.pathname === "/badge/software/fonciable/badge.js") {
+        stubbed.push(url.href);
+        return route.fulfill({ status: 200, contentType: "application/javascript", body: LFDN_BADGE_STUB });
       }
       if (STUBBED_HOSTS.has(url.hostname)) {
         stubbed.push(url.href);
