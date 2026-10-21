@@ -38,7 +38,7 @@ Pré-requis (automatisés par `playwright.config.ts`) : `npm run build` puis `ne
 9. Variante mobile (viewport 390×844) : ouverture du menu mobile, présence des liens Solutions et de l'app.
 10. Variante `prefers-reduced-motion: reduce` : pas d'erreur console, contenu visible.
 
-Scénarios complémentaires : `GET /page-inexistante` → 404 + meta `noindex` ; chaque page métier → 200, canonical auto-référent, fil d'Ariane ; `/sitemap.xml` contient toutes les URLs de `SOLUTION_PAGES` ; `/tarifs` → 308 vers `/#tarifs`.
+Scénarios complémentaires : `GET /page-inexistante` → 404 + meta `noindex` ; chaque page métier → 200, canonical auto-référent, fil d'Ariane ; `/sitemap.xml` contient toutes les URLs de `SOLUTION_PAGES` ; `/tarifs` → 308 vers `/#tarifs` ; `/demonstration.html` et `/demonstration/*` → 308 vers `/`.
 
 ## 4. Tests par étape du plan
 
@@ -96,7 +96,7 @@ npm test   # = npm run lint && npm run typecheck && npm run build && PW_SKIP_BUI
 | | Chaque page métier | `WebPage` (url exacte), `BreadcrumbList` (accueil → page, positions continues), `FAQPage` non vide ; liens vers les autres pages métier et l'accueil |
 | | `/analyse-plu-parcelle` | H1 validé exact, « 44109000BZ0070 » visible, canonical, `index, follow` (A4) |
 | | Maillage | `/` relie chaque page métier ; `/faisabilite-fonciere` relie `/analyse-plu-parcelle` (A5) |
-| | 404 / redirections | URL inconnue → 404, page `not-found`, `noindex` ; `/tarifs`, `/tarif` → 308 `/#tarifs` |
+| | 404 / redirections | URL inconnue → 404, page `not-found`, `noindex` ; `/tarifs`, `/tarif` → 308 `/#tarifs` ; `/demonstration.html`, `/demonstration/video.mp4` → 308 `/` |
 
 | `tests/e2e/seo-coeur.spec.ts` | E1 | `/bilan-promoteur` : H1, title, canonical, lien et fichier XLSX (200, type spreadsheetml, signature ZIP), mention « Exemple fictif » |
 | | E2-E4 | `/charge-fonciere`, `/terrain-constructible`, `/division-parcellaire` : H1, canonical, WebPage + BreadcrumbList + FAQPage, disclaimer « certificat d'urbanisme », liens Légifrance / service-public attendus, liens internes |
@@ -105,7 +105,7 @@ npm test   # = npm run lint && npm run typecheck && npm run build && PW_SKIP_BUI
 | | E7 | `/<clé IndexNow>.txt` en 200, contenu = clé |
 | `tests/e2e/seo.spec.ts` (mis à jour) | Sitemap | accueil + `ALL_EDITORIAL_PAGES` (13) + 2 légales = 15 URL ; chaque URL : 200, H1 unique, canonical, indexable, JSON-LD valide |
 
-Non couvert : tests unitaires de `lib/` [À CONFIRMER Vitest] ; cohérence prix `config/plans.ts` == `public/llms.txt` ; `/demonstration.html` ; consentement accordé (le CMP réel est bloqué) ; redirections par hôte (`plu-ia.agentimpact.fr`, `www`).
+Non couvert : tests unitaires de `lib/` [À CONFIRMER Vitest] ; cohérence prix `config/plans.ts` == `public/llms.txt` ; consentement accordé (le CMP réel est bloqué) ; redirections par hôte (`plu-ia.agentimpact.fr`, `www`).
 
 Défauts trouvés par ces tests :
 - **Corrigé** (20/10) : l'accueil n'avait pas de repère `<main>` (les pages métier, légales et 404 l'ont) ; ajouté dans `app/page.tsx`, pied de page laissé hors de `<main>`. Test de non-régression : « un seul `<main>` » sur chaque URL du sitemap.

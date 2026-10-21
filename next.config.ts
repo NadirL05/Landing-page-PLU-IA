@@ -45,6 +45,19 @@ const nextConfig: NextConfig = {
         destination: "https://fonciable.fr/:path*",
         permanent: true,
       },
+      // Démo vidéo retirée le 21/10/2026 (décision de Nadir) : la narration
+      // disait encore « PLU-IA ». Fichiers supprimés ; anciennes URL → accueil
+      // en attendant un nouvel enregistrement.
+      {
+        source: "/demonstration.html",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/demonstration/:path*",
+        destination: "/",
+        permanent: true,
+      },
       {
         source: "/tarif",
         destination: "/#tarifs",

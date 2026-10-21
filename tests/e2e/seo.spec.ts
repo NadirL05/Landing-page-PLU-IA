@@ -133,4 +133,12 @@ test.describe("404 et redirections", () => {
       expect(response.headers()["location"], path).toBe("/#tarifs");
     }
   });
+
+  test("démo vidéo retirée : /demonstration.html et /demonstration/* → 308 vers /", async ({ request }) => {
+    for (const path of ["/demonstration.html", "/demonstration/video.mp4", "/demonstration/captions.vtt"]) {
+      const response = await request.get(path, { maxRedirects: 0 });
+      expect(response.status(), path).toBe(308);
+      expect(response.headers()["location"], path).toBe("/");
+    }
+  });
 });

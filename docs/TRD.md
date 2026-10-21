@@ -33,7 +33,7 @@ Visiteur ──HTTPS──> Vercel (fonciable.fr, région cdg1 observée)
                      ├─ /mentions-legales, /confidentialite  (LegalPage)
                      ├─ /sitemap.xml, /opengraph-image, /.well-known/*  (statique)
                      ├─ /monitoring             tunnel Sentry (withSentryConfig.tunnelRoute)
-                     └─ /public/*               llms.txt, robots.txt, rsl.xml, schema/*.json, demonstration.html
+                     └─ /public/*               llms.txt, robots.txt, rsl.xml, schema/*.json
 CTA ──lien <a>──> calendly.com/nadir-lahyani-agentimpact/30min
 CTA ──lien <a>──> app.fonciable.fr/dashboard | /checkout/{starter,pro} | /cgv | /sources | /confidentialite
 ```
