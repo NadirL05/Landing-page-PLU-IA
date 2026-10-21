@@ -2,17 +2,17 @@
 
 > Analyse foncière et urbanisme assistées par IA, à la parcelle : zonage, enveloppe constructible, comparables de marché et bilan promoteur, pour les professionnels de l'immobilier et de la promotion en France.
 
-Fonciable est le nouveau nom de PLU-IA (même produit, même éditeur).
+Fonciable croise le cadastre IGN, les documents d'urbanisme (Géoportail de l'Urbanisme), les transactions immobilières (DVF) et les risques recensés (Géorisques) pour produire une estimation d'aide à la décision sur une parcelle donnée : zonage applicable, enveloppe constructible maximale théorique, comparables de prix au m² et bilan promoteur ajustable (chiffre d'affaires, coûts, marge). Chaque résultat indique sa source. Ce n'est ni un acte d'instruction officiel, ni un certificat d'urbanisme, ni un conseil juridique ou financier — les vérifications en mairie restent indispensables, notamment pour les servitudes d'utilité publique : celles publiées sur le Géoportail de l'Urbanisme sont interrogées, mais toutes n'y sont pas publiées.
 
-Fonciable croise le cadastre IGN, les documents d'urbanisme (Géoportail de l'Urbanisme), les transactions immobilières (DVF) et les risques recensés (Géorisques) pour produire une estimation d'aide à la décision sur une parcelle donnée : zonage applicable, enveloppe constructible maximale théorique, comparables de prix au m² et bilan promoteur ajustable (chiffre d'affaires, coûts, marge). Chaque résultat indique sa source. Ce n'est ni un acte d'instruction officiel, ni un certificat d'urbanisme, ni un conseil juridique ou financier — les vérifications en mairie restent indispensables, notamment pour les servitudes d'utilité publique.
-
-Fonciable est un service AgentImpact. Ce site (fonciable.fr) présente le produit ; l'outil s'utilise sur app.fonciable.fr.
+Fonciable est édité par AgentImpact (https://www.agentimpact.fr/). Ce site (fonciable.fr) présente le produit ; l'outil s'utilise sur app.fonciable.fr.
 
 ## Fonctionnalités
 
 - Recherche par adresse (Base Adresse Nationale) ou pointage carte ; analyse d'une unité foncière (parcelles contiguës)
 - Zonage et règlement d'urbanisme (Géoportail de l'Urbanisme, PDF de zone analysé automatiquement)
 - Risques recensés (Géorisques / GASPAR) et aléa retrait-gonflement des argiles
+- Servitudes d'utilité publique publiées sur le Géoportail de l'Urbanisme (API Carto GPU) ; l'absence de résultat ne prouve pas l'absence de servitude
+- Potentiel solaire à la position de la parcelle (PVGIS, Commission européenne) : irradiation annuelle et orientation optimale
 - Bilan promoteur ajustable : surface de plancher potentielle, chiffre d'affaires, coûts de construction, frais, marge
 - Comparables DVF (mutations dans un rayon de 500 m par défaut)
 - Visualisation 3D du volume constructible
@@ -29,6 +29,8 @@ Fonciable est un service AgentImpact. Ce site (fonciable.fr) présente le produi
 - Zonage fiscal A / B / C — data.gouv
 - OpenStreetMap — © contributeurs OpenStreetMap, licence ODbL
 - Base Carbone — ADEME
+- Servitudes d'utilité publique — API Carto GPU
+- PVGIS — Commission européenne, Joint Research Centre
 - INSEE
 
 ## Tarifs

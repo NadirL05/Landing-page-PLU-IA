@@ -47,13 +47,14 @@ export const BILAN_PROMOTEUR: MetierPageContent = {
   navLabel: "Bilan promoteur",
   related: ["/faisabilite-fonciere", "/prospection-fonciere", "/analyse-plu-parcelle", "/charge-fonciere"],
 
-  metaTitle: "Bilan promoteur : méthode, postes et modèle Excel",
+  // Requête cible ajoutée le 2026-10-21 : « bilan promoteur en ligne ».
+  metaTitle: "Bilan promoteur en ligne et modèle Excel gratuit",
   metaDescription:
-    "Construire un bilan promoteur : postes de recettes et de dépenses, méthode du compte à rebours pour la charge foncière, et modèle Excel gratuit (exemple fictif).",
-  dateModified: "2026-10-20",
+    "Bilan promoteur en ligne : recettes, dépenses, marge et charge foncière par compte à rebours. Méthode pas à pas et modèle Excel gratuit (exemple fictif).",
+  dateModified: "2026-10-21",
 
   eyebrow: "Recettes · dépenses · marge · charge foncière",
-  h1: "Bilan promoteur : la méthode, les postes et un modèle Excel",
+  h1: "Bilan promoteur en ligne : la méthode, les postes et un modèle Excel",
   lede:
     "Le bilan promoteur dit si une opération immobilière tient debout : ce qu'elle rapportera, ce qu'elle coûtera, ce qu'il restera. Cette page détaille ses postes, la méthode du compte à rebours qui en tire le prix d'un terrain, propose un modèle Excel à télécharger, et explique ce que Fonciable calcule à partir des données publiques d'une parcelle.",
   ctaPrimaryLabel: "Prendre rendez-vous",
@@ -225,6 +226,8 @@ export const BILAN_PROMOTEUR: MetierPageContent = {
       "Les hypothèses financières par défaut sont des ordres de grandeur de calibrage, pas des références de marché opposables : elles doivent être remplacées par vos propres chiffres avant tout engagement.",
   },
 
+  // TODO(NADIR): cas client réel, avec accord écrit du client. Aucun
+  // témoignage ni nom de client n'est publié tant qu'il n'est pas fourni.
   proof: {
     title: "Un bilan à rebours, chiffre par chiffre",
     intro:

@@ -31,13 +31,14 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
   navLabel: "Faisabilité foncière",
   related: ["/bilan-promoteur", "/prospection-fonciere", "/analyse-plu-parcelle", "/terrain-constructible", "/charge-fonciere"],
 
-  metaTitle: "Faisabilité foncière : évaluer rapidement le potentiel d'une parcelle",
+  // Requête cible ajoutée le 2026-10-21 : « étude de faisabilité foncière ».
+  metaTitle: "Étude de faisabilité foncière d'une parcelle",
   metaDescription:
-    "Première étude de faisabilité d'une parcelle : cadastre, zonage, règles applicables, enveloppe constructible théorique, risques connus et comparables DVF.",
-  dateModified: "2026-10-20",
+    "Étude de faisabilité foncière d'une parcelle : cadastre, zonage, règles, enveloppe constructible théorique, risques, servitudes et comparables DVF.",
+  dateModified: "2026-10-21",
 
   eyebrow: "Cadastre · zonage · enveloppe constructible",
-  h1: "Une parcelle mérite-t-elle une étude approfondie ?",
+  h1: "Étude de faisabilité foncière : cette parcelle mérite-t-elle d'aller plus loin ?",
   lede:
     "L'étude de faisabilité foncière répond à une seule question, le plus tôt possible : ce terrain peut-il porter une opération ? Cette page explique quelles informations réunir, comment les lire, et ce que Fonciable rassemble automatiquement à partir des données publiques.",
   ctaPrimaryLabel: "Prendre rendez-vous",
@@ -152,6 +153,8 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
       "Chaque règle affichée porte l'indication de sa provenance — donnée de zone, analyse du règlement, profil de repli ou estimation — pour que vous sachiez ce qui est établi et ce qui reste à confirmer.",
   },
 
+  // TODO(NADIR): cas client réel, avec accord écrit du client. Aucun
+  // témoignage ni nom de client n'est publié tant qu'il n'est pas fourni.
   proof: {
     title: "À quoi ressemble une première lecture de parcelle",
     intro:

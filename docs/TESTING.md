@@ -38,7 +38,7 @@ Pré-requis (automatisés par `playwright.config.ts`) : `npm run build` puis `ne
 9. Variante mobile (viewport 390×844) : ouverture du menu mobile, présence des liens Solutions et de l'app.
 10. Variante `prefers-reduced-motion: reduce` : pas d'erreur console, contenu visible.
 
-Scénarios complémentaires : `GET /page-inexistante` → 404 + meta `noindex` ; chaque page métier → 200, canonical auto-référent, fil d'Ariane ; `/sitemap.xml` contient toutes les URLs de `SOLUTION_PAGES` ; `/tarifs` → 308 vers `/#tarifs`.
+Scénarios complémentaires : `GET /page-inexistante` → 404 + meta `noindex` ; chaque page métier → 200, canonical auto-référent, fil d'Ariane ; `/sitemap.xml` contient toutes les URLs de `SOLUTION_PAGES` ; `/tarifs` → 308 vers `/#tarifs` ; `/demonstration.html` et `/demonstration/*` → 308 vers `/`.
 
 ## 4. Tests par étape du plan
 
@@ -63,7 +63,7 @@ Scénarios complémentaires : `GET /page-inexistante` → 404 + meta `noindex` ;
 | E3 `/terrain-constructible` | E2E : idem, lien Légifrance L410-1, lien vers `/zonage-plu` |
 | E4 `/division-parcellaire` | E2E : idem, liens Légifrance R151-21 et service-public |
 | E5 `/zonage-plu` et 4 pages de zone | E2E : 5 pages en 200, lien Légifrance de l'article R151-xx attendu sur chaque page de zone, BreadcrumbList à 3 niveaux (accueil → zonage PLU → zone), liens entre pages de zone |
-| E6 Maillage | E2E : sitemap = accueil + toutes les pages du référentiel + 2 pages légales ; chaque guide relié depuis l'accueil ; `llms.txt` liste chaque nouvelle URL ; aucun texte de `<main>` ne contient « PLU-IA » ou « PLU IA » (le pied de page commun garde « anciennement PLU-IA », hors périmètre) |
+| E6 Maillage | E2E : sitemap = accueil + toutes les pages du référentiel + 2 pages légales ; chaque guide relié depuis l'accueil ; `llms.txt` liste chaque nouvelle URL ; aucun texte de `<main>` ne contient « PLU-IA » ou « PLU IA » ; depuis le 21/10, le pied de page non plus (« Édité par AgentImpact ») |
 | E7 IndexNow | E2E : `/<clé>.txt` en 200 et contenu = clé ; `node --check scripts/indexnow.mjs` ; `node scripts/indexnow.mjs --dry-run` liste les URL sans appel réseau |
 
 ## 5. Données et comptes de test
@@ -92,11 +92,11 @@ npm test   # = npm run lint && npm run typecheck && npm run build && PW_SKIP_BUI
 |---|---|---|
 | `tests/e2e/parcours-principal.spec.ts` | §3.1 à §3.10 | accueil 200 + H1 + titre ; en-têtes CSP/HSTS/XFO/nosniff ; JSON-LD `SoftwareApplication` Starter 199 / Pro 599 ; aucun traceur sans consentement ; ancre Tarifs (3 offres, pas de Découverte, href des CTA) ; CTA hero → Calendly nouvel onglet ; Souscrire Pro → `/checkout/pro` ; Ouvrir l'application → `/dashboard` ; menu mobile 390×844 ; `prefers-reduced-motion` sans erreur JS ni console |
 | `tests/e2e/seo.spec.ts` | Sitemap | 7 URLs (accueil, chaque `SOLUTION_PAGES`, 2 pages légales), sans doublon |
-| | Chaque URL du sitemap | 200, H1 unique non vide, un seul `<main>`, canonical auto-référent, pas de `noindex`, chaque JSON-LD se parse (`@context` schema.org) |
+| | Chaque URL du sitemap | 200, H1 unique non vide, un seul `<main>`, canonical auto-référent, pas de `noindex`, chaque JSON-LD se parse (`@context` schema.org), title ≤ 60 caractères (suffixe « | Fonciable » compris), meta description non vide et ≤ 155 (depuis le 21/10/2026) |
 | | Chaque page métier | `WebPage` (url exacte), `BreadcrumbList` (accueil → page, positions continues), `FAQPage` non vide ; liens vers les autres pages métier et l'accueil |
 | | `/analyse-plu-parcelle` | H1 validé exact, « 44109000BZ0070 » visible, canonical, `index, follow` (A4) |
 | | Maillage | `/` relie chaque page métier ; `/faisabilite-fonciere` relie `/analyse-plu-parcelle` (A5) |
-| | 404 / redirections | URL inconnue → 404, page `not-found`, `noindex` ; `/tarifs`, `/tarif` → 308 `/#tarifs` |
+| | 404 / redirections | URL inconnue → 404, page `not-found`, `noindex` ; `/tarifs`, `/tarif` → 308 `/#tarifs` ; `/demonstration.html`, `/demonstration/video.mp4` → 308 `/` |
 
 | `tests/e2e/seo-coeur.spec.ts` | E1 | `/bilan-promoteur` : H1, title, canonical, lien et fichier XLSX (200, type spreadsheetml, signature ZIP), mention « Exemple fictif » |
 | | E2-E4 | `/charge-fonciere`, `/terrain-constructible`, `/division-parcellaire` : H1, canonical, WebPage + BreadcrumbList + FAQPage, disclaimer « certificat d'urbanisme », liens Légifrance / service-public attendus, liens internes |
@@ -105,7 +105,7 @@ npm test   # = npm run lint && npm run typecheck && npm run build && PW_SKIP_BUI
 | | E7 | `/<clé IndexNow>.txt` en 200, contenu = clé |
 | `tests/e2e/seo.spec.ts` (mis à jour) | Sitemap | accueil + `ALL_EDITORIAL_PAGES` (13) + 2 légales = 15 URL ; chaque URL : 200, H1 unique, canonical, indexable, JSON-LD valide |
 
-Non couvert : tests unitaires de `lib/` [À CONFIRMER Vitest] ; cohérence prix `config/plans.ts` == `public/llms.txt` ; `/demonstration.html` ; consentement accordé (le CMP réel est bloqué) ; redirections par hôte (`plu-ia.agentimpact.fr`, `www`).
+Non couvert : tests unitaires de `lib/` [À CONFIRMER Vitest] ; cohérence prix `config/plans.ts` == `public/llms.txt` ; consentement accordé (le CMP réel est bloqué) ; redirections par hôte (`plu-ia.agentimpact.fr`, `www`).
 
 Défauts trouvés par ces tests :
 - **Corrigé** (20/10) : l'accueil n'avait pas de repère `<main>` (les pages métier, légales et 404 l'ont) ; ajouté dans `app/page.tsx`, pied de page laissé hors de `<main>`. Test de non-régression : « un seul `<main>` » sur chaque URL du sitemap.

@@ -25,13 +25,14 @@ export const PROSPECTION_FONCIERE: MetierPageContent = {
   navLabel: "Prospection foncière",
   related: ["/bilan-promoteur", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/division-parcellaire", "/charge-fonciere"],
 
-  metaTitle: "Prospection foncière : repérer les parcelles à potentiel constructible",
+  // Requête cible ajoutée le 2026-10-21 : « prospection foncière ».
+  metaTitle: "Prospection foncière : parcelles à potentiel",
   metaDescription:
-    "Balayer un territoire pour identifier les parcelles au potentiel constructible résiduel : méthode de scoring, sources publiques utilisées et limites connues.",
-  dateModified: "2026-10-12",
+    "Prospection foncière : balayer un territoire pour repérer les parcelles au potentiel constructible résiduel. Méthode de classement, sources et limites.",
+  dateModified: "2026-10-21",
 
   eyebrow: "Balayage de territoire · potentiel résiduel · fiabilité",
-  h1: "Repérer les parcelles qui méritent un appel",
+  h1: "Prospection foncière : repérer les parcelles qui méritent un appel",
   lede:
     "La prospection foncière consiste à faire remonter, sur un territoire donné, les terrains dont le potentiel constructible n'est pas encore consommé. Cette page explique la méthode, les données qu'elle mobilise et — surtout — les faux positifs qu'elle peut produire.",
   ctaPrimaryLabel: "Prendre rendez-vous",
@@ -140,6 +141,8 @@ export const PROSPECTION_FONCIERE: MetierPageContent = {
       "Sitadel et les indicateurs d'artificialisation sont des agrégats communaux : ils décrivent la dynamique d'un territoire et ne sont pas utilisés pour départager deux parcelles d'une même commune. Un permis relevé dans Sitadel ne peut pas être présenté comme un permis « sur cette parcelle ».",
   },
 
+  // TODO(NADIR): cas client réel, avec accord écrit du client. Aucun
+  // témoignage ni nom de client n'est publié tant qu'il n'est pas fourni.
   proof: {
     title: "À quoi ressemble un candidat de la liste",
     intro:

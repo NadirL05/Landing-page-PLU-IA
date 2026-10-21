@@ -36,7 +36,7 @@ export const ANALYSE_PLU_PARCELLE: MetierPageContent = {
   navLabel: "Analyse PLU",
   related: ["/bilan-promoteur", "/faisabilite-fonciere", "/prospection-fonciere", "/zonage-plu", "/terrain-constructible"],
 
-  metaTitle: "Analyse PLU d'une parcelle : zonage, règles et constructibilité",
+  metaTitle: "Analyse PLU d'une parcelle : zonage et règles",
   metaDescription:
     "Lire le PLU d'une parcelle : zone du Géoportail de l'Urbanisme, règles du règlement avec leur source, enveloppe constructible théorique et refus publiés.",
   dateModified: "2026-10-20",

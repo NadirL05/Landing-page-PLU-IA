@@ -3,7 +3,7 @@ import { Instrument_Serif, Plus_Jakarta_Sans, Space_Mono } from "next/font/googl
 import { ConsentGate } from "@/components/analytics/consent-gate";
 import { GoogleTag } from "@/components/analytics/google-tag";
 import { MetaPixel } from "@/components/analytics/meta-pixel";
-import { BRAND_NAME, BRAND_URL, COMPANY_NAME } from "@/config/brand";
+import { BRAND_NAME, BRAND_URL, COMPANY_NAME, COMPANY_URL } from "@/config/brand";
 import "./globals.css";
 
 // Instrument Serif n'existe qu'en 400 (pas de graisses 500-700, c'est une
@@ -25,15 +25,8 @@ export const metadata: Metadata = {
     template: `%s | ${BRAND_NAME}`,
   },
   description: SITE_DESCRIPTION,
-  keywords: [
-    "analyse foncière",
-    "faisabilité foncière",
-    "bilan promoteur",
-    "PLU",
-    "prospection foncière",
-    "potentiel constructible",
-  ],
-  authors: [{ name: COMPANY_NAME, url: "https://agentimpact.fr" }],
+  // Pas de `keywords` : balise ignorée par Google, retirée le 21/10/2026.
+  authors: [{ name: COMPANY_NAME, url: COMPANY_URL }],
   creator: COMPANY_NAME,
   publisher: COMPANY_NAME,
   category: "immobilier",

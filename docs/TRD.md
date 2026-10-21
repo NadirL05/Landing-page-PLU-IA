@@ -33,14 +33,14 @@ Visiteur ──HTTPS──> Vercel (fonciable.fr, région cdg1 observée)
                      ├─ /mentions-legales, /confidentialite  (LegalPage)
                      ├─ /sitemap.xml, /opengraph-image, /.well-known/*  (statique)
                      ├─ /monitoring             tunnel Sentry (withSentryConfig.tunnelRoute)
-                     └─ /public/*               llms.txt, robots.txt, rsl.xml, schema/*.json, demonstration.html
+                     └─ /public/*               llms.txt, robots.txt, rsl.xml, schema/*.json
 CTA ──lien <a>──> calendly.com/nadir-lahyani-agentimpact/30min
 CTA ──lien <a>──> app.fonciable.fr/dashboard | /checkout/{starter,pro} | /cgv | /sources | /confidentialite
 ```
 
 - **Landing statique** : aucune donnée dynamique, aucun appel serveur à l'exécution hormis le tunnel Sentry. [Lu]
 - **Pages métier** : une page = un fichier `content/<slug>.ts` typé `MetierPageContent` (`components/metier/types.ts`) + un `app/<slug>/page.tsx` de 10 lignes qui appelle `MetierPage` et `buildMetierMetadata` (`lib/metier-metadata.ts`, canonical obligatoire). Le référentiel `config/solutions.ts` alimente navigation, pied de page, bloc « Solutions », maillage interne et sitemap. [Lu]
-- **JSON-LD** : unique sérialiseur `components/JsonLd.tsx` (échappe `<`, `>`, `&` en `\uXXXX`). Accueil : SoftwareApplication (offers générées depuis `PUBLIC_PLAN_LIST`), Organization et WebSite (`public/schema/*.json`), FAQPage. Pages métier : WebPage + BreadcrumbList (`lib/page-schema.ts`) + FAQPage ; `@id` partagés, aucun Review/AggregateRating. [Lu]
+- **JSON-LD** : unique sérialiseur `components/JsonLd.tsx` (échappe `<`, `>`, `&` en `\uXXXX`). Accueil : SoftwareApplication (offers générées depuis `PUBLIC_PLAN_LIST`), Organization et WebSite (`public/schema/*.json`), FAQPage. Pages métier : WebPage + BreadcrumbList (`lib/page-schema.ts`) + FAQPage ; `@id` partagés, aucun Review/AggregateRating. Éditeur : `publisher` = `Organization` AgentImpact (`https://www.agentimpact.fr/`, constante `PUBLISHER_ORGANIZATION` de `lib/page-schema.ts`) sur WebSite, SoftwareApplication et chaque WebPage ; aucun `alternateName` d'ancienne marque (mesure GEO du 20/10 : confusion avec un autre site). [Lu]
 - **Analytics et consentement** : script CMP consentmanager (mode semi-automatique, `data-cmp-cdid="a9d3fcbcd2398"`) dans `<head>` ; `ConsentGate` lit Google Consent Mode v2 dans `dataLayer` (fail closed) et ne monte `GoogleTag` (analytics_storage) et `MetaPixel` (ad_storage + ad_user_data) qu'après accord. `TrackedCta` émet `book_demo` / `start_paid_checkout` vers gtag et fbq. [Lu : `app/layout.tsx`, `components/analytics/*`, `lib/analytics.ts`]
 - **Sentry** : `instrumentation.ts` (serveur/edge), `instrumentation-client.ts` (client, Replay 10 % sessions / 100 % erreurs, `tracesSampleRate: 1`, `sendDefaultPii: true`), `app/global-error.tsx` capture l'exception. Sentry **n'est pas** soumis au consentement. [Lu]
 - **Scène 3D** : détection WebGL (`lib/webgl.ts`) et `prefers-reduced-motion` (`hooks/useSceneCapabilities.ts`) ; en mode réduit la maison est affichée « livrée ». [Lu]
@@ -51,7 +51,7 @@ Pas de base de données. Les « entités » sont des constantes versionnées. [L
 
 | Entité | Fichier | Champs clés | Relations |
 |---|---|---|---|
-| Marque | `config/brand.ts` | `BRAND_NAME`, `FORMER_BRAND_NAME`, `BRAND_URL`, `APP_URL`, `COMPANY_NAME`, `CONTACT_EMAIL` | utilisée partout (métadonnées, liens, légal) |
+| Marque | `config/brand.ts` | `BRAND_NAME`, `BRAND_URL`, `APP_URL`, `COMPANY_NAME`, `COMPANY_URL` (`https://www.agentimpact.fr/`), `CONTACT_EMAIL` | utilisée partout (métadonnées, liens, légal) |
 | Plan | `config/plans.ts` | `id` (FREE/STARTER/PRO/ENTERPRISE), `name`, `priceLabel`, `quotaLabel`, `features[]` | copie de `sas-plu-3d/src/config/plans.ts` ; `PUBLIC_PLAN_LIST` exclut FREE ; alimente bloc tarifs + JSON-LD offers |
 | Contenu transverse | `config/site-content.ts` | `CALENDLY_URL`, `DISCLAIMER_SHORT`, `DATA_ATTRIBUTION`, `APP_ENTRY_PATH` | accueil, pages métier, pied de page |
 | Page solution | `config/solutions.ts` | `slug`, `navLabel`, `linkLabel`, `summary` | 1-1 avec un `content/<slug>.ts` ; trois listes : `SOLUTION_PAGES` (navigation, bloc Solutions), `GUIDE_PAGES` (accueil « Guides pratiques », pied de page), `ZONE_PAGES` (filles de `/zonage-plu`) ; `ALL_EDITORIAL_PAGES` alimente sitemap et tests ; `relatedPages` lève une erreur au build si un lien « À lire aussi » vise une page inconnue |
@@ -99,7 +99,7 @@ Le DSN Sentry est écrit en dur dans 3 fichiers (valeur publique par conception,
 ## 7. Exigences non fonctionnelles
 
 - **SEO** : chaque page publique a `title`, `description`, `canonical` auto-référent, OpenGraph/Twitter avec image, et figure dans `app/sitemap.ts` (`lastModified` figé, mis à jour à la main). [Lu]
-- **GEO** : `llms.txt` et JSON-LD cohérents avec le HTML visible (prix, offres, ancien nom). [Lu : commit `f0a1656`]
+- **GEO** : `llms.txt` et JSON-LD cohérents avec le HTML visible (prix, offres, FAQ, éditeur). L'ancien nom du produit n'apparaît plus ni dans le contenu visible, ni dans `llms.txt`, ni en `alternateName` (décision du 21/10/2026). Pas de balise `meta keywords`. [Lu : commit `f0a1656`, mis à jour le 21/10]
 - **Indexation** : après une mise en ligne de nouvelles pages, Nadir lance `node scripts/indexnow.mjs` (IndexNow) et soumet `https://fonciable.fr/sitemap.xml` dans Google Search Console. La clé IndexNow ne doit pas changer sans renommer `public/<clé>.txt` et la constante `KEY` du script ensemble.
 - **Accessibilité / mouvement** : respect de `prefers-reduced-motion`, contenu visible sans JS (`<noscript>` force `.reveal` visible). [Lu]
 - **Performance** : CMP chargé en `async` (ne doit plus être l'élément LCP). Core Web Vitals cibles : **[À CONFIRMER]** (non mesurés).

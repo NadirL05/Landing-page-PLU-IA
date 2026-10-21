@@ -39,11 +39,11 @@ Problème propre à la landing : un prospect qui arrive sur fonciable.fr doit co
 
 ### Utile — déjà en production
 - Découverte SEO/GEO : `sitemap.xml`, `robots.txt` (Content-Signal), `llms.txt`, `rsl.xml`, JSON-LD (SoftwareApplication, Organization, WebSite, FAQPage, WebPage, BreadcrumbList), image OpenGraph. [Lu]
-- Cartes de découverte agents : `/.well-known/mcp/server-card.json` (transport « none », documenté honnêtement) et `/.well-known/agent-skills/index.json`. [Lu]
+- Cartes de découverte agents : `/.well-known/mcp/server-card.json` (transport « none », documenté honnêtement) et `/.well-known/agent-skills/index.json` (skill `fonciable-context`, renommé le 21/10/2026). [Lu]
 - Scène 3D au scroll (React Three Fiber) avec repli `prefers-reduced-motion` et détection WebGL. [Lu : `components/PageScene.tsx`, `hooks/useSceneCapabilities.ts`]
 - Attribution des campagnes : transmission filtrée de `gclid`, `utm_*`, `fbclid` vers l'app. [Lu : `lib/analytics.ts`] (Note : aucun CTA n'utilise aujourd'hui `preserveQuery` — [Lu : grep], donc la transmission n'est pas active.)
-- Page de démonstration autonome `/demonstration.html` (noindex). [Lu : `public/demonstration.html`]
-- Redirections : `plu-ia.agentimpact.fr` → `fonciable.fr` (308, chemin conservé), `/tarif(s)` → `/#tarifs`. [Lu : `next.config.ts`]
+- Page de démonstration vidéo : retirée le 21/10/2026 (narration « PLU-IA ») en attendant un nouvel enregistrement. TODO(NADIR) : nouvelle vidéo.
+- Redirections : `plu-ia.agentimpact.fr` → `fonciable.fr` (308, chemin conservé), `/tarif(s)` → `/#tarifs`, `/demonstration.html` et `/demonstration/*` → `/`. [Lu : `next.config.ts`]
 
 ### Utile — en cours : contenus SEO cœur (décision de Nadir du 20/10/2026)
 Objectif : entrer dans le **top 10 Google France** sur 5 requêtes cœur de cible, **au plus tard le 20/01/2027**. Données : `SEO-GEO-Marketing/missions/fonciable/v4/drafts/11_donnees_mots_cles.md` (volumes DataForSEO Google Ads France, top 10 relevés le 20/10/2026). Au 20/10/2026, fonciable.fr n'a aucun domaine référent ni mot-clé positionné.

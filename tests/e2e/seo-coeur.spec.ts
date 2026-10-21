@@ -11,8 +11,8 @@ import { BRAND_URL, expect, readJsonLd, schemaTypes, test } from "./fixtures";
 test.describe("E1 — /bilan-promoteur", () => {
   test("H1, title et modèle XLSX réellement servi", async ({ page, request }) => {
     await page.goto("/bilan-promoteur");
-    await expect(page.locator("h1")).toHaveText("Bilan promoteur : la méthode, les postes et un modèle Excel");
-    await expect(page).toHaveTitle("Bilan promoteur : méthode, postes et modèle Excel | Fonciable");
+    await expect(page.locator("h1")).toHaveText("Bilan promoteur en ligne : la méthode, les postes et un modèle Excel");
+    await expect(page).toHaveTitle("Bilan promoteur en ligne et modèle Excel gratuit | Fonciable");
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", `${BRAND_URL}/bilan-promoteur`);
     const link = page.locator('main a[href="/modeles/bilan-promoteur-exemple-fictif.xlsx"]');
     await expect(link).toHaveCount(1);
@@ -155,6 +155,16 @@ test.describe("E6 — maillage et découverte", () => {
     const text = await (await request.get("/llms.txt")).text();
     for (const p of ALL_EDITORIAL_PAGES) expect(text, p.slug).toContain(`(${BRAND_URL}${p.slug})`);
     expect(text).toContain(`${BRAND_URL}/modeles/bilan-promoteur-exemple-fictif.xlsx`);
+  });
+
+  test("agent-skills : identifiant fonciable-context, plus d'ancien nom", async ({ request }) => {
+    const response = await request.get("/.well-known/agent-skills/index.json");
+    expect(response.status()).toBe(200);
+    const body = await response.text();
+    const index = JSON.parse(body) as { skills: { name: string; url: string }[] };
+    expect(index.skills.map((s) => s.name)).toEqual(["fonciable-context"]);
+    expect(index.skills[0].url).toBe(`${BRAND_URL}/llms.txt`);
+    expect(body).not.toMatch(/plu[- ]ia/i);
   });
 
   test("aucun contenu principal ne mentionne l'ancien nom ; pas de tiret cadratin sur les pages § E", async ({ page }) => {

@@ -16,7 +16,7 @@ import { GUIDE_PAGES, SOLUTION_PAGES, ZONE_PAGES } from "@/config/solutions";
  * ce que les moteurs finissent par ignorer. À mettre à jour à la main lors
  * d'une modification éditoriale substantielle.
  */
-const SITE_LAST_MODIFIED = "2026-10-20";
+const SITE_LAST_MODIFIED = "2026-10-21";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

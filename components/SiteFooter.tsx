@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BRAND_NAME, FORMER_BRAND_NAME, APP_URL, COMPANY_NAME, COMPANY_URL } from "@/config/brand";
+import { BRAND_NAME, APP_URL, COMPANY_NAME, COMPANY_URL } from "@/config/brand";
 import { GUIDE_PAGES, SOLUTION_PAGES } from "@/config/solutions";
 import { CALENDLY_URL, DATA_ATTRIBUTION, DISCLAIMER_SHORT } from "@/config/site-content";
 
@@ -62,7 +62,7 @@ export function SiteFooter() {
             </p>
             <p className="mt-4 max-w-sm text-[11px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{DATA_ATTRIBUTION}</p>
             <p className="mt-3 text-[11px]" style={{ color: "var(--ink-soft)" }}>
-              {BRAND_NAME} (anciennement {FORMER_BRAND_NAME}), un service <a href={COMPANY_URL} className="underline transition hover:opacity-70">{COMPANY_NAME}</a>.
+              Édité par <a href={COMPANY_URL} className="underline transition hover:opacity-70">{COMPANY_NAME}</a>.
             </p>
           </div>
 

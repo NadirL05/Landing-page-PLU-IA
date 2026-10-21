@@ -4,7 +4,7 @@ Tranché par Nadir le 2026-10-20.
 
 - **Slug** : `/analyse-plu-parcelle`
 - **H1** : « Analyse PLU d'une parcelle : zonage, règles et constructibilité, sources à l'appui »
-- **metaTitle** : « Analyse PLU d'une parcelle : zonage, règles et constructibilité » (+ « | Fonciable » par le layout)
+- **metaTitle** : « Analyse PLU d'une parcelle : zonage et règles » (+ « | Fonciable » par le layout ; raccourci le 21/10/2026 pour tenir en 60 caractères)
 - **Intention** : comprendre comment lire le PLU d'une parcelle (zone, secteur, règles, constructibilité) et ce qu'un outil peut en dire avec ses sources.
 - **Requêtes cibles** : « analyse PLU parcelle », « constructibilité terrain », « règles PLU d'une parcelle », « surface constructible ».
 - **Public** : promoteurs, marchands de biens, architectes. Vouvoiement, pas de promesse de délai ni de résultat, pas de tiret cadratin.

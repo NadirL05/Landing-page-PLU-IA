@@ -34,9 +34,9 @@ export const ZONAGE_PLU: MetierPageContent = {
   navLabel: "Zonage PLU",
   related: ["/zonage-plu/zone-u", "/zonage-plu/zone-au", "/zonage-plu/zone-a", "/zonage-plu/zone-n", "/terrain-constructible", "/analyse-plu-parcelle"],
 
-  metaTitle: "Zonage PLU : zones U, AU, A et N, et leurs sous-secteurs",
+  metaTitle: "Zonage PLU : zones U, AU, A, N et sous-secteurs",
   metaDescription:
-    "Zonage PLU : les zones U, AU, A et N selon le code de l'urbanisme, pourquoi UA, UB ou AUa varient d'un PLU à l'autre, et comment trouver la zone d'une parcelle.",
+    "Zonage PLU : zones U, AU, A et N selon le code de l'urbanisme, pourquoi UA, UB ou AUa varient d'un PLU à l'autre, comment trouver la zone d'une parcelle.",
   dateModified: "2026-10-20",
 
   eyebrow: "Zones U · AU · A · N · sous-secteurs",

@@ -10,9 +10,10 @@ export async function GET() {
     $schema: "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
     skills: [
       {
-        // Identifiant technique historique conservé pour ne pas casser les
-        // consommateurs ayant déjà enregistré cette ressource de découverte.
-        name: "plu-ia-context",
+        // Identifiant renommé le 21/10/2026 (ancien nom de marque retiré,
+        // décision de Nadir ; historique dans docs/IMPLEMENTATION_PLAN.md F8).
+        // Aucune URL ne contenait l'ancien identifiant : pas de redirection.
+        name: "fonciable-context",
         type: "context",
         description:
           "Contexte Fonciable : analyse de parcelle française (zonage PLU, enveloppe constructible, comparables DVF, risques Géorisques, bilan promoteur) pour les professionnels de l'immobilier et de la promotion. Voir llms.txt pour le résumé complet du produit, des sources de données et des tarifs.",
