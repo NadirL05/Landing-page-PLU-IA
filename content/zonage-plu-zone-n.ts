@@ -70,7 +70,7 @@ export const ZONE_N: MetierPageContent = {
   problem: {
     title: "En zone N, le potentiel constructible n'est pas un calcul",
     body: [
-      "Une parcelle boisée ou en bord de rivière peut sembler vaste et desservie. Si elle est classée en zone N, sa valeur pour une opération neuve est nulle, quelle que soit sa surface.",
+      "Une parcelle boisée ou en bord de rivière peut sembler vaste et desservie. Si elle est classée en zone N, sa valeur pour une opération neuve est en principe nulle, quelle que soit sa surface, sauf secteur de taille et de capacité d'accueil limitées délimité par le PLU.",
     ],
     points: [
       { title: "Cinq motifs de protection", body: "Paysage, forêt, caractère naturel, ressources, risques : le motif oriente souvent ce que le règlement admet." },

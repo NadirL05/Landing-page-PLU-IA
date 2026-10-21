@@ -166,8 +166,7 @@ export const ANALYSE_PLU_PARCELLE: MetierPageContent = {
       { label: "Surface cadastrale", value: "538 m²" },
       { label: "Zone du PLUm de Nantes Métropole", value: "UMap (zone urbaine U)" },
       { label: "Libellé du secteur", value: "Secteur de développement des centralités actuelles ou en devenir" },
-      { label: "Dossier", value: "Permis de construire PC0441092600175" },
-      { label: "Décision publiée", value: "Refus du 8 octobre 2026" },
+      { label: "Décision publiée", value: "Refus d'un permis de construire, 8 octobre 2026" },
     ],
     caption:
       "Valeurs relevées le 20 octobre 2026 : surface et référence à l'API Carto Cadastre de l'IGN, zone au Géoportail de l'Urbanisme, décision au jeu de données « Demandes d'autorisation et décisions d'urbanisme de Nantes Métropole » (data.nantesmetropole.fr, Licence Ouverte). Ce refus concerne un projet précis : il ne dit rien de ce qu'un autre projet pourrait obtenir sur ce terrain. Fonciable n'autorise rien ; seule la mairie instruit et décide.",
