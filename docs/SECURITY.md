@@ -44,6 +44,10 @@
   2. Durées de conservation non chiffrées (« durée nécessaire », « durées configurées dans le CMP ») → plan C2 **[À CONFIRMER : durées]**.
   3. Transferts hors UE (Vercel Inc., Google, Meta) mentionnés de façon générique ; garanties précises **[À CONFIRMER]**.
 
+  **Audit CNIL « mesure d'audience sans consentement » (2026-10-23, lecture du code, décision Nadir du 23/10/2026 pour agentimpact.fr) :**
+  - fonciable.fr n'a **aucune mesure d'audience exemptée de consentement** : pas de Vercel Analytics ni Speed Insights (absents de `package.json`), pas d'analytics maison ; GA4 et Meta Pixel ne se chargent qu'après consentement (`ConsentGate`, fail closed), donc hors du régime d'exemption et conformes sur ce point. Rien à corriger dans le code pour ce point.
+  - **Sentry côté client n'est pas exemptable** et se charge sans consentement (point 1 ci-dessus, plan C1) : Session Replay (10 % des sessions) enregistre la navigation, or l'outil d'auto-évaluation CNIL de juillet 2025 exige la « désactivation de toute fonctionnalité du type rejeu de session » ; `sendDefaultPii: true` transmet l'adresse IP, alors que la CNIL demande de la tronquer (au moins le dernier octet). Sentry n'est pas non plus de la mesure d'audience : seul un suivi d'erreurs sans replay ni PII pourrait relever du « strictement nécessaire ». Options pour C1 (décision produit, non appliquée) : retirer `replayIntegration` et passer `sendDefaultPii: false` sans consentement, ou monter Sentry client derrière `ConsentGate`. Sources : [fiche CNIL](https://www.cnil.fr/fr/cookies-et-autres-traceurs/regles/cookies-solutions-pour-les-outils-de-mesure-daudience), [outil d'auto-évaluation](https://www.cnil.fr/sites/default/files/2025-07/outil_d_auto-evaluation_mesure_d_audience.pdf), [lignes directrices 2020-091 art. 5](https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000042388179).
+
 ## Synthèse
 
 | Statut | Points |
