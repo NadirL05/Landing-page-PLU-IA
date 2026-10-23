@@ -15,7 +15,7 @@ function faqPlanPrice(plan: (typeof PUBLIC_PLAN_LIST)[number]): string {
 /**
  * Dérivé des offres affichées : la FAQ et le JSON-LD suivent la grille
  * tarifaire. La mention fiscale est celle affichée sous chaque prix
- * (PRICE_TAX_NOTICE) : prix HT, TVA 20 % en sus (assujetti depuis le 21/10/2026).
+ * (PRICE_TAX_NOTICE) : franchise en base, donc ni « HT » ni « TTC ».
  */
 const pricingAnswer = `Les offres présentées sont : ${PUBLIC_PLAN_LIST.map((plan) => `${plan.name} : ${faqPlanPrice(plan)}`).join(" ; ")}. ${PRICE_TAX_NOTICE} Pour une présentation adaptée à votre projet, prenez rendez-vous.`;
 

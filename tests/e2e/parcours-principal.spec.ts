@@ -61,9 +61,11 @@ test.describe("Parcours principal — accueil", () => {
     }
     await expect(tarifs.getByText("Découverte", { exact: true })).toHaveCount(0);
     await expect(tarifs.getByText(/gratuit/i)).toHaveCount(0);
-    // Mention fiscale : assujetti à la TVA depuis le 21/10/2026.
-    await expect(tarifs.getByText("Prix hors taxes (HT), TVA 20 % en sus.").first()).toBeVisible();
-    await expect(page.getByText(/293 B|TVA non applicable/)).toHaveCount(0);
+    // Mention fiscale : franchise en base de TVA (art. 293 B du CGI), confirmée le 23/10/2026.
+    await expect(
+      tarifs.getByText("Prix nets — TVA non applicable, article 293 B du CGI (franchise en base).").first(),
+    ).toBeVisible();
+    await expect(page.getByText(/TVA 20\s?%|HT\), TVA|assujetti/i)).toHaveCount(0);
     // Deux souscriptions (Starter, Pro) + un contact (Entreprise).
     const subscribe = tarifs.getByRole("link", { name: "Souscrire" });
     await expect(subscribe).toHaveCount(2);

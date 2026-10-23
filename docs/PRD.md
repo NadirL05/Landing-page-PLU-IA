@@ -78,7 +78,7 @@ Règles : chaque affirmation sur Fonciable a son fichier de preuve dans `sas-plu
 
 ## 6. Modèle de revenu et prix
 
-Copie d'affichage de `config/plans.ts` (source de vérité : `sas-plu-3d/src/config/plans.ts`, non relue ici → concordance **[À CONFIRMER]**). Prix hors taxes (HT), TVA 20 % en sus (Nadir assujetti à la TVA, confirmé le 21/10/2026). Numéro de TVA intracommunautaire à publier dans les mentions légales : **[À CONFIRMER]**.
+Copie d'affichage de `config/plans.ts` (source de vérité : `sas-plu-3d/src/config/plans.ts`, non relue ici → concordance **[À CONFIRMER]**). Prix nets, TVA non applicable (art. 293 B du CGI, franchise en base ; confirmé par Nadir le 23/10/2026 — la mention « HT, TVA 20 % en sus » publiée le 21/10 était une erreur). Pas de numéro de TVA intracommunautaire (sans objet en franchise).
 
 | Plan | Prix affiché | Quota | Prospection | Veille | Support e-mail | Affiché sur la landing |
 |---|---|---|---|---|---|---|

@@ -32,8 +32,9 @@ export interface Plan {
   features: PlanFeature[];
 }
 
-/** Nadir Lahyani EI est assujetti à la TVA (confirmé le 21/10/2026) : prix affichés HT. */
-export const PRICE_TAX_NOTICE = "Prix hors taxes (HT), TVA 20 % en sus.";
+/** Nadir Lahyani EI relève de la franchise en base de TVA (confirmé le 23/10/2026) : ni « HT » ni « TTC ». */
+export const PRICE_TAX_NOTICE =
+  "Prix nets — TVA non applicable, article 293 B du CGI (franchise en base).";
 
 const CORE_FEATURES: PlanFeature[] = [
   { label: "Analyse automatisée du PLU (zonage, règles, contraintes)", included: true },
