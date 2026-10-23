@@ -435,7 +435,10 @@ export default function Home() {
                   <div className="mt-4 px-3 py-2 text-[13px]" style={{ background: "var(--brand-soft)", color: "var(--ink)" }}>
                     {plan.quotaLabel}
                   </div>
-                  <ul className="mt-6 flex-1 space-y-2.5 text-[13px]" style={{ color: "var(--ink)" }}>
+                  {plan.includes ? (
+                    <p className="mt-6 text-[13px] font-semibold" style={{ color: "var(--ink)" }}>{plan.includes}</p>
+                  ) : null}
+                  <ul className={`${plan.includes ? "mt-3" : "mt-6"} flex-1 space-y-2.5 text-[13px]`} style={{ color: "var(--ink)" }}>
                     {plan.features.map((feature) => (
                       <li key={feature.label} className="flex gap-2" style={!feature.included ? { color: "var(--ink-soft)" } : undefined}>
                         {feature.included ? <IconCheck /> : <IconX />}
@@ -445,10 +448,12 @@ export default function Home() {
                         </span>
                       </li>
                     ))}
-                    <li className="flex gap-2">
-                      <IconCheck />
-                      <span>{plan.retentionLabel}</span>
-                    </li>
+                    {plan.includes ? null : (
+                      <li className="flex gap-2">
+                        <IconCheck />
+                        <span>{plan.retentionLabel}</span>
+                      </li>
+                    )}
                   </ul>
                   {plan.id === "ENTERPRISE" ? (
                     <TrackedCta

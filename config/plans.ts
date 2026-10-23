@@ -29,6 +29,8 @@ export interface Plan {
   priceLabel: string;
   quotaLabel: string;
   retentionLabel: string;
+  /** Offre précédente reprise en entier (« Tout Starter, plus : »), puis seules les capacités en plus. */
+  includes?: string;
   features: PlanFeature[];
 }
 
@@ -40,15 +42,21 @@ const CORE_FEATURES: PlanFeature[] = [
   { label: "Bilan promoteur et étude de faisabilité financière", included: true },
   { label: "Références de prix issues des données DVF", included: true },
   { label: "Visualisation 3D du terrain et de l'enveloppe constructible", included: true },
+  { label: "Simulation de division d'un terrain", included: true },
   { label: "Export PDF du rapport d'analyse", included: true },
   { label: "Historique des projets et des analyses", included: true },
 ];
 
+/**
+ * 2026-10-23 : Starter et Pro ne se distinguent plus seulement par les volumes
+ * (décision de Nadir). Pro ajoute le lotissement et l'espace d'équipe, réservés
+ * côté application (sas-plu-3d, hasProCapabilities).
+ */
 export const PLAN_LIST: readonly Plan[] = [
   {
     id: "STARTER",
     name: "Starter",
-    tagline: "Pour un promoteur local qui étudie quelques terrains par mois.",
+    tagline: "Pour étudier un terrain : règles, faisabilité, division.",
     priceLabel: "199 € / mois",
     quotaLabel: "15 analyses / 30 jours",
     retentionLabel: "Conservation de vos analyses sans limite de durée",
@@ -62,15 +70,17 @@ export const PLAN_LIST: readonly Plan[] = [
   {
     id: "PRO",
     name: "Pro",
-    tagline: "Pour un promoteur actif, plusieurs programmes en parallèle.",
+    tagline: "Pour trouver des terrains et monter des opérations, en équipe.",
     priceLabel: "599 € / mois",
     quotaLabel: "100 analyses / 30 jours",
     retentionLabel: "Conservation de vos analyses sans limite de durée",
+    includes: "Tout Starter, plus :",
     features: [
-      ...CORE_FEATURES,
+      { label: "Étude de lotissement : lots à bâtir, voie nouvelle, variantes", included: true },
+      { label: "Espace d'équipe partagé avec vos collaborateurs", included: true },
       { label: "Prospection foncière (scan de gisement)", included: true, note: "10 scans / mois" },
       { label: "Veille territoriale", included: true, note: "5 territoires surveillés" },
-      { label: "Support par e-mail", included: true },
+      { label: "Support par e-mail prioritaire", included: true },
     ],
   },
   {
@@ -80,12 +90,10 @@ export const PLAN_LIST: readonly Plan[] = [
     priceLabel: "Sur mesure",
     quotaLabel: "Volume d'analyses sur mesure",
     retentionLabel: "Conservation de vos analyses sans limite de durée",
+    includes: "Tout Pro, plus :",
     features: [
-      ...CORE_FEATURES,
-      { label: "Prospection foncière (scan de gisement)", included: true, note: "sur demande" },
-      { label: "Veille territoriale", included: true, note: "sur demande" },
-      { label: "Support par e-mail", included: true },
       { label: "Volume d'analyses adapté", included: true, note: "sur demande" },
+      { label: "Prospection et veille à la mesure de vos territoires", included: true, note: "sur demande" },
       { label: "Accompagnement à la prise en main", included: true, note: "sur demande" },
     ],
   },
