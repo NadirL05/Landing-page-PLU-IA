@@ -70,7 +70,7 @@ Prérequis bloquants : validation du cadrage ; slug, H1 et exemple tranchés par
   - Preuve (2026-10-20) : `npm test` = `eslint` + `tsc --noEmit` + `next build` + `playwright test` → 20 passés, 0 échec, ≈ 12 s sur le Mac mini. `test-results/` et `playwright-report/` ignorés (`.gitignore`, `eslint.config.mjs`). Vitest non ajouté : choix d'outil toujours [À CONFIRMER] (item 13).
 
 ### C. Durcissement et conformité (voir `SECURITY.md`)
-- [ ] **C1 — Sentry et RGPD** : décider si Sentry (Replay, `sendDefaultPii: true`) passe sous consentement ou est mentionné dans `/confidentialite` ; réduire `tracesSampleRate`. Fini quand : politique et configuration concordent. [À CONFIRMER : choix de Nadir]
+- [ ] **C1 — Sentry et RGPD** : décider si Sentry (Replay, `sendDefaultPii: true`) passe sous consentement ou est mentionné dans `/confidentialite` ; réduire `tracesSampleRate`. Fini quand : politique et configuration concordent. [À CONFIRMER : choix de Nadir] Audit CNIL du 23/10/2026 (SECURITY.md, RGPD) : une simple mention dans `/confidentialite` ne suffit pas, le rejeu de session et l'IP complète excluent l'exemption de consentement ; options = Sentry client sans Replay ni PII, ou derrière `ConsentGate`.
 - [ ] **C2 — Durées de conservation chiffrées** dans `/confidentialite` (aujourd'hui génériques). Fini quand : chaque traitement a une durée. [À CONFIRMER : durées]
 - [x] **C3 — Corriger le commentaire obsolète** au-dessus de `CALENDLY_URL` (`config/site-content.ts`). Fini quand : commentaire exact. Fait le 2026-10-20 : le commentaire décrit le lien Calendly et ses usages ; `git diff` relu, lint, `tsc --noEmit` et build OK.
 - [ ] **C4 — Ajouter `.mcp.json` à `.gitignore`** ou le versionner volontairement [À CONFIRMER].
