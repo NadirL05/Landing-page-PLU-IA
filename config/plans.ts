@@ -14,6 +14,9 @@
  *
  * 2026-10-21 : l'offre gratuite a été retirée (décision de Nadir). Seules
  * restent Starter (199 €/mois), Pro (599 €/mois) et Entreprise (sur devis).
+ *
+ * 2026-10-24 : grille définitive (décision de Nadir) : Starter 79 €/mois
+ * (30 analyses, 3 scans, 3 veilles), Pro 199 €/mois. Ne plus y toucher.
  */
 
 export interface PlanFeature {
@@ -57,13 +60,13 @@ export const PLAN_LIST: readonly Plan[] = [
     id: "STARTER",
     name: "Starter",
     tagline: "Pour étudier un terrain : règles, faisabilité, division.",
-    priceLabel: "199 € / mois",
-    quotaLabel: "15 analyses / 30 jours",
+    priceLabel: "79 € / mois",
+    quotaLabel: "30 analyses / 30 jours",
     retentionLabel: "Conservation de vos analyses sans limite de durée",
     features: [
       ...CORE_FEATURES,
-      { label: "Prospection foncière (scan de gisement)", included: true, note: "2 scans / mois" },
-      { label: "Veille territoriale", included: true, note: "2 territoires surveillés" },
+      { label: "Prospection foncière (scan de gisement)", included: true, note: "3 scans / mois" },
+      { label: "Veille territoriale", included: true, note: "3 territoires surveillés" },
       { label: "Support par e-mail", included: true },
     ],
   },
@@ -71,7 +74,7 @@ export const PLAN_LIST: readonly Plan[] = [
     id: "PRO",
     name: "Pro",
     tagline: "Pour trouver des terrains et monter des opérations, en équipe.",
-    priceLabel: "599 € / mois",
+    priceLabel: "199 € / mois",
     quotaLabel: "100 analyses / 30 jours",
     retentionLabel: "Conservation de vos analyses sans limite de durée",
     includes: "Tout Starter, plus :",

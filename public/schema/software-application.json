@@ -16,13 +16,13 @@
     {
       "@type": "Offer",
       "name": "Starter",
-      "price": "199",
+      "price": "79",
       "priceCurrency": "EUR"
     },
     {
       "@type": "Offer",
       "name": "Pro",
-      "price": "599",
+      "price": "199",
       "priceCurrency": "EUR"
     },
     {

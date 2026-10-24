@@ -25,7 +25,7 @@ test.describe("Parcours principal — accueil", () => {
     expect(headers["x-content-type-options"]).toBe("nosniff");
   });
 
-  test("§3.3 JSON-LD : SoftwareApplication avec Starter 199 et Pro 599", async ({ page }) => {
+  test("§3.3 JSON-LD : SoftwareApplication avec Starter 79 et Pro 199", async ({ page }) => {
     await page.goto("/");
     const blocks = await readJsonLd(page);
     expect(schemaTypes(blocks)).toContain("SoftwareApplication");
@@ -34,8 +34,8 @@ test.describe("Parcours principal — accueil", () => {
     ) as { offers: { name: string; price?: string }[] };
     expect(app.offers.map((o) => o.name)).toEqual(["Starter", "Pro", "Entreprise"]);
     const prices = Object.fromEntries(app.offers.map((o) => [o.name, o.price]));
-    expect(prices.Starter).toBe("199");
-    expect(prices.Pro).toBe("599");
+    expect(prices.Starter).toBe("79");
+    expect(prices.Pro).toBe("199");
     // Aucune offre gratuite (offre retirée le 21/10/2026).
     expect(app.offers.some((o) => o.price === "0")).toBe(false);
   });
