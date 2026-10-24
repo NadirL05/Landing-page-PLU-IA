@@ -14,6 +14,9 @@
  *
  * 2026-10-21 : l'offre gratuite a été retirée (décision de Nadir). Seules
  * restent Starter (199 €/mois), Pro (599 €/mois) et Entreprise (sur devis).
+ *
+ * 2026-10-24 : grille définitive (décision de Nadir) : Starter 79 €/mois
+ * (30 analyses, 3 scans, 3 veilles), Pro 199 €/mois. Ne plus y toucher.
  */
 
 export interface PlanFeature {
@@ -34,8 +37,11 @@ export interface Plan {
   features: PlanFeature[];
 }
 
-/** Nadir Lahyani EI est assujetti à la TVA (confirmé le 21/10/2026) : prix affichés HT. */
-export const PRICE_TAX_NOTICE = "Prix hors taxes (HT), TVA 20 % en sus.";
+/**
+ * Franchise en base de TVA (art. 293 B du CGI), confirmée par Nadir le 24/10/2026 :
+ * prix nets, sans HT ni TTC. Même mention que sas-plu-3d (TVA_FRANCHISE_MENTION).
+ */
+export const PRICE_TAX_NOTICE = "Prix nets — TVA non applicable, article 293 B du code général des impôts.";
 
 const CORE_FEATURES: PlanFeature[] = [
   { label: "Analyse automatisée du PLU (zonage, règles, contraintes)", included: true },
@@ -57,13 +63,13 @@ export const PLAN_LIST: readonly Plan[] = [
     id: "STARTER",
     name: "Starter",
     tagline: "Pour étudier un terrain : règles, faisabilité, division.",
-    priceLabel: "199 € / mois",
-    quotaLabel: "15 analyses / 30 jours",
+    priceLabel: "79 € / mois",
+    quotaLabel: "30 analyses / 30 jours",
     retentionLabel: "Conservation de vos analyses sans limite de durée",
     features: [
       ...CORE_FEATURES,
-      { label: "Prospection foncière (scan de gisement)", included: true, note: "2 scans / mois" },
-      { label: "Veille territoriale", included: true, note: "2 territoires surveillés" },
+      { label: "Prospection foncière (scan de gisement)", included: true, note: "3 scans / mois" },
+      { label: "Veille territoriale", included: true, note: "3 territoires surveillés" },
       { label: "Support par e-mail", included: true },
     ],
   },
@@ -71,7 +77,7 @@ export const PLAN_LIST: readonly Plan[] = [
     id: "PRO",
     name: "Pro",
     tagline: "Pour trouver des terrains et monter des opérations, en équipe.",
-    priceLabel: "599 € / mois",
+    priceLabel: "199 € / mois",
     quotaLabel: "100 analyses / 30 jours",
     retentionLabel: "Conservation de vos analyses sans limite de durée",
     includes: "Tout Starter, plus :",

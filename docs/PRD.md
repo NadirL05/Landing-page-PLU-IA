@@ -78,15 +78,15 @@ Règles : chaque affirmation sur Fonciable a son fichier de preuve dans `sas-plu
 
 ## 6. Modèle de revenu et prix
 
-Copie d'affichage de `config/plans.ts` (source de vérité : `sas-plu-3d/src/config/plans.ts`, non relue ici → concordance **[À CONFIRMER]**). Prix hors taxes (HT), TVA 20 % en sus (Nadir assujetti à la TVA, confirmé le 21/10/2026). Numéro de TVA intracommunautaire à publier dans les mentions légales : **[À CONFIRMER]**.
+Copie d'affichage de `config/plans.ts` (source de vérité : `sas-plu-3d/src/config/plans.ts`, non relue ici → concordance **[À CONFIRMER]**). Prix nets, TVA non applicable (art. 293 B du CGI), franchise en base confirmée par Nadir le 24/10/2026.
 
 | Plan | Prix affiché | Quota | Prospection | Veille | Support e-mail | Affiché sur la landing |
 |---|---|---|---|---|---|---|
-| Starter | 199 € / mois | 15 analyses / 30 j | 2 scans / mois | 2 territoires | oui | Oui |
-| Pro | 599 € / mois | 100 analyses / 30 j | 10 scans / mois | 5 territoires | oui | Oui |
+| Starter | 79 € / mois | 30 analyses / 30 j | 3 scans / mois | 3 territoires | oui | Oui |
+| Pro | 199 € / mois | 100 analyses / 30 j | 10 scans / mois | 5 territoires | oui | Oui |
 | Entreprise | Sur mesure | sur mesure | sur demande | sur demande | oui | Oui (CTA Calendly) |
 
-Modèle : abonnement mensuel SaaS vendu sur `app.fonciable.fr` (checkout Stripe côté app). Trois offres seulement : Starter 199 €/mois, Pro 599 €/mois, Entreprise sur devis. L'offre gratuite a été retirée le 21/10/2026 (décision de Nadir) : plus aucune mention sur la landing, la FAQ, le JSON-LD ni `llms.txt`. Retrait de l'offre gratuite côté app (`sas-plu-3d`) : hors de ce dépôt, **[À CONFIRMER]**.
+Modèle : abonnement mensuel SaaS vendu sur `app.fonciable.fr` (checkout Stripe côté app). Trois offres seulement : Starter 79 €/mois, Pro 199 €/mois, Entreprise sur devis. L'offre gratuite a été retirée le 21/10/2026 (décision de Nadir) : plus aucune mention sur la landing, la FAQ, le JSON-LD ni `llms.txt`. Retrait de l'offre gratuite côté app (`sas-plu-3d`) : hors de ce dépôt, **[À CONFIRMER]**.
 
 ## 7. Indicateurs de succès (mesurables)
 

@@ -29,9 +29,9 @@ Pré-requis (automatisés par `playwright.config.ts`) : `npm run build` puis `ne
 
 1. `GET /` → statut 200 ; `<h1>` visible ; `<title>` contient « Fonciable ».
 2. Les en-têtes de réponse contiennent `content-security-policy`, `strict-transport-security`, `x-frame-options: DENY`.
-3. Le JSON-LD de la page se parse (`JSON.parse` de chaque `script[type="application/ld+json"]`) et contient `SoftwareApplication` avec exactement 3 offers (Starter 199, Pro 599, Entreprise) et aucune offre à 0.
+3. Le JSON-LD de la page se parse (`JSON.parse` de chaque `script[type="application/ld+json"]`) et contient `SoftwareApplication` avec exactement 3 offers (Starter 79, Pro 199, Entreprise) et aucune offre à 0.
 4. Sans consentement : aucun `script[src*="googletagmanager"]` ni `connect.facebook.net` dans le DOM.
-5. Clic sur l'ancre « Tarifs » → la section `#tarifs` est dans la fenêtre ; 3 cartes (Starter, Pro, Entreprise) ; aucune carte « Découverte » ni mention « gratuit » (offre gratuite retirée le 21/10/2026) ; mention « Prix hors taxes (HT), TVA 20 % en sus. » visible, aucune mention « 293 B » / « TVA non applicable » sur la page.
+5. Clic sur l'ancre « Tarifs » → la section `#tarifs` est dans la fenêtre ; 3 cartes (Starter, Pro, Entreprise) ; aucune carte « Découverte » ni mention « gratuit » (offre gratuite retirée le 21/10/2026) ; mention « Prix nets — TVA non applicable, article 293 B du code général des impôts. » visible, aucune mention « hors taxes » / « TVA 20 % » sur la page (franchise en base confirmée le 24/10/2026).
 6. Clic sur le CTA hero « Prendre rendez-vous » → une nouvelle page s'ouvre sur `https://calendly.com/nadir-lahyani-agentimpact/30min` (requête interceptée).
 7. Retour, clic « Souscrire » (Pro) → navigation vers `https://app.fonciable.fr/checkout/pro` (interceptée).
 8. Clic « Ouvrir l'application » (en-tête) → `https://app.fonciable.fr/dashboard` (intercepté).
@@ -92,7 +92,7 @@ npm test   # = lint + next typegen/tsc + next build --webpack + Playwright
 
 | Fichier | Test | Couvre |
 |---|---|---|
-| `tests/e2e/parcours-principal.spec.ts` | §3.1 à §3.10 | accueil 200 + H1 + titre ; en-têtes CSP/HSTS/XFO/nosniff ; JSON-LD `SoftwareApplication` Starter 199 / Pro 599 ; aucun traceur sans consentement ; ancre Tarifs (3 offres, pas de Découverte, href des CTA) ; CTA hero → Calendly nouvel onglet ; Souscrire Pro → `/checkout/pro` ; Ouvrir l'application → `/dashboard` ; menu mobile 390×844 ; `prefers-reduced-motion` sans erreur JS ni console |
+| `tests/e2e/parcours-principal.spec.ts` | §3.1 à §3.10 | accueil 200 + H1 + titre ; en-têtes CSP/HSTS/XFO/nosniff ; JSON-LD `SoftwareApplication` Starter 79 / Pro 199 ; aucun traceur sans consentement ; ancre Tarifs (3 offres, pas de Découverte, href des CTA) ; CTA hero → Calendly nouvel onglet ; Souscrire Pro → `/checkout/pro` ; Ouvrir l'application → `/dashboard` ; menu mobile 390×844 ; `prefers-reduced-motion` sans erreur JS ni console |
 | `tests/e2e/seo.spec.ts` | Sitemap | 7 URLs (accueil, chaque `SOLUTION_PAGES`, 2 pages légales), sans doublon |
 | | Chaque URL du sitemap | 200, H1 unique non vide, un seul `<main>`, canonical auto-référent, pas de `noindex`, chaque JSON-LD se parse (`@context` schema.org), title ≤ 60 caractères (suffixe « | Fonciable » compris), meta description non vide et ≤ 155 (depuis le 21/10/2026) |
 | | Chaque page métier | `WebPage` (url exacte), `BreadcrumbList` (accueil → page, positions continues), `FAQPage` non vide ; liens vers les autres pages métier et l'accueil |
