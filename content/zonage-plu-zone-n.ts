@@ -14,6 +14,14 @@ import type { MetierPageContent } from "@/components/metier/types";
  *  - zones N exclues des scans de prospection : src/lib/gisement-engine.ts ;
  *  - risques Géorisques : src/lib/plu-engine.ts:739 ; PPRI bloquant en zone
  *    rouge : src/config/plu-definitions.ts:73-80, src/lib/plu-engine.ts:2738-2745.
+ *
+ * Réécriture du 26/10/2026 (bloc « Comment Fonciable traite » et étapes,
+ * propres à la zone N ; vérifié sur sas-plu-3d commit 85370de) :
+ *  - libellé de la contrainte « … la construction neuve y est interdite
+ *    (zone naturelle) » : src/lib/plu-engine.ts:2982-2990 ;
+ *  - PPRI / PPRT bloquants seulement en zone réglementaire rouge :
+ *    src/config/plu-definitions.ts:73-80, src/lib/plu-engine.ts:2818-2825 ;
+ *  - servitudes via l'API Carto du GPU : liste des sources de cette page.
  */
 export const ZONE_N: MetierPageContent = {
   slug: "/zonage-plu/zone-n",
@@ -24,7 +32,7 @@ export const ZONE_N: MetierPageContent = {
   metaTitle: "Zone N du PLU : zone naturelle et forestière",
   metaDescription:
     "Zone N du PLU : cinq motifs de classement en zone naturelle et forestière (art. R151-24) et constructions qui peuvent y être autorisées (art. R151-25).",
-  dateModified: "2026-10-20",
+  dateModified: "2026-10-26",
 
   eyebrow: "Zonage PLU · zone naturelle et forestière",
   h1: "Zone N du PLU : la zone naturelle et forestière",
@@ -83,7 +91,7 @@ export const ZONE_N: MetierPageContent = {
     title: "Comment Fonciable traite une parcelle en zone N",
     intro: "L'outil n'affiche pas de potentiel là où la zone l'exclut.",
     items: [
-      { ref: "ZN.01", title: "Contrainte bloquante", body: "Une parcelle en zone N reçoit une contrainte bloquante « zone inconstructible » ; aucune surface constructible n'est calculée." },
+      { ref: "ZN.01", title: "Contrainte bloquante « zone naturelle »", body: "L'analyse affiche une contrainte bloquante qui nomme la zone et précise que la construction neuve y est interdite, au titre de la zone naturelle. Aucune surface constructible n'est calculée." },
       { ref: "ZN.02", title: "Aucun bilan promoteur", body: "Aucun bilan n'est produit en zone naturelle." },
       { ref: "ZN.03", title: "Risques recensés", body: "Les risques déclarés sur la commune sont relevés via Géorisques ; un plan de prévention du risque inondation est traité comme bloquant en zone rouge." },
     ],
@@ -92,9 +100,9 @@ export const ZONE_N: MetierPageContent = {
   steps: {
     title: "Lire une parcelle en zone N",
     items: [
-      { n: "01", title: "Confirmer la zone", body: "Zone et document en vigueur, lus dans le Géoportail de l'Urbanisme." },
-      { n: "02", title: "Écarter le calcul de potentiel", body: "La parcelle est signalée inconstructible pour une opération neuve." },
-      { n: "03", title: "Vérifier risques et bâti existant", body: "Risques recensés, puis possibilités liées au bâti existant à confirmer auprès de la mairie." },
+      { n: "01", title: "Lire la contrainte « zone naturelle »", body: "Zone et document en vigueur viennent du Géoportail de l'Urbanisme ; la parcelle est signalée fermée à la construction neuve." },
+      { n: "02", title: "Croiser avec les risques", body: "Risques déclarés sur la commune (Géorisques) et servitudes publiées : un plan de prévention du risque inondation ou technologique ne devient bloquant qu'en zone rouge." },
+      { n: "03", title: "Situer le motif de protection", body: "Paysage, forêt, ressources ou risque d'expansion des crues : le règlement de la commune et la mairie disent ce que permet le bâti existant." },
     ],
   },
 
