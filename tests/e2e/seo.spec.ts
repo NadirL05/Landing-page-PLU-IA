@@ -23,12 +23,13 @@ test.describe("Sitemap", () => {
   test("contient l'accueil, chaque page éditoriale (Solutions, guides, zones) et les pages légales, sans doublon", async ({ request }) => {
     const locs = await sitemapLocs(request);
     expect(new Set(locs).size).toBe(locs.length);
-    expect(locs).toContain(`${BRAND_URL}/`);
+    // Accueil sans slash final, aligné sur sa canonical (audit SEO du 26/10/2026).
+    expect(locs).toContain(BRAND_URL);
     for (const page of ALL_EDITORIAL_PAGES) expect(locs).toContain(`${BRAND_URL}${page.slug}`);
     expect(locs).toContain(`${BRAND_URL}/mentions-legales`);
     expect(locs).toContain(`${BRAND_URL}/confidentialite`);
     expect(locs).toHaveLength(ALL_EDITORIAL_PAGES.length + 3);
-    for (const loc of locs) expect(loc.startsWith(`${BRAND_URL}/`)).toBe(true);
+    for (const loc of locs) expect(loc === BRAND_URL || loc.startsWith(`${BRAND_URL}/`)).toBe(true);
   });
 
   test("chaque URL du sitemap : 200, H1 unique, canonical auto-référent, indexable, JSON-LD valide", async ({ page, request }) => {
