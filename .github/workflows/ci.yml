@@ -48,6 +48,13 @@ jobs:
         env:
           PW_SKIP_BUILD: "1"
 
+      # Audit SEO du 26/10/2026 : canonical, H1, titles/metas uniques, sitemap,
+      # liens internes sans 404 ni redirection, JSON-LD, page 404.
+      - name: Contrôle SEO (scripts/seo-check.mjs)
+        run: |
+          npx next start -p 3108 -H 127.0.0.1 &
+          node scripts/seo-check.mjs --base=http://127.0.0.1:3108
+
       - name: Rapport Playwright
         if: failure()
         uses: actions/upload-artifact@v4

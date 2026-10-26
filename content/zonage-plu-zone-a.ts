@@ -13,17 +13,25 @@ import type { MetierPageContent } from "@/components/metier/types";
  *  - aucun bilan en zone A : src/lib/finance/scenario.ts:146-147 ;
  *  - zones A exclues des scans de prospection : src/lib/gisement-engine.ts
  *    (constructible false), cf. content/prospection-fonciere.ts.
+ *
+ * Réécriture du 26/10/2026 (bloc « Comment Fonciable traite » et étapes,
+ * propres à la zone A ; vérifié sur sas-plu-3d commit 85370de) :
+ *  - libellé de la contrainte « … la construction neuve y est interdite
+ *    (zone agricole) » : src/lib/plu-engine.ts:2982-2990 ;
+ *  - parcelle à cheval sur une zone A/N : seule la surface des zones
+ *    constructibles entre dans la SDP autorisée : src/lib/gisement-engine.ts:537-540 ;
+ *  - candidats en zone A/N exclus du classement : src/lib/gisement-engine.ts:19-24.
  */
 export const ZONE_A: MetierPageContent = {
   slug: "/zonage-plu/zone-a",
   navLabel: "Zone A",
   parent: { navLabel: "Zonage PLU", slug: "/zonage-plu" },
-  related: ["/zonage-plu/zone-u", "/zonage-plu/zone-au", "/zonage-plu/zone-n", "/terrain-constructible"],
+  related: ["/analyse-plu-parcelle", "/zonage-plu/zone-u", "/zonage-plu/zone-au", "/zonage-plu/zone-n", "/terrain-constructible"],
 
   metaTitle: "Zone A du PLU (agricole) : ce qui est autorisé",
   metaDescription:
     "Zone A du PLU : définition de la zone agricole (art. R151-22), constructions qui peuvent y être autorisées (art. R151-23), effet sur un projet immobilier.",
-  dateModified: "2026-10-20",
+  dateModified: "2026-10-26",
 
   eyebrow: "Zonage PLU · zone agricole",
   h1: "Zone A du PLU : la zone agricole et ce qui peut y être autorisé",
@@ -78,18 +86,18 @@ export const ZONE_A: MetierPageContent = {
     title: "Comment Fonciable traite une parcelle en zone A",
     intro: "L'outil refuse de produire un potentiel constructible là où le code ne le permet pas.",
     items: [
-      { ref: "ZA.01", title: "Contrainte bloquante", body: "Une parcelle en zone A reçoit une contrainte bloquante « zone inconstructible » ; aucune surface constructible n'est calculée." },
+      { ref: "ZA.01", title: "Contrainte bloquante « zone agricole »", body: "L'analyse affiche une contrainte bloquante qui nomme la zone et précise que la construction neuve y est interdite, au titre de la zone agricole. L'emprise, la hauteur et la surface de plancher restent à zéro." },
       { ref: "ZA.02", title: "Aucun bilan promoteur", body: "Aucun bilan promoteur n'est produit en zone agricole : il afficherait une marge sur une opération impossible." },
-      { ref: "ZA.03", title: "Exclue de la prospection", body: "Les parcelles en zone agricole sont écartées des scans de prospection foncière." },
+      { ref: "ZA.03", title: "Hors du classement de prospection", body: "Lors d'un scan de prospection, une parcelle entièrement agricole n'apparaît pas dans la liste des candidats. Si elle est à cheval sur une zone constructible, seule la surface hors zone A est comptée, et l'outil le signale." },
     ],
   },
 
   steps: {
     title: "Lire une parcelle en zone A",
     items: [
-      { n: "01", title: "Confirmer la zone", body: "Zone et document en vigueur, lus dans le Géoportail de l'Urbanisme." },
-      { n: "02", title: "Écarter le calcul de potentiel", body: "La parcelle est signalée inconstructible pour une opération neuve." },
-      { n: "03", title: "Étudier le bâti existant", body: "Les possibilités liées à un bâtiment existant se vérifient dans le règlement et auprès de la mairie." },
+      { n: "01", title: "Repérer la part agricole", body: "Le zonage du Géoportail de l'Urbanisme est croisé avec le contour cadastral : on voit si toute la parcelle est en zone A ou seulement une partie." },
+      { n: "02", title: "Lire la contrainte « zone agricole »", body: "Sur la partie en zone A, aucune surface constructible ni aucun bilan n'est produit pour une opération neuve." },
+      { n: "03", title: "Étudier le bâti existant", body: "Extension, annexe ou changement de destination d'un bâtiment déjà présent : ces possibilités se vérifient dans le règlement et auprès de la mairie." },
     ],
   },
 

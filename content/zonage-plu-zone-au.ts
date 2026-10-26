@@ -25,7 +25,7 @@ export const ZONE_AU: MetierPageContent = {
   slug: "/zonage-plu/zone-au",
   navLabel: "Zone AU",
   parent: { navLabel: "Zonage PLU", slug: "/zonage-plu" },
-  related: ["/zonage-plu/zone-u", "/zonage-plu/zone-a", "/zonage-plu/zone-n", "/prospection-fonciere"],
+  related: ["/analyse-plu-parcelle", "/zonage-plu/zone-u", "/zonage-plu/zone-a", "/zonage-plu/zone-n", "/prospection-fonciere"],
 
   metaTitle: "Zone AU du PLU : 1AU, 2AU, AUa, ce qui change",
   metaDescription:

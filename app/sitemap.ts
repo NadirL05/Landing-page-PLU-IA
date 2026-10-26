@@ -21,7 +21,9 @@ const SITE_LAST_MODIFIED = "2026-10-21";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: `${BRAND_URL}/`,
+      // Sans slash final : identique à la canonical de l'accueil, que Next.js
+      // émet toujours sans slash pour la racine (resolve-url.js : origin seul).
+      url: BRAND_URL,
       lastModified: SITE_LAST_MODIFIED,
       changeFrequency: "weekly",
       priority: 1,

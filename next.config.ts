@@ -42,6 +42,21 @@ const CSP = [
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      // Ancien domaine : /tarif et /tarifs vont directement à l'ancre des
+      // tarifs, en un seul saut (sinon 308 vers fonciable.fr/tarifs puis 308
+      // vers /#tarifs). Doivent précéder la règle générique du domaine.
+      {
+        source: "/tarif",
+        has: [{ type: "host", value: "plu-ia.agentimpact.fr" }],
+        destination: "https://fonciable.fr/#tarifs",
+        permanent: true,
+      },
+      {
+        source: "/tarifs",
+        has: [{ type: "host", value: "plu-ia.agentimpact.fr" }],
+        destination: "https://fonciable.fr/#tarifs",
+        permanent: true,
+      },
       {
         source: "/:path*",
         has: [{ type: "host", value: "plu-ia.agentimpact.fr" }],

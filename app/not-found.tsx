@@ -5,9 +5,14 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { APP_URL } from "@/config/brand";
 import { APP_ENTRY_PATH } from "@/config/site-content";
 
+// Next.js émet déjà `<meta name="robots" content="noindex">` sur une 404 :
+// `robots: null` évite une seconde balise (et coupe la directive googleBot
+// du layout). `alternates: null` retire la canonical vers l'accueil héritée
+// du layout, sans objet sur une page d'erreur (audit SEO du 26/10/2026).
 export const metadata: Metadata = {
   title: "Page introuvable",
-  robots: { index: false, follow: true },
+  robots: null,
+  alternates: null,
 };
 
 export default function NotFound() {
