@@ -2,6 +2,12 @@
 
 Journal des changements SEO de la landing. Une entrée par lot, la plus récente en haut.
 
+## 2026-10-26 (bis) — branche `fix/qa2-seo` (QA SEO du 26/10, relais 20)
+
+- `content/zonage-plu-zone-n.ts` : à l'étape 02, « ne devient bloquant qu'en zone rouge » devient « est traité comme bloquant en zone rouge ». À l'étape 03, le titre devient « Vérifier le motif de protection dans le règlement ». Les deux formulations sont alignées sur sas-plu-3d@85370de (`isServitudeBlocking` ; l'outil n'identifie pas le motif de classement).
+- `app/sitemap.ts` : le lastmod de /faisabilite-fonciere, /zonage-plu/zone-a et /zonage-plu/zone-n reprend leur `dateModified` JSON-LD (2026-10-26), au lieu du 2026-10-21 commun.
+- Vérification : `npm test` (lint, typecheck, build, 40 tests Playwright) et `npm run seo:check` OK.
+
 ## 2026-10-26 — branche `seo/fix-gsc-indexation` (audit SEO/GEO du 26/10, kit RosoAI V4, rôle 18)
 
 Accord de Nadir le 26/10 (« go pour tout »). Non déployé : merge et mise en production par Nadir.
