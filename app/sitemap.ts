@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { BRAND_URL } from "@/config/brand";
 import { GUIDE_PAGES, SOLUTION_PAGES, ZONE_PAGES } from "@/config/solutions";
+import { FAISABILITE_FONCIERE } from "@/content/faisabilite-fonciere";
+import { ZONE_A } from "@/content/zonage-plu-zone-a";
+import { ZONE_N } from "@/content/zonage-plu-zone-n";
 
 /**
  * Sitemap de la landing.
@@ -18,6 +21,19 @@ import { GUIDE_PAGES, SOLUTION_PAGES, ZONE_PAGES } from "@/config/solutions";
  */
 const SITE_LAST_MODIFIED = "2026-10-21";
 
+/**
+ * Pages réécrites après le 21/10/2026 : leur lastmod reprend le
+ * `dateModified` publié dans leur JSON-LD, pour que les deux dates ne se
+ * contredisent pas (QA SEO du 26/10/2026, relais 20, section 6).
+ */
+const PAGE_LAST_MODIFIED: Readonly<Record<string, string>> = {
+  [FAISABILITE_FONCIERE.slug]: FAISABILITE_FONCIERE.dateModified,
+  [ZONE_A.slug]: ZONE_A.dateModified,
+  [ZONE_N.slug]: ZONE_N.dateModified,
+};
+
+const lastModifiedFor = (slug: string): string => PAGE_LAST_MODIFIED[slug] ?? SITE_LAST_MODIFIED;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
@@ -30,19 +46,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...SOLUTION_PAGES.map((page) => ({
       url: `${BRAND_URL}${page.slug}`,
-      lastModified: SITE_LAST_MODIFIED,
+      lastModified: lastModifiedFor(page.slug),
       changeFrequency: "monthly" as const,
       priority: 0.8,
     })),
     ...GUIDE_PAGES.map((page) => ({
       url: `${BRAND_URL}${page.slug}`,
-      lastModified: SITE_LAST_MODIFIED,
+      lastModified: lastModifiedFor(page.slug),
       changeFrequency: "monthly" as const,
       priority: 0.7,
     })),
     ...ZONE_PAGES.map((page) => ({
       url: `${BRAND_URL}${page.slug}`,
-      lastModified: SITE_LAST_MODIFIED,
+      lastModified: lastModifiedFor(page.slug),
       changeFrequency: "monthly" as const,
       priority: 0.6,
     })),
