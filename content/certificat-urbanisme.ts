@@ -47,7 +47,7 @@ export const CERTIFICAT_URBANISME: MetierPageContent = {
   eyebrow: "Certificat d'urbanisme · CUa · CUb",
   h1: "Certificat d'urbanisme : CU d'information ou opérationnel",
   lede:
-    "Le certificat d'urbanisme est un document gratuit, délivré au nom de la commune ou de l'État, qui indique les règles d'urbanisme applicables à un terrain et, s'il est opérationnel, si un projet précis y est réalisable. Il fige ces règles pendant dix-huit mois. Cette page explique les deux types de certificat, les délais, la durée de validité, ce que le certificat garantit ou non, et ce qu'on peut vérifier avant de le demander.",
+    "Le certificat d'urbanisme est un document gratuit, délivré au nom de la commune ou de l'État, qui indique les règles d'urbanisme applicables à un terrain et, s'il est opérationnel, si un projet précis y est réalisable. Il fige ces règles pendant dix-huit mois. Voici les deux types de certificat, les délais, la validité, ce qu'il garantit ou non, et ce qu'on peut vérifier avant.",
   ctaPrimaryLabel: "Prendre rendez-vous",
   ctaNote: "Parlons d'un terrain avant votre demande de certificat.",
 
@@ -126,8 +126,7 @@ export const CERTIFICAT_URBANISME: MetierPageContent = {
   problem: {
     title: "Deux mois d'instruction pour une question que l'on peut souvent trier avant",
     body: [
-      "Le CU opérationnel prend deux mois d'instruction. Pour un opérateur qui étudie plusieurs terrains, en demander un pour chaque piste n'est pas réaliste : il faut d'abord trier.",
-      "Ce tri repose sur des données publiques dispersées : zonage, règlement, servitudes, risques. Les réunir parcelle par parcelle prend du temps, et c'est ce temps que le certificat ne fait pas gagner.",
+      "Le CU opérationnel prend deux mois d'instruction. Pour un opérateur qui étudie plusieurs terrains, il faut d'abord trier, à partir de données publiques dispersées : zonage, règlement, servitudes, risques.",
     ],
     points: [
       {

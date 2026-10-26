@@ -218,6 +218,8 @@ async function checkArticle(
     await page.goto(source);
     expect(await page.locator(`main a[href="${path}"]`).count(), `${source} → ${path}`).toBeGreaterThan(0);
   }
+  // Revient sur l'article pour les contrôles propres à chaque test.
+  await page.goto(path);
 }
 
 test.describe("J1 — /surface-de-plancher", () => {
@@ -234,7 +236,6 @@ test.describe("J1 — /surface-de-plancher", () => {
       ],
       ["/bilan-promoteur", "/charge-fonciere", "/faisabilite-fonciere"],
     );
-    await page.goto("/surface-de-plancher");
     await expect(page.getByText("Exemple fictif, calcul de principe")).toBeVisible();
   });
 });

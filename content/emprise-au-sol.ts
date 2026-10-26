@@ -46,7 +46,7 @@ export const EMPRISE_AU_SOL: MetierPageContent = {
   eyebrow: "Emprise au sol · CES · règlement de zone",
   h1: "Emprise au sol et coefficient d'emprise au sol (CES)",
   lede:
-    "L'emprise au sol est la projection verticale du volume d'une construction sur le terrain, débords et surplombs inclus. Le coefficient d'emprise au sol, quand le PLU en fixe un, limite la part de la parcelle que les constructions peuvent couvrir. Cette page donne la définition légale, ce qui est compté ou non, la façon de lire le CES dans un règlement de zone, un exemple fictif et ce que Fonciable en calcule.",
+    "L'emprise au sol est la projection verticale du volume d'une construction sur le terrain, débords et surplombs inclus. Le coefficient d'emprise au sol, quand le PLU en fixe un, limite la part de la parcelle que les constructions peuvent couvrir. Voici la définition légale, ce qui est compté, la lecture du CES, un exemple fictif et ce que Fonciable en calcule.",
   ctaPrimaryLabel: "Prendre rendez-vous",
   ctaNote: "Parlons d'une parcelle et de l'emprise que son règlement autorise.",
 
@@ -121,8 +121,7 @@ export const EMPRISE_AU_SOL: MetierPageContent = {
   problem: {
     title: "Un chiffre de CES ne suffit pas à connaître l'emprise réalisable",
     body: [
-      "Le CES se lit en une ligne, mais il se combine avec d'autres règles : espaces verts, retraits, hauteur, implantation par rapport aux voies. Retenir le CES seul surestime souvent ce qu'une parcelle permet.",
-      "Pour un opérateur, l'emprise au sol est la première brique de l'enveloppe constructible : une erreur ici se reporte sur la surface de plancher, puis sur le bilan.",
+      "Le CES se combine avec d'autres règles : espaces verts, retraits, hauteur, implantation. Retenu seul, il peut surestimer ce qu'une parcelle permet, et l'erreur se reporte sur la surface de plancher puis sur le bilan.",
     ],
     points: [
       {
@@ -194,7 +193,7 @@ export const EMPRISE_AU_SOL: MetierPageContent = {
       {
         n: "02",
         title: "Identifier la zone",
-        body: "Le zonage est lu dans le Géoportail de l'Urbanisme, avec le document en vigueur.",
+        body: "Zonage lu dans le Géoportail de l'Urbanisme.",
       },
       {
         n: "03",
@@ -204,7 +203,7 @@ export const EMPRISE_AU_SOL: MetierPageContent = {
       {
         n: "04",
         title: "Retenir l'emprise",
-        body: "L'emprise effective, plafonnée si les règles se contredisent, alimente l'enveloppe constructible et le bilan.",
+        body: "L'emprise effective alimente l'enveloppe constructible et le bilan.",
       },
     ],
   },
@@ -244,7 +243,6 @@ export const EMPRISE_AU_SOL: MetierPageContent = {
       "Retraits par rapport aux voies et aux limites, implantation entre bâtiments et règles graphiques peuvent réduire l'emprise réalisable.",
       "Les constructions déjà présentes consomment une partie de l'emprise autorisée.",
       "Le lexique du PLU peut compter dans l'emprise des éléments que la définition générale exclut, ou l'inverse.",
-      "Un règlement absent du Géoportail de l'Urbanisme ou mal numérisé rend la valeur incertaine : l'outil l'indique, la lecture du document en mairie reste nécessaire.",
       "Fonciable ne délivre ni certificat d'urbanisme, ni autorisation : la conformité d'un projet se confirme auprès du service urbanisme.",
     ],
   },
@@ -268,7 +266,7 @@ export const EMPRISE_AU_SOL: MetierPageContent = {
     },
     {
       q: "Fonciable calcule-t-il l'emprise au sol d'une parcelle ?",
-      a: "Il calcule l'emprise maximale retenue pour l'enveloppe constructible : CES lu dans le règlement de zone, plafonné par la part d'espaces verts, avec la source de chaque valeur. Il ne mesure pas l'emprise d'une construction existante ou d'un projet.",
+      a: "Il calcule l'emprise maximale retenue pour l'enveloppe constructible (CES du règlement plafonné par les espaces verts, avec sa source). Il ne mesure pas l'emprise d'un projet.",
     },
   ],
 
