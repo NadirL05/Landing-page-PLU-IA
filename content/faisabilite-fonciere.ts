@@ -35,7 +35,7 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
   metaTitle: "Étude de faisabilité foncière d'une parcelle",
   metaDescription:
     "Étude de faisabilité foncière d'une parcelle : cadastre, zonage, règles, enveloppe constructible théorique, risques, servitudes et comparables DVF.",
-  dateModified: "2026-10-21",
+  dateModified: "2026-10-26",
 
   eyebrow: "Cadastre · zonage · enveloppe constructible",
   h1: "Étude de faisabilité foncière : cette parcelle mérite-t-elle d'aller plus loin ?",
@@ -178,7 +178,7 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
     intro:
       "Une étude automatisée cadre une décision, elle ne l'instruit pas. Les points ci-dessous doivent être vérifiés avant tout engagement.",
     items: [
-      "Si la commune ne publie pas son document d'urbanisme sur le Géoportail de l'Urbanisme, le zonage n'est pas garanti : la mairie reste la source de référence.",
+      "Une étude de faisabilité ne vaut que ce que vaut le zonage de départ : pour une commune dont le PLU ou le PLUi n'est pas en ligne sur le Géoportail de l'Urbanisme, il doit être confirmé auprès du service urbanisme avant d'aller plus loin.",
       "Un document en cours de révision, une modification récente ou une orientation d'aménagement peuvent changer les règles applicables sans être encore reflétés dans les données publiques.",
       "L'absence de servitude ou de risque dans les bases consultées ne prouve pas leur absence sur le terrain : la vérification en mairie est indispensable.",
       "L'enveloppe constructible affichée est un maximum théorique : prospects, gabarit, règles d'aspect, avis d'un architecte des Bâtiments de France ou prescriptions particulières la réduisent fréquemment.",
@@ -202,7 +202,7 @@ export const FAISABILITE_FONCIERE: MetierPageContent = {
     },
     {
       q: "Comment connaître le zonage d'une parcelle ?",
-      a: "Le zonage figure dans le PLU ou le PLUi de la commune. Quand la commune publie son document sur le Géoportail de l'Urbanisme, Fonciable le lit automatiquement à partir de la position de la parcelle. Dans le cas contraire, il faut se rapprocher du service urbanisme de la mairie, qui reste dans tous les cas la source de référence.",
+      a: "Il se lit dans le document d'urbanisme de la commune (PLU ou PLUi). Lorsque ce document est publié sur le Géoportail de l'Urbanisme, Fonciable retrouve la zone à partir de la position de la parcelle, sans saisie. Sinon, c'est le service urbanisme de la mairie qui la communique ; il reste la référence dans tous les cas.",
     },
     {
       q: "Comment est estimée la surface constructible d'une parcelle ?",
