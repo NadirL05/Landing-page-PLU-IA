@@ -19,8 +19,13 @@ import type { MetierPageContent } from "@/components/metier/types";
  * propres à la zone N ; vérifié sur sas-plu-3d commit 85370de) :
  *  - libellé de la contrainte « … la construction neuve y est interdite
  *    (zone naturelle) » : src/lib/plu-engine.ts:2982-2990 ;
- *  - PPRI / PPRT bloquants seulement en zone réglementaire rouge :
- *    src/config/plu-definitions.ts:73-80, src/lib/plu-engine.ts:2818-2825 ;
+ *  - PPRI / PPRT traités comme bloquants en zone réglementaire rouge :
+ *    src/config/plu-definitions.ts:73-80, src/lib/plu-engine.ts:2818-2825
+ *    (une servitude portant un drapeau `blocking` explicite peut aussi
+ *    bloquer hors zone rouge : isServitudeBlocking, d'où « traité comme »
+ *    et non « seulement » — QA SEO du 26/10/2026, relais 20) ;
+ *  - l'outil n'identifie pas le motif de classement en zone N : l'étape 03
+ *    renvoie au règlement et à la mairie (titre reformulé, même QA) ;
  *  - servitudes via l'API Carto du GPU : liste des sources de cette page.
  */
 export const ZONE_N: MetierPageContent = {
@@ -101,8 +106,8 @@ export const ZONE_N: MetierPageContent = {
     title: "Lire une parcelle en zone N",
     items: [
       { n: "01", title: "Lire la contrainte « zone naturelle »", body: "Zone et document en vigueur viennent du Géoportail de l'Urbanisme ; la parcelle est signalée fermée à la construction neuve." },
-      { n: "02", title: "Croiser avec les risques", body: "Risques déclarés sur la commune (Géorisques) et servitudes publiées : un plan de prévention du risque inondation ou technologique ne devient bloquant qu'en zone rouge." },
-      { n: "03", title: "Situer le motif de protection", body: "Paysage, forêt, ressources ou risque d'expansion des crues : le règlement de la commune et la mairie disent ce que permet le bâti existant." },
+      { n: "02", title: "Croiser avec les risques", body: "Risques déclarés sur la commune (Géorisques) et servitudes publiées : un plan de prévention du risque inondation ou technologique est traité comme bloquant en zone rouge." },
+      { n: "03", title: "Vérifier le motif de protection dans le règlement", body: "Paysage, forêt, ressources ou risque d'expansion des crues : le règlement de la commune et la mairie disent ce que permet le bâti existant." },
     ],
   },
 
