@@ -18,7 +18,7 @@ export const ZONE_A: MetierPageContent = {
   slug: "/zonage-plu/zone-a",
   navLabel: "Zone A",
   parent: { navLabel: "Zonage PLU", slug: "/zonage-plu" },
-  related: ["/zonage-plu/zone-u", "/zonage-plu/zone-au", "/zonage-plu/zone-n", "/terrain-constructible"],
+  related: ["/analyse-plu-parcelle", "/zonage-plu/zone-u", "/zonage-plu/zone-au", "/zonage-plu/zone-n", "/terrain-constructible"],
 
   metaTitle: "Zone A du PLU (agricole) : ce qui est autorisé",
   metaDescription:

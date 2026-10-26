@@ -19,7 +19,7 @@ export const ZONE_N: MetierPageContent = {
   slug: "/zonage-plu/zone-n",
   navLabel: "Zone N",
   parent: { navLabel: "Zonage PLU", slug: "/zonage-plu" },
-  related: ["/zonage-plu/zone-u", "/zonage-plu/zone-au", "/zonage-plu/zone-a", "/terrain-constructible"],
+  related: ["/analyse-plu-parcelle", "/zonage-plu/zone-u", "/zonage-plu/zone-au", "/zonage-plu/zone-a", "/terrain-constructible"],
 
   metaTitle: "Zone N du PLU : zone naturelle et forestière",
   metaDescription:

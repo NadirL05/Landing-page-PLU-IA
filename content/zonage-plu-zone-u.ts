@@ -23,7 +23,7 @@ export const ZONE_U: MetierPageContent = {
   slug: "/zonage-plu/zone-u",
   navLabel: "Zone U",
   parent: { navLabel: "Zonage PLU", slug: "/zonage-plu" },
-  related: ["/zonage-plu/zone-au", "/zonage-plu/zone-a", "/zonage-plu/zone-n", "/terrain-constructible"],
+  related: ["/analyse-plu-parcelle", "/zonage-plu/zone-au", "/zonage-plu/zone-a", "/zonage-plu/zone-n", "/terrain-constructible"],
 
   metaTitle: "Zone U du PLU : définition, zones UA et UB",
   metaDescription:
