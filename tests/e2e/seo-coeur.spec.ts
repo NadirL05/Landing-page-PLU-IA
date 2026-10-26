@@ -296,3 +296,24 @@ test.describe("J4 — /certificat-urbanisme", () => {
     await expect(page.locator("main").getByText("Fonciable ne délivre ni certificat d'urbanisme, ni autorisation, et ses résultats ne figent aucune règle.")).toBeVisible();
   });
 });
+
+test.describe("J5 — /prix-terrain-constructible", () => {
+  test("H1, Article, sources DVF, lien croisé avec la charge foncière", async ({ page }) => {
+    await checkArticle(
+      page,
+      "/prix-terrain-constructible",
+      "Prix d'un terrain constructible : comment l'estimer",
+      [
+        "/charge-fonciere",
+        "/terrain-constructible",
+        "https://www.service-public.gouv.fr/particuliers/vosdroits/F16832",
+        "https://www.data.gouv.fr/fr/datasets/demandes-de-valeurs-foncieres/",
+      ],
+      ["/charge-fonciere", "/bilan-promoteur", "/terrain-constructible"],
+    );
+    await expect(page.locator("main").getByText(/Fonciable n'estime pas le prix de marché d'un terrain à bâtir/)).toBeVisible();
+    // Lien croisé dans le corps de /charge-fonciere, pas seulement dans « À lire aussi ».
+    await page.goto("/charge-fonciere");
+    expect(await page.locator('section[aria-labelledby="guide-heading"] a[href="/prix-terrain-constructible"]').count()).toBeGreaterThan(0);
+  });
+});

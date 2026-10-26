@@ -34,7 +34,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const CHARGE_FONCIERE: MetierPageContent = {
   slug: "/charge-fonciere",
   navLabel: "Charge foncière",
-  related: ["/bilan-promoteur", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/terrain-constructible", "/prospection-fonciere", "/surface-de-plancher"],
+  related: ["/bilan-promoteur", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/terrain-constructible", "/prospection-fonciere", "/surface-de-plancher", "/prix-terrain-constructible"],
 
   metaTitle: "Charge foncière : définition, calcul et exemple",
   metaDescription:
@@ -101,6 +101,11 @@ export const CHARGE_FONCIERE: MetierPageContent = {
         paragraphs: [
           "L'écart entre le prix demandé par le vendeur et la charge foncière admissible est le cœur de la négociation. S'il persiste, trois voies restent : revoir le programme (densité, typologies, part vendue), ajuster des hypothèses à partir d'éléments plus précis (devis, étude de sol, échange avec la mairie), ou renoncer au terrain. Augmenter le prix sans changer les hypothèses revient à accepter une marge plus faible.",
         ],
+        link: {
+          text: "Pour estimer le prix de marché d'un terrain à partir des ventes comparables, voir",
+          href: "/prix-terrain-constructible",
+          label: "la page Prix d'un terrain constructible",
+        },
       },
     ],
   },

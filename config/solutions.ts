@@ -115,6 +115,13 @@ export const GUIDE_PAGES: readonly SolutionPage[] = [
     summary:
       "CUa ou CUb, délais d'instruction, validité de 18 mois, prorogation, et ce qu'il faut vérifier sur le terrain avant de le demander.",
   },
+  {
+    slug: "/prix-terrain-constructible",
+    navLabel: "Prix d'un terrain constructible",
+    linkLabel: "Prix d'un terrain constructible : comment l'estimer",
+    summary:
+      "Trouver les ventes réelles (DVF, Patrim), ce qui fait varier le prix, et la différence entre prix du marché et prix admissible d'un promoteur.",
+  },
 ];
 
 /**
