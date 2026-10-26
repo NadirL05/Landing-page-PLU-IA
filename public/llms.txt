@@ -58,10 +58,15 @@ France métropolitaine et DOM, dans la limite des communes qui publient leur doc
 - [Savoir si un terrain est constructible](https://fonciable.fr/terrain-constructible): six vérifications (document d'urbanisme, zone, règlement, servitudes et risques, réseaux, certificat d'urbanisme), textes officiels, exemple réel à Nantes
 - [Division parcellaire](https://fonciable.fr/division-parcellaire): lotissement, déclaration préalable ou permis d'aménager, application du PLU aux lots (art. R151-21), rôle du géomètre-expert
 - [Zonage PLU](https://fonciable.fr/zonage-plu): zones U, AU, A et N selon le code de l'urbanisme, sous-secteurs propres à chaque PLU (UA, UB, AUa), trouver la zone d'une parcelle
+- [Calcul de la surface de plancher](https://fonciable.fr/surface-de-plancher): définition (art. L111-14 et R111-22 du code de l'urbanisme), les huit déductions, exemple fictif, différence entre surface de plancher d'un projet et enveloppe théorique ; Fonciable calcule l'enveloppe théorique, pas la surface de plancher au sens de R111-22
 - [Zone U](https://fonciable.fr/zonage-plu/zone-u): zone urbaine (art. R151-18), secteurs UA et UB
 - [Zone AU](https://fonciable.fr/zonage-plu/zone-au): zone à urbaniser ouverte ou fermée (art. R151-20), 1AU, 2AU, AUa
 - [Zone A](https://fonciable.fr/zonage-plu/zone-a): zone agricole (art. R151-22 et R151-23)
 - [Zone N](https://fonciable.fr/zonage-plu/zone-n): zone naturelle et forestière (art. R151-24 et R151-25)
+- [Emprise au sol et CES](https://fonciable.fr/emprise-au-sol): définition (art. R*420-1 du code de l'urbanisme), éléments comptés ou exclus, coefficient d'emprise au sol du PLU (art. R151-39), conflit avec les espaces verts, exemple fictif ; Fonciable lit le CES du règlement et le plafonne par la part d'espaces verts
+- [Dent creuse](https://fonciable.fr/dent-creuse): définition (glossaire Géoconfluences), densification et sobriété foncière (art. L101-2-1 du code de l'urbanisme), repérage et faux positifs ; le moteur de gisement de Fonciable calcule un potentiel résiduel et ne qualifie pas une parcelle de dent creuse
+- [Certificat d'urbanisme](https://fonciable.fr/certificat-urbanisme): CU d'information et CU opérationnel (art. L410-1 du code de l'urbanisme), délais d'un et deux mois, validité de 18 mois, prorogation, CU tacite ; Fonciable ne délivre pas de certificat d'urbanisme et ne le remplace pas
+- [Prix d'un terrain constructible](https://fonciable.fr/prix-terrain-constructible): estimer le prix de marché d'un terrain à bâtir (base DVF, Patrim, notaires), facteurs de prix, prix du marché ou charge foncière admissible ; Fonciable n'estime pas de prix de marché de terrain, ses comparables DVF portent sur des logements
 - [Modèle de bilan promoteur (XLSX, exemple fictif)](https://fonciable.fr/modeles/bilan-promoteur-exemple-fictif.xlsx): compte à rebours et bilan direct, formules simples
 - [Mentions légales](https://fonciable.fr/mentions-legales): éditeur, publication et hébergement
 - [Politique de confidentialité](https://fonciable.fr/confidentialite): données, cookies et droits RGPD

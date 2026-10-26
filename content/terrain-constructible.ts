@@ -43,7 +43,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
   slug: "/terrain-constructible",
   navLabel: "Terrain constructible",
-  related: ["/zonage-plu", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/division-parcellaire", "/charge-fonciere"],
+  related: ["/zonage-plu", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/division-parcellaire", "/charge-fonciere", "/emprise-au-sol", "/certificat-urbanisme", "/prix-terrain-constructible"],
 
   metaTitle: "Savoir si un terrain est constructible : méthode",
   metaDescription:
@@ -119,6 +119,11 @@ export const TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
           { label: "Code de l'urbanisme, art. L410-1 (Légifrance)", href: "https://www.legifrance.gouv.fr/codes/id/LEGISCTA000006143348" },
           { label: "Certificat d'urbanisme (service-public.gouv.fr)", href: "https://www.service-public.gouv.fr/particuliers/vosdroits/F1633" },
         ],
+        link: {
+          text: "Les deux types de certificat, les délais et la prorogation sont détaillés sur",
+          href: "/certificat-urbanisme",
+          label: "la page Certificat d'urbanisme",
+        },
       },
     ],
   },
@@ -273,10 +278,6 @@ export const TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
     {
       q: "Un terrain en zone U est-il forcément constructible ?",
       a: "Non. Le règlement de zone, une servitude d'utilité publique, un risque, l'insuffisance des réseaux ou la configuration du terrain peuvent empêcher ou limiter un projet. Le classement en zone U indique seulement que la construction y est en principe admise.",
-    },
-    {
-      q: "Combien de temps est valable un certificat d'urbanisme ?",
-      a: "Dix-huit mois à compter de sa délivrance. Pendant cette période, une demande d'autorisation est examinée au regard des règles en vigueur à la date du certificat. La demande est gratuite et se dépose en mairie.",
     },
     {
       q: "Que vérifie Fonciable sur la constructibilité ?",

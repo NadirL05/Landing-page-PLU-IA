@@ -58,6 +58,17 @@ Objectif : entrer dans le **top 10 Google France** sur 5 requêtes cœur de cibl
 
 Règles : chaque affirmation sur Fonciable a son fichier de preuve dans `sas-plu-3d` (en-tête du fichier `content/*.ts`), sinon elle est retirée ; définitions juridiques citées avec lien Légifrance ; aucune règle chiffrée générale inventée pour les secteurs UA, UB, AUa (propres à chaque PLU) ; pas de page par commune dans cette première vague. Plan : `IMPLEMENTATION_PLAN.md` § E.
 
+### Utile — en cours : articles de fond urbanisme (décision de Nadir du 26/10/2026)
+Cinq pages distinctes, issues du brief SEO `SEO-GEO-Marketing/missions/fonciable/v4/drafts/15_brief_contenu.md` (volumes = estimations d'outil du 20/10/2026, pas un trafic observé). Mêmes règles que les contenus SEO cœur ; chaque règle juridique citée avec son lien Légifrance ou service-public et sa date de consultation ; chaque limite du produit dite sur la page. Plan : `IMPLEMENTATION_PLAN.md` § J.
+
+| Requête principale | Page | Limite produit dite sur la page |
+|---|---|---|
+| calcul surface de plancher | `/surface-de-plancher` | enveloppe théorique, pas le calcul légal R111-22 |
+| emprise au sol, coefficient d'emprise au sol | `/emprise-au-sol` | emprise maximale retenue pour l'enveloppe (CES plafonné par les espaces verts), pas la mesure d'un projet |
+| dent creuse | `/dent-creuse` | le moteur de gisement ne qualifie pas une parcelle de « dent creuse » ; bâti absent du RNB ≠ terrain nu |
+| certificat d'urbanisme | `/certificat-urbanisme` | Fonciable ne délivre pas de CU, n'en remplace pas un et n'affiche pas les CU délivrés |
+| prix terrain constructible | `/prix-terrain-constructible` (angle « prix de marché », lien croisé avec `/charge-fonciere`) | Fonciable n'estime pas de prix de marché de terrain : ses comparables DVF sont des logements (prix de sortie) ; le prix qu'il calcule est la charge foncière admissible |
+
 ### Plus tard / à venir
 - **Page métier « Analyse PLU d'une parcelle »** (priorité 1 de la suite) — ciblage des intentions « PLU », « constructibilité », « analyse PLU parcelle », « surface constructible ». Origine : diagnostic SEO/GEO du 20/10/2026 (relais 03 O2, 04, 08 D3) : aucune page ne couvre cette intention, Fonciable non observé sur 10/10 requêtes du proxy SERP, concurrents visibles Parcello, InfoPLU, Kel Foncier, IZIRED, Aprilyos. Contenu : méthode, sources, limites, exemple (fictif et étiqueté comme tel tant qu'aucun exemple réel autorisé n'existe), maillée depuis l'accueil et `/faisabilite-fonciere`. Voir `IMPLEMENTATION_PLAN.md` § A.
 - Enrichir `/faisabilite-fonciere` avec le vocabulaire « constructibilité / surface constructible ». [Diagnostic relais 04]

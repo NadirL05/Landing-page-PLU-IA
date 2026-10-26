@@ -45,7 +45,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const BILAN_PROMOTEUR: MetierPageContent = {
   slug: "/bilan-promoteur",
   navLabel: "Bilan promoteur",
-  related: ["/faisabilite-fonciere", "/prospection-fonciere", "/analyse-plu-parcelle", "/charge-fonciere"],
+  related: ["/faisabilite-fonciere", "/prospection-fonciere", "/analyse-plu-parcelle", "/charge-fonciere", "/surface-de-plancher", "/prix-terrain-constructible"],
 
   // Requête cible ajoutée le 2026-10-21 : « bilan promoteur en ligne ».
   metaTitle: "Bilan promoteur en ligne et modèle Excel gratuit",

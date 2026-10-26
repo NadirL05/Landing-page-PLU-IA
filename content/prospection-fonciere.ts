@@ -23,7 +23,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const PROSPECTION_FONCIERE: MetierPageContent = {
   slug: "/prospection-fonciere",
   navLabel: "Prospection foncière",
-  related: ["/bilan-promoteur", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/division-parcellaire", "/charge-fonciere"],
+  related: ["/bilan-promoteur", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/division-parcellaire", "/charge-fonciere", "/dent-creuse"],
 
   // Requête cible ajoutée le 2026-10-21 : « prospection foncière ».
   metaTitle: "Prospection foncière : parcelles à potentiel",

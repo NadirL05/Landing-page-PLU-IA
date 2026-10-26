@@ -37,6 +37,17 @@ export interface MetierPageContent {
   /** Date de dernière modification éditoriale substantielle (ISO, AAAA-MM-JJ). */
   readonly dateModified: string;
 
+  /**
+   * Article de fond (guides rédigés à partir du 26/10/2026) : émet en plus
+   * un JSON-LD `Article` (headline = H1, datePublished, dateModified,
+   * auteur et éditeur = l'organisation éditrice, jamais une personne
+   * fictive). Absent : seul le `WebPage` est émis, comme avant.
+   */
+  readonly article?: {
+    /** Date de première publication (ISO, AAAA-MM-JJ). */
+    readonly datePublished: string;
+  };
+
   /* ---- Hero ---- */
   readonly eyebrow: string;
   readonly h1: string;

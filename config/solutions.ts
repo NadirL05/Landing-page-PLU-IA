@@ -87,6 +87,41 @@ export const GUIDE_PAGES: readonly SolutionPage[] = [
     summary:
       "Ce que dit le code de l'urbanisme des zones U, AU, A et N, pourquoi UA, UB ou AUa varient d'un PLU à l'autre, et comment trouver la zone d'une parcelle.",
   },
+  {
+    slug: "/surface-de-plancher",
+    navLabel: "Surface de plancher",
+    linkLabel: "Calcul de la surface de plancher : méthode et exemple",
+    summary:
+      "Définition de l'article R111-22, les huit déductions, exemple fictif, et la différence avec l'enveloppe théorique qu'un PLU autorise.",
+  },
+  {
+    slug: "/emprise-au-sol",
+    navLabel: "Emprise au sol",
+    linkLabel: "Emprise au sol et CES : définition et calcul",
+    summary:
+      "Définition de l'article R*420-1, ce qui est compté ou non, coefficient d'emprise au sol du PLU et conflit avec les espaces verts.",
+  },
+  {
+    slug: "/dent-creuse",
+    navLabel: "Dent creuse",
+    linkLabel: "Dent creuse : définition, densification et repérage",
+    summary:
+      "Définition, place dans la densification et la sobriété foncière, repérage des terrains libres entre constructions et pièges des données sur le bâti.",
+  },
+  {
+    slug: "/certificat-urbanisme",
+    navLabel: "Certificat d'urbanisme",
+    linkLabel: "Certificat d'urbanisme : CU d'information ou opérationnel",
+    summary:
+      "CUa ou CUb, délais d'instruction, validité de 18 mois, prorogation, et ce qu'il faut vérifier sur le terrain avant de le demander.",
+  },
+  {
+    slug: "/prix-terrain-constructible",
+    navLabel: "Prix d'un terrain constructible",
+    linkLabel: "Prix d'un terrain constructible : comment l'estimer",
+    summary:
+      "Trouver les ventes réelles (DVF, Patrim), ce qui fait varier le prix, et la différence entre prix du marché et prix admissible d'un promoteur.",
+  },
 ];
 
 /**

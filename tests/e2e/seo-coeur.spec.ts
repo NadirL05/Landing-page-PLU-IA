@@ -189,3 +189,132 @@ test.describe("E7 — IndexNow", () => {
     expect((await response.text()).trim()).toBe(key);
   });
 });
+
+/**
+ * § J — articles de fond (décision de Nadir du 26/10/2026). En plus des
+ * contrôles d'un guide : JSON-LD Article (headline = H1, dates), lien vers
+ * /analyse-plu-parcelle, et au moins deux pages existantes qui pointent vers
+ * l'article dans leur <main>.
+ */
+async function checkArticle(
+  page: import("@playwright/test").Page,
+  path: string,
+  h1: string,
+  links: readonly string[],
+  inboundFrom: readonly string[],
+) {
+  const blocks = await checkGuide(page, path, h1, ["/analyse-plu-parcelle", ...links]);
+  expect(schemaTypes(blocks)).toContain("Article");
+  const article = blocks.find((b) => (b as Record<string, unknown>)["@type"] === "Article") as {
+    headline: string;
+    datePublished: string;
+    dateModified: string;
+  };
+  expect(article.headline).toBe(h1);
+  expect(article.datePublished).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  expect(article.dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  expect(inboundFrom.length).toBeGreaterThanOrEqual(2);
+  for (const source of inboundFrom) {
+    await page.goto(source);
+    expect(await page.locator(`main a[href="${path}"]`).count(), `${source} → ${path}`).toBeGreaterThan(0);
+  }
+  // Revient sur l'article pour les contrôles propres à chaque test.
+  await page.goto(path);
+}
+
+test.describe("J1 — /surface-de-plancher", () => {
+  test("H1, Article, articles L111-14 et R111-22, liens entrants", async ({ page }) => {
+    await checkArticle(
+      page,
+      "/surface-de-plancher",
+      "Calcul de la surface de plancher : méthode et exemple",
+      [
+        "/charge-fonciere",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031210207",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031721274",
+        "https://www.service-public.gouv.fr/particuliers/vosdroits/F2868",
+      ],
+      ["/bilan-promoteur", "/charge-fonciere", "/faisabilite-fonciere"],
+    );
+    await expect(page.getByText("Exemple fictif, calcul de principe")).toBeVisible();
+  });
+});
+
+test.describe("J2 — /emprise-au-sol", () => {
+  test("H1, Article, articles R420-1 et R151-39, liens croisés avec la surface de plancher", async ({ page }) => {
+    await checkArticle(
+      page,
+      "/emprise-au-sol",
+      "Emprise au sol et coefficient d'emprise au sol (CES)",
+      [
+        "/surface-de-plancher",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000028678466",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031720561",
+        "https://www.service-public.gouv.fr/particuliers/vosdroits/F2868",
+      ],
+      ["/surface-de-plancher", "/zonage-plu/zone-u", "/terrain-constructible"],
+    );
+    await expect(page.getByText("Exemple fictif, calcul de principe")).toBeVisible();
+  });
+});
+
+test.describe("J3 — /dent-creuse", () => {
+  test("H1, Article, Géoconfluences et art. L101-2-1, lien vers la prospection", async ({ page }) => {
+    await checkArticle(
+      page,
+      "/dent-creuse",
+      "Dent creuse : définition, densification et repérage",
+      [
+        "/prospection-fonciere",
+        "/division-parcellaire",
+        "https://geoconfluences.ens-lyon.fr/glossaire/dent-creuse",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000043967077",
+      ],
+      ["/prospection-fonciere", "/division-parcellaire", "/zonage-plu"],
+    );
+    // La limite produit est dite : le moteur ne qualifie pas une parcelle de « dent creuse ».
+    await expect(page.locator("main").getByText(/ne qualifie pas une parcelle de « dent creuse »/)).toBeVisible();
+  });
+});
+
+test.describe("J4 — /certificat-urbanisme", () => {
+  test("H1, Article, art. L410-1 et R*410-x, service-public F1633, lien depuis la méthode terrain constructible", async ({ page }) => {
+    await checkArticle(
+      page,
+      "/certificat-urbanisme",
+      "Certificat d'urbanisme : CU d'information ou opérationnel",
+      [
+        "/terrain-constructible",
+        "/division-parcellaire",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037667619",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006818970",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031764615",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006818991",
+        "https://www.service-public.gouv.fr/particuliers/vosdroits/F1633",
+      ],
+      ["/terrain-constructible", "/division-parcellaire", "/analyse-plu-parcelle"],
+    );
+    await expect(page.locator("main").getByText("Fonciable ne délivre ni certificat d'urbanisme, ni autorisation, et ses résultats ne figent aucune règle.")).toBeVisible();
+  });
+});
+
+test.describe("J5 — /prix-terrain-constructible", () => {
+  test("H1, Article, sources DVF, lien croisé avec la charge foncière", async ({ page }) => {
+    await checkArticle(
+      page,
+      "/prix-terrain-constructible",
+      "Prix d'un terrain constructible : comment l'estimer",
+      [
+        "/charge-fonciere",
+        "/terrain-constructible",
+        "https://www.service-public.gouv.fr/particuliers/vosdroits/F16832",
+        "https://www.data.gouv.fr/fr/datasets/demandes-de-valeurs-foncieres/",
+      ],
+      ["/charge-fonciere", "/bilan-promoteur", "/terrain-constructible"],
+    );
+    await expect(page.locator("main").getByText(/Fonciable n'estime pas le prix de marché d'un terrain à bâtir/)).toBeVisible();
+    // Lien croisé dans le corps de /charge-fonciere, pas seulement dans « À lire aussi ».
+    await page.goto("/charge-fonciere");
+    expect(await page.locator('section[aria-labelledby="guide-heading"] a[href="/prix-terrain-constructible"]').count()).toBeGreaterThan(0);
+  });
+});
