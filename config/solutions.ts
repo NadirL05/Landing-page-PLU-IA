@@ -108,6 +108,13 @@ export const GUIDE_PAGES: readonly SolutionPage[] = [
     summary:
       "Définition, place dans la densification et la sobriété foncière, repérage des terrains libres entre constructions et pièges des données sur le bâti.",
   },
+  {
+    slug: "/certificat-urbanisme",
+    navLabel: "Certificat d'urbanisme",
+    linkLabel: "Certificat d'urbanisme : CU d'information ou opérationnel",
+    summary:
+      "CUa ou CUb, délais d'instruction, validité de 18 mois, prorogation, et ce qu'il faut vérifier sur le terrain avant de le demander.",
+  },
 ];
 
 /**

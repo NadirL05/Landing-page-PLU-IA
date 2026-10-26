@@ -275,3 +275,24 @@ test.describe("J3 — /dent-creuse", () => {
     await expect(page.locator("main").getByText(/ne qualifie pas une parcelle de « dent creuse »/)).toBeVisible();
   });
 });
+
+test.describe("J4 — /certificat-urbanisme", () => {
+  test("H1, Article, art. L410-1 et R*410-x, service-public F1633, lien depuis la méthode terrain constructible", async ({ page }) => {
+    await checkArticle(
+      page,
+      "/certificat-urbanisme",
+      "Certificat d'urbanisme : CU d'information ou opérationnel",
+      [
+        "/terrain-constructible",
+        "/division-parcellaire",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000037667619",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006818970",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031764615",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006818991",
+        "https://www.service-public.gouv.fr/particuliers/vosdroits/F1633",
+      ],
+      ["/terrain-constructible", "/division-parcellaire", "/analyse-plu-parcelle"],
+    );
+    await expect(page.locator("main").getByText("Fonciable ne délivre ni certificat d'urbanisme, ni autorisation, et ses résultats ne figent aucune règle.")).toBeVisible();
+  });
+});

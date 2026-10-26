@@ -4,6 +4,7 @@ import { GUIDE_PAGES, SOLUTION_PAGES, ZONE_PAGES } from "@/config/solutions";
 import { FAISABILITE_FONCIERE } from "@/content/faisabilite-fonciere";
 import { ZONE_A } from "@/content/zonage-plu-zone-a";
 import { ZONE_N } from "@/content/zonage-plu-zone-n";
+import { CERTIFICAT_URBANISME } from "@/content/certificat-urbanisme";
 import { DENT_CREUSE } from "@/content/dent-creuse";
 import { EMPRISE_AU_SOL } from "@/content/emprise-au-sol";
 import { SURFACE_DE_PLANCHER } from "@/content/surface-de-plancher";
@@ -33,6 +34,7 @@ const PAGE_LAST_MODIFIED: Readonly<Record<string, string>> = {
   [FAISABILITE_FONCIERE.slug]: FAISABILITE_FONCIERE.dateModified,
   [ZONE_A.slug]: ZONE_A.dateModified,
   [ZONE_N.slug]: ZONE_N.dateModified,
+  [CERTIFICAT_URBANISME.slug]: CERTIFICAT_URBANISME.dateModified,
   [DENT_CREUSE.slug]: DENT_CREUSE.dateModified,
   [EMPRISE_AU_SOL.slug]: EMPRISE_AU_SOL.dateModified,
   [SURFACE_DE_PLANCHER.slug]: SURFACE_DE_PLANCHER.dateModified,

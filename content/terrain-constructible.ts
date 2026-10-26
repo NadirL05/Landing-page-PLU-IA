@@ -43,7 +43,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
   slug: "/terrain-constructible",
   navLabel: "Terrain constructible",
-  related: ["/zonage-plu", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/division-parcellaire", "/charge-fonciere", "/emprise-au-sol"],
+  related: ["/zonage-plu", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/division-parcellaire", "/charge-fonciere", "/emprise-au-sol", "/certificat-urbanisme"],
 
   metaTitle: "Savoir si un terrain est constructible : méthode",
   metaDescription:
@@ -119,6 +119,11 @@ export const TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
           { label: "Code de l'urbanisme, art. L410-1 (Légifrance)", href: "https://www.legifrance.gouv.fr/codes/id/LEGISCTA000006143348" },
           { label: "Certificat d'urbanisme (service-public.gouv.fr)", href: "https://www.service-public.gouv.fr/particuliers/vosdroits/F1633" },
         ],
+        link: {
+          text: "Les deux types de certificat, les délais et la prorogation sont détaillés sur",
+          href: "/certificat-urbanisme",
+          label: "la page Certificat d'urbanisme",
+        },
       },
     ],
   },
