@@ -150,7 +150,7 @@ export const DENT_CREUSE: MetierPageContent = {
       {
         ref: "DC.04",
         title: "Grands sites à part",
-        body: "Au-delà de 20 000 m², une parcelle est classée en grand site pour ne pas être comparée à une parcelle urbaine ordinaire.",
+        body: "À partir de 20 000 m², une parcelle est classée en grand site pour ne pas être comparée à une parcelle urbaine ordinaire.",
       },
       {
         ref: "DC.05",
@@ -236,7 +236,7 @@ export const DENT_CREUSE: MetierPageContent = {
     },
     {
       q: "Fonciable détecte-t-il les dents creuses ?",
-      a: "Pas en tant que telles. Son moteur de prospection repère les parcelles dont la surface de plancher autorisée dépasse nettement la surface existante estimée, et classe à part celles où aucun bâtiment n'est recensé, en « occupation inconnue ». Une partie de ces candidats peut correspondre à des dents creuses ; la vérification sur place reste nécessaire.",
+      a: "Pas en tant que telles. Son moteur de prospection repère les parcelles dont la surface de plancher autorisée dépasse la surface existante estimée, et classe à part celles où aucun bâtiment n'est recensé, en « occupation inconnue ». Une partie de ces candidats peut correspondre à des dents creuses ; la vérification sur place reste nécessaire.",
     },
   ],
 

@@ -99,7 +99,7 @@ export const GUIDE_PAGES: readonly SolutionPage[] = [
     navLabel: "Emprise au sol",
     linkLabel: "Emprise au sol et CES : définition et calcul",
     summary:
-      "Définition de l'article R420-1, ce qui est compté ou non, coefficient d'emprise au sol du PLU et conflit avec les espaces verts.",
+      "Définition de l'article R*420-1, ce qui est compté ou non, coefficient d'emprise au sol du PLU et conflit avec les espaces verts.",
   },
   {
     slug: "/dent-creuse",

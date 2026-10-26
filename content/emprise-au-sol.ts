@@ -39,7 +39,7 @@ export const EMPRISE_AU_SOL: MetierPageContent = {
 
   metaTitle: "Emprise au sol et CES : définition et calcul",
   metaDescription:
-    "Emprise au sol : définition de l'article R420-1, ce qui est compté ou non, coefficient d'emprise au sol du PLU, conflit avec les espaces verts, exemple.",
+    "Emprise au sol : définition de l'article R*420-1, ce qui est compté ou non, coefficient d'emprise au sol du PLU, conflit avec les espaces verts, exemple.",
   dateModified: "2026-10-26",
   article: { datePublished: "2026-10-26" },
 

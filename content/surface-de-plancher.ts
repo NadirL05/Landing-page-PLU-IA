@@ -9,7 +9,9 @@ import type { MetierPageContent } from "@/components/metier/types";
  * Textes officiels cités (consultés le 2026-10-26) :
  *  - art. L111-14 du code de l'urbanisme (définition légale, hauteur sous
  *    plafond supérieure à 1,80 m, nu intérieur des façades),
- *    LEGIARTI000031210207 ;
+ *    LEGIARTI000031210207, version en vigueur depuis le 01/09/2022
+ *    (ordonnance n° 2022-883), « Sous réserve de l'article 1635 quater H
+ *    du CGI » ;
  *  - art. R111-22 (les huit déductions), LEGIARTI000031721274, en vigueur
  *    depuis le 01/01/2016 (décret n° 2015-1783) ;
  *  - service-public.gouv.fr F2868 « Surface de plancher, emprise au sol et
@@ -65,7 +67,7 @@ export const SURFACE_DE_PLANCHER: MetierPageContent = {
           "L'article R111-22 fixe ces déductions. La surface de plancher sert à déterminer l'autorisation d'urbanisme à demander et à vérifier les règles du PLU ; elle est distincte de la surface habitable et de la surface taxable, base de la taxe d'aménagement.",
         ],
         sources: [
-          { label: "Code de l'urbanisme, art. L111-14 (Légifrance, consulté le 26/10/2026)", href: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031210207" },
+          { label: "Code de l'urbanisme, art. L111-14 (Légifrance, version en vigueur depuis le 01/09/2022, consultée le 26/10/2026)", href: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031210207" },
           { label: "Surface de plancher, emprise au sol et surface taxable (service-public.gouv.fr, F2868)", href: "https://www.service-public.gouv.fr/particuliers/vosdroits/F2868" },
         ],
       },
@@ -91,7 +93,7 @@ export const SURFACE_DE_PLANCHER: MetierPageContent = {
       {
         title: "Comment calculer la surface de plancher, pas à pas",
         paragraphs: [
-          "Le calcul se fait niveau par niveau, sur plans : mesurez chaque niveau clos et couvert au nu intérieur des murs de façade, additionnez, puis appliquez les déductions qui concernent la construction. Une maison individuelle n'est pas concernée par les déductions 6° à 8°.",
+          "Le calcul se fait niveau par niveau, sur plans : mesurez chaque niveau clos et couvert au nu intérieur des murs de façade, additionnez, puis appliquez les déductions qui concernent la construction. Le 6° exclut expressément la maison individuelle ; les 7° et 8° supposent des parties communes, qu'une maison individuelle n'a en principe pas.",
           "Un balcon ouvert ou une terrasse non couverte ne sont pas clos et couverts : ils n'entrent pas dans le total. Un garage intégré y entre, puis il est retiré au titre du stationnement. Un exemple fictif figure plus bas.",
         ],
       },

@@ -280,10 +280,6 @@ export const TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
       a: "Non. Le règlement de zone, une servitude d'utilité publique, un risque, l'insuffisance des réseaux ou la configuration du terrain peuvent empêcher ou limiter un projet. Le classement en zone U indique seulement que la construction y est en principe admise.",
     },
     {
-      q: "Combien de temps est valable un certificat d'urbanisme ?",
-      a: "Dix-huit mois à compter de sa délivrance. Pendant cette période, une demande d'autorisation est examinée au regard des règles en vigueur à la date du certificat. La demande est gratuite et se dépose en mairie.",
-    },
-    {
       q: "Que vérifie Fonciable sur la constructibilité ?",
       a: "Fonciable lit la zone de la parcelle dans le Géoportail de l'Urbanisme et la rattache au document en vigueur, signale comme bloquantes les zones A et N et les zones AU fermées, relève les servitudes disponibles et les risques recensés, et indique quand une source est indisponible. C'est une estimation : la mairie reste seule compétente pour confirmer la constructibilité.",
     },

@@ -35,6 +35,8 @@ import type { MetierPageContent } from "@/components/metier/types";
  *  - résumé DVF : prix médian au m² bâti, portée rayon 500 m / section /
  *    commune, estimation régionale en Alsace-Moselle avec avertissement :
  *    src/lib/plu-engine.ts:297-329 ;
+ *  - DVF : appel principal api.cquest.org/dvf (miroir), repli
+ *    app.dvf.etalab.gouv.fr : src/lib/plu-engine.ts:761-762 ;
  *  - le prix de terrain produit est la charge foncière admissible par compte
  *    à rebours (voir l'en-tête de content/charge-fonciere.ts).
  *  - NE FAIT PAS : estimer un prix de marché de terrain à bâtir. La page le dit.
@@ -219,7 +221,7 @@ export const PRIX_TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
     title: "Les sources utilisées par Fonciable",
     intro: "Les données publiques réellement interrogées par le produit pour le volet prix.",
     items: [
-      "DVF (Etalab) : ventes de maisons et d'appartements autour de la parcelle, prix de sortie au m² bâti.",
+      "DVF (DGFiP), via l'API d'Etalab ou un miroir : ventes de maisons et d'appartements autour de la parcelle, prix de sortie au m² bâti.",
       "Cadastre, API Carto de l'IGN : contour et surface de la parcelle.",
       "Géoportail de l'Urbanisme (GPU) : zonage et règles qui déterminent la surface constructible.",
       "Zonage fiscal A / B / C (data.gouv) : contexte de marché de la commune.",
@@ -250,8 +252,8 @@ export const PRIX_TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
       a: "Parce que le mètre carré de terrain ne permet pas partout de construire la même chose. Zone du PLU, emprise au sol, hauteur, viabilisation, forme et localisation changent la valeur d'un terrain de même surface.",
     },
     {
-      q: "Quelle différence entre prix du marché et charge foncière ?",
-      a: "Le prix du marché se déduit des ventes comparables. La charge foncière admissible se calcule à rebours, à partir de ce qu'une opération rapportera, moins ses coûts et sa marge : c'est le montant maximal que l'opération peut consacrer au terrain, frais d'acquisition compris.",
+      q: "Le prix du marché et le prix qu'un promoteur peut payer coïncident-ils ?",
+      a: "Pas forcément. Le prix du marché se déduit des ventes comparables. La charge foncière admissible se calcule à rebours, à partir de ce qu'une opération rapportera, moins ses coûts et sa marge : c'est le montant maximal que l'opération peut consacrer au terrain, frais d'acquisition compris. La différence entre charge foncière et prix du terrain est détaillée sur la page Charge foncière.",
     },
     {
       q: "Fonciable estime-t-il le prix d'un terrain ?",
