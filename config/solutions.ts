@@ -101,6 +101,13 @@ export const GUIDE_PAGES: readonly SolutionPage[] = [
     summary:
       "Définition de l'article R420-1, ce qui est compté ou non, coefficient d'emprise au sol du PLU et conflit avec les espaces verts.",
   },
+  {
+    slug: "/dent-creuse",
+    navLabel: "Dent creuse",
+    linkLabel: "Dent creuse : définition, densification et repérage",
+    summary:
+      "Définition, place dans la densification et la sobriété foncière, repérage des terrains libres entre constructions et pièges des données sur le bâti.",
+  },
 ];
 
 /**

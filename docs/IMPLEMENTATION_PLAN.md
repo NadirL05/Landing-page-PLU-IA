@@ -139,6 +139,7 @@ Cinq pages, une par sujet du brief SEO 15 : surface de plancher, emprise au sol 
 
 - [ ] **J1 — `/surface-de-plancher`** (≤ ½ j). Art. L111-14 et R111-22, huit déductions, exemple fictif, enveloppe théorique ≠ surface de plancher du permis ; JSON-LD `Article` ajouté au gabarit (`lib/page-schema.ts`, champ optionnel `article`). Liens entrants : `/bilan-promoteur`, `/charge-fonciere`, `/faisabilite-fonciere`, `/analyse-plu-parcelle`. Fini quand : route ○, canonical, WebPage + BreadcrumbList + FAQPage + Article, E2E J1 vert. Réf. : TRD §2 (pages métier), §7 (GEO), APP_FLOW §1.
 - [ ] **J2 — `/emprise-au-sol`** (≤ ½ j). Art. R*420-1 (définition et exclusions) et R151-39 (CES facultatif), éléments comptés et exclus (service-public F2868), exemple fictif de conflit CES / espaces verts ; lien croisé avec `/surface-de-plancher`. Liens entrants : `/surface-de-plancher`, `/zonage-plu/zone-u`, `/zonage-plu`, `/terrain-constructible`, `/faisabilite-fonciere`, `/analyse-plu-parcelle`. Fini quand : idem J1, E2E J2 vert. Réf. : TRD §2, §7, APP_FLOW §1.
+- [ ] **J3 — `/dent-creuse`** (≤ ½ j). Définition (glossaire Géoconfluences, ENS de Lyon), pas une zone du PLU (art. R151-17), sobriété foncière (art. L101-2-1, loi n° 2021-1104) ; dent creuse / division / grand site ; moteur de gisement décrit sans le mot comme catégorie. Liens entrants : `/prospection-fonciere`, `/division-parcellaire`, `/zonage-plu`. Fini quand : idem J1, E2E J3 vert. Réf. : TRD §2, §7, APP_FLOW §1.
 
 ## Exception explicite pour cette tâche — 21 octobre 2026
 

@@ -65,6 +65,7 @@ Cinq pages distinctes, issues du brief SEO `SEO-GEO-Marketing/missions/fonciable
 |---|---|---|
 | calcul surface de plancher | `/surface-de-plancher` | enveloppe théorique, pas le calcul légal R111-22 |
 | emprise au sol, coefficient d'emprise au sol | `/emprise-au-sol` | emprise maximale retenue pour l'enveloppe (CES plafonné par les espaces verts), pas la mesure d'un projet |
+| dent creuse | `/dent-creuse` | le moteur de gisement ne qualifie pas une parcelle de « dent creuse » ; bâti absent du RNB ≠ terrain nu |
 
 ### Plus tard / à venir
 - **Page métier « Analyse PLU d'une parcelle »** (priorité 1 de la suite) — ciblage des intentions « PLU », « constructibilité », « analyse PLU parcelle », « surface constructible ». Origine : diagnostic SEO/GEO du 20/10/2026 (relais 03 O2, 04, 08 D3) : aucune page ne couvre cette intention, Fonciable non observé sur 10/10 requêtes du proxy SERP, concurrents visibles Parcello, InfoPLU, Kel Foncier, IZIRED, Aprilyos. Contenu : méthode, sources, limites, exemple (fictif et étiqueté comme tel tant qu'aucun exemple réel autorisé n'existe), maillée depuis l'accueil et `/faisabilite-fonciere`. Voir `IMPLEMENTATION_PLAN.md` § A.

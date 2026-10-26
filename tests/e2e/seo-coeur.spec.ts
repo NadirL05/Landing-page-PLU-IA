@@ -256,3 +256,22 @@ test.describe("J2 — /emprise-au-sol", () => {
     await expect(page.getByText("Exemple fictif, calcul de principe")).toBeVisible();
   });
 });
+
+test.describe("J3 — /dent-creuse", () => {
+  test("H1, Article, Géoconfluences et art. L101-2-1, lien vers la prospection", async ({ page }) => {
+    await checkArticle(
+      page,
+      "/dent-creuse",
+      "Dent creuse : définition, densification et repérage",
+      [
+        "/prospection-fonciere",
+        "/division-parcellaire",
+        "https://geoconfluences.ens-lyon.fr/glossaire/dent-creuse",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000043967077",
+      ],
+      ["/prospection-fonciere", "/division-parcellaire", "/zonage-plu"],
+    );
+    // La limite produit est dite : le moteur ne qualifie pas une parcelle de « dent creuse ».
+    await expect(page.locator("main").getByText(/ne qualifie pas une parcelle de « dent creuse »/)).toBeVisible();
+  });
+});

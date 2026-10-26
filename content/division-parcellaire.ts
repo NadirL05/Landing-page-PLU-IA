@@ -44,7 +44,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const DIVISION_PARCELLAIRE: MetierPageContent = {
   slug: "/division-parcellaire",
   navLabel: "Division parcellaire",
-  related: ["/terrain-constructible", "/zonage-plu", "/prospection-fonciere", "/analyse-plu-parcelle", "/faisabilite-fonciere"],
+  related: ["/terrain-constructible", "/zonage-plu", "/prospection-fonciere", "/analyse-plu-parcelle", "/faisabilite-fonciere", "/dent-creuse"],
 
   metaTitle: "Division parcellaire : autorisations et étapes",
   metaDescription:
