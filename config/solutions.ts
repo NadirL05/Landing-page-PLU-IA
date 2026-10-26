@@ -94,6 +94,13 @@ export const GUIDE_PAGES: readonly SolutionPage[] = [
     summary:
       "Définition de l'article R111-22, les huit déductions, exemple fictif, et la différence avec l'enveloppe théorique qu'un PLU autorise.",
   },
+  {
+    slug: "/emprise-au-sol",
+    navLabel: "Emprise au sol",
+    linkLabel: "Emprise au sol et CES : définition et calcul",
+    summary:
+      "Définition de l'article R420-1, ce qui est compté ou non, coefficient d'emprise au sol du PLU et conflit avec les espaces verts.",
+  },
 ];
 
 /**

@@ -36,7 +36,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const SURFACE_DE_PLANCHER: MetierPageContent = {
   slug: "/surface-de-plancher",
   navLabel: "Surface de plancher",
-  related: ["/charge-fonciere", "/bilan-promoteur", "/analyse-plu-parcelle", "/faisabilite-fonciere"],
+  related: ["/emprise-au-sol", "/charge-fonciere", "/bilan-promoteur", "/analyse-plu-parcelle", "/faisabilite-fonciere"],
 
   metaTitle: "Calcul de la surface de plancher et exemple",
   metaDescription:
@@ -100,6 +100,11 @@ export const SURFACE_DE_PLANCHER: MetierPageContent = {
           "Avant tout plan d'architecte, un opérateur veut savoir combien de mètres carrés une parcelle peut porter. Le règlement de zone ne le dit presque jamais directement : il fixe une emprise au sol maximale, une hauteur, des retraits, une part d'espaces verts. On en déduit une enveloppe théorique : surface de la parcelle × emprise au sol autorisée × nombre de niveaux que la hauteur permet.",
           "Illustration fictive : sur 600 m² de terrain, avec une emprise au sol de 40 % et une hauteur de 9 m, on obtient 240 m² d'emprise et trois niveaux de 3 m, soit une enveloppe de 720 m². Ce chiffre est un plafond : retraits, prospects, stationnement à créer, gabarit et déductions de l'article R111-22 le réduisent, parfois fortement.",
         ],
+        link: {
+          text: "La définition de l'emprise au sol et le rôle du coefficient d'emprise au sol sont détaillés sur",
+          href: "/emprise-au-sol",
+          label: "la page Emprise au sol et CES",
+        },
       },
       {
         title: "Pourquoi l'enveloppe théorique n'est pas la surface de plancher du permis",

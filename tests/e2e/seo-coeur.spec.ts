@@ -238,3 +238,21 @@ test.describe("J1 — /surface-de-plancher", () => {
     await expect(page.getByText("Exemple fictif, calcul de principe")).toBeVisible();
   });
 });
+
+test.describe("J2 — /emprise-au-sol", () => {
+  test("H1, Article, articles R420-1 et R151-39, liens croisés avec la surface de plancher", async ({ page }) => {
+    await checkArticle(
+      page,
+      "/emprise-au-sol",
+      "Emprise au sol et coefficient d'emprise au sol (CES)",
+      [
+        "/surface-de-plancher",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000028678466",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031720561",
+        "https://www.service-public.gouv.fr/particuliers/vosdroits/F2868",
+      ],
+      ["/surface-de-plancher", "/zonage-plu/zone-u", "/terrain-constructible"],
+    );
+    await expect(page.getByText("Exemple fictif, calcul de principe")).toBeVisible();
+  });
+});

@@ -29,7 +29,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const FAISABILITE_FONCIERE: MetierPageContent = {
   slug: "/faisabilite-fonciere",
   navLabel: "Faisabilité foncière",
-  related: ["/bilan-promoteur", "/prospection-fonciere", "/analyse-plu-parcelle", "/terrain-constructible", "/charge-fonciere", "/surface-de-plancher"],
+  related: ["/bilan-promoteur", "/prospection-fonciere", "/analyse-plu-parcelle", "/terrain-constructible", "/charge-fonciere", "/surface-de-plancher", "/emprise-au-sol"],
 
   // Requête cible ajoutée le 2026-10-21 : « étude de faisabilité foncière ».
   metaTitle: "Étude de faisabilité foncière d'une parcelle",
