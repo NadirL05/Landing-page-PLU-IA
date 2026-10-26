@@ -4,6 +4,7 @@ import { GUIDE_PAGES, SOLUTION_PAGES, ZONE_PAGES } from "@/config/solutions";
 import { FAISABILITE_FONCIERE } from "@/content/faisabilite-fonciere";
 import { ZONE_A } from "@/content/zonage-plu-zone-a";
 import { ZONE_N } from "@/content/zonage-plu-zone-n";
+import { SURFACE_DE_PLANCHER } from "@/content/surface-de-plancher";
 
 /**
  * Sitemap de la landing.
@@ -30,6 +31,7 @@ const PAGE_LAST_MODIFIED: Readonly<Record<string, string>> = {
   [FAISABILITE_FONCIERE.slug]: FAISABILITE_FONCIERE.dateModified,
   [ZONE_A.slug]: ZONE_A.dateModified,
   [ZONE_N.slug]: ZONE_N.dateModified,
+  [SURFACE_DE_PLANCHER.slug]: SURFACE_DE_PLANCHER.dateModified,
 };
 
 const lastModifiedFor = (slug: string): string => PAGE_LAST_MODIFIED[slug] ?? SITE_LAST_MODIFIED;

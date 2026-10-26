@@ -189,3 +189,52 @@ test.describe("E7 — IndexNow", () => {
     expect((await response.text()).trim()).toBe(key);
   });
 });
+
+/**
+ * § J — articles de fond (décision de Nadir du 26/10/2026). En plus des
+ * contrôles d'un guide : JSON-LD Article (headline = H1, dates), lien vers
+ * /analyse-plu-parcelle, et au moins deux pages existantes qui pointent vers
+ * l'article dans leur <main>.
+ */
+async function checkArticle(
+  page: import("@playwright/test").Page,
+  path: string,
+  h1: string,
+  links: readonly string[],
+  inboundFrom: readonly string[],
+) {
+  const blocks = await checkGuide(page, path, h1, ["/analyse-plu-parcelle", ...links]);
+  expect(schemaTypes(blocks)).toContain("Article");
+  const article = blocks.find((b) => (b as Record<string, unknown>)["@type"] === "Article") as {
+    headline: string;
+    datePublished: string;
+    dateModified: string;
+  };
+  expect(article.headline).toBe(h1);
+  expect(article.datePublished).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  expect(article.dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  expect(inboundFrom.length).toBeGreaterThanOrEqual(2);
+  for (const source of inboundFrom) {
+    await page.goto(source);
+    expect(await page.locator(`main a[href="${path}"]`).count(), `${source} → ${path}`).toBeGreaterThan(0);
+  }
+}
+
+test.describe("J1 — /surface-de-plancher", () => {
+  test("H1, Article, articles L111-14 et R111-22, liens entrants", async ({ page }) => {
+    await checkArticle(
+      page,
+      "/surface-de-plancher",
+      "Calcul de la surface de plancher : méthode et exemple",
+      [
+        "/charge-fonciere",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031210207",
+        "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031721274",
+        "https://www.service-public.gouv.fr/particuliers/vosdroits/F2868",
+      ],
+      ["/bilan-promoteur", "/charge-fonciere", "/faisabilite-fonciere"],
+    );
+    await page.goto("/surface-de-plancher");
+    await expect(page.getByText("Exemple fictif, calcul de principe")).toBeVisible();
+  });
+});

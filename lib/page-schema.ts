@@ -71,3 +71,34 @@ export function buildWebPageSchema({ slug, name, description, dateModified }: We
     dateModified,
   };
 }
+
+export interface ArticleSchemaInput {
+  readonly slug: string;
+  /** Titre éditorial visible (H1). */
+  readonly headline: string;
+  readonly description: string;
+  readonly datePublished: string;
+  readonly dateModified: string;
+}
+
+/**
+ * Article de fond. Auteur et éditeur = l'organisation éditrice : aucun
+ * auteur nominatif n'est déclaré tant qu'aucune personne réelle n'a relu et
+ * signé le texte (pas de faux expert).
+ */
+export function buildArticleSchema({ slug, headline, description, datePublished, dateModified }: ArticleSchemaInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "@id": `${BRAND_URL}${slug}#article`,
+    headline,
+    description,
+    inLanguage: "fr",
+    datePublished,
+    dateModified,
+    mainEntityOfPage: { "@id": `${BRAND_URL}${slug}#webpage` },
+    isPartOf: { "@id": WEBSITE_ID },
+    author: PUBLISHER_ORGANIZATION,
+    publisher: PUBLISHER_ORGANIZATION,
+  };
+}

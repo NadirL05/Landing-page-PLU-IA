@@ -87,6 +87,13 @@ export const GUIDE_PAGES: readonly SolutionPage[] = [
     summary:
       "Ce que dit le code de l'urbanisme des zones U, AU, A et N, pourquoi UA, UB ou AUa varient d'un PLU à l'autre, et comment trouver la zone d'une parcelle.",
   },
+  {
+    slug: "/surface-de-plancher",
+    navLabel: "Surface de plancher",
+    linkLabel: "Calcul de la surface de plancher : méthode et exemple",
+    summary:
+      "Définition de l'article R111-22, les huit déductions, exemple fictif, et la différence avec l'enveloppe théorique qu'un PLU autorise.",
+  },
 ];
 
 /**

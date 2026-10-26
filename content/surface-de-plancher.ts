@@ -1,0 +1,279 @@
+import type { MetierPageContent } from "@/components/metier/types";
+
+/**
+ * Contenu de la page publique /surface-de-plancher.
+ *
+ * Requête cible (brief SEO 15, sujet 1, validé par Nadir le 26/10/2026) :
+ * « calcul surface de plancher ». Plan : IMPLEMENTATION_PLAN § J1.
+ *
+ * Textes officiels cités (consultés le 2026-10-26) :
+ *  - art. L111-14 du code de l'urbanisme (définition légale, hauteur sous
+ *    plafond supérieure à 1,80 m, nu intérieur des façades),
+ *    LEGIARTI000031210207 ;
+ *  - art. R111-22 (les huit déductions), LEGIARTI000031721274, en vigueur
+ *    depuis le 01/01/2016 (décret n° 2015-1783) ;
+ *  - service-public.gouv.fr F2868 « Surface de plancher, emprise au sol et
+ *    surface taxable » (vérifiée le 27/11/2024 selon la page).
+ *
+ * Affirmations sur l'outil vérifiées dans sas-plu-3d (commit d4f460d du
+ * 2026-10-26) :
+ *  - surface de plancher maximale théorique = emprise effective × niveaux :
+ *    src/lib/plu-engine.ts:2723 (définition), :2957-2963 (calcul,
+ *    niveaux = partie entière de hauteur max / hauteur d'étage) ;
+ *  - hauteur d'étage par défaut 3 m : src/config/plu-definitions.ts:100 ;
+ *    lecture de « R+2 » ou « 12 m » : src/lib/plu-engine.ts:2792 ;
+ *  - emprise effective plafonnée par la part d'espaces verts :
+ *    plu-engine.ts:2938-2940 ; règles contradictoires signalées :
+ *    :2926-2936 ; règlement absent signalé (REGLEMENT_ABSENT) : :2915-2924 ;
+ *  - passage de la surface de plancher à la surface vendable (0,88 collectif,
+ *    0,92 individuel groupé, 0,90 bureaux) : src/config/promoter-fiscal.ts:184-211.
+ *  - NE FAIT PAS : le calcul légal de l'article R111-22 (aucune déduction de
+ *    trémies, d'embrasures, de stationnement ou de surfaces sous 1,80 m dans
+ *    le moteur d'enveloppe). La page le dit.
+ *
+ * L'exemple chiffré est entièrement fictif et étiqueté comme tel.
+ */
+export const SURFACE_DE_PLANCHER: MetierPageContent = {
+  slug: "/surface-de-plancher",
+  navLabel: "Surface de plancher",
+  related: ["/charge-fonciere", "/bilan-promoteur", "/analyse-plu-parcelle", "/faisabilite-fonciere"],
+
+  metaTitle: "Calcul de la surface de plancher et exemple",
+  metaDescription:
+    "Surface de plancher : définition de l'article R111-22, les huit déductions, différence avec l'emprise au sol, exemple de calcul fictif pas à pas.",
+  dateModified: "2026-10-26",
+  article: { datePublished: "2026-10-26" },
+
+  eyebrow: "Surface de plancher · R111-22 · enveloppe constructible",
+  h1: "Calcul de la surface de plancher : méthode et exemple",
+  lede:
+    "La surface de plancher est la somme des surfaces closes et couvertes d'une construction dont la hauteur sous plafond dépasse 1,80 m, mesurées au nu intérieur des façades, après huit déductions fixées par le code de l'urbanisme. Cette page donne la définition, la méthode de calcul, un exemple fictif, et la différence entre la surface de plancher d'un projet et l'enveloppe théorique qu'un règlement de PLU autorise.",
+  ctaPrimaryLabel: "Prendre rendez-vous",
+  ctaNote: "Parlons d'une parcelle et de la surface que ses règles permettent.",
+
+  guide: {
+    kicker: "Définition et calcul",
+    title: "Ce que dit le code de l'urbanisme",
+    intro:
+      "Textes consultés sur Légifrance et service-public.gouv.fr le 26 octobre 2026. Vérifiez la version en vigueur à la date de votre projet.",
+    blocks: [
+      {
+        title: "Qu'est-ce que la surface de plancher ?",
+        paragraphs: [
+          "L'article L111-14 du code de l'urbanisme définit la surface de plancher comme la somme des surfaces de plancher closes et couvertes, sous une hauteur de plafond supérieure à 1,80 m, calculée à partir du nu intérieur des façades du bâtiment. Le même article renvoie à un décret le soin de fixer ce qui en est déduit.",
+          "C'est l'article R111-22 qui fixe ces déductions. La surface de plancher sert à déterminer le type d'autorisation d'urbanisme à demander et à vérifier le respect des règles du PLU ; elle est distincte de la surface habitable, qui relève du code de la construction, et de la surface taxable, qui sert au calcul de la taxe d'aménagement.",
+        ],
+        sources: [
+          { label: "Code de l'urbanisme, art. L111-14 (Légifrance, consulté le 26/10/2026)", href: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031210207" },
+          { label: "Surface de plancher, emprise au sol et surface taxable (service-public.gouv.fr, F2868)", href: "https://www.service-public.gouv.fr/particuliers/vosdroits/F2868" },
+        ],
+      },
+      {
+        title: "Les huit déductions de l'article R111-22",
+        paragraphs: [
+          "On part de la somme des surfaces de chaque niveau clos et couvert, mesurées au nu intérieur des façades, puis on retire, dans l'ordre de l'article :",
+        ],
+        list: [
+          "1° l'épaisseur des murs qui entourent les embrasures des portes et fenêtres donnant sur l'extérieur ;",
+          "2° les vides et trémies des escaliers et ascenseurs ;",
+          "3° les surfaces dont la hauteur sous plafond est inférieure ou égale à 1,80 m ;",
+          "4° les surfaces de stationnement des véhicules, rampes d'accès et aires de manœuvre comprises ;",
+          "5° les combles non aménageables pour l'habitation ou une activité ;",
+          "6° les locaux techniques d'un immeuble ou d'un groupe de bâtiments (hors maison individuelle), y compris les locaux de stockage des déchets ;",
+          "7° les caves et celliers annexes à des logements, lorsqu'ils ne sont desservis que par une partie commune ;",
+          "8° une surface égale à 10 % des surfaces affectées à l'habitation, après les déductions précédentes, lorsque les logements sont desservis par des parties communes intérieures.",
+        ],
+        sources: [
+          { label: "Code de l'urbanisme, art. R111-22 (Légifrance, en vigueur depuis le 01/01/2016, consulté le 26/10/2026)", href: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031721274" },
+        ],
+      },
+      {
+        title: "Comment calculer la surface de plancher, pas à pas",
+        paragraphs: [
+          "Le calcul se fait niveau par niveau, sur plans. Pour chaque niveau clos et couvert, mesurez la surface au nu intérieur des murs de façade, c'est-à-dire sans l'épaisseur de ces murs. Additionnez les niveaux, puis appliquez les déductions qui concernent votre construction : une maison individuelle n'est pas concernée par les déductions 6° à 8°, un immeuble collectif peut l'être par toutes.",
+          "Un balcon ouvert ou une terrasse non couverte ne sont pas des surfaces closes et couvertes : ils n'entrent pas dans le total de départ. Un garage intégré à la maison y entre, puis il est retiré au titre du stationnement. Un exemple fictif détaillé figure plus bas sur cette page.",
+        ],
+      },
+      {
+        title: "De la règle du PLU à la surface de plancher réalisable",
+        paragraphs: [
+          "Avant tout plan d'architecte, un opérateur veut savoir combien de mètres carrés une parcelle peut porter. Le règlement de zone ne le dit presque jamais directement : il fixe une emprise au sol maximale, une hauteur, des retraits, une part d'espaces verts. On en déduit une enveloppe théorique : surface de la parcelle × emprise au sol autorisée × nombre de niveaux que la hauteur permet.",
+          "Illustration fictive : sur 600 m² de terrain, avec une emprise au sol de 40 % et une hauteur de 9 m, on obtient 240 m² d'emprise et trois niveaux de 3 m, soit une enveloppe de 720 m². Ce chiffre est un plafond : retraits, prospects, stationnement à créer, gabarit et déductions de l'article R111-22 le réduisent, parfois fortement.",
+        ],
+      },
+      {
+        title: "Pourquoi l'enveloppe théorique n'est pas la surface de plancher du permis",
+        paragraphs: [
+          "L'enveloppe multiplie une emprise par un nombre de niveaux : elle compte les murs de façade, les escaliers, les parkings intégrés, les combles bas. La surface de plancher du permis, elle, est mesurée au nu intérieur, après déductions. Les deux chiffres répondent à deux questions différentes : « combien la règle autorise-t-elle au maximum ? » et « combien de surface de plancher ce projet précis développe-t-il ? ».",
+          "Pour un bilan promoteur, la surface vendable est encore inférieure à la surface de plancher : parties communes, circulations et gaines techniques ne se vendent pas.",
+        ],
+        link: {
+          text: "Le passage de la surface constructible au prix de terrain admissible est expliqué sur",
+          href: "/charge-fonciere",
+          label: "la page Charge foncière",
+        },
+      },
+    ],
+  },
+
+  problem: {
+    title: "Une surface mal estimée fausse tout le reste",
+    body: [
+      "La surface de plancher réalisable est l'hypothèse dont dépendent le chiffre d'affaires, les coûts et le prix que l'on peut proposer pour un terrain. Une erreur à ce stade se propage dans tout le bilan.",
+      "Or deux chiffres circulent sous le même nom : l'enveloppe théorique tirée du règlement et la surface de plancher au sens de l'article R111-22. Les confondre conduit à surestimer ce qu'une parcelle permet.",
+    ],
+    points: [
+      {
+        title: "Le règlement ne donne pas la surface",
+        body: "Il fixe des limites (emprise, hauteur, espaces verts) qu'il faut combiner soi-même pour obtenir un ordre de grandeur.",
+      },
+      {
+        title: "Les déductions changent le résultat",
+        body: "Stationnement intégré, trémies, combles bas : les retirer peut faire baisser sensiblement la surface d'un projet par rapport à sa surface brute.",
+      },
+      {
+        title: "Les règles se contredisent parfois",
+        body: "Une emprise au sol élevée et une forte part d'espaces verts imposée ne peuvent pas être appliquées ensemble au maximum sur la même parcelle.",
+      },
+    ],
+  },
+
+  capabilities: {
+    title: "Ce que Fonciable calcule, et ce qu'il ne calcule pas",
+    intro:
+      "Fonciable calcule une enveloppe constructible théorique à partir des règles lues pour la parcelle. Il ne calcule pas la surface de plancher d'un projet au sens de l'article R111-22 : cette mesure se fait sur des plans.",
+    items: [
+      {
+        ref: "SP.01",
+        title: "Surface de plancher maximale théorique",
+        body: "Emprise effective × nombre de niveaux. Le nombre de niveaux est la partie entière de la hauteur maximale divisée par la hauteur d'étage, 3 m par défaut.",
+      },
+      {
+        ref: "SP.02",
+        title: "Hauteur lue en mètres ou en niveaux",
+        body: "Une hauteur écrite « 12 m » ou « R+2 » dans le règlement est convertie en nombre de niveaux.",
+      },
+      {
+        ref: "SP.03",
+        title: "Emprise plafonnée par les espaces verts",
+        body: "L'emprise retenue ne dépasse jamais ce que laisse la part d'espaces verts imposée ; si les deux règles additionnées dépassent 100 % de la parcelle, l'outil le signale comme une contradiction.",
+      },
+      {
+        ref: "SP.04",
+        title: "Origine de chaque limite",
+        body: "Si l'emprise ou la hauteur ne viennent pas du règlement de zone, l'outil l'indique par un avertissement et déclare la donnée manquante.",
+      },
+      {
+        ref: "SP.05",
+        title: "Surface vendable pour le bilan",
+        body: "Dans le bilan promoteur, la surface de plancher est convertie en surface vendable par un coefficient : 0,88 en collectif, 0,92 en individuel groupé, 0,90 en bureaux, à remplacer par le vôtre.",
+      },
+      {
+        ref: "SP.06",
+        title: "Pas de calcul R111-22",
+        body: "Aucune des huit déductions de l'article R111-22 n'est appliquée : l'enveloppe est un plafond réglementaire, pas la surface de plancher d'un projet.",
+      },
+    ],
+    contextLink: {
+      text: "Pour voir l'enveloppe calculée sur une parcelle réelle, avec la source de chaque règle :",
+      href: "/analyse-plu-parcelle",
+      label: "analyse PLU d'une parcelle",
+    },
+  },
+
+  steps: {
+    title: "De la parcelle à l'enveloppe constructible",
+    items: [
+      {
+        n: "01",
+        title: "Choisir la parcelle",
+        body: "Par son adresse ou sur la carte : contour et surface viennent du cadastre de l'IGN.",
+      },
+      {
+        n: "02",
+        title: "Lire la zone et ses limites",
+        body: "Zonage du Géoportail de l'Urbanisme, puis emprise au sol, hauteur et espaces verts extraits du règlement de zone, avec leur provenance.",
+      },
+      {
+        n: "03",
+        title: "Calculer l'enveloppe",
+        body: "Emprise effective, nombre de niveaux, surface de plancher maximale théorique, et avertissements si une règle manque ou se contredit.",
+      },
+      {
+        n: "04",
+        title: "Confronter au projet",
+        body: "L'architecte mesure ensuite la surface de plancher réelle du projet sur plans, déductions comprises.",
+      },
+    ],
+  },
+
+  sources: {
+    title: "Les sources derrière l'enveloppe",
+    intro: "Les données publiques interrogées par le produit pour estimer la surface constructible d'une parcelle.",
+    items: [
+      "Cadastre, API Carto de l'IGN : contour et surface de la parcelle.",
+      "Géoportail de l'Urbanisme (GPU) : zonage et règlement de zone, quand la commune y publie son document.",
+      "Règlement de zone analysé : emprise au sol, hauteur, espaces verts, avec l'extrait cité quand il est disponible.",
+    ],
+    note:
+      "Quand une limite ne figure pas dans le règlement disponible, une valeur de repli est utilisée et signalée : elle ne remplace pas la lecture du document en vigueur.",
+  },
+
+  proof: {
+    title: "Exemple de calcul de surface de plancher",
+    intro: "Une maison individuelle sur deux niveaux, mesurée sur plans. Les déductions 6° à 8° ne s'appliquent pas à une maison individuelle.",
+    tag: "Exemple fictif, calcul de principe",
+    rows: [
+      { label: "Rez-de-chaussée, au nu intérieur des façades (garage intégré compris)", value: "128 m²" },
+      { label: "Étage, au nu intérieur des façades", value: "90 m²" },
+      { label: "Garage intégré, stationnement (4°)", value: "− 18 m²" },
+      { label: "Parties de l'étage sous 1,80 m de hauteur (3°)", value: "− 12 m²" },
+      { label: "Trémie de l'escalier à l'étage (2°)", value: "− 4 m²" },
+      { label: "Embrasures des portes et fenêtres (1°)", value: "− 3 m²" },
+      { label: "Surface de plancher", value: "181 m²" },
+    ],
+    caption:
+      "Exemple entièrement fictif : ni maison réelle, ni client, ni plans réels. Les surfaces sont inventées pour illustrer l'ordre des déductions de l'article R111-22. Pour un dossier de permis, la surface de plancher est calculée par le maître d'œuvre sur les plans du projet.",
+  },
+
+  limits: {
+    title: "Ce qu'il faut vérifier ailleurs",
+    intro: "L'enveloppe théorique aide à trier les terrains ; elle ne remplace ni les plans ni l'instruction.",
+    items: [
+      "L'enveloppe ne tient pas compte des retraits, prospects, gabarits, règles graphiques ou servitudes qui peuvent réduire la surface réalisable.",
+      "La hauteur d'étage de 3 m est une hypothèse par défaut : un rez-de-chaussée commercial ou des niveaux plus bas changent le nombre de niveaux.",
+      "La surface de plancher d'un projet se mesure sur plans, au nu intérieur, avec les déductions de l'article R111-22 : c'est le travail de l'architecte ou du maître d'œuvre.",
+      "Un règlement mal numérisé ou incomplet donne une enveloppe incertaine : l'avertissement affiché le signale, la lecture du règlement en vigueur reste nécessaire.",
+      "Fonciable ne délivre ni certificat d'urbanisme, ni autorisation : la conformité d'un projet se confirme auprès du service urbanisme de la commune.",
+    ],
+  },
+
+  faq: [
+    {
+      q: "Qu'est-ce que la surface de plancher ?",
+      a: "C'est la somme des surfaces closes et couvertes d'une construction dont la hauteur sous plafond dépasse 1,80 m, mesurées au nu intérieur des façades (art. L111-14 du code de l'urbanisme), après les huit déductions de l'article R111-22 : embrasures, trémies, surfaces sous 1,80 m, stationnement, combles non aménageables et, pour les immeubles, locaux techniques, caves desservies par une partie commune et 10 % des surfaces d'habitation.",
+    },
+    {
+      q: "Le garage compte-t-il dans la surface de plancher ?",
+      a: "Non. Les surfaces aménagées pour le stationnement des véhicules, y compris les rampes d'accès et les aires de manœuvre, sont déduites (art. R111-22, 4°). Un garage intégré est mesuré avec le reste du niveau, puis retiré.",
+    },
+    {
+      q: "Quelle différence entre surface de plancher et emprise au sol ?",
+      a: "La surface de plancher additionne les surfaces de tous les niveaux, mesurées à l'intérieur. L'emprise au sol est la projection verticale du volume de la construction sur le terrain, débords et surplombs inclus, sans notion de niveaux. Un bâtiment de trois niveaux a une emprise au sol mais trois niveaux de surface de plancher.",
+    },
+    {
+      q: "Quelle différence entre surface de plancher et surface taxable ?",
+      a: "La surface taxable sert de base à la taxe d'aménagement. Elle se calcule de façon proche mais ne pratique pas toutes les déductions de la surface de plancher. La fiche F2868 de service-public.gouv.fr détaille les deux calculs.",
+    },
+    {
+      q: "Fonciable calcule-t-il la surface de plancher d'un projet ?",
+      a: "Non. Fonciable calcule une surface de plancher maximale théorique, à partir de l'emprise au sol, de la hauteur et de la part d'espaces verts lues dans le règlement de zone. Ce plafond n'applique pas les déductions de l'article R111-22 et ne remplace pas le calcul sur plans d'un projet.",
+    },
+  ],
+
+  finalCta: {
+    title: "Parlons d'une parcelle et de ce qu'elle permet",
+    body: "Apportez une adresse : nous vous montrerons l'enveloppe constructible que Fonciable calcule, la source de chaque règle et ce qui reste à vérifier.",
+    label: "Prendre rendez-vous",
+  },
+};

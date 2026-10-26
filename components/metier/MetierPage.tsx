@@ -9,7 +9,7 @@ import { TrackedCta } from "@/components/analytics/tracked-cta";
 import { APP_URL, BRAND_NAME } from "@/config/brand";
 import { CALENDLY_URL, DISCLAIMER_SHORT } from "@/config/site-content";
 import { relatedPages } from "@/config/solutions";
-import { buildBreadcrumbSchema, buildWebPageSchema } from "@/lib/page-schema";
+import { buildArticleSchema, buildBreadcrumbSchema, buildWebPageSchema } from "@/lib/page-schema";
 import type { MetierPageContent } from "@/components/metier/types";
 
 /**
@@ -50,6 +50,17 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
       <JsonLd
         schema={buildBreadcrumbSchema(crumbs)}
       />
+      {content.article ? (
+        <JsonLd
+          schema={buildArticleSchema({
+            slug: content.slug,
+            headline: content.h1,
+            description: content.metaDescription,
+            datePublished: content.article.datePublished,
+            dateModified: content.dateModified,
+          })}
+        />
+      ) : null}
 
       <SiteHeader />
 
