@@ -24,7 +24,8 @@ import type { MetierPageContent } from "@/components/metier/types";
  *    lecture de « R+2 » ou « 12 m » : src/lib/plu-engine.ts:2792 ;
  *  - emprise effective plafonnée par la part d'espaces verts :
  *    plu-engine.ts:2938-2940 ; règles contradictoires signalées :
- *    :2926-2936 ; règlement absent signalé (REGLEMENT_ABSENT) : :2915-2924 ;
+ *    :2926-2936 ; avertissement REGLEMENT_ABSENT seulement si l'emprise ou la hauteur vient
+ *    du profil statistique (pas pour la base de zones) : :2904-2924 ;
  *  - passage de la surface de plancher à la surface vendable (0,88 collectif,
  *    0,92 individuel groupé, 0,90 bureaux) : src/config/promoter-fiscal.ts:184-211.
  *  - NE FAIT PAS : le calcul légal de l'article R111-22 (aucune déduction de
@@ -164,7 +165,7 @@ export const SURFACE_DE_PLANCHER: MetierPageContent = {
       {
         ref: "SP.04",
         title: "Origine de chaque limite",
-        body: "Une emprise ou une hauteur qui ne vient pas du règlement déclenche un avertissement.",
+        body: "Une emprise ou une hauteur issue d'un profil statistique, faute de règlement, déclenche un avertissement ; la source de chaque limite est indiquée.",
       },
       {
         ref: "SP.05",

@@ -11,13 +11,20 @@ import type { MetierPageContent } from "@/components/metier/types";
  * Sources citées (consultées le 2026-10-26) :
  *  - service-public.gouv.fr F16832 « Comment connaître le prix d'un logement
  *    ou d'un terrain ? » (vérifiée le 03/10/2025 selon la page) : base DVF
- *    gratuite (5 dernières années, ventes de biens bâtis et non bâtis, issue
- *    des actes notariés et du cadastre), Patrim dans l'espace particulier
+ *    gratuite (5 dernières années, transactions issues des actes notariés et
+ *    du cadastre ; F16832 ne précise PAS bâtis / non bâtis), Patrim dans l'espace particulier
  *    impots.gouv.fr, notaires, Haut-Rhin, Bas-Rhin, Moselle et Mayotte non
  *    couverts ;
  *  - data.gouv.fr, jeu « Demandes de valeurs foncières » : producteur DGFiP,
  *    mise à jour semestrielle (avril et octobre), Licence Ouverte 2.0,
- *    réutilisation sans ré-identification des personnes.
+ *    réutilisation sans ré-identification des personnes (ne mentionne pas
+ *    explicitement les terrains) ;
+ *  - cadastre.data.gouv.fr/dvf (Etalab, page non datée) : biens bâtis
+ *    (« appartement et maison ») et non bâtis (« parcelles et
+ *    exploitations ») ; seule source citée pour les biens non bâtis
+ *    (correction QA 17, A4) ;
+ *  - app.dvf.etalab.gouv.fr : consultation par département, commune,
+ *    section cadastrale et parcelle (pas par adresse).
  *
  * Affirmations sur l'outil vérifiées dans sas-plu-3d (commit d4f460d du
  * 2026-10-26) :
@@ -79,12 +86,14 @@ export const PRIX_TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
       {
         title: "Trouver les ventes réelles : la base DVF",
         paragraphs: [
-          "La base « Demandes de valeurs foncières » (DVF), publiée par la direction générale des finances publiques, recense les ventes immobilières des cinq dernières années à partir des actes notariés et des informations cadastrales, y compris des ventes de biens non bâtis comme des terrains. Elle est consultable gratuitement, par adresse ou sur carte jusqu'à la section cadastrale, et mise à jour deux fois par an, en avril et en octobre.",
+          "La base « Demandes de valeurs foncières » (DVF), publiée par la direction générale des finances publiques, recense les ventes immobilières des cinq dernières années, à partir des actes notariés et des informations cadastrales. Selon la présentation d'Etalab, elle couvre des biens bâtis (appartements, maisons) et non bâtis (parcelles, exploitations). Elle est consultable gratuitement, notamment dans l'application DVF d'Etalab, par commune, section cadastrale et parcelle, et mise à jour deux fois par an, en avril et en octobre.",
           "Elle ne couvre pas le Haut-Rhin, le Bas-Rhin, la Moselle ni Mayotte. Ses données sont publiées sous Licence Ouverte, avec une condition : leur réutilisation ne doit pas permettre de ré-identifier les personnes.",
         ],
         sources: [
           { label: "Comment connaître le prix d'un logement ou d'un terrain ? (service-public.gouv.fr, F16832)", href: "https://www.service-public.gouv.fr/particuliers/vosdroits/F16832" },
           { label: "Demandes de valeurs foncières (data.gouv.fr, consulté le 26/10/2026)", href: "https://www.data.gouv.fr/fr/datasets/demandes-de-valeurs-foncieres/" },
+          { label: "Base « Demande de valeurs foncières » (cadastre.data.gouv.fr, Etalab, page non datée, consultée le 26/10/2026)", href: "https://cadastre.data.gouv.fr/dvf" },
+          { label: "Application DVF (app.dvf.etalab.gouv.fr, consultée le 26/10/2026)", href: "https://app.dvf.etalab.gouv.fr/" },
         ],
       },
       {
@@ -97,7 +106,7 @@ export const PRIX_TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
         title: "Lire une vente de terrain avec prudence",
         paragraphs: [
           "Une vente enregistrée donne un prix et une surface, pas les conditions de la vente. Avant de retenir une mutation comme référence, vérifiez qu'elle porte bien sur un seul terrain et pas sur plusieurs lots vendus ensemble, que le terrain était constructible et viabilisé comme le vôtre, et que la date reste pertinente au regard de l'évolution du marché local.",
-          "Le prix au mètre carré de terrain compare mal des parcelles qui n'ont pas les mêmes droits à construire. Un terrain deux fois plus grand ne permet pas forcément de construire deux fois plus. Entre professionnels, on raisonne plutôt en prix par mètre carré de surface de plancher constructible : c'est l'incidence foncière.",
+          "Le prix au mètre carré de terrain compare mal des parcelles qui n'ont pas les mêmes droits à construire. Un terrain deux fois plus grand ne permet pas forcément de construire deux fois plus. Entre professionnels, on rapporte plutôt la charge foncière au mètre carré de surface de plancher constructible : c'est l'incidence foncière.",
         ],
         link: {
           text: "La méthode pour estimer la surface constructible d'une parcelle est détaillée sur",
@@ -108,7 +117,7 @@ export const PRIX_TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
       {
         title: "Prix du marché ou prix admissible : l'approche du promoteur",
         paragraphs: [
-          "Un particulier qui achète un terrain pour y faire construire sa maison raisonne en prix de marché : ce que des terrains comparables se sont vendus. Un promoteur raisonne à l'envers : il part du chiffre d'affaires que l'opération dégagera, retire ses coûts et sa marge, et en déduit le prix maximal qu'il peut payer pour le terrain. C'est la charge foncière admissible.",
+          "Un particulier qui achète un terrain pour y faire construire sa maison raisonne en prix de marché : ce que des terrains comparables se sont vendus. Un promoteur raisonne à l'envers : il part du chiffre d'affaires que l'opération dégagera, retire ses coûts et sa marge, et en déduit le montant maximal que l'opération peut consacrer au foncier, frais d'acquisition compris : c'est la charge foncière admissible. Le prix maximal à proposer au vendeur s'en déduit, hors frais.",
           "Les deux prix ne coïncident pas forcément. Quand le prix demandé dépasse ce qu'une opération peut supporter, la négociation porte sur cet écart.",
         ],
         link: {
@@ -170,7 +179,7 @@ export const PRIX_TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
       {
         ref: "PT.05",
         title: "Prix admissible du terrain",
-        body: "En mode compte à rebours, l'application calcule le prix maximal du terrain compatible avec votre marge cible : c'est la charge foncière admissible, pas un prix de marché.",
+        body: "En mode compte à rebours, l'application calcule le prix maximal du terrain compatible avec votre marge cible, déduit de la charge foncière admissible : ce n'est pas un prix de marché.",
       },
     ],
     contextLink: {
@@ -196,7 +205,7 @@ export const PRIX_TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
       {
         n: "03",
         title: "Relever les ventes comparables",
-        body: "Ventes de terrains proches dans DVF ou Patrim, vérifiées une par une.",
+        body: "Ventes de terrains proches dans DVF, vérifiées une par une ; Patrim en complément.",
       },
       {
         n: "04",
@@ -234,7 +243,7 @@ export const PRIX_TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
   faq: [
     {
       q: "Comment connaître le prix d'un terrain constructible ?",
-      a: "En consultant les ventes de terrains comparables : la base DVF, gratuite, recense les ventes des cinq dernières années, y compris de biens non bâtis ; le service Patrim de l'espace particulier impots.gouv.fr permet aussi de rechercher des transactions. Un notaire ou un professionnel de l'immobilier peut affiner l'estimation.",
+      a: "En consultant les ventes de terrains comparables : la base DVF, gratuite, recense les ventes des cinq dernières années, bâties ou non bâties selon Etalab ; le service Patrim de l'espace particulier impots.gouv.fr permet aussi de rechercher des transactions. Un notaire ou un professionnel de l'immobilier peut affiner l'estimation.",
     },
     {
       q: "Pourquoi le prix au m² d'un terrain varie-t-il autant ?",
@@ -242,7 +251,7 @@ export const PRIX_TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
     },
     {
       q: "Quelle différence entre prix du marché et charge foncière ?",
-      a: "Le prix du marché se déduit des ventes comparables. La charge foncière admissible se calcule à rebours, à partir de ce qu'une opération rapportera, moins ses coûts et sa marge : c'est le prix maximal qu'un promoteur peut payer.",
+      a: "Le prix du marché se déduit des ventes comparables. La charge foncière admissible se calcule à rebours, à partir de ce qu'une opération rapportera, moins ses coûts et sa marge : c'est le montant maximal que l'opération peut consacrer au terrain, frais d'acquisition compris.",
     },
     {
       q: "Fonciable estime-t-il le prix d'un terrain ?",

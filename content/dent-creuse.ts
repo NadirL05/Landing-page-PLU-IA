@@ -64,7 +64,7 @@ export const DENT_CREUSE: MetierPageContent = {
         title: "Qu'est-ce qu'une dent creuse ?",
         paragraphs: [
           "Le glossaire de Géoconfluences (ENS de Lyon) la décrit comme « une expression imagée désignant une parcelle non bâtie ou de faible hauteur » située « dans un alignement de constructions plus hautes ». L'image est celle d'une dent manquante dans une rangée : un vide, ou un bâti bas, entouré de constructions.",
-          "Ce n'est pas une zone du PLU. Le code de l'urbanisme classe les terrains en zones urbaines, à urbaniser, agricoles et naturelles ; une dent creuse peut se trouver dans n'importe quelle zone, même si l'expression vise le plus souvent des terrains en zone urbaine. Son sens exact peut varier d'un document à l'autre : si un PLU ou un SCoT l'emploie, lisez la définition qu'il en donne.",
+          "Ce n'est pas une zone du PLU. Le règlement du PLU délimite des zones urbaines, à urbaniser, agricoles et naturelles et forestières (art. R151-17) ; une dent creuse peut se trouver dans n'importe quelle zone, même si l'expression vise le plus souvent des terrains en zone urbaine. Son sens exact peut varier d'un document à l'autre : si un PLU ou un SCoT l'emploie, lisez la définition qu'il en donne.",
         ],
         sources: [
           { label: "Dent creuse, glossaire Géoconfluences (ENS de Lyon, publié le 25/11/2025)", href: "https://geoconfluences.ens-lyon.fr/glossaire/dent-creuse" },
@@ -232,7 +232,7 @@ export const DENT_CREUSE: MetierPageContent = {
     },
     {
       q: "Pourquoi parle-t-on de dents creuses avec la loi Climat et résilience ?",
-      a: "Parce que cette loi a inscrit dans le code de l'urbanisme la lutte contre l'artificialisation des sols, qui passe notamment par l'optimisation de la densité des espaces déjà urbanisés (art. L101-2-1). Construire dans une dent creuse densifie sans consommer d'espace naturel, agricole ou forestier.",
+      a: "Parce que cette loi a inscrit dans le code de l'urbanisme la lutte contre l'artificialisation des sols, qui passe notamment par l'optimisation de la densité des espaces déjà urbanisés (art. L101-2-1). Construire dans une dent creuse densifie sans étendre l'enveloppe urbaine ; selon l'occupation actuelle du terrain, l'opération peut néanmoins compter dans la consommation d'espaces naturels, agricoles et forestiers.",
     },
     {
       q: "Fonciable détecte-t-il les dents creuses ?",
