@@ -122,6 +122,13 @@ export const GUIDE_PAGES: readonly SolutionPage[] = [
     summary:
       "Trouver les ventes réelles (DVF, Patrim), ce qui fait varier le prix, et la différence entre prix du marché et prix admissible d'un promoteur.",
   },
+  {
+    slug: "/comparatif-outils-analyse-parcelle",
+    navLabel: "Comparatif des outils",
+    linkLabel: "Outils d'analyse de parcelle et de PLU : comparatif",
+    summary:
+      "Géoportail de l'Urbanisme, France Cadastre, Kel Foncier, LandUp, Terranota et Fonciable : public, fonctions, données et prix publics, sources datées.",
+  },
 ];
 
 /**

@@ -64,6 +64,27 @@ export interface MetierPageContent {
     readonly blocks: readonly GuideBlock[];
   };
 
+  /* ---- 2 ter. Tableau comparatif (optionnel, pages comparatives ; rendu avant le guide) ---- */
+  /**
+   * Tableau HTML réel (<table>, en-têtes de colonne et de ligne) : lisible
+   * sans JavaScript et par les moteurs. Chaque ligne porte le lien officiel
+   * de l'outil ; chaque cellule ne contient que ce qui a été lu sur le site
+   * de l'outil à la date indiquée dans `caption`.
+   */
+  readonly comparison?: {
+    readonly kicker: string;
+    readonly title: string;
+    readonly intro?: string;
+    /** En-têtes des colonnes de données (hors colonne « Outil »). */
+    readonly columns: readonly string[];
+    readonly rows: readonly {
+      readonly tool: string;
+      readonly href: string;
+      readonly cells: readonly string[];
+    }[];
+    readonly caption: string;
+  };
+
   /* ---- 3. Problème métier ---- */
   readonly problem: {
     readonly title: string;
