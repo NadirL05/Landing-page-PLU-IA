@@ -318,3 +318,39 @@ test.describe("J5 — /prix-terrain-constructible", () => {
     expect(await page.locator('section[aria-labelledby="guide-heading"] a[href="/prix-terrain-constructible"]').count()).toBeGreaterThan(0);
   });
 });
+
+/**
+ * § K — page comparative (mission SEO/GEO validée par Nadir le 27/10/2026).
+ * Tableau HTML réel, lien officiel de chaque outil, transparence de
+ * l'éditeur et dates de consultation visibles.
+ */
+test.describe("K1 — /comparatif-outils-analyse-parcelle", () => {
+  test("H1, Article, tableau à 6 outils, liens officiels, éditeur déclaré", async ({ page }) => {
+    const officialSites = [
+      "https://fonciable.fr/",
+      "https://www.france-cadastre.fr/",
+      "https://www.geoportail-urbanisme.gouv.fr/",
+      "https://www.kelfoncier.com/",
+      "https://www.landup.fr/",
+      "https://terranota.fr/",
+    ];
+    await checkArticle(
+      page,
+      "/comparatif-outils-analyse-parcelle",
+      "Outils d'analyse de parcelle et de PLU : comparatif",
+      ["/terrain-constructible", "https://www.geoportail-urbanisme.gouv.fr/infos-legales/", "https://terranota.fr/nos-offres/"],
+      ["/analyse-plu-parcelle", "/terrain-constructible", "/zonage-plu"],
+    );
+    const table = page.locator('section[aria-labelledby="comparatif-heading"] table');
+    await expect(table).toHaveCount(1);
+    await expect(table.locator("thead th")).toHaveCount(5);
+    await expect(table.locator("tbody tr")).toHaveCount(officialSites.length);
+    for (const href of officialSites) {
+      expect(await table.locator(`tbody th a[href="${href}"]`).count(), href).toBe(1);
+    }
+    // Transparence : l'éditeur de Fonciable publie la page, et les dates de consultation sont dites.
+    await expect(page.locator("main").getByText(/publié par l'éditeur de Fonciable/).first()).toBeVisible();
+    await expect(table.locator("caption")).toContainText("27 octobre 2026");
+    await expect(page.locator("main").getByText("Non indiqué sur son site ; essai gratuit de 48 h proposé")).toBeVisible();
+  });
+});

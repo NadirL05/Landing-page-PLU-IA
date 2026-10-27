@@ -115,6 +115,52 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
           </div>
         </section>
 
+        {/* ===== 2 ter. Tableau comparatif (pages comparatives), avant le guide ===== */}
+        {content.comparison ? (
+          <section className="border-t py-24" style={{ borderColor: "var(--line-strong)" }} aria-labelledby="comparatif-heading">
+            <div className="mx-auto max-w-[1180px] px-6">
+              <Reveal className="mb-10 max-w-3xl">
+                <div className="kicker mb-4">{content.comparison.kicker}</div>
+                <h2 id="comparatif-heading" className="font-display text-3xl font-normal leading-[1.08] tracking-tight md:text-4xl" style={{ color: "var(--ink)" }}>
+                  {content.comparison.title}
+                </h2>
+                {content.comparison.intro ? (
+                  <p className="mt-5 max-w-2xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{content.comparison.intro}</p>
+                ) : null}
+              </Reveal>
+              {/* Défilement horizontal limité au tableau : la page elle-même
+                  ne déborde jamais sur mobile. */}
+              <div className="overflow-x-auto" role="region" aria-labelledby="comparatif-heading" tabIndex={0}>
+                <table className="w-full min-w-[760px] border-collapse text-left text-[13.5px] leading-relaxed">
+                  <caption className="caption-bottom pt-4 text-left text-[12px]" style={{ color: "var(--ink-soft)" }}>
+                    {content.comparison.caption}
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th scope="col" className="border-b-2 py-3 pr-4 font-semibold" style={{ borderColor: "var(--terracotta)", color: "var(--ink)" }}>Outil</th>
+                      {content.comparison.columns.map((column) => (
+                        <th key={column} scope="col" className="border-b-2 py-3 pr-4 font-semibold" style={{ borderColor: "var(--terracotta)", color: "var(--ink)" }}>{column}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {content.comparison.rows.map((row) => (
+                      <tr key={row.tool} className="align-top">
+                        <th scope="row" className="border-b py-3 pr-4 font-semibold" style={{ borderColor: "var(--line)", color: "var(--ink)" }}>
+                          <a href={row.href} target="_blank" rel="noopener" className="underline transition hover:opacity-70">{row.tool}</a>
+                        </th>
+                        {row.cells.map((cell, i) => (
+                          <td key={`${row.tool}-${i}`} className="border-b py-3 pr-4" style={{ borderColor: "var(--line)", color: "var(--ink-soft)" }}>{cell}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        ) : null}
+
         {/* ===== 2 bis. Guide : définition, méthode, textes officiels ===== */}
         {content.guide ? (
           <section className="border-t py-24" style={{ borderColor: "var(--line-strong)" }} aria-labelledby="guide-heading">

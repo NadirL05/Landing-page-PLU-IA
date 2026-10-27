@@ -34,7 +34,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const ANALYSE_PLU_PARCELLE: MetierPageContent = {
   slug: "/analyse-plu-parcelle",
   navLabel: "Analyse PLU",
-  related: ["/bilan-promoteur", "/faisabilite-fonciere", "/prospection-fonciere", "/zonage-plu", "/terrain-constructible", "/surface-de-plancher", "/emprise-au-sol", "/certificat-urbanisme"],
+  related: ["/bilan-promoteur", "/faisabilite-fonciere", "/prospection-fonciere", "/zonage-plu", "/terrain-constructible", "/surface-de-plancher", "/emprise-au-sol", "/certificat-urbanisme", "/comparatif-outils-analyse-parcelle"],
 
   metaTitle: "Analyse PLU d'une parcelle : zonage et règles",
   metaDescription:

@@ -43,7 +43,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const TERRAIN_CONSTRUCTIBLE: MetierPageContent = {
   slug: "/terrain-constructible",
   navLabel: "Terrain constructible",
-  related: ["/zonage-plu", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/division-parcellaire", "/charge-fonciere", "/emprise-au-sol", "/certificat-urbanisme", "/prix-terrain-constructible"],
+  related: ["/zonage-plu", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/division-parcellaire", "/charge-fonciere", "/emprise-au-sol", "/certificat-urbanisme", "/prix-terrain-constructible", "/comparatif-outils-analyse-parcelle"],
 
   metaTitle: "Savoir si un terrain est constructible : méthode",
   metaDescription:

@@ -9,6 +9,7 @@ import { CERTIFICAT_URBANISME } from "@/content/certificat-urbanisme";
 import { DENT_CREUSE } from "@/content/dent-creuse";
 import { EMPRISE_AU_SOL } from "@/content/emprise-au-sol";
 import { SURFACE_DE_PLANCHER } from "@/content/surface-de-plancher";
+import { COMPARATIF_OUTILS_ANALYSE_PARCELLE } from "@/content/comparatif-outils-analyse-parcelle";
 
 /**
  * Sitemap de la landing.
@@ -40,6 +41,7 @@ const PAGE_LAST_MODIFIED: Readonly<Record<string, string>> = {
   [DENT_CREUSE.slug]: DENT_CREUSE.dateModified,
   [EMPRISE_AU_SOL.slug]: EMPRISE_AU_SOL.dateModified,
   [SURFACE_DE_PLANCHER.slug]: SURFACE_DE_PLANCHER.dateModified,
+  [COMPARATIF_OUTILS_ANALYSE_PARCELLE.slug]: COMPARATIF_OUTILS_ANALYSE_PARCELLE.dateModified,
 };
 
 const lastModifiedFor = (slug: string): string => PAGE_LAST_MODIFIED[slug] ?? SITE_LAST_MODIFIED;

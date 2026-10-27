@@ -32,7 +32,7 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const ZONAGE_PLU: MetierPageContent = {
   slug: "/zonage-plu",
   navLabel: "Zonage PLU",
-  related: ["/zonage-plu/zone-u", "/zonage-plu/zone-au", "/zonage-plu/zone-a", "/zonage-plu/zone-n", "/terrain-constructible", "/analyse-plu-parcelle", "/emprise-au-sol", "/dent-creuse"],
+  related: ["/zonage-plu/zone-u", "/zonage-plu/zone-au", "/zonage-plu/zone-a", "/zonage-plu/zone-n", "/terrain-constructible", "/analyse-plu-parcelle", "/emprise-au-sol", "/dent-creuse", "/comparatif-outils-analyse-parcelle"],
 
   metaTitle: "Zonage PLU : zones U, AU, A, N et sous-secteurs",
   metaDescription:

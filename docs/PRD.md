@@ -69,13 +69,16 @@ Cinq pages distinctes, issues du brief SEO `SEO-GEO-Marketing/missions/fonciable
 | certificat d'urbanisme | `/certificat-urbanisme` | Fonciable ne délivre pas de CU, n'en remplace pas un et n'affiche pas les CU délivrés |
 | prix terrain constructible | `/prix-terrain-constructible` (angle « prix de marché », lien croisé avec `/charge-fonciere`) | Fonciable n'estime pas de prix de marché de terrain : ses comparables DVF sont des logements (prix de sortie) ; le prix qu'il calcule est la charge foncière admissible |
 
+### Utile — en cours : page comparative (décision de Nadir du 27/10/2026)
+Une page `/comparatif-outils-analyse-parcelle`, requête cible « analyse plu parcelle » (top 3 Google relevé par la mission SEO : terranota.fr, france-cadastre.fr, landup.fr). Six outils par ordre alphabétique : Fonciable, France Cadastre, Géoportail de l'Urbanisme, Kel Foncier, LandUp, Terranota. Règles : chaque information sur un autre outil vient de son site officiel, avec la date de consultation ; information absente = « non indiqué sur son site » ; aucun dénigrement ; la page dit qu'elle est publiée par l'éditeur de Fonciable ; Fonciable décrit uniquement avec ce que publie fonciable.fr et `config/plans.ts`. Trace affirmation → source → date : `SEO-GEO-Marketing/missions/fonciable/v4/drafts/21_comparatif_outils.md`. Plan : `IMPLEMENTATION_PLAN.md` § K.
+
 ### Plus tard / à venir
 - **Page métier « Analyse PLU d'une parcelle »** (priorité 1 de la suite) — ciblage des intentions « PLU », « constructibilité », « analyse PLU parcelle », « surface constructible ». Origine : diagnostic SEO/GEO du 20/10/2026 (relais 03 O2, 04, 08 D3) : aucune page ne couvre cette intention, Fonciable non observé sur 10/10 requêtes du proxy SERP, concurrents visibles Parcello, InfoPLU, Kel Foncier, IZIRED, Aprilyos. Contenu : méthode, sources, limites, exemple (fictif et étiqueté comme tel tant qu'aucun exemple réel autorisé n'existe), maillée depuis l'accueil et `/faisabilite-fonciere`. Voir `IMPLEMENTATION_PLAN.md` § A.
 - Enrichir `/faisabilite-fonciere` avec le vocabulaire « constructibilité / surface constructible ». [Diagnostic relais 04]
 - Mention visible du mot « IA » sur l'accueil (0 occurrence dans le texte visible selon le diagnostic, alors que JSON-LD/llms.txt disent « assistée par IA »). [Diagnostic E3 — à revérifier]
 - Ajout de la page LinkedIn Fonciable dans `Organization.sameAs` — URL **[À CONFIRMER]**.
 - Activer `preserveQuery` sur les CTA vers l'app si l'attribution cross-domaine est voulue — **[À CONFIRMER]**.
-- Contenus comparatifs (« alternative à Kel Foncier ») — après données GSC, **[À CONFIRMER]**.
+- Contenus comparatifs (« alternative à Kel Foncier ») : une première page comparative neutre (`/comparatif-outils-analyse-parcelle`) validée par Nadir le 27/10/2026, voir § « Utile — en cours : page comparative ». Une page « alternative à » dédiée à un concurrent reste **[À CONFIRMER]**.
 
 ## 5. Hors périmètre
 
