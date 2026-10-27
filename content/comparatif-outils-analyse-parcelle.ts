@@ -3,9 +3,12 @@ import type { MetierPageContent } from "@/components/metier/types";
 /**
  * Contenu de la page publique /comparatif-outils-analyse-parcelle.
  *
- * Requête cible : « analyse plu parcelle » (mission SEO/GEO validée par Nadir
- * le 27/10/2026 ; top 3 Google relevé par la mission : terranota.fr,
- * france-cadastre.fr, landup.fr). Plan : IMPLEMENTATION_PLAN § K1.
+ * Requête cible : intention comparative (« outil analyse PLU », « comparatif
+ * logiciel analyse parcelle »), mission SEO/GEO validée par Nadir le
+ * 27/10/2026. La requête « analyse plu parcelle » reste portée par
+ * /analyse-plu-parcelle (page principale, pas de cannibalisation) ; ses
+ * résultats Google (terranota.fr, france-cadastre.fr, landup.fr) ont servi
+ * à choisir les outils comparés. Plan : IMPLEMENTATION_PLAN § K1.
  *
  * Page publiée par l'éditeur de Fonciable : cela est dit dans le chapeau, en
  * tête du comparatif et dans les limites. Outils classés par ordre
@@ -20,10 +23,14 @@ import type { MetierPageContent } from "@/components/metier/types";
  *    consulter », « n'est affilié à aucune organisation publique », PLU,
  *    permis de construire, extraits de matrice, sources listées) ;
  *  - kelfoncier.com (accueil : publics, PLU à jour, plus de 50 critères,
- *    préfaisabilité, propriétaires, CRM, « essai gratuit illimité pendant
+ *    préfaisabilité, propriétaires, CRM, « 200 appels quotidiens aux mairies »,
+ *    « 30 cartographes dédiés au contrôle qualité », « essai gratuit illimité pendant
  *    48h », aucun prix ; /tarifs/ répond 404) ;
  *  - landup.fr (accueil et /tester-mon-terrain/ : propriétaires vendeurs,
- *    simulateur gratuit, rémunération à la signature de l'acte authentique,
+ *    simulateur gratuit, accompagnement de la vente (sélection des promoteurs
+ *    et négociation), prix du m² SDP de la commune, « Prix du terrain et
+ *    charge foncière : communiqués sur demande », rémunération à la signature
+ *    de l'acte authentique payée par l'acquéreur,
  *    observatoire de quelques centaines de communes, seuil 1 500 m² SDP,
  *    cadastre DGFiP / Etalab, « données PLU officielles ») ;
  *  - terranota.fr (accueil et /nos-offres/ : cabinet d'urbanisme
@@ -98,7 +105,7 @@ export const COMPARATIF_OUTILS_ANALYSE_PARCELLE: MetierPageContent = {
         cells: [
           "Promoteurs, bailleurs sociaux, énergies renouvelables, aménageurs et lotisseurs, marchands de biens, immobilier d'entreprise",
           "PLU à jour par commune, recherche de fonciers sur plus de 50 critères, préfaisabilité, prix du foncier, taxe d'aménagement, données sur les propriétaires, CRM",
-          "Vérifications annoncées auprès des mairies et contrôle par des cartographes ; bases de données non détaillées sur la page d'accueil",
+          "Selon son site : 200 appels quotidiens aux mairies et 30 cartographes pour le contrôle qualité ; bases de données non détaillées sur la page d'accueil",
           "Non indiqué sur son site ; essai gratuit de 48 h proposé",
         ],
       },
@@ -107,16 +114,16 @@ export const COMPARATIF_OUTILS_ANALYSE_PARCELLE: MetierPageContent = {
         href: "https://www.landup.fr/",
         cells: [
           "Propriétaires de terrains qui envisagent de vendre à un promoteur",
-          "Simulateur de constructibilité et de prix d'un terrain, expertise manuelle, mise en relation avec des promoteurs",
+          "Simulateur de constructibilité, expertise manuelle gratuite, accompagnement de la vente (choix des promoteurs et négociation pour le propriétaire)",
           "Données PLU officielles, observatoire de parcelles analysées à la main, cadastre DGFiP / Etalab",
-          "Gratuit pour le propriétaire ; commission en cas de vente accompagnée, payée par l'acquéreur selon son site",
+          "Gratuit pour le propriétaire ; rémunération à la signature de l'acte, payée par l'acquéreur, selon son site",
         ],
       },
       {
         tool: "Terranota",
         href: "https://terranota.fr/",
         cells: [
-          "Notaires, avocats, constructeurs et professionnels de l'immobilier",
+          "Notaires, avocats, constructeurs, promoteurs et particuliers",
           "Cabinet d'urbanisme réglementaire : notes de renseignements d'urbanisme, DIA, état des risques, certificats, études réglementaires",
           "Non indiqué sur son site",
           "Grille publique : note de renseignements d'urbanisme 55 HT / 66 TTC dans le département, étude préalable 500 HT / 600 TTC",
@@ -124,7 +131,7 @@ export const COMPARATIF_OUTILS_ANALYSE_PARCELLE: MetierPageContent = {
       },
     ],
     caption:
-      "Sites officiels consultés le 27 octobre 2026. Les prix et fonctions peuvent changer : vérifiez sur le site de chaque outil. Terranota affiche ses montants en HT et TTC sans symbole monétaire.",
+      "Sites officiels consultés le 27 octobre 2026. Les prix ne sont pas comparables directement (abonnement, acte à l'unité, rémunération à la vente) et peuvent changer, comme les fonctions : vérifiez sur le site de chaque outil. Terranota affiche ses montants en HT et TTC sans symbole monétaire.",
   },
 
   guide: {
@@ -165,14 +172,14 @@ export const COMPARATIF_OUTILS_ANALYSE_PARCELLE: MetierPageContent = {
       {
         title: "Kel Foncier",
         paragraphs: [
-          "Kel Foncier est un logiciel de développement foncier. Son site annonce la consultation du PLU à jour dans les communes, une recherche de fonciers sur plus de cinquante critères, une préfaisabilité, le prix du foncier, le calcul de la taxe d'aménagement, des informations sur les propriétaires et un CRM pour suivre parcelles, projets et courriers. Il indique vérifier les règles par des appels aux mairies et un contrôle par des cartographes.",
+          "Kel Foncier est un logiciel de développement foncier. Son site annonce la consultation du PLU à jour dans les communes, une recherche de fonciers sur plus de cinquante critères, une préfaisabilité, le prix du foncier, le calcul de la taxe d'aménagement, des informations sur les propriétaires et un CRM pour suivre parcelles, projets et courriers. Selon son site : 200 appels quotidiens aux mairies pour vérifier les règles et 30 cartographes pour le contrôle qualité.",
         ],
         sources: [{ label: "kelfoncier.com, page d'accueil (consultée le 27/10/2026)", href: "https://www.kelfoncier.com/" }],
       },
       {
         title: "LandUp",
         paragraphs: [
-          "LandUp s'adresse aux propriétaires qui envisagent de vendre un terrain à un promoteur. Son simulateur indique, pour les parcelles déjà étudiées, une typologie de projet, un potentiel de surface de plancher et une fourchette de prix. Le site précise que ces parcelles ont été analysées à la main, sur quelques centaines de communes, à partir d'un seuil de 1 500 m² de surface de plancher ; sinon, une expertise manuelle gratuite est proposée.",
+          "LandUp s'adresse aux propriétaires qui envisagent de vendre un terrain à un promoteur. Son simulateur indique, pour les parcelles déjà étudiées, une typologie de projet, un potentiel de surface de plancher et le prix de référence au m² de SDP de la commune ; le prix du terrain est communiqué sur demande, selon son site. Le site précise que ces parcelles ont été analysées à la main, sur quelques centaines de communes, à partir d'un seuil de 1 500 m² de surface de plancher ; sinon, une expertise manuelle gratuite est proposée.",
         ],
         sources: [
           { label: "landup.fr, page d'accueil (consultée le 27/10/2026)", href: "https://www.landup.fr/" },
@@ -195,7 +202,7 @@ export const COMPARATIF_OUTILS_ANALYSE_PARCELLE: MetierPageContent = {
         list: [
           "Lire gratuitement la zone et le règlement d'une parcelle : le Géoportail de l'Urbanisme, source publique des documents versés par les communes.",
           "Retrouver une parcelle au cadastre ou un historique de permis, sans compte : France Cadastre.",
-          "Obtenir un document de renseignements d'urbanisme pour une vente, avec un cabinet : Terranota.",
+          "Obtenir un document de renseignements d'urbanisme pour une vente, ou une étude réglementaire avant un permis, avec un cabinet : Terranota.",
           "Savoir, en tant que propriétaire, ce qu'un promoteur pourrait payer pour son terrain : LandUp.",
           "Prospecter un territoire sur de nombreux critères et suivre ses dossiers dans un CRM : Kel Foncier.",
           "Lire le PLU d'une parcelle avec la source de chaque règle, en déduire une enveloppe théorique et un bilan promoteur : Fonciable.",
@@ -221,7 +228,7 @@ export const COMPARATIF_OUTILS_ANALYSE_PARCELLE: MetierPageContent = {
       },
       {
         title: "Des prix rarement comparables",
-        body: "Gratuit, paiement à l'acte, abonnement ou commission à la vente : les modèles diffèrent.",
+        body: "Gratuit, paiement à l'acte, abonnement ou rémunération à la vente : les modèles diffèrent.",
       },
       {
         title: "Aucun outil ne vaut décision",
@@ -294,7 +301,7 @@ export const COMPARATIF_OUTILS_ANALYSE_PARCELLE: MetierPageContent = {
       "Les autres outils sont décrits d'après leur site officiel, lu le 27 octobre 2026, pas d'après un test de leurs logiciels.",
       "Les prix et fonctions évoluent : vérifiez sur le site de chaque éditeur avant de choisir.",
       "Seuls figurent les outils dont les informations ont pu être vérifiées en ligne ; un outil absent n'est pas jugé.",
-      "Aucun de ces outils ne remplace l'instruction par la mairie ni un certificat d'urbanisme.",
+      "Aucun de ces outils ne remplace l'instruction par la mairie ; seul un certificat d'urbanisme délivré par l'administration fige les règles.",
     ],
   },
 
