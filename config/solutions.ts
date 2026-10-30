@@ -132,8 +132,11 @@ export const GUIDE_PAGES: readonly SolutionPage[] = [
 ];
 
 /**
- * Pages filles de /zonage-plu, une par famille de zones du code de
- * l'urbanisme (art. R151-18 à R151-25). Jamais de page par commune ici.
+ * Pages filles de /zonage-plu : une par famille de zones du code de
+ * l'urbanisme (art. R151-18 à R151-25), puis les secteurs UA, UB et UC
+ * (ajoutés le 30/10/2026, requêtes « zone ua », « ub définition ») présentés
+ * comme des conventions locales, sans règle générale. Jamais de page par
+ * commune ici.
  */
 export const ZONE_PAGES: readonly SolutionPage[] = [
   {
@@ -159,6 +162,24 @@ export const ZONE_PAGES: readonly SolutionPage[] = [
     navLabel: "Zone N",
     linkLabel: "Zone N : la zone naturelle et forestière",
     summary: "Les cinq motifs de l'article R151-24 et constructions qui peuvent y être autorisées (article R151-25).",
+  },
+  {
+    slug: "/zonage-plu/zone-ua",
+    navLabel: "Zone UA",
+    linkLabel: "Zone UA : un secteur local, souvent le centre ancien",
+    summary: "Secteur de la zone U nommé par chaque PLU, sous-secteurs, protections patrimoniales et exemples réels relevés au Géoportail de l'Urbanisme.",
+  },
+  {
+    slug: "/zonage-plu/zone-ub",
+    navLabel: "Zone UB",
+    linkLabel: "Zone UB : définition et exemples réels",
+    summary: "Définition juste d'une zone UB, ce qu'elle recouvre dans des PLU réels, et les règles à lire dans le règlement de la commune.",
+  },
+  {
+    slug: "/zonage-plu/zone-uc",
+    navLabel: "Zone UC",
+    linkLabel: "Zone UC : pavillonnaire, collectif ou mixte selon le PLU",
+    summary: "Ce que recouvre une zone UC d'un PLU à l'autre, suffixes, densification et division en zone UC, exemples réels.",
   },
 ];
 

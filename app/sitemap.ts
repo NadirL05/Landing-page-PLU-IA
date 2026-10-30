@@ -4,6 +4,12 @@ import { GUIDE_PAGES, SOLUTION_PAGES, ZONE_PAGES } from "@/config/solutions";
 import { FAISABILITE_FONCIERE } from "@/content/faisabilite-fonciere";
 import { ZONE_A } from "@/content/zonage-plu-zone-a";
 import { ZONE_N } from "@/content/zonage-plu-zone-n";
+import { ZONE_U } from "@/content/zonage-plu-zone-u";
+import { ZONE_UA } from "@/content/zonage-plu-zone-ua";
+import { ZONE_UB } from "@/content/zonage-plu-zone-ub";
+import { ZONE_UC } from "@/content/zonage-plu-zone-uc";
+import { ZONAGE_PLU } from "@/content/zonage-plu";
+import { BILAN_PROMOTEUR } from "@/content/bilan-promoteur";
 import { PRIX_TERRAIN_CONSTRUCTIBLE } from "@/content/prix-terrain-constructible";
 import { CERTIFICAT_URBANISME } from "@/content/certificat-urbanisme";
 import { DENT_CREUSE } from "@/content/dent-creuse";
@@ -42,6 +48,12 @@ const PAGE_LAST_MODIFIED: Readonly<Record<string, string>> = {
   [EMPRISE_AU_SOL.slug]: EMPRISE_AU_SOL.dateModified,
   [SURFACE_DE_PLANCHER.slug]: SURFACE_DE_PLANCHER.dateModified,
   [COMPARATIF_OUTILS_ANALYSE_PARCELLE.slug]: COMPARATIF_OUTILS_ANALYSE_PARCELLE.dateModified,
+  [BILAN_PROMOTEUR.slug]: BILAN_PROMOTEUR.dateModified,
+  [ZONAGE_PLU.slug]: ZONAGE_PLU.dateModified,
+  [ZONE_U.slug]: ZONE_U.dateModified,
+  [ZONE_UA.slug]: ZONE_UA.dateModified,
+  [ZONE_UB.slug]: ZONE_UB.dateModified,
+  [ZONE_UC.slug]: ZONE_UC.dateModified,
 };
 
 const lastModifiedFor = (slug: string): string => PAGE_LAST_MODIFIED[slug] ?? SITE_LAST_MODIFIED;

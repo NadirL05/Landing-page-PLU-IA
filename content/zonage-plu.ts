@@ -32,12 +32,12 @@ import type { MetierPageContent } from "@/components/metier/types";
 export const ZONAGE_PLU: MetierPageContent = {
   slug: "/zonage-plu",
   navLabel: "Zonage PLU",
-  related: ["/zonage-plu/zone-u", "/zonage-plu/zone-au", "/zonage-plu/zone-a", "/zonage-plu/zone-n", "/terrain-constructible", "/analyse-plu-parcelle", "/emprise-au-sol", "/dent-creuse", "/comparatif-outils-analyse-parcelle"],
+  related: ["/zonage-plu/zone-u", "/zonage-plu/zone-ua", "/zonage-plu/zone-ub", "/zonage-plu/zone-uc", "/zonage-plu/zone-au", "/zonage-plu/zone-a", "/zonage-plu/zone-n", "/terrain-constructible", "/analyse-plu-parcelle", "/emprise-au-sol", "/dent-creuse", "/comparatif-outils-analyse-parcelle"],
 
   metaTitle: "Zonage PLU : zones U, AU, A, N et sous-secteurs",
   metaDescription:
     "Zonage PLU : zones U, AU, A et N selon le code de l'urbanisme, pourquoi UA, UB ou AUa varient d'un PLU à l'autre, comment trouver la zone d'une parcelle.",
-  dateModified: "2026-10-20",
+  dateModified: "2026-10-30",
 
   eyebrow: "Zones U · AU · A · N · sous-secteurs",
   h1: "Zonage PLU : les zones U, AU, A et N expliquées",
@@ -78,7 +78,13 @@ export const ZONAGE_PLU: MetierPageContent = {
         paragraphs: [
           "Le code ne connaît que U, AU, A et N. Les lettres et chiffres qui suivent (UA, UB, UC, 1AU, 2AU, AUa, Nh…) sont des sous-secteurs que chaque commune ou intercommunalité crée et nomme librement dans son propre PLU. Une zone UB d'une commune n'a donc pas les mêmes règles qu'une zone UB de la commune voisine : hauteur, emprise au sol ou implantation se lisent dans le règlement de la commune concernée, jamais dans une grille nationale.",
           "Certaines habitudes reviennent souvent, comme UA pour un centre ancien ou 2AU pour une zone à urbaniser fermée, mais elles n'ont aucune valeur réglementaire.",
+          "Les secteurs urbains les plus recherchés ont chacun leur page, avec des exemples réels relevés au Géoportail de l'Urbanisme : zones UA, UB et UC, liées en bas de page.",
         ],
+        link: {
+          text: "Ce que recouvre UB d'un PLU à l'autre est détaillé sur",
+          href: "/zonage-plu/zone-ub",
+          label: "la page Zone UB du PLU",
+        },
       },
       {
         title: "Trouver la zone d'une parcelle",

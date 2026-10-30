@@ -38,7 +38,10 @@ import type { MetierPageContent } from "@/components/metier/types";
  * « stationnement exigé par le règlement » extrait du PLU.
  *
  * Modèle téléchargeable : public/modeles/bilan-promoteur-exemple-fictif.xlsx,
- * généré par scripts/modele-bilan-promoteur.py. Les valeurs de la section
+ * généré par scripts/modele-bilan-promoteur.py (postes alignés sur le bloc
+ * « Les postes d'un bilan promoteur » le 2026-10-30 : stationnement,
+ * sous-sols et adaptation au terrain, archéologie préventive ajoutés à 0 ou
+ * regroupés, totaux de l'exemple inchangés). Les valeurs de la section
  * « Exemple » sont celles de ce fichier (exemple fictif). Les valeurs par
  * défaut du moteur ne sont volontairement PAS publiées.
  */
@@ -48,10 +51,13 @@ export const BILAN_PROMOTEUR: MetierPageContent = {
   related: ["/faisabilite-fonciere", "/prospection-fonciere", "/analyse-plu-parcelle", "/charge-fonciere", "/surface-de-plancher", "/prix-terrain-constructible"],
 
   // Requête cible ajoutée le 2026-10-21 : « bilan promoteur en ligne ».
-  metaTitle: "Bilan promoteur en ligne et modèle Excel gratuit",
+  // Requête n° 1 du site en Search Console (19-27/10/2026) : « bilan
+  // promoteur excel ». Title remanié le 2026-10-30 pour la placer en tête,
+  // « en ligne » conservé.
+  metaTitle: "Bilan promoteur Excel gratuit et bilan en ligne",
   metaDescription:
-    "Bilan promoteur en ligne : recettes, dépenses, marge et charge foncière par compte à rebours. Méthode pas à pas et modèle Excel gratuit (exemple fictif).",
-  dateModified: "2026-10-21",
+    "Modèle de bilan promoteur Excel gratuit, sans inscription : compte à rebours, charge foncière, marge. La méthode, les postes et le bilan en ligne.",
+  dateModified: "2026-10-30",
 
   eyebrow: "Recettes · dépenses · marge · charge foncière",
   h1: "Bilan promoteur en ligne : la méthode, les postes et un modèle Excel",
@@ -247,10 +253,23 @@ export const BILAN_PROMOTEUR: MetierPageContent = {
   },
 
   download: {
+    title: "Télécharger le modèle de bilan promoteur Excel",
+    intro:
+      "Le modèle reprend exactement les postes et la méthode décrits sur cette page. Les formules sont visibles et modifiables : vous pouvez vérifier chaque calcul, ajouter vos lignes, et l'ouvrir dans Excel, LibreOffice ou Numbers.",
+    contents: [
+      "Onglet « Compte à rebours » : surface de plancher, prix de vente, travaux, honoraires, taxes, assurances, aléas, commercialisation, frais financiers et marge cible donnent la charge foncière admissible et le prix maximal du terrain.",
+      "Onglet « Bilan direct » : pour un prix de terrain négocié, la marge obtenue en euros et en pourcentage du chiffre d'affaires.",
+      "Onglet « Lisez-moi » : mode d'emploi et simplifications assumées (montants hors taxes, frais financiers forfaitaires, sans échéancier).",
+      "Valeurs d'exemple en bleu, toutes fictives : ce ne sont pas des références de marché, remplacez-les par vos propres hypothèses.",
+    ],
     href: "/modeles/bilan-promoteur-exemple-fictif.xlsx",
     label: "Télécharger le modèle de bilan promoteur",
     format: "Excel .xlsx, 3 onglets",
-    note: "Gratuit, sans inscription. Onglets « Compte à rebours » et « Bilan direct » avec formules simples (sommes, produits, divisions), hypothèses en bleu à remplacer par les vôtres. Exemple fictif ; ni certificat d'urbanisme, ni avis financier.",
+    note: "Gratuit, sans inscription, sans adresse e-mail. Formules simples (sommes, produits, divisions). Exemple fictif ; ni certificat d'urbanisme, ni avis financier.",
+    appCta: {
+      text: "Le modèle se remplit à la main. Dans Fonciable, le bilan part de la parcelle : surface de plancher potentielle déduite des règles lues, prix de sortie appuyé sur les mutations DVF voisines, hypothèses de départ que vous remplacez par les vôtres. Les résultats restent à confirmer par les professionnels de l'opération.",
+      label: "Ouvrir l'application Fonciable",
+    },
   },
 
   limits: {
@@ -287,6 +306,10 @@ export const BILAN_PROMOTEUR: MetierPageContent = {
     {
       q: "Existe-t-il un modèle de bilan promoteur sur Excel ?",
       a: "Oui, cette page propose un modèle .xlsx gratuit, sans inscription. Il contient un onglet « Compte à rebours » (charge foncière admissible à partir d'une marge cible) et un onglet « Bilan direct » (marge pour un prix de terrain donné). Les valeurs fournies sont un exemple fictif, à remplacer par vos hypothèses.",
+    },
+    {
+      q: "Comment utiliser le modèle de bilan promoteur Excel ?",
+      a: "Remplacez les valeurs en bleu de l'onglet « Compte à rebours » par vos hypothèses : surface de plancher, prix de vente, coût de construction, taux d'honoraires, d'assurances, d'aléas, de commercialisation et de frais financiers, taxes, marge cible et frais d'acquisition. Les cellules en noir se recalculent. L'onglet « Bilan direct » reprend ces montants et calcule la marge pour le prix de terrain que vous saisissez. Toutes les valeurs fournies sont fictives.",
     },
     {
       q: "Fonciable calcule-t-il un bilan à ma place ?",

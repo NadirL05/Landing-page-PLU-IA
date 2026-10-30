@@ -50,7 +50,7 @@ France métropolitaine et DOM, dans la limite des communes qui publient leur doc
 ## Docs
 
 - [Site marketing](https://fonciable.fr): présentation produit, fonctionnalités, tarifs, FAQ
-- [Bilan promoteur](https://fonciable.fr/bilan-promoteur): postes du bilan promoteur, méthode du compte à rebours, modèle Excel gratuit (exemple fictif), ce que calcule Fonciable, limites
+- [Bilan promoteur](https://fonciable.fr/bilan-promoteur): postes du bilan promoteur, méthode du compte à rebours, modèle de bilan promoteur Excel gratuit et sans inscription (exemple fictif), ce que calcule Fonciable, limites
 - [Faisabilité foncière](https://fonciable.fr/faisabilite-fonciere): première étude d'une parcelle, zonage, règles applicables, enveloppe constructible théorique
 - [Prospection foncière](https://fonciable.fr/prospection-fonciere): repérage de parcelles à potentiel constructible résiduel, composantes du score, faux positifs connus
 - [Analyse PLU d'une parcelle](https://fonciable.fr/analyse-plu-parcelle): zonage du Géoportail de l'Urbanisme, règles de zone avec leur source, enveloppe constructible théorique, refus publiés, exemple réel à Nantes, limites
@@ -60,6 +60,9 @@ France métropolitaine et DOM, dans la limite des communes qui publient leur doc
 - [Zonage PLU](https://fonciable.fr/zonage-plu): zones U, AU, A et N selon le code de l'urbanisme, sous-secteurs propres à chaque PLU (UA, UB, AUa), trouver la zone d'une parcelle
 - [Calcul de la surface de plancher](https://fonciable.fr/surface-de-plancher): définition (art. L111-14 et R111-22 du code de l'urbanisme), les huit déductions, exemple fictif, différence entre surface de plancher d'un projet et enveloppe théorique ; Fonciable calcule l'enveloppe théorique, pas la surface de plancher au sens de R111-22
 - [Zone U](https://fonciable.fr/zonage-plu/zone-u): zone urbaine (art. R151-18), secteurs UA et UB
+- [Zone UA](https://fonciable.fr/zonage-plu/zone-ua): secteur de la zone U nommé par chaque PLU (pas une catégorie du code de l'urbanisme), souvent le centre ancien, sous-secteurs, protections patrimoniales, exemples réels relevés au Géoportail de l'Urbanisme le 30/10/2026
+- [Zone UB](https://fonciable.fr/zonage-plu/zone-ub): définition d'une zone UB (secteur local de la zone U, art. R151-18), ce qu'elle recouvre dans sept PLU réels, règles à lire dans le règlement de la commune
+- [Zone UC](https://fonciable.fr/zonage-plu/zone-uc): zone UC pavillonnaire, collective ou mixte selon le PLU, suffixes, densification et division (art. R151-21), exemples réels
 - [Zone AU](https://fonciable.fr/zonage-plu/zone-au): zone à urbaniser ouverte ou fermée (art. R151-20), 1AU, 2AU, AUa
 - [Zone A](https://fonciable.fr/zonage-plu/zone-a): zone agricole (art. R151-22 et R151-23)
 - [Zone N](https://fonciable.fr/zonage-plu/zone-n): zone naturelle et forestière (art. R151-24 et R151-25)
@@ -68,7 +71,7 @@ France métropolitaine et DOM, dans la limite des communes qui publient leur doc
 - [Certificat d'urbanisme](https://fonciable.fr/certificat-urbanisme): CU d'information et CU opérationnel (art. L410-1 du code de l'urbanisme), délais d'un et deux mois, validité de 18 mois, prorogation, CU tacite ; Fonciable ne délivre pas de certificat d'urbanisme et ne le remplace pas
 - [Prix d'un terrain constructible](https://fonciable.fr/prix-terrain-constructible): estimer le prix de marché d'un terrain à bâtir (base DVF, Patrim, notaires), facteurs de prix, prix du marché ou charge foncière admissible ; Fonciable n'estime pas de prix de marché de terrain, ses comparables DVF portent sur des logements
 - [Outils d'analyse de parcelle et de PLU : comparatif](https://fonciable.fr/comparatif-outils-analyse-parcelle): Géoportail de l'Urbanisme, France Cadastre, Kel Foncier, LandUp, Terranota et Fonciable, public, fonctions, données et prix publics lus sur leur site officiel le 27/10/2026 ; page publiée par AgentImpact, éditeur de Fonciable
-- [Modèle de bilan promoteur (XLSX, exemple fictif)](https://fonciable.fr/modeles/bilan-promoteur-exemple-fictif.xlsx): compte à rebours et bilan direct, formules simples
+- [Modèle de bilan promoteur Excel (XLSX, exemple fictif)](https://fonciable.fr/modeles/bilan-promoteur-exemple-fictif.xlsx): onglets compte à rebours et bilan direct, formules simples, valeurs d'exemple fictives à remplacer
 - [Mentions légales](https://fonciable.fr/mentions-legales): éditeur, publication et hébergement
 - [Politique de confidentialité](https://fonciable.fr/confidentialite): données, cookies et droits RGPD
 - [Application](https://app.fonciable.fr): outil d'analyse de parcelle

@@ -54,7 +54,7 @@ Objectif : entrer dans le **top 10 Google France** sur 5 requêtes cœur de cibl
 | charge foncière (140) | calcul à rebours, charge foncière admissible | `/charge-fonciere` |
 | savoir si un terrain est constructible (170) | constructibilité terrain (2 400), terrain constructible (2 400) | `/terrain-constructible` |
 | division parcellaire (720) | — | `/division-parcellaire` |
-| zonage plu (1 000) | zone plu (1 000), zone ua (480), zone ub (720), zone aua (8 100) | `/zonage-plu` + `/zonage-plu/zone-u`, `zone-au`, `zone-a`, `zone-n` |
+| zonage plu (1 000) | zone plu (1 000), zone ua (480), zone ub (720), zone aua (8 100) | `/zonage-plu` + `/zonage-plu/zone-u`, `zone-au`, `zone-a`, `zone-n` ; depuis le 30/10/2026, `/zonage-plu/zone-ua`, `zone-ub` (« ub définition »), `zone-uc` (plan § L) |
 
 Règles : chaque affirmation sur Fonciable a son fichier de preuve dans `sas-plu-3d` (en-tête du fichier `content/*.ts`), sinon elle est retirée ; définitions juridiques citées avec lien Légifrance ; aucune règle chiffrée générale inventée pour les secteurs UA, UB, AUa (propres à chaque PLU) ; pas de page par commune dans cette première vague. Plan : `IMPLEMENTATION_PLAN.md` § E.
 
