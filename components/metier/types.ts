@@ -131,10 +131,17 @@ export interface MetierPageContent {
    * annoncer un fichier qui n'existe pas : le test E2E vérifie qu'il répond 200.
    */
   readonly download?: {
+    /** Titre H2 de la section de téléchargement (rendue après l'exemple). */
+    readonly title: string;
+    readonly intro: string;
+    /** Ce que contient le fichier, en liste. */
+    readonly contents: readonly string[];
     readonly href: string;
     readonly label: string;
     readonly format: string;
     readonly note: string;
+    /** Renvoi honnête vers l'application (sans promesse chiffrée). */
+    readonly appCta?: { readonly text: string; readonly label: string };
   };
 
   /* ---- 8. Limites et vérifications ---- */

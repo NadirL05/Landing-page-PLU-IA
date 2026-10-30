@@ -229,6 +229,12 @@ export const CHARGE_FONCIERE: MetierPageContent = {
   },
 
   download: {
+    title: "Télécharger le modèle de calcul à rebours",
+    intro: "Le calcul ci-dessus est celui du modèle Excel proposé sur la page Bilan promoteur. Il se télécharge aussi d'ici.",
+    contents: [
+      "Onglet « Compte à rebours » : charge foncière admissible, prix maximal du terrain hors frais, incidence foncière.",
+      "Onglet « Bilan direct » : marge obtenue pour un prix de terrain négocié.",
+    ],
     href: "/modeles/bilan-promoteur-exemple-fictif.xlsx",
     label: "Télécharger le modèle de calcul à rebours",
     format: "Excel .xlsx, 3 onglets",

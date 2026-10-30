@@ -2,6 +2,19 @@
 
 Journal des changements SEO de la landing. Une entrée par lot, la plus récente en haut.
 
+## 2026-10-30 — branche `feat/seo-modele-bilan-et-zones-ua-ub-uc` (Search Console du 19 au 27/10)
+
+Non déployé : merge et mise en production par Nadir.
+
+| Thème | Fichiers | Changement | Retour arrière |
+|---|---|---|---|
+| Bilan promoteur Excel | `content/bilan-promoteur.ts`, `components/metier/MetierPage.tsx`, `components/metier/types.ts`, `content/charge-fonciere.ts` | Title « Bilan promoteur Excel gratuit et bilan en ligne » (avant : « Bilan promoteur en ligne et modèle Excel gratuit »), meta réécrite (146 car.), section dédiée « Télécharger le modèle de bilan promoteur Excel » (`#modele-excel`) avec renvoi vers l'application, question FAQ ; `dateModified` 2026-10-30 | revert du commit |
+| Modèle XLSX | `scripts/modele-bilan-promoteur.py`, `public/modeles/bilan-promoteur-exemple-fictif.xlsx` | Postes alignés sur la page (stationnement, sous-sols et adaptation au terrain, archéologie préventive), lignes calculées sans numéro en dur ; valeurs d'exemple marquées « Exemple fictif à remplacer » ; totaux inchangés ; même URL | revert du commit |
+| Nouvelles pages | `app/zonage-plu/zone-{ua,ub,uc}/page.tsx`, `content/zonage-plu-zone-{ua,ub,uc}.ts`, `config/solutions.ts` | Secteurs UA, UB, UC présentés comme conventions locales, exemples réels du Géoportail de l'Urbanisme (relevé du 30/10) | revert du commit |
+| Maillage | `content/zonage-plu.ts`, `content/zonage-plu-zone-u.ts`, `app/sitemap.ts`, `public/llms.txt` | Liens vers les trois secteurs ; lastmod = `dateModified` (2026-10-30) pour /bilan-promoteur, /zonage-plu, zone-u, zone-ua, zone-ub, zone-uc | revert du commit |
+
+Mesures : lint, typecheck, build Webpack, 50 tests Playwright, `seo:check` (24 URL) OK en local. Après mise en ligne : soumettre les 3 nouvelles URL (IndexNow, Search Console) et suivre « bilan promoteur excel » et « ub définition ».
+
 ## 2026-10-26 (bis) — branche `fix/qa2-seo` (QA SEO du 26/10, relais 20)
 
 - `content/zonage-plu-zone-n.ts` : à l'étape 02, « ne devient bloquant qu'en zone rouge » devient « est traité comme bloquant en zone rouge ». À l'étape 03, le titre devient « Vérifier le motif de protection dans le règlement ». Les deux formulations sont alignées sur sas-plu-3d@85370de (`isServitudeBlocking` ; l'outil n'identifie pas le motif de classement).

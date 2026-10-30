@@ -25,6 +25,7 @@
 | E15 | `/division-parcellaire` | `app/division-parcellaire/page.tsx` + `content/division-parcellaire.ts` | Guide SEO cœur : autorisations, R151-21, étapes, exemple fictif de principe | oui |
 | E16 | `/zonage-plu` | `app/zonage-plu/page.tsx` + `content/zonage-plu.ts` | Guide SEO cœur : familles de zones, sous-secteurs, exemple réel (Nantes) | oui |
 | E17-E20 | `/zonage-plu/zone-u`, `zone-au`, `zone-a`, `zone-n` | `app/zonage-plu/<zone>/page.tsx` + `content/zonage-plu-zone-<x>.ts` | Définitions R151-18 à R151-25, fil d'Ariane à 3 niveaux | oui |
+| E21-E23 | `/zonage-plu/zone-ua`, `zone-ub`, `zone-uc` | idem | Secteurs locaux de la zone U (pas des catégories du code), exemples réels relevés au Géoportail de l'Urbanisme, fil d'Ariane à 3 niveaux ; reliés depuis `/zonage-plu` et `/zonage-plu/zone-u` | oui |
 
 Sorties externes : Calendly (nouvel onglet), `app.fonciable.fr/dashboard`, `/checkout/starter`, `/checkout/pro`, `/cgv`, `/sources`, `/confidentialite`. [Lu]
 

@@ -374,8 +374,33 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
                 </figcaption>
               </figure>
             </Reveal>
-            {content.download ? (
-              <div className="mt-8 flex max-w-3xl flex-col gap-3 border p-7" style={{ borderColor: "var(--brand)" }}>
+          </div>
+        </section>
+        ) : null}
+
+        {/* ===== 7 bis. Fichier téléchargeable (ex. modèle Excel) ===== */}
+        {content.download ? (
+        <section id="modele-excel" className="border-t py-24" style={{ borderColor: "var(--line-strong)" }} aria-labelledby="telechargement-heading">
+          <div className="mx-auto max-w-[1180px] px-6">
+            <Reveal className="mb-10 max-w-3xl">
+              <div className="kicker mb-4">Modèle gratuit</div>
+              <h2 id="telechargement-heading" className="font-display text-3xl font-normal leading-[1.08] tracking-tight md:text-4xl" style={{ color: "var(--ink)" }}>
+                {content.download.title}
+              </h2>
+              <p className="mt-5 max-w-2xl text-[15px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+                {content.download.intro}
+              </p>
+            </Reveal>
+            <Reveal delay={80}>
+              <div className="flex max-w-3xl flex-col gap-5 border p-7 md:p-9" style={{ borderColor: "var(--brand)" }}>
+                <ul className="m-0 list-none space-y-3 p-0 text-[14px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
+                  {content.download.contents.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <span className="mt-1 shrink-0" style={{ color: "var(--brand)" }}><IconCheck /></span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
                 <a
                   href={content.download.href}
                   download
@@ -386,8 +411,16 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
                   <IconArrow />
                 </a>
                 <p className="text-[12.5px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>{content.download.note}</p>
+                {content.download.appCta ? (
+                  <p className="border-t pt-5 text-[14px] leading-relaxed" style={{ borderColor: "var(--line)", color: "var(--ink-soft)" }}>
+                    {content.download.appCta.text}{" "}
+                    <a href={APP_URL} className="font-semibold underline transition hover:opacity-70" style={{ color: "var(--brand)" }}>
+                      {content.download.appCta.label}
+                    </a>
+                  </p>
+                ) : null}
               </div>
-            ) : null}
+            </Reveal>
           </div>
         </section>
         ) : null}

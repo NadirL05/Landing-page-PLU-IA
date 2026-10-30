@@ -29,6 +29,7 @@ Visiteur ──HTTPS──> Vercel (fonciable.fr, région cdg1 observée)
                      ├─ /prospection-fonciere   idem
                      ├─ /charge-fonciere, /terrain-constructible, /division-parcellaire, /zonage-plu   guides (même gabarit, § E du plan)
                      ├─ /zonage-plu/zone-u|zone-au|zone-a|zone-n   pages de zone (fil d'Ariane à 3 niveaux)
+                     ├─ /zonage-plu/zone-ua|zone-ub|zone-uc   secteurs locaux de la zone U (même gabarit)
                      ├─ /modeles/bilan-promoteur-exemple-fictif.xlsx   modèle téléchargeable (public/)
                      ├─ /mentions-legales, /confidentialite  (LegalPage)
                      ├─ /sitemap.xml, /opengraph-image, /.well-known/*  (statique)
@@ -56,7 +57,7 @@ Pas de base de données. Les « entités » sont des constantes versionnées. [L
 | Contenu transverse | `config/site-content.ts` | `CALENDLY_URL`, `DISCLAIMER_SHORT`, `DATA_ATTRIBUTION`, `APP_ENTRY_PATH` | accueil, pages métier, pied de page |
 | Page solution | `config/solutions.ts` | `slug`, `navLabel`, `linkLabel`, `summary` | 1-1 avec un `content/<slug>.ts` ; trois listes : `SOLUTION_PAGES` (navigation, bloc Solutions), `GUIDE_PAGES` (accueil « Guides pratiques », pied de page), `ZONE_PAGES` (filles de `/zonage-plu`) ; `ALL_EDITORIAL_PAGES` alimente sitemap et tests ; `relatedPages` lève une erreur au build si un lien « À lire aussi » vise une page inconnue |
 | Contenu métier | `content/<slug>.ts` | `MetierPageContent` : méta, `parent` et `related` optionnels (fil d'Ariane, « À lire aussi »), hero, `guide` optionnel (définitions, méthode, liens Légifrance), problem, capabilities (+ `contextLink` optionnel), steps, sources, proof (exemple fictif étiqueté, ou réel vérifié à la source avec preuves dans `docs/PREUVES-*.md`), limits, faq, finalCta | rendu par `MetierPage` |
-| Modèle téléchargeable | `public/modeles/bilan-promoteur-exemple-fictif.xlsx` | 3 onglets (Lisez-moi, Compte à rebours, Bilan direct), formules simples, valeurs fictives | généré par `scripts/modele-bilan-promoteur.py` (openpyxl dans un environnement Python jetable, hors dépendances du site) ; valeurs reprises dans la section « Exemple » de `content/bilan-promoteur.ts` |
+| Modèle téléchargeable | `public/modeles/bilan-promoteur-exemple-fictif.xlsx` | 3 onglets (Lisez-moi, Compte à rebours, Bilan direct), formules simples, valeurs fictives ; postes alignés sur le bloc « Les postes d'un bilan promoteur » de la page (30/10/2026) | généré par `scripts/modele-bilan-promoteur.py` (openpyxl dans un environnement Python jetable, ex. `uvx --with openpyxl python scripts/modele-bilan-promoteur.py`, hors dépendances du site) ; présenté par une section dédiée de `MetierPage` (champ `download` : `title`, `intro`, `contents`, `appCta`) ; valeurs reprises dans la section « Exemple » de `content/bilan-promoteur.ts` |
 | Schémas statiques | `public/schema/{organization,website,software-application,faq}.json` | `@id` `https://fonciable.fr/#…` | référencés par `lib/page-schema.ts` |
 | Fichiers de découverte | `public/llms.txt`, `robots.txt`, `rsl.xml` | texte | doivent rester alignés sur `config/plans.ts` (copie manuelle) |
 
