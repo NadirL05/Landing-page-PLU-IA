@@ -67,6 +67,16 @@ test.describe("E2 — /charge-fonciere", () => {
     await page.goto("/bilan-promoteur");
     expect(await page.locator('main a[href="/charge-fonciere"]').count()).toBeGreaterThan(0);
   });
+
+  test("formule, distinction des trois notions, erreurs à éviter et exemple fictif détaillé", async ({ page }) => {
+    await page.goto("/charge-fonciere");
+    const main = page.locator("main");
+    await expect(main.getByText(/prix de vente − coûts hors foncier − marge = charge foncière admissible/)).toBeVisible();
+    await expect(main.getByRole("heading", { name: "Charge foncière, prix du terrain, incidence foncière : la différence" })).toBeVisible();
+    await expect(main.getByRole("heading", { name: "Erreurs à éviter dans le calcul de la charge foncière" })).toBeVisible();
+    await expect(main.getByText("Total des dépenses hors foncier")).toBeVisible();
+    await expect(main.locator('a[href="https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031721274"]')).toHaveCount(1);
+  });
 });
 
 test.describe("E3 — /terrain-constructible", () => {
@@ -172,6 +182,20 @@ test.describe("Zones UA, UB, UC — secteurs locaux de la zone U", () => {
       expect(words, `${sector.path} mots dans <main>`).toBeGreaterThan(1200);
     });
   }
+
+  test("/zonage-plu/zone-u ouvre son guide sur les trois secteurs et chaque secteur renvoie vers la zone U", async ({ page }) => {
+    await page.goto("/zonage-plu/zone-u");
+    const firstBlock = page.locator("main section[aria-labelledby=guide-heading] h3").first();
+    await expect(firstBlock).toHaveText("Zones UA, UB, UC : définitions");
+    await expect(page.locator("main").getByText(/Zone UB, définition courte/)).toBeVisible();
+    for (const sector of sectors) {
+      await page.goto(sector.path);
+      expect(
+        await page.locator('main section[aria-labelledby=guide-heading] a[href="/zonage-plu/zone-u"]').count(),
+        `${sector.path} → /zonage-plu/zone-u dans le guide`,
+      ).toBeGreaterThan(0);
+    }
+  });
 
   test("/zonage-plu/zone-u et /zonage-plu relient les trois secteurs", async ({ page }) => {
     for (const source of ["/zonage-plu/zone-u", "/zonage-plu"]) {

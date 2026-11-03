@@ -171,4 +171,6 @@ export interface GuideBlock {
   readonly sources?: readonly { readonly label: string; readonly href: string }[];
   /** Lien interne contextuel (maillage). */
   readonly link?: { readonly text: string; readonly href: string; readonly label: string };
+  /** Liste de liens internes (ex. renvoi vers des pages filles), rendue après les paragraphes. */
+  readonly links?: readonly { readonly href: string; readonly label: string; readonly text: string }[];
 }

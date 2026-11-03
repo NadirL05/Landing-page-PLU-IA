@@ -188,6 +188,18 @@ export function MetierPage({ content }: { content: MetierPageContent }) {
                         ))}
                       </ul>
                     ) : null}
+                    {block.links ? (
+                      <ul className="mt-4 list-none space-y-2.5 p-0 text-[14.5px] leading-relaxed" style={{ color: "var(--ink)" }}>
+                        {block.links.map((item) => (
+                          <li key={item.href} className="border-l-2 pl-4" style={{ borderColor: "var(--terracotta)" }}>
+                            <Link href={item.href} className="underline transition hover:opacity-70" style={{ color: "var(--brand)" }}>
+                              {item.label}
+                            </Link>{" "}
+                            : {item.text}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : null}
                     {block.link ? (
                       <p className="mt-4 text-[14px] leading-relaxed" style={{ color: "var(--ink-soft)" }}>
                         {block.link.text}{" "}

@@ -21,6 +21,15 @@ import type { MetierPageContent } from "@/components/metier/types";
  *
  * 2026-10-30 : liens vers les pages filles /zonage-plu/zone-ua, zone-ub et
  * zone-uc (bloc « Zone UA, zone UB » et `related`).
+ *
+ * 2026-11-03 (Search Console 28 j au 01/11 : 107 impressions, 0 clic ;
+ * « zone ub définition » pos. 15,9, « ub définition » pos. 10,6) : bloc
+ * « Zones UA, UB, UC : définitions » en tête du guide avec un lien par
+ * secteur, définition courte de UB (reprise de content/zonage-plu-zone-ub.ts,
+ * exemples relevés au GPU le 2026-10-30), title et description revus.
+ * R151-18 relu sur Légifrance le 2026-11-03 (texte inchangé). Libellés UB
+ * revérifiés le 2026-11-03 sur https://apicarto.ign.fr/api/gpu/zone-urba
+ * (partitions DU_84031, DU_84087, DU_84035, DU_26198, DU_83050).
  */
 export const ZONE_U: MetierPageContent = {
   slug: "/zonage-plu/zone-u",
@@ -28,10 +37,10 @@ export const ZONE_U: MetierPageContent = {
   parent: { navLabel: "Zonage PLU", slug: "/zonage-plu" },
   related: ["/zonage-plu/zone-ua", "/zonage-plu/zone-ub", "/zonage-plu/zone-uc", "/analyse-plu-parcelle", "/zonage-plu/zone-au", "/zonage-plu/zone-a", "/zonage-plu/zone-n", "/terrain-constructible", "/emprise-au-sol"],
 
-  metaTitle: "Zone U du PLU : définition, zones UA et UB",
+  metaTitle: "Zone U du PLU : définition, zones UA, UB et UC",
   metaDescription:
-    "Zone U du PLU : définition de l'article R151-18, ce que recouvrent les secteurs UA ou UB, et ce qu'il faut vérifier avant de construire en zone urbaine.",
-  dateModified: "2026-10-30",
+    "Zone U du PLU : la définition du code (art. R151-18), puis les zones UA, UB et UC expliquées avec des exemples réels. Les règles varient selon la commune.",
+  dateModified: "2026-11-03",
 
   eyebrow: "Zonage PLU · zone urbaine · UA · UB",
   h1: "Zone U du PLU : la zone urbaine et ses secteurs UA, UB",
@@ -44,6 +53,18 @@ export const ZONE_U: MetierPageContent = {
     kicker: "Définition",
     title: "Ce que dit le code de l'urbanisme",
     blocks: [
+      {
+        title: "Zones UA, UB, UC : définitions",
+        paragraphs: [
+          "UA, UB et UC sont des secteurs de la zone U que chaque PLU crée, nomme et réglemente : le code de l'urbanisme ne les définit pas. Les descriptions ci-dessous résument l'usage le plus courant relevé dans des PLU réels, pas une règle. Chaque secteur a sa page, avec des exemples relevés au Géoportail de l'Urbanisme.",
+          "Zone UB, définition courte : un secteur de la zone urbaine délimité et réglementé par le PLU de la commune. Il désigne souvent les quartiers qui prolongent le centre : « première extension du centre-ville » à Carpentras, « faubourgs » à Orange, « première couronne d'extension urbaine du centre ancien » à Cavaillon. Mais à Montélimar, UB est une « zone urbaine de densité élevée », et à Draguignan le sous-secteur UBa correspond à une ZAC. Sa hauteur, son emprise au sol et ses retraits se lisent uniquement dans le règlement local.",
+        ],
+        links: [
+          { href: "/zonage-plu/zone-ua", label: "Zone UA", text: "souvent le centre ancien et dense de la commune." },
+          { href: "/zonage-plu/zone-ub", label: "Zone UB", text: "souvent les premières extensions du centre ancien (faubourgs, première couronne), mais pas partout." },
+          { href: "/zonage-plu/zone-uc", label: "Zone UC", text: "pavillonnaire dans certains PLU, collective ou mixte dans d'autres." },
+        ],
+      },
       {
         title: "La définition de la zone U",
         paragraphs: [
@@ -63,7 +84,6 @@ export const ZONE_U: MetierPageContent = {
         title: "Zone UA, zone UB : ce que disent ces lettres",
         paragraphs: [
           "UA, UB, UC ou UMap ne sont pas des catégories du code : ce sont des secteurs de la zone U que chaque PLU crée et nomme. Dans beaucoup de communes, UA désigne le tissu ancien et dense du centre et UB des extensions plus récentes, mais c'est une habitude, pas une règle. La hauteur, l'emprise au sol ou l'implantation d'une zone UB se lisent dans le règlement de la commune concernée, et nulle part ailleurs.",
-          "Chaque secteur a sa page, avec des exemples réels relevés au Géoportail de l'Urbanisme : la zone UA, souvent le centre ancien ; la zone UB, souvent ses premières extensions ; la zone UC, pavillonnaire dans certains PLU, collective ou mixte dans d'autres.",
         ],
         link: {
           text: "Définition et exemples réels d'une zone UB sur",
@@ -166,7 +186,7 @@ export const ZONE_U: MetierPageContent = {
     },
     {
       q: "Qu'est-ce qu'une zone UB ?",
-      a: "Un autre secteur de la zone urbaine, défini par chaque PLU, souvent pour des quartiers d'extension. Il n'existe aucune règle nationale pour une zone UB : il faut lire le règlement de la commune.",
+      a: "Un autre secteur de la zone urbaine, délimité et réglementé par le PLU de chaque commune, souvent pour les quartiers qui prolongent le centre ancien. Il n'existe aucune règle nationale pour une zone UB : hauteur, emprise et retraits se lisent dans le règlement de la commune. Définition détaillée et exemples réels sur la page Zone UB.",
     },
     {
       q: "Peut-on construire en zone U ?",
