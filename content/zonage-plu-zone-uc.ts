@@ -61,6 +61,11 @@ export const ZONE_UC: MetierPageContent = {
           { label: "Code de l'urbanisme, art. R151-17 (Légifrance)", href: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031720617" },
           { label: "Code de l'urbanisme, art. R151-18 (Légifrance)", href: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031720615" },
         ],
+        link: {
+          text: "La définition de la zone U et le renvoi vers chaque secteur sont sur",
+          href: "/zonage-plu/zone-u",
+          label: "la page Zone U du PLU",
+        },
       },
       {
         title: "Pavillonnaire, collectif ou mixte : ce que disent les PLU",

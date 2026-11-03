@@ -30,21 +30,30 @@ import type { MetierPageContent } from "@/components/metier/types";
  *
  * Partie « guide » : méthode générale, sans chiffre de marché. L'exemple
  * chiffré est celui du modèle fictif public/modeles/bilan-promoteur-exemple-fictif.xlsx.
+ *
+ * 2026-11-03 (Search Console 28 j au 01/11 : « charge foncière », position
+ * 60,4) : définition et formule en tête, exemple fictif détaillé poste par
+ * poste (mêmes valeurs et formules que l'onglet « Compte à rebours » de
+ * scripts/modele-bilan-promoteur.py, recalculées), blocs « charge foncière /
+ * prix du terrain / incidence foncière » et « erreurs à éviter ». Texte
+ * officiel ajouté : art. R111-22 du code de l'urbanisme (surface de
+ * plancher), LEGIARTI000031721274, Légifrance consulté le 2026-11-03, en
+ * vigueur depuis le 01/01/2016.
  */
 export const CHARGE_FONCIERE: MetierPageContent = {
   slug: "/charge-fonciere",
   navLabel: "Charge foncière",
   related: ["/bilan-promoteur", "/faisabilite-fonciere", "/analyse-plu-parcelle", "/terrain-constructible", "/prospection-fonciere", "/surface-de-plancher", "/prix-terrain-constructible"],
 
-  metaTitle: "Charge foncière : définition, calcul et exemple",
+  metaTitle: "Charge foncière : définition, formule et exemple",
   metaDescription:
-    "Charge foncière : définition, calcul à rebours de la charge foncière admissible, incidence foncière au m² de surface de plancher, exemple fictif, limites.",
-  dateModified: "2026-10-20",
+    "Charge foncière : définition, formule du compte à rebours, exemple chiffré fictif poste par poste, incidence foncière au m² et erreurs à éviter.",
+  dateModified: "2026-11-03",
 
   eyebrow: "Foncier · compte à rebours · incidence foncière",
   h1: "Charge foncière : définition et calcul à rebours",
   lede:
-    "La charge foncière est ce que coûte un terrain à l'opération qui va s'y construire. Pour un promoteur, elle ne se constate pas : elle se calcule, à partir de ce que l'opération rapportera. Cette page explique la définition, le calcul à rebours de la charge foncière admissible, l'incidence foncière, et ce que Fonciable en chiffre à partir des données publiques d'une parcelle.",
+    "La charge foncière est le coût total du terrain pour une opération immobilière : le prix payé au vendeur, les frais d'acquisition et, le cas échéant, les dépenses pour libérer le terrain. Un promoteur la calcule à rebours : prix de vente − coûts hors foncier − marge = charge foncière admissible. Cette page détaille la formule, un exemple chiffré fictif complet, l'incidence foncière au m² de surface de plancher, les erreurs à éviter et ce que Fonciable en chiffre à partir des données publiques d'une parcelle.",
   ctaPrimaryLabel: "Prendre rendez-vous",
   ctaNote: "Parlons d'un terrain et du prix que votre opération peut supporter.",
 
@@ -63,6 +72,7 @@ export const CHARGE_FONCIERE: MetierPageContent = {
         title: "Le calcul à rebours de la charge foncière admissible",
         paragraphs: [
           "Un promoteur ne part pas du prix demandé par le vendeur. Il part de ce que l'opération peut rapporter et remonte jusqu'au terrain : c'est le compte à rebours. Le résultat est la charge foncière admissible, le montant maximal que l'opération peut consacrer au foncier tout en dégageant la marge visée.",
+          "La formule tient en deux lignes. Charge foncière admissible = chiffre d'affaires HT − marge cible − dépenses hors foncier. Prix maximal du terrain = charge foncière admissible ÷ (1 + taux des frais d'acquisition).",
         ],
         list: [
           "1. Estimer la surface de plancher réalisable à partir des règles du PLU (emprise au sol, hauteur, retraits, espaces verts).",
@@ -81,7 +91,25 @@ export const CHARGE_FONCIERE: MetierPageContent = {
         title: "Incidence foncière : comparer des terrains entre eux",
         paragraphs: [
           "Deux terrains au même prix n'ont pas la même valeur pour un promoteur si l'un permet de construire deux fois plus que l'autre. L'incidence foncière, charge foncière divisée par la surface de plancher, ramène les terrains à une base comparable : le coût du foncier par mètre carré construit.",
+          "La formule : incidence foncière (€/m² de surface de plancher) = charge foncière ÷ surface de plancher. Dans l'exemple fictif plus bas, 1 387 168 € ÷ 1 240 m² ≈ 1 119 €/m². La surface de plancher est celle définie par le code de l'urbanisme : la somme des surfaces de plancher de chaque niveau clos et couvert, après les déductions que l'article énumère.",
           "C'est aussi le premier indicateur à confronter aux opérations récentes du secteur. Une incidence très supérieure à ce que le marché local permet de revendre signale un terrain trop cher pour une opération neuve.",
+        ],
+        sources: [{ label: "Code de l'urbanisme, art. R111-22 (Légifrance, version en vigueur depuis le 01/01/2016, consultée le 03/11/2026)", href: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031721274" }],
+        link: {
+          text: "Les huit déductions et un calcul pas à pas sont détaillés sur",
+          href: "/surface-de-plancher",
+          label: "la page Calcul de la surface de plancher",
+        },
+      },
+      {
+        title: "Charge foncière, prix du terrain, incidence foncière : la différence",
+        paragraphs: [
+          "Les trois termes se croisent dans une même négociation mais ne mesurent pas la même chose. Avec les valeurs de l'exemple fictif de cette page :",
+        ],
+        list: [
+          "Prix du terrain : ce que reçoit le vendeur. Exemple : ≈ 1 290 389 €, le prix maximal hors frais.",
+          "Charge foncière : ce que l'opération finance pour disposer du terrain, soit le prix, les frais d'acquisition et les éventuelles dépenses de libération. Exemple : 1 387 168 €, dont ≈ 96 779 € de frais d'acquisition à 7,5 %.",
+          "Incidence foncière : la charge foncière rapportée à la surface de plancher constructible. Exemple : ≈ 1 119 €/m². C'est elle qui permet de comparer deux terrains de tailles ou de règles différentes.",
         ],
       },
       {
@@ -105,6 +133,25 @@ export const CHARGE_FONCIERE: MetierPageContent = {
           text: "Pour estimer le prix de marché d'un terrain à partir des ventes comparables, voir",
           href: "/prix-terrain-constructible",
           label: "la page Prix d'un terrain constructible",
+        },
+      },
+      {
+        title: "Erreurs à éviter dans le calcul de la charge foncière",
+        paragraphs: ["Le résultat étant un solde, chacune de ces erreurs se reporte en entier sur le prix que l'on croit pouvoir payer."],
+        list: [
+          "Partir du prix demandé par le vendeur, puis chercher la marge qui reste, au lieu de calculer d'abord la charge foncière admissible.",
+          "Comparer le prix demandé à la charge foncière admissible sans retirer les frais d'acquisition : c'est le prix maximal hors frais qui se compare au prix demandé.",
+          "Retenir la surface de plancher maximale théorique sans vérifier le règlement de zone, les servitudes et les retraits applicables à la parcelle. Les règles varient d'une commune à l'autre.",
+          "Appliquer le prix de vente à toute la surface de plancher au lieu de la seule surface vendable.",
+          "Oublier des postes hors foncier : taxe d'aménagement, archéologie préventive, participations, sous-sols ou adaptation au terrain, frais financiers.",
+          "Mélanger montants hors taxes et toutes taxes comprises dans un même bilan.",
+          "Comparer des incidences foncières calculées sur des bases différentes (charge foncière ou prix hors frais, m² de surface de plancher ou m² vendable).",
+          "Reprendre les hypothèses d'un exemple, y compris celui de cette page, comme s'il s'agissait de références de marché.",
+        ],
+        link: {
+          text: "Chaque poste de dépense est repris dans",
+          href: "/bilan-promoteur",
+          label: "la page Bilan promoteur et son modèle Excel",
         },
       },
     ],
@@ -213,15 +260,25 @@ export const CHARGE_FONCIERE: MetierPageContent = {
   proof: {
     title: "Une charge foncière admissible, calculée pas à pas",
     intro:
-      "Le même exemple que le modèle Excel de la page Bilan promoteur, lu côté foncier.",
+      "Exemple fictif : le même que le modèle Excel de la page Bilan promoteur, lu côté foncier, avec chaque ligne de l'onglet « Compte à rebours ». Montants hors taxes.",
     tag: "Exemple fictif, modèle Excel",
     rows: [
+      { label: "Surface de plancher (hypothèse fictive)", value: "1 240 m²" },
+      { label: "Surface vendable (90 % de la surface de plancher)", value: "1 116 m²" },
       { label: "Chiffre d'affaires HT (1 116 m² vendables à 4 200 €/m²)", value: "4 687 200 €" },
+      { label: "Travaux (1 240 m² à 1 650 €/m² ; sous-sols : 0 €)", value: "2 046 000 €" },
+      { label: "Honoraires techniques, 10 % des travaux", value: "204 600 €" },
+      { label: "Taxe d'aménagement, archéologie préventive, participations (forfait fictif)", value: "80 000 €" },
+      { label: "Assurances, 2 % des travaux", value: "40 920 €" },
+      { label: "Aléas, 3 % des travaux", value: "61 380 €" },
+      { label: "Commercialisation, 4 % du chiffre d'affaires", value: "187 488 €" },
+      { label: "Frais financiers, 2,5 % du chiffre d'affaires", value: "117 180 €" },
+      { label: "Total des dépenses hors foncier", value: "− 2 737 568 €" },
       { label: "Marge cible, 12 % du chiffre d'affaires", value: "− 562 464 €" },
-      { label: "Dépenses hors foncier", value: "− 2 737 568 €" },
-      { label: "Charge foncière admissible, frais d'acquisition inclus", value: "1 387 168 €" },
-      { label: "Prix maximal du terrain hors frais (frais de 7,5 %)", value: "≈ 1 290 389 €" },
-      { label: "Incidence foncière (1 240 m² de surface de plancher)", value: "≈ 1 119 €/m²" },
+      { label: "Charge foncière admissible (4 687 200 − 562 464 − 2 737 568)", value: "1 387 168 €" },
+      { label: "Prix maximal du terrain hors frais (1 387 168 ÷ 1,075)", value: "≈ 1 290 389 €" },
+      { label: "Frais d'acquisition, 7,5 % du prix du terrain", value: "≈ 96 779 €" },
+      { label: "Incidence foncière (1 387 168 ÷ 1 240 m² de surface de plancher)", value: "≈ 1 119 €/m²" },
       { label: "Part du foncier dans le chiffre d'affaires", value: "≈ 29,6 %" },
     ],
     caption:
@@ -270,6 +327,10 @@ export const CHARGE_FONCIERE: MetierPageContent = {
     {
       q: "Qu'est-ce que l'incidence foncière ?",
       a: "C'est la charge foncière divisée par la surface de plancher que le terrain permet de construire, exprimée en euros par mètre carré. Elle permet de comparer des terrains de tailles et de règles différentes, et de confronter le prix du foncier aux prix de sortie du secteur.",
+    },
+    {
+      q: "Comment calculer l'incidence foncière au m² ?",
+      a: "Divisez la charge foncière par la surface de plancher que le terrain permet de construire. Dans l'exemple fictif de cette page, 1 387 168 € ÷ 1 240 m² donne environ 1 119 € par m² de surface de plancher. Précisez toujours la base retenue : une incidence calculée sur le prix hors frais ou sur la surface vendable donne un autre chiffre.",
     },
     {
       q: "Pourquoi la charge foncière admissible varie-t-elle autant ?",

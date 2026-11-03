@@ -61,6 +61,11 @@ export const ZONE_UB: MetierPageContent = {
           { label: "Code de l'urbanisme, art. R151-18 (Légifrance)", href: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031720615" },
           { label: "art. R151-19 (Légifrance)", href: "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031720613" },
         ],
+        link: {
+          text: "La définition de la zone U et le renvoi vers chaque secteur sont sur",
+          href: "/zonage-plu/zone-u",
+          label: "la page Zone U du PLU",
+        },
       },
       {
         title: "Ce que UB désigne le plus souvent",

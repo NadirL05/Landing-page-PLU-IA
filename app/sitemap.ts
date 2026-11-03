@@ -10,6 +10,7 @@ import { ZONE_UB } from "@/content/zonage-plu-zone-ub";
 import { ZONE_UC } from "@/content/zonage-plu-zone-uc";
 import { ZONAGE_PLU } from "@/content/zonage-plu";
 import { BILAN_PROMOTEUR } from "@/content/bilan-promoteur";
+import { CHARGE_FONCIERE } from "@/content/charge-fonciere";
 import { PRIX_TERRAIN_CONSTRUCTIBLE } from "@/content/prix-terrain-constructible";
 import { CERTIFICAT_URBANISME } from "@/content/certificat-urbanisme";
 import { DENT_CREUSE } from "@/content/dent-creuse";
@@ -49,6 +50,7 @@ const PAGE_LAST_MODIFIED: Readonly<Record<string, string>> = {
   [SURFACE_DE_PLANCHER.slug]: SURFACE_DE_PLANCHER.dateModified,
   [COMPARATIF_OUTILS_ANALYSE_PARCELLE.slug]: COMPARATIF_OUTILS_ANALYSE_PARCELLE.dateModified,
   [BILAN_PROMOTEUR.slug]: BILAN_PROMOTEUR.dateModified,
+  [CHARGE_FONCIERE.slug]: CHARGE_FONCIERE.dateModified,
   [ZONAGE_PLU.slug]: ZONAGE_PLU.dateModified,
   [ZONE_U.slug]: ZONE_U.dateModified,
   [ZONE_UA.slug]: ZONE_UA.dateModified,

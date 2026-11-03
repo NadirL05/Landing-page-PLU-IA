@@ -2,6 +2,21 @@
 
 Journal des changements SEO de la landing. Une entrée par lot, la plus récente en haut.
 
+## 2026-11-03 — branche `content/charge-fonciere-zone-u` (Search Console, 28 j au 01/11, kit RosoAI V4, mission « amélioration »)
+
+Accord de Nadir le 03/11. Non déployé : merge et mise en production par Nadir.
+
+| Thème | Fichiers | Changement | Retour arrière |
+|---|---|---|---|
+| /charge-fonciere | `content/charge-fonciere.ts` | Title « Charge foncière : définition, formule et exemple » (avant : « … définition, calcul et exemple »), meta réécrite (144 car.) ; définition et formule du compte à rebours dans le chapô ; formule écrite dans le bloc compte à rebours ; formule de l'incidence foncière + art. R111-22 (Légifrance, consulté le 03/11) ; blocs « Charge foncière, prix du terrain, incidence foncière : la différence » et « Erreurs à éviter » ; exemple fictif détaillé poste par poste (valeurs du modèle XLSX, inchangées) ; FAQ incidence au m² ; `dateModified` 2026-11-03 | revert du commit |
+| /zonage-plu/zone-u | `content/zonage-plu-zone-u.ts` | Premier bloc du guide « Zones UA, UB, UC : définitions », avec un lien par secteur et une définition courte de UB (libellés GPU revérifiés le 03/11) ; title « Zone U du PLU : définition, zones UA, UB et UC », meta réécrite (154 car.) ; FAQ UB précisée ; `dateModified` 2026-11-03 | revert du commit |
+| Renvois | `content/zonage-plu-zone-{ua,ub,uc}.ts` | Lien vers /zonage-plu/zone-u dans le premier bloc du guide (en plus de « À lire aussi ») ; `dateModified` inchangé (ajout d'un lien seulement) | revert du commit |
+| Gabarit | `components/metier/types.ts`, `components/metier/MetierPage.tsx` | Champ optionnel `links` dans un bloc de guide (liste de liens internes) | revert du commit |
+| Sitemap | `app/sitemap.ts` | lastmod de /charge-fonciere = `dateModified` (2026-11-03) ; zone-u suit déjà son `dateModified` | revert du commit |
+| Tests | `tests/e2e/seo-coeur.spec.ts` | Contrôles du nouveau contenu de /charge-fonciere et des renvois zone U ↔ secteurs | revert du commit |
+
+Après mise en ligne : demander l'indexation des deux URL et suivre « charge foncière », « zone ub définition », « ub définition » et le CTR de /zonage-plu/zone-u sur 28 jours (aucun effet garanti).
+
 ## 2026-10-30 — branche `feat/seo-modele-bilan-et-zones-ua-ub-uc` (Search Console du 19 au 27/10)
 
 Non déployé : merge et mise en production par Nadir.
