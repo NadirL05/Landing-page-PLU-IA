@@ -49,6 +49,9 @@ const CORE_FEATURES: PlanFeature[] = [
   { label: "Références de prix issues des données DVF", included: true },
   { label: "Visualisation 3D du terrain et de l'enveloppe constructible", included: true },
   { label: "Simulation de division d'un terrain", included: true },
+  { label: "Lecture du règlement et étude de division par IA, appels inclus", included: true, note: "dans votre quota d'analyses" },
+  { label: "Règlements déjà analysés relus sans nouvel appel IA", included: true },
+  { label: "Annonces en vente autour du terrain", included: true, note: "30 fiches / jour" },
   { label: "Export PDF du rapport d'analyse", included: true },
   { label: "Historique des projets et des analyses", included: true },
 ];
