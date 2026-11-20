@@ -1,0 +1,14 @@
+.git
+node_modules
+dist
+.next
+.env
+.env.*
+.npmrc
+.claude
+CLAUDE.md
+AGENTS.md
+verification-results
+playwright-report
+test-results
+*.log
