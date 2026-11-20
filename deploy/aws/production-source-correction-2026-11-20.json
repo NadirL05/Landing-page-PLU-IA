@@ -1,0 +1,413 @@
+{
+  "task": "NADIR-63",
+  "recordedAt": "2026-11-20T22:32:38.337186+00:00",
+  "sourceProof": {
+    "sourceCommit": "e9202146f011762e946e1b0a5d7d87b7a2dc9d0f",
+    "sourceTree": "751f41723fa4f3101072ed5c28edc0280a1be166",
+    "headBeforeInfrastructure": "e9202146f011762e946e1b0a5d7d87b7a2dc9d0f",
+    "productionIsAncestor": true,
+    "oldPreparedCommit": "1e3464a72d0ed553d5c167a70a92dff1434affea",
+    "oldParent": "422656ab425f2c6f5ddc56df1998148fc1cf80b5",
+    "oldParentToProductionChangedPaths": [
+      "config/plans.ts"
+    ],
+    "changedPathsOutsideInfrastructure": [],
+    "supersetBaseBranchSHADidNotPinHead": true,
+    "baseImageDigest": "sha256:0e2646ab57e77b7a384a0cb59b6815b182c77e1f9c3ba36bd8435bd9c4e6680e"
+  },
+  "unchangedProductionFiles": {
+    "package.json": {
+      "gitBlob": "86b9eba10ed6cea832fef25df52383b56cd03a2e",
+      "identicalToProduction": true
+    },
+    "package-lock.json": {
+      "gitBlob": "0a4a54e19c8c938e41ec7f22074d8af949b3c7e8",
+      "identicalToProduction": true
+    },
+    "config/plans.ts": {
+      "gitBlob": "c8aaf24ff5643484b45c634c200a0c6965045ee9",
+      "identicalToProduction": true
+    },
+    "next.config.ts": {
+      "gitBlob": "256e3d743ed7bc80191ef908b24b15a6dfb707aa",
+      "identicalToProduction": true
+    }
+  },
+  "dockerfileSha256": "ee6d81169fef28772887cfc5407215cddfdee3eede9e99dbcc9188412940d643",
+  "image": {
+    "id": "sha256:c5b52a62e7ecfccd62ee47f3b40e669eab54db3fd4c2365386b56d07597e55bb",
+    "bytes": 357161709,
+    "user": "node",
+    "tag": "nadir63/fonciable-vitrine:e920214"
+  },
+  "build": {
+    "exitCode": 0,
+    "nextCompileLog": "#11 29.87 ✓ Compiled successfully in 27.5s",
+    "memoryMaxBytes": 3221225472,
+    "cpuQuota": 200000,
+    "cpuPeriod": 100000,
+    "nodeHeapMiB": 1536,
+    "noPrivateConfigurationReadOrInjected": true,
+    "analyticsBuildValuesSupplied": false
+  },
+  "http": {
+    "before": {
+      "mode": "before",
+      "port": 43102,
+      "requests": 22,
+      "assets": 6,
+      "results": [
+        {
+          "path": "/",
+          "host": "fonciable.fr",
+          "status": 200,
+          "title": "Fonciable — Analyse foncière, urbanisme et bilan promoteur",
+          "securityHeaders": {
+            "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://cdn.consentmanager.net https://*.delivery.consentmanager.net https://www.lafabriquedunet.fr; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.facebook.com https://cdn.consentmanager.net https://*.delivery.consentmanager.net; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://www.facebook.com https://cdn.consentmanager.net https://*.delivery.consentmanager.net https://consentmanager.mgr.consensu.org; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'",
+            "x-frame-options": "DENY",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "strict-transport-security": "max-age=31536000; includeSubDomains; preload"
+          },
+          "bodySha256": "6d653744c808488261b6436853c3a15193c24a4cd2abc9e1f6be6146809c5332",
+          "appLinkPresent": true,
+          "productionFeatures": [
+            {
+              "label": "Lecture du règlement et étude de division par IA, appels inclus",
+              "present": false
+            },
+            {
+              "label": "Règlements déjà analysés relus sans nouvel appel IA",
+              "present": false
+            },
+            {
+              "label": "Annonces en vente autour du terrain",
+              "present": false
+            }
+          ]
+        },
+        {
+          "path": "/analyse-plu-parcelle",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "path": "/division-parcellaire",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "path": "/mentions-legales",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "path": "/confidentialite",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "path": "/robots.txt",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "text/plain; charset=UTF-8"
+        },
+        {
+          "path": "/sitemap.xml",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "application/xml"
+        },
+        {
+          "path": "/llms.txt",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "text/plain; charset=UTF-8"
+        },
+        {
+          "path": "/.well-known/mcp/server-card.json",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "application/json"
+        },
+        {
+          "path": "/.well-known/agent-skills/index.json",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "application/json"
+        },
+        {
+          "path": "/_next/static/chunks/2v-k_w3bu-kh9.css",
+          "host": "fonciable.fr",
+          "status": 200,
+          "bytes": 48224,
+          "contentType": "text/css; charset=UTF-8"
+        },
+        {
+          "path": "/_next/static/chunks/2767zvrmjwxvg.js",
+          "host": "fonciable.fr",
+          "status": 200,
+          "bytes": 43460,
+          "contentType": "application/javascript; charset=UTF-8"
+        },
+        {
+          "path": "/_next/static/chunks/1nvidu4xr0wdo.js",
+          "host": "fonciable.fr",
+          "status": 200,
+          "bytes": 51917,
+          "contentType": "application/javascript; charset=UTF-8"
+        },
+        {
+          "path": "/_next/static/chunks/0s120ejk9xcc4.js",
+          "host": "fonciable.fr",
+          "status": 200,
+          "bytes": 543913,
+          "contentType": "application/javascript; charset=UTF-8"
+        },
+        {
+          "path": "/_next/static/chunks/0w1l3j1d1wwlg.js",
+          "host": "fonciable.fr",
+          "status": 200,
+          "bytes": 164436,
+          "contentType": "application/javascript; charset=UTF-8"
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3yv6cmuran_d1.js",
+          "host": "fonciable.fr",
+          "status": 200,
+          "bytes": 11590,
+          "contentType": "application/javascript; charset=UTF-8"
+        },
+        {
+          "path": "/tarif",
+          "host": "fonciable.fr",
+          "status": 308,
+          "location": "/#tarifs"
+        },
+        {
+          "path": "/tarifs",
+          "host": "fonciable.fr",
+          "status": 308,
+          "location": "/#tarifs"
+        },
+        {
+          "path": "/",
+          "host": "plu-ia.agentimpact.fr",
+          "status": 308,
+          "location": "https://fonciable.fr"
+        },
+        {
+          "path": "/tarifs",
+          "host": "plu-ia.agentimpact.fr",
+          "status": 308,
+          "location": "https://fonciable.fr/#tarifs"
+        },
+        {
+          "path": "/analyse-plu-parcelle?probe=source",
+          "host": "plu-ia.agentimpact.fr",
+          "status": 308,
+          "location": "https://fonciable.fr/analyse-plu-parcelle?probe=source"
+        },
+        {
+          "path": "/nadir63-absent-probe",
+          "host": "fonciable.fr",
+          "status": 404
+        }
+      ]
+    },
+    "after": {
+      "mode": "after",
+      "port": 3000,
+      "requests": 22,
+      "assets": 6,
+      "results": [
+        {
+          "path": "/",
+          "host": "fonciable.fr",
+          "status": 200,
+          "title": "Fonciable — Analyse foncière, urbanisme et bilan promoteur",
+          "securityHeaders": {
+            "content-security-policy": "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://cdn.consentmanager.net https://*.delivery.consentmanager.net https://www.lafabriquedunet.fr; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.facebook.com https://cdn.consentmanager.net https://*.delivery.consentmanager.net; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://www.facebook.com https://cdn.consentmanager.net https://*.delivery.consentmanager.net https://consentmanager.mgr.consensu.org; worker-src 'self' blob:; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'",
+            "x-frame-options": "DENY",
+            "x-content-type-options": "nosniff",
+            "referrer-policy": "strict-origin-when-cross-origin",
+            "permissions-policy": "camera=(), microphone=(), geolocation=()",
+            "strict-transport-security": "max-age=31536000; includeSubDomains; preload"
+          },
+          "bodySha256": "016b9df74cee968c96ab56b13bd05019496ad3fc8c5407b0673cb977c93ba786",
+          "appLinkPresent": true,
+          "productionFeatures": [
+            {
+              "label": "Lecture du règlement et étude de division par IA, appels inclus",
+              "present": true
+            },
+            {
+              "label": "Règlements déjà analysés relus sans nouvel appel IA",
+              "present": true
+            },
+            {
+              "label": "Annonces en vente autour du terrain",
+              "present": true
+            }
+          ]
+        },
+        {
+          "path": "/analyse-plu-parcelle",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "path": "/division-parcellaire",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "path": "/mentions-legales",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "path": "/confidentialite",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "text/html; charset=utf-8"
+        },
+        {
+          "path": "/robots.txt",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "text/plain; charset=UTF-8"
+        },
+        {
+          "path": "/sitemap.xml",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "application/xml"
+        },
+        {
+          "path": "/llms.txt",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "text/plain; charset=UTF-8"
+        },
+        {
+          "path": "/.well-known/mcp/server-card.json",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "application/json"
+        },
+        {
+          "path": "/.well-known/agent-skills/index.json",
+          "host": "fonciable.fr",
+          "status": 200,
+          "contentType": "application/json"
+        },
+        {
+          "path": "/_next/static/chunks/2v-k_w3bu-kh9.css",
+          "host": "fonciable.fr",
+          "status": 200,
+          "bytes": 48224,
+          "contentType": "text/css; charset=UTF-8"
+        },
+        {
+          "path": "/_next/static/chunks/2767zvrmjwxvg.js",
+          "host": "fonciable.fr",
+          "status": 200,
+          "bytes": 43460,
+          "contentType": "application/javascript; charset=UTF-8"
+        },
+        {
+          "path": "/_next/static/chunks/1nvidu4xr0wdo.js",
+          "host": "fonciable.fr",
+          "status": 200,
+          "bytes": 51917,
+          "contentType": "application/javascript; charset=UTF-8"
+        },
+        {
+          "path": "/_next/static/chunks/0s120ejk9xcc4.js",
+          "host": "fonciable.fr",
+          "status": 200,
+          "bytes": 543913,
+          "contentType": "application/javascript; charset=UTF-8"
+        },
+        {
+          "path": "/_next/static/chunks/0w1l3j1d1wwlg.js",
+          "host": "fonciable.fr",
+          "status": 200,
+          "bytes": 164436,
+          "contentType": "application/javascript; charset=UTF-8"
+        },
+        {
+          "path": "/_next/static/chunks/turbopack-3yv6cmuran_d1.js",
+          "host": "fonciable.fr",
+          "status": 200,
+          "bytes": 11590,
+          "contentType": "application/javascript; charset=UTF-8"
+        },
+        {
+          "path": "/tarif",
+          "host": "fonciable.fr",
+          "status": 308,
+          "location": "/#tarifs"
+        },
+        {
+          "path": "/tarifs",
+          "host": "fonciable.fr",
+          "status": 308,
+          "location": "/#tarifs"
+        },
+        {
+          "path": "/",
+          "host": "plu-ia.agentimpact.fr",
+          "status": 308,
+          "location": "https://fonciable.fr"
+        },
+        {
+          "path": "/tarifs",
+          "host": "plu-ia.agentimpact.fr",
+          "status": 308,
+          "location": "https://fonciable.fr/#tarifs"
+        },
+        {
+          "path": "/analyse-plu-parcelle?probe=source",
+          "host": "plu-ia.agentimpact.fr",
+          "status": 308,
+          "location": "https://fonciable.fr/analyse-plu-parcelle?probe=source"
+        },
+        {
+          "path": "/nadir63-absent-probe",
+          "host": "fonciable.fr",
+          "status": 404
+        }
+      ]
+    },
+    "securityHeadersPreservedExactly": true,
+    "loopbackProbeNetwork": "none",
+    "publishedProbePorts": [],
+    "probeContainerRemoved": true
+  },
+  "runtimeHardening": {
+    "uid": 1000,
+    "forbiddenRootFiles": [],
+    "memoryMax": "536870912",
+    "cpuMax": "50000 100000"
+  },
+  "productionContainerModified": false,
+  "dnsOrTunnelModified": false,
+  "nextOwner": "ChatGPT/Codex root",
+  "handoff": {
+    "productionContainer": "nadir54-fonciable",
+    "productionBinding": "127.0.0.1:43102:3000",
+    "publicAlias": "plu-ia.agentimpact.fr",
+    "originRequestHost": "fonciable.fr",
+    "action": "Root replaces only the marketing image while retaining existing runtime options, binding, tunnel/DNS and rollback image."
+  }
+}
