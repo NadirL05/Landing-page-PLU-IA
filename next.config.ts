@@ -39,7 +39,13 @@ const CSP = [
   "form-action 'self'",
 ].join("; ");
 
+const workerBuild = process.env.CLOUDFLARE_STATIC_EXPORT === "1";
 const nextConfig: NextConfig = {
+  ...(workerBuild && {
+    output: "export" as const,
+    images: { unoptimized: true },
+    env: { NEXT_PUBLIC_FONCIABLE_WORKER: "1" },
+  }),
   async redirects() {
     return [
       // Ancien domaine : /tarif et /tarifs vont directement à l'ancre des
@@ -115,7 +121,7 @@ export default withSentryConfig(nextConfig, {
   project: "landing-plu-ia",
   silent: !process.env.CI,
   widenClientFileUpload: true,
-  tunnelRoute: "/monitoring",
+  tunnelRoute: workerBuild ? undefined : "/monitoring",
   webpack: {
     automaticVercelMonitors: true,
     treeshake: { removeDebugLogging: true },
