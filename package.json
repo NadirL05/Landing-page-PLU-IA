@@ -10,7 +10,11 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test:e2e": "playwright test",
     "seo:check": "node scripts/seo-check.mjs",
-    "test": "npm run lint && npm run typecheck && npm run build -- --webpack && PW_SKIP_BUILD=1 playwright test"
+    "test": "npm run lint && npm run typecheck && npm run build -- --webpack && PW_SKIP_BUILD=1 playwright test",
+    "build:worker": "CLOUDFLARE_STATIC_EXPORT=1 next build --webpack && node deploy/cloudflare/prepare.mjs",
+    "preview:worker": "wrangler dev --local",
+    "deploy:worker": "wrangler deploy",
+    "test:worker": "node deploy/cloudflare/check.mjs"
   },
   "dependencies": {
     "@react-three/fiber": "^9.7.0",
@@ -31,6 +35,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "4.168.0"
   }
 }

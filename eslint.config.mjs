@@ -20,6 +20,7 @@ const eslintConfig = defineConfig([
     // Rapports Playwright générés (non versionnés).
     "playwright-report/**",
     "test-results/**",
+    ".wrangler/**",
   ]),
 ]);
 

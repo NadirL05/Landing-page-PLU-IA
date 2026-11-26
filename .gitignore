@@ -45,3 +45,7 @@ next-env.d.ts
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Local Worker state and data regenerated from the Next.js build
+/.wrangler/
+/deploy/cloudflare/generated.json

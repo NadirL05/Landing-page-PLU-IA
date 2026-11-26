@@ -3,9 +3,11 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from "@sentry/nextjs";
+import { publicDsn, workerTunnel } from "./config/sentry-public.mjs";
 
 Sentry.init({
-  dsn: "https://a845f79cd85427cb5dd148e346c60429@o4510546774327296.ingest.de.sentry.io/4511971818274896",
+  dsn: publicDsn,
+  ...(process.env.NEXT_PUBLIC_FONCIABLE_WORKER === "1" ? { tunnel: workerTunnel } : {}),
   integrations: [Sentry.replayIntegration()],
   tracesSampleRate: 1,
   enableLogs: true,
