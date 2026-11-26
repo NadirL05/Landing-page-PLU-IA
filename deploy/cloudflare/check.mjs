@@ -45,7 +45,7 @@ for (const [path, mime] of [
 for (const path of ["/tarif", "/tarifs"]) {
   const response = await get(path + "?utm_source=recette");
   assert.equal(response.status, 308);
-  assert.equal(new URL(response.headers.get("location"), origin).href, new URL("/?utm_source=recette#tarifs", origin).href);
+  assert.equal(response.headers.get("location"), "/?utm_source=recette#tarifs");
 }
 const range = await get("/demonstration/video.mp4", { headers: { Range: "bytes=0-31" } });
 assert.equal(range.status, 206);

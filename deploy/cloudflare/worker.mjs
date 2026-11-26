@@ -64,7 +64,7 @@ async function serve(request, env) {
   if (path === "/tarif" || path === "/tarifs") {
     url.pathname = "/";
     url.hash = "tarifs";
-    return Response.redirect(url.href, 308);
+    return new Response(null, { status: 308, headers: { Location: url.pathname + url.search + url.hash } });
   }
   if (path === "/monitoring") {
     const response = await sentryEnvelope(request, url);
